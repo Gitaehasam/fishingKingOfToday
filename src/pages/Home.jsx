@@ -1,10 +1,11 @@
-import Login from "../components/Login";
+import SocialKakao from "../components/SocialKakao";
+import Auth from "./Auth";
 
 const Home = () => {
   return (
     <div>
       <div>메인페이지</div>
-      <Login />
+      <SocialKakao />
     </div>
   );
 };

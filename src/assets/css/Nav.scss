@@ -13,7 +13,6 @@ nav {
 }
 
 label.logo {
-  color: white;
   line-height: 80px;
   padding: 0 40px;
   font-weight: bold;
@@ -53,8 +52,8 @@ nav ul li a,
   cursor: pointer;
 }
 
-a.active,
-a:hover,
+nav ul li a.active,
+nav ul li a:hover,
 .logout-btn:hover {
   background: #1b9bff;
   transition: 0.5s;
@@ -110,8 +109,8 @@ a:hover,
     font-size: 20px;
   }
 
-  a:hover,
-  a.active,
+  nav ul li a:hover,
+  nav ul li a.active,
   .logout-btn:hover {
     background: none;
     color: #0082e6;
