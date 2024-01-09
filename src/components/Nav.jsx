@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../assets/css/Nav.scss";
 import Login from "./Login";
 import { useEffect, useState } from "react";
@@ -33,13 +33,15 @@ const Nav = () => {
         <label htmlFor="check" className="checkbtn">
           <i>-----</i>
         </label>
-        <label className="logo">Git에 하삼</label>
+        <label className="logo">
+          <Link to={"/"}>Git에 하삼</Link>
+        </label>
         <ul>
-          <li>
+          {/* <li>
             <NavLink to={"/"} onClick={closeCheck}>
               Home
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to={"/about"} onClick={closeCheck}>
               About
