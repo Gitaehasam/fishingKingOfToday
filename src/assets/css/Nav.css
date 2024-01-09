@@ -16,14 +16,14 @@ label.logo {
   color: white;
   font-size: 35px;
   line-height: 80px;
-  pad: 0 100px;
+  padding: 0 100px;
   font-weight: bold;
   padding-left: 30px;
 }
 
 nav ul {
   float: right;
-  margin: 0 20px 0;
+  margin: 0 20px;
 }
 
 nav ul li {
@@ -81,7 +81,7 @@ a:hover {
     height: 100vh;
     background: #2c3e50;
     top: 80px;
-    left: -100%;
+    left: 100%;
     text-align: center;
     transition: all 0.5s;
   }

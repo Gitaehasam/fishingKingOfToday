@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import "./Login.css";
+import "../assets/css/Login.css";
 import kakao_logo from "../assets/images/kakao_logo.png";
 import naver_logo from "../assets/images/naver_logo.png";
 import google_logo from "../assets/images/google_logo.png";
