@@ -3,13 +3,15 @@ import "./App.css";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import LoginPage from "./pages/LoginPage";
-import Navbar from "./pages/NavBar";
+import Nav from "./components/Nav";
+// import Navbar from "./pages/NavBar";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        {/* <Navbar /> */}
+        <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
