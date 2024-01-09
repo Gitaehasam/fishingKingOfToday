@@ -1,9 +1,8 @@
 package com.ssafy.sub.pjt.domain;
 
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.time.LocalDateTime;
+import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Builder
@@ -29,5 +28,4 @@ public class User {
     private LocalDateTime joinAt;
 
     private LocalDateTime LastLoginAt;
-
 }
