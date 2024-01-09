@@ -1,3 +1,18 @@
+.login-btn {
+  color: white;
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline;
+}
+
+.login-btn:hover {
+  background: #1b9bff;
+  transition: 0.5s;
+}
+
 dialog {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   border: none;
@@ -6,6 +21,8 @@ dialog {
   height: 50%;
   width: 350px;
   background-color: #f5f5f5;
+  text-align: left;
+  line-height: normal;
 }
 
 dialog::backdrop {
@@ -72,4 +89,15 @@ img:last-child {
 .explain-modal > span {
   color: skyblue;
   cursor: pointer;
+}
+
+@media (max-width: 858px) {
+  .login-btn {
+    font-size: 20px;
+  }
+
+  .login-btn:hover {
+    background: none;
+    color: #0082e6;
+  }
 }

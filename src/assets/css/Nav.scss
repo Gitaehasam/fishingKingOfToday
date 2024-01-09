@@ -14,11 +14,10 @@ nav {
 
 label.logo {
   color: white;
-  font-size: 35px;
   line-height: 80px;
-  padding: 0 100px;
+  padding: 0 40px;
   font-weight: bold;
-  padding-left: 30px;
+  font-size: 30px;
 }
 
 nav ul {
@@ -32,7 +31,8 @@ nav ul li {
   margin: 0 5px;
 }
 
-nav ul li a {
+nav ul li a,
+.logout-btn {
   color: white;
   font-size: 17px;
   padding: 7px 13px;
@@ -41,8 +41,14 @@ nav ul li a {
   text-decoration: none;
 }
 
+.logout-btn {
+  display: inline;
+  cursor: pointer;
+}
+
 a.active,
-a:hover {
+a:hover,
+.logout-btn:hover {
   background: #1b9bff;
   transition: 0.5s;
 }
@@ -92,16 +98,20 @@ a:hover {
     line-height: 30px;
   }
 
-  nav ul li a {
+  nav ul li a,
+  .logout-btn {
     font-size: 20px;
   }
 
   a:hover,
-  a.active {
+  a.active,
+  .logout-btn:hover {
     background: none;
     color: #0082e6;
   }
   #check:checked ~ ul {
     left: 0;
+    margin: 0;
+    padding: 0;
   }
 }

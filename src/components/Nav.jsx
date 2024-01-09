@@ -1,31 +1,81 @@
-import { Link } from "react-router-dom";
-import "../assets/css/Nav.css";
+import { NavLink, useNavigate } from "react-router-dom";
+import "../assets/css/Nav.scss";
+import Login from "./Login";
+import { useEffect, useState } from "react";
 
 const Nav = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const closeCheck = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, []);
+
   return (
     <>
       <nav>
-        <input type="checkbox" id="check" />
+        <input
+          type="checkbox"
+          id="check"
+          checked={isOpen}
+          onChange={() => setIsOpen((prev) => !prev)}
+        />
         <label htmlFor="check" className="checkbtn">
           <i>-----</i>
         </label>
-        <label className="logo">DesignX</label>
+        <label className="logo">Git에 하삼</label>
         <ul>
           <li>
-            <Link className="active">Home</Link>
+            <NavLink to={"/"} onClick={closeCheck}>
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link>About</Link>
+            <NavLink to={"/about"} onClick={closeCheck}>
+              About
+            </NavLink>
           </li>
           <li>
-            <Link>Services</Link>
+            <NavLink to={"/services"} onClick={closeCheck}>
+              Services
+            </NavLink>
           </li>
-          <li>
-            <Link>Contact</Link>
-          </li>
-          <li>
-            <Link>Feedback</Link>
-          </li>
+          {isLogin ? (
+            <>
+              <li>
+                <NavLink to={"/my"} onClick={closeCheck}>
+                  My
+                </NavLink>
+              </li>
+              <li>
+                <div
+                  className="logout-btn"
+                  onClick={() => {
+                    closeCheck();
+                    localStorage.removeItem("user");
+                    setIsLogin(false);
+                    navigate("/");
+                  }}
+                >
+                  Logout
+                </div>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Login closeCheck={closeCheck} setIsLogin={setIsLogin} />
+            </li>
+          )}
         </ul>
       </nav>
     </>
