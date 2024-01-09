@@ -1,0 +1,8 @@
+services:
+  spring-boot:
+    restart: 'on-failure'
+    build:
+      dockerfile: Dockerfile
+    container_name: 'back-server'
+    ports:
+      - '8080:8080'
