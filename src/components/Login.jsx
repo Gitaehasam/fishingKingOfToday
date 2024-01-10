@@ -1,15 +1,12 @@
 import { useRef } from "react";
 import "../assets/css/Login.scss";
-import kakao_logo from "../assets/images/kakao_logo.png";
-import naver_logo from "../assets/images/naver_logo.png";
-import google_logo from "../assets/images/google_logo.png";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SocialNaver from "./SocialNaver";
+import SocialKakao from "./SocialKakao";
+import SocialGoogle from "./SocialGoogle";
 
 const Login = ({ closeCheck, setIsLogin }) => {
   const dialogRef = useRef();
-
-  const navigate = useNavigate();
 
   const closeModal = (e) => {
     const target = e.target;
@@ -54,16 +51,19 @@ const Login = ({ closeCheck, setIsLogin }) => {
           <div className="footer-modal">
             <div
               className="login-logo"
-              onClick={() => {
-                localStorage.setItem("user", 1);
-                dialogRef.current.close();
-                navigate("/");
-                setIsLogin(true);
-              }}
+              // onClick={() => {
+              //   localStorage.setItem("user", 1);
+              //   dialogRef.current.close();
+              //   navigate("/");
+              //   setIsLogin(true);
+              // }}
             >
-              <img src={naver_logo} alt="네이버로그인" />
-              <img src={kakao_logo} alt="카카오로그인" />
-              <img src={google_logo} alt="구글로그인" />
+              {/* <img src={naver_logo} alt="네이버로그인" /> */}
+              <SocialNaver />
+              <SocialKakao />
+              {/* <img src={kakao_logo} alt="카카오로그인" /> */}
+              <SocialGoogle />
+              {/* <img src={google_logo} alt="구글로그인" /> */}
             </div>
             <div className="explain-modal">
               회원가입 없이 소셜 계정을 통해 바로 이용 가능하며 첫 로그인시{" "}

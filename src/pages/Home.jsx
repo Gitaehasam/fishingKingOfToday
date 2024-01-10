@@ -6,9 +6,9 @@ const Home = () => {
   return (
     <div>
       <div>메인페이지</div>
-      <SocialKakao />
+      {/* <SocialKakao />
       <SocialGoogle />
-      <SocialNaver />
+      <SocialNaver /> */}
     </div>
   );
 };

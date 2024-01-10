@@ -1,3 +1,5 @@
+import kakao_logo from "../assets/images/kakao_logo.png";
+
 const SocialKakao = () => {
   const Rest_api_key = "6ffcec910d61c314586e30511b99083a"; //REST API KEY
   const redirect_uri = "http://localhost:3000/auth"; //Redirect URI
@@ -8,7 +10,8 @@ const SocialKakao = () => {
   };
   return (
     <>
-      <button onClick={handleLogin}>카카오 로그인</button>
+      {/* <button onClick={handleLogin}>카카오 로그인</button> */}
+      <img src={kakao_logo} alt="카카오로그인" onClick={handleLogin} />
     </>
   );
 };

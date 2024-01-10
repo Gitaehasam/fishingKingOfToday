@@ -2,6 +2,8 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../assets/css/Nav.scss";
 import Login from "./Login";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const Nav = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -31,7 +33,12 @@ const Nav = () => {
           onChange={() => setIsOpen((prev) => !prev)}
         />
         <label htmlFor="check" className="checkbtn">
-          <i>-----</i>
+          {/* <i>-----</i> */}
+          {isOpen ? (
+            <FontAwesomeIcon icon={faXmark} />
+          ) : (
+            <FontAwesomeIcon icon={faBars} />
+          )}
         </label>
         <label className="logo">
           <Link to={"/"}>Git에 하삼</Link>
