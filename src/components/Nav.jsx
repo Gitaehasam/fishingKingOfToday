@@ -37,11 +37,6 @@ const Nav = () => {
           <Link to={"/"}>Git에 하삼</Link>
         </label>
         <ul>
-          {/* <li>
-            <NavLink to={"/"} onClick={closeCheck}>
-              Home
-            </NavLink>
-          </li> */}
           <li>
             <NavLink to={"/about"} onClick={closeCheck}>
               About
