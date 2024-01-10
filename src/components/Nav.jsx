@@ -26,6 +26,9 @@ const Nav = () => {
   return (
     <>
       <nav>
+        <label className="logo">
+          <Link to={"/"}>Git에 하삼</Link>
+        </label>
         <input
           type="checkbox"
           id="check"
@@ -39,9 +42,6 @@ const Nav = () => {
           ) : (
             <FontAwesomeIcon icon={faBars} />
           )}
-        </label>
-        <label className="logo">
-          <Link to={"/"}>Git에 하삼</Link>
         </label>
         <ul>
           <li>

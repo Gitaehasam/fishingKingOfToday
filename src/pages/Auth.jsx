@@ -1,14 +1,18 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Auth = () => {
+  const { id } = useParams();
+
   const params = new URL(document.URL).searchParams;
   const code = params.get("code");
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/");
+    console.log(id);
+    console.log(code);
+    // navigate("/");
   }, []);
 
   return <div>{code}</div>;

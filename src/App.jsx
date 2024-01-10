@@ -12,7 +12,7 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/auth/:id" element={<Auth />} />
         </Routes>
       </BrowserRouter>
     </div>
