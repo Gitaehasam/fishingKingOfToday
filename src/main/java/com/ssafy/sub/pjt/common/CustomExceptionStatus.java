@@ -12,7 +12,11 @@ public enum CustomExceptionStatus {
     PLATFORM_NOT_FOUND(false, 1200, "존재하지 않는 플랫폼입니다."),
     ACCOUNT_ALREADY_EXIST(false, 1201, "다른 플랫폼에 해당 이메일로 가입된 계정이 존재합니다."),
     ACCOUNT_ACCESS_DENIED(false, 1202, "권한이 없습니다."),
-    ACCOUNT_NOT_FOUND(false, 1203, "존재하지 않는 계정입니다.");
+    ACCOUNT_NOT_FOUND(false, 1203, "존재하지 않는 계정입니다."),
+
+    NOT_SUPPORTED_OAUTH_SERVICE(false, 1204, "해당 OAuth 서비스는 제공하지 않습니다."),
+
+    FAIL_TO_GENERATE_RANDOM_NICKNAME(false, 1205, "랜덤한 닉네임을 생성하는데 실패하였습니다.");
 
     private final boolean isSuccess;
     private final int code;

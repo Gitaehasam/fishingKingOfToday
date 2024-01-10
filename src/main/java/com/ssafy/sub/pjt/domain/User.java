@@ -18,6 +18,9 @@ public class User {
 
     private String name;
 
+    @Column(name = "nick_name")
+    private String nickName;
+
     @Column(name = "social_id")
     private String socialId;
 
