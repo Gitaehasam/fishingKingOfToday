@@ -30,5 +30,9 @@ public class User {
 
     private LocalDateTime joinAt;
 
-    private LocalDateTime LastLoginAt;
+    private LocalDateTime lastLoginAt;
+
+    public boolean isNicknameChanged(final String inputNickname) {
+        return !nickName.equals(inputNickname);
+    }
 }
