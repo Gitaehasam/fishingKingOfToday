@@ -5,7 +5,7 @@ const SocialNaver = () => {
   //클라이언트 ID
   const stateString = "w4Lj7FkaZH";
 
-  const reUrl = "http://localhost:3000/auth/naver"; //리디렉션 URI
+  const reUrl = "http://localhost:3000/login/naver"; //리디렉션 URI
   // oauth 요청 URL
   const naverUrl = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientId}&response_type=code&redirect_uri=${reUrl}&state=${stateString}`;
   const handleLogin = () => {
