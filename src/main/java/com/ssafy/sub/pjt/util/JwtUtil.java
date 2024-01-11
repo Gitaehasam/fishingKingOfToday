@@ -13,7 +13,7 @@ public class JwtUtil {
     private final JwtProvider jwtProvider;
 
     public MemberTokens createJwtToken(User user) {
-        MemberTokens memberTokens = jwtProvider.generateLoginToken(user.getId().toString());
+        MemberTokens memberTokens = jwtProvider.generateLoginToken(user.getSocialId(), "");
         redisUtil.setData(user.getSocialId(), memberTokens.getRefreshToken());
         return memberTokens;
     }

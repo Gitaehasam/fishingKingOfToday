@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class MyPageRequest {
+
     @NotBlank(message = "닉네임은 공백이 될 수 없습니다.")
     @Size(max = 15, message = "닉네임은 15자를 초과할 수 없습니다.")
     private final String nickname;
