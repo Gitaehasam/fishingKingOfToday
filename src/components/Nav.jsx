@@ -1,26 +1,30 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../assets/css/Nav.scss";
 import Login from "./Login";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../App";
 
 const Nav = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  // const [isLogin, setIsLogin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
+
+  const isLoggedIn = useContext(AuthContext);
 
   const closeCheck = () => {
     setIsOpen(false);
   };
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
+    // if (localStorage.getItem("user")) {
+    //   setIsLogin(true);
+    // } else {
+    //   setIsLogin(false);
+    // }
+    console.log(isLoggedIn);
   }, []);
 
   return (
@@ -54,7 +58,7 @@ const Nav = () => {
               Services
             </NavLink>
           </li>
-          {isLogin ? (
+          {isLoggedIn ? (
             <>
               <li>
                 <NavLink to={"/my"} onClick={closeCheck}>
@@ -66,8 +70,7 @@ const Nav = () => {
                   className="logout-btn"
                   onClick={() => {
                     closeCheck();
-                    localStorage.removeItem("user");
-                    setIsLogin(false);
+                    sessionStorage.removeItem("jwt");
                     navigate("/");
                   }}
                 >
@@ -77,7 +80,8 @@ const Nav = () => {
             </>
           ) : (
             <li>
-              <Login closeCheck={closeCheck} setIsLogin={setIsLogin} />
+              {/* <Login closeCheck={closeCheck} setIsLogin={setIsLogin} /> */}
+              <Login closeCheck={closeCheck} />
             </li>
           )}
         </ul>

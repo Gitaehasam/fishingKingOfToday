@@ -11,7 +11,7 @@ const Auth = () => {
   const navigate = useNavigate();
 
   if (!code) {
-    // navigate("/");
+    navigate("/");
   }
 
   const getToken = async () => {
@@ -20,9 +20,8 @@ const Auth = () => {
         code: code,
       });
       const data = res.data.accessToken;
-      console.log(data);
-      // sessionStorage.setItem("token", data);
-      // navigate("/", { replace: true });
+      sessionStorage.setItem("jwt", data);
+      navigate("/", { replace: true });
     } catch (err) {
       console.log(err);
     }
