@@ -1,6 +1,5 @@
 package com.ssafy.sub.pjt.domain;
 
-import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
 
@@ -9,7 +8,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +26,6 @@ public class User {
     private String platform;
 
     private String imageUrl;
-
-    private LocalDateTime joinAt;
-
-    private LocalDateTime lastLoginAt;
 
     public boolean isNicknameChanged(final String inputNickname) {
         return !nickName.equals(inputNickname);
