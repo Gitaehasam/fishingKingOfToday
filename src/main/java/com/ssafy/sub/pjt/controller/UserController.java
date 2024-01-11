@@ -1,6 +1,7 @@
 package com.ssafy.sub.pjt.controller;
 
 import com.ssafy.sub.pjt.dto.MyPageRequest;
+import com.ssafy.sub.pjt.dto.MyPageResponse;
 import com.ssafy.sub.pjt.service.UserService;
 import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,15 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @PatchMapping("/{userId}")
-    public ResponseEntity<?> updateMyInfo(
+    @GetMapping
+    public ResponseEntity<MyPageResponse> getMyInfo() {
+        final MyPageResponse myPageResponse =
+                userService.getMyPageInfo(AuthenticationUtil.getCurrentUserSocialId());
+        return ResponseEntity.ok().body(myPageResponse);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getMyInfo(
             @PathVariable final Long userId, @RequestBody final MyPageRequest myPageRequest) {
         userService.updateMyPageInfo(userId, myPageRequest);
         return ResponseEntity.noContent().build();
@@ -25,5 +33,4 @@ public class UserController {
         userService.deleteAccount(AuthenticationUtil.getCurrentUserSocialId());
         return ResponseEntity.noContent().build();
     }
-
 }

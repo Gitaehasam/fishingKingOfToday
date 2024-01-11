@@ -17,7 +17,8 @@ public enum CustomExceptionStatus {
     NOT_SUPPORTED_OAUTH_SERVICE(false, 1204, "해당 OAuth 서비스는 제공하지 않습니다."),
 
     FAIL_TO_GENERATE_RANDOM_NICKNAME(false, 1205, "랜덤한 닉네임을 생성하는데 실패하였습니다."),
-    INVALID_AUTHORIZATION_CODE(false, 1206, "유효하지 않은 인증 코드입니다.");
+    INVALID_AUTHORIZATION_CODE(false, 1206, "유효하지 않은 인증 코드입니다."),
+    NOT_FOUND_MEMBER_ID(false, 1207, "요청한 ID에 해당하는 멤버가 존재하지 않습니다.");
 
     private final boolean isSuccess;
     private final int code;
