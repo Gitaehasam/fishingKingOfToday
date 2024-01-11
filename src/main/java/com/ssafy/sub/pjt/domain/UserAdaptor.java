@@ -26,7 +26,7 @@ public class UserAdaptor {
         if (findUser.isPresent()) {
             return loginService.login(providerName, findUser.get().getSocialId());
         } else {
-            return loginService.createUser(socialId, nickname, imageUrl);
+            return loginService.createUser(providerName, socialId, nickname, imageUrl);
         }
     }
 
