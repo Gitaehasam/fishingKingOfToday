@@ -12,20 +12,20 @@ const Nav = () => {
 
   const navigate = useNavigate();
 
-  const isLoggedIn = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   const closeCheck = () => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    // if (localStorage.getItem("user")) {
-    //   setIsLogin(true);
-    // } else {
-    //   setIsLogin(false);
-    // }
-    console.log(isLoggedIn);
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("user")) {
+  //     setIsLoggedIn(true);
+  //   } else {
+  //     setIsLoggedIn(false);
+  //   }
+  //   console.log(isLoggedIn);
+  // });
 
   return (
     <>
@@ -70,6 +70,7 @@ const Nav = () => {
                   className="logout-btn"
                   onClick={() => {
                     closeCheck();
+                    setIsLoggedIn(false);
                     sessionStorage.removeItem("jwt");
                     navigate("/");
                   }}

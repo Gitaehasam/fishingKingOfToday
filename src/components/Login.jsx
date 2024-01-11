@@ -1,9 +1,8 @@
 import { useRef } from "react";
-import "../assets/css/Login.scss";
-import { useNavigate } from "react-router-dom";
 import SocialNaver from "./SocialNaver";
 import SocialKakao from "./SocialKakao";
 import SocialGoogle from "./SocialGoogle";
+import "../assets/css/Login.scss";
 
 const Login = ({ closeCheck, setIsLogin }) => {
   const dialogRef = useRef();
@@ -18,13 +17,6 @@ const Login = ({ closeCheck, setIsLogin }) => {
       rect.bottom < e.clientY
     ) {
       dialogRef.current.close();
-    }
-  };
-
-  const moveLogin = (platform) => {
-    if (platform === "naver") {
-    } else if (platform === "kakao") {
-    } else {
     }
   };
 

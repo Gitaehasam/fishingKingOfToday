@@ -28,7 +28,9 @@ const Auth = () => {
   };
 
   useEffect(() => {
-    getToken();
+    // getToken();
+    sessionStorage.setItem("jwt", code);
+    navigate("/", { replace: true });
   }, []);
 
   return (

@@ -11,7 +11,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = console.log(token);
+    const token = sessionStorage.getItem("jwt");
+
     if (token) {
       setIsLoggedIn(true);
     } else {
@@ -22,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <AuthContext.Provider value={isLoggedIn}>
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
           <Nav />
           <Routes>
             <Route path="/" element={<Home />} />
