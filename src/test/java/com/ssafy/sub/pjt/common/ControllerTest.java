@@ -11,12 +11,9 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest({UserController.class})
 public abstract class ControllerTest {
 
-    @MockBean
-    protected UserService userService;
+    @MockBean protected UserService userService;
 
-    @Autowired
-    protected MockMvc mockMvc;
+    @Autowired protected MockMvc mockMvc;
 
-    @Autowired
-    protected ObjectMapper objectMapper;
+    @Autowired protected ObjectMapper objectMapper;
 }

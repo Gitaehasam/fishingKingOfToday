@@ -1,14 +1,16 @@
 package com.ssafy.sub.pjt.service;
 
 import static com.ssafy.sub.pjt.common.CustomExceptionStatus.ACCOUNT_NOT_FOUND;
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.NOT_FOUND_MEMBER_ID;
 
 import com.ssafy.sub.pjt.domain.User;
 import com.ssafy.sub.pjt.domain.repository.UserRepository;
 import com.ssafy.sub.pjt.dto.MyPageRequest;
+import com.ssafy.sub.pjt.dto.MyPageResponse;
 import com.ssafy.sub.pjt.exception.BadRequestException;
-import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -16,6 +18,15 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    @Transactional(readOnly = true)
+    public MyPageResponse getMyPageInfo(final String socialId) {
+        final User user =
+                userRepository
+                        .findBySocialId(socialId)
+                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_MEMBER_ID));
+        return MyPageResponse.from(user);
+    }
 
     public void updateMyPageInfo(final Long userId, final MyPageRequest myPageRequest) {
         final User user =
@@ -40,10 +51,10 @@ public class UserService {
     }
 
     public void deleteAccount(final String socialId) {
-        //final List<Long> tripIds = customTripRepository.findTripIdsByMemberId(memberId);
-        //publishedTripRepository.deleteByTripIds(tripIds);
-        //sharedTripRepository.deleteByTripIds(tripIds);
+        // final List<Long> tripIds = customTripRepository.findTripIdsByMemberId(memberId);
+        // publishedTripRepository.deleteByTripIds(tripIds);
+        // sharedTripRepository.deleteByTripIds(tripIds);
         userRepository.deleteBySocialId(socialId);
-        //publisher.publishEvent(new MemberDeleteEvent(tripIds, memberId));
+        // publisher.publishEvent(new MemberDeleteEvent(tripIds, memberId));
     }
 }

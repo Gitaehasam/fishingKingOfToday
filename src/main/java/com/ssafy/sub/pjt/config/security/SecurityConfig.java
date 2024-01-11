@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and().authorizeRequests().antMatchers("/**").permitAll()
+                .antMatchers("/users").authenticated()
 
                 .and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
