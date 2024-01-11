@@ -38,4 +38,12 @@ public class UserService {
         // deleteOriginalImage(member.getImageUrl(), updateMember.getImageUrl());
         userRepository.save(updateUser);
     }
+
+    public void deleteAccount(final String socialId) {
+        //final List<Long> tripIds = customTripRepository.findTripIdsByMemberId(memberId);
+        //publishedTripRepository.deleteByTripIds(tripIds);
+        //sharedTripRepository.deleteByTripIds(tripIds);
+        userRepository.deleteBySocialId(socialId);
+        //publisher.publishEvent(new MemberDeleteEvent(tripIds, memberId));
+    }
 }

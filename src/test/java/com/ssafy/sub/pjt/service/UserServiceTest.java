@@ -35,4 +35,15 @@ public class UserServiceTest {
         // then
         verify(userRepository, times(1)).save(any());
     }
+
+    @Test
+    @DisplayName("회원 탈퇴")
+    public void testDeleteAccount() {
+
+        // when
+        userService.deleteAccount(anyString());
+
+        // then
+        verify(userRepository, times(1)).deleteBySocialId(any());
+    }
 }

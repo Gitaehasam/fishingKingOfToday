@@ -10,7 +10,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByNickName(String nickname);
 
-    void deleteBySocialId(final Long socialId);
+    void deleteBySocialId(final String socialId);
 
     boolean existsBySocialId(String socialId);
 }

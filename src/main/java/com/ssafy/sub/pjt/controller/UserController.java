@@ -2,6 +2,7 @@ package com.ssafy.sub.pjt.controller;
 
 import com.ssafy.sub.pjt.dto.MyPageRequest;
 import com.ssafy.sub.pjt.service.UserService;
+import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,4 +19,11 @@ public class UserController {
         userService.updateMyPageInfo(userId, myPageRequest);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteAccount(@PathVariable final Long userId) {
+        userService.deleteAccount(AuthenticationUtil.getCurrentUserSocialId());
+        return ResponseEntity.noContent().build();
+    }
+
 }
