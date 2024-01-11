@@ -42,8 +42,8 @@ public class UserService {
                         .platform(user.getPlatform())
                         .nickName(myPageRequest.getNickname())
                         .imageUrl(myPageRequest.getImageUrl())
-                        .joinAt(user.getJoinAt())
-                        .lastLoginAt(user.getLastLoginAt())
+                        // .joinAt(user.getJoinAt())
+                        // .lastLoginAt(user.getLastLoginAt())
                         .build();
 
         // deleteOriginalImage(member.getImageUrl(), updateMember.getImageUrl());
