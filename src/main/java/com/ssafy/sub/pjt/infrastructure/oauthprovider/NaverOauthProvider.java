@@ -11,9 +11,11 @@ import com.ssafy.sub.pjt.infrastructure.oauthuserinfo.NaverUserInfo;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+@Component
 public class NaverOauthProvider implements OauthProvider {
 
     private static final String PROPERTIES_PATH = "${oauth2.provider.naver.";
