@@ -28,6 +28,7 @@ public class LoginService {
         final OauthUserInfo oauthUserInfo = provider.getUserInfo(code);
         final User user =
                 findOrCreateMember(
+                        providerName,
                         oauthUserInfo.getSocialLoginId(),
                         oauthUserInfo.getNickName(),
                         oauthUserInfo.getImageUrl());
@@ -35,14 +36,20 @@ public class LoginService {
     }
 
     private User findOrCreateMember(
-            final String socialLoginId, final String nickname, final String imageUrl) {
+            final String providerName,
+            final String socialLoginId,
+            final String nickname,
+            final String imageUrl) {
         return userRepository
                 .findBySocialId(socialLoginId)
-                .orElseGet(() -> createUser(socialLoginId, nickname, imageUrl));
+                .orElseGet(() -> createUser(providerName, socialLoginId, nickname, imageUrl));
     }
 
     public User createUser(
-            final String socialLoginId, final String nickname, final String imageUrl) {
+            final String providerName,
+            final String socialLoginId,
+            final String nickname,
+            final String imageUrl) {
         int tryCount = 0;
         while (tryCount < MAX_TRY_COUNT) {
             final String nicknameWithRandomNumber = nickname + generateRandomFourDigitCode();
@@ -50,8 +57,10 @@ public class LoginService {
                 return userRepository.save(
                         User.builder()
                                 .socialId(socialLoginId)
+                                .name(nickname)
                                 .nickName(nicknameWithRandomNumber)
                                 .imageUrl(imageUrl)
+                                .platform(providerName)
                                 .build());
             }
             tryCount += 1;
