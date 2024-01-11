@@ -96,14 +96,31 @@ img:last-child {
   cursor: pointer;
 }
 
-@media (max-width: 758px) {
-  .login-btn {
-    font-size: 40px;
-    font-weight: bold;
+// @media (max-width: 758px) {
+//   .login-btn {
+//     font-size: 40px;
+//     font-weight: bold;
+//   }
+
+//   .login-btn:hover {
+//     background: none;
+//     color: darkgrey;
+//   }
+// }
+
+@media (max-width: 458px) {
+  dialog {
+    height: 400px;
+    width: 300px;
   }
 
-  .login-btn:hover {
-    background: none;
-    color: darkgrey;
+  .title-modal {
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  img {
+    width: 50px;
+    cursor: pointer;
   }
 }

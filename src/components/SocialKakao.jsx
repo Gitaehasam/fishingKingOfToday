@@ -1,7 +1,7 @@
 import kakao_logo from "../assets/images/kakao_logo.png";
 
 const SocialKakao = () => {
-  const Rest_api_key = "6ffcec910d61c314586e30511b99083a"; //REST API KEY
+  const Rest_api_key = "db5b74e6c640443403b9705680d9dbac"; //REST API KEY
   const redirect_uri = "http://localhost:3000/login/kakao"; //Redirect URI
   // oauth 요청 URL
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
