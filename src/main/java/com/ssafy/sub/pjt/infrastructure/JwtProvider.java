@@ -38,18 +38,24 @@ public class JwtProvider {
         this.userDetailsService = userDetailsService;
     }
 
-    public MemberTokens generateLoginToken(final String subject) {
-        final String refreshToken = createToken(EMPTY_SUBJECT, refreshExpirationTime);
-        final String accessToken = createToken(subject, accessExpirationTime);
+    public MemberTokens generateLoginToken(final String socialId, final String subject) {
+        final String refreshToken = createToken(socialId, EMPTY_SUBJECT, refreshExpirationTime);
+        final String accessToken = createToken(socialId, subject, accessExpirationTime);
         return new MemberTokens(refreshToken, accessToken);
     }
 
-    private String createToken(final String subject, final Long validityInMilliseconds) {
+    private String createToken(
+            final String socialId, final String subject, final Long validityInMilliseconds) {
         final Date now = new Date();
         final Date validity = new Date(now.getTime() + validityInMilliseconds);
 
+        Claims claims = Jwts.claims();
+
+        claims.put("userId", socialId);
+
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(now)
                 .setExpiration(validity)
@@ -72,7 +78,8 @@ public class JwtProvider {
             // Json Web Signature: 서버에서 인증을 근거로 인증정보를 서버의 private key로 서명한 것을 토큰화한 것
             // setSigningKey : JWS 서명 검증을 위한 secret key 세팅
             // parseClaimsJws : 파싱하여 원본 jws 만들기
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Jws<Claims> claims =
+                    Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
             log.debug("claims: {}", claims);
             return true;
         } catch (Exception e) {
@@ -91,8 +98,9 @@ public class JwtProvider {
         Jws<Claims> claims = null;
         try {
             claims =
-                    Jwts.parser()
-                            .setSigningKey(getSigningKey(secretKey))
+                    Jwts.parserBuilder()
+                            .setSigningKey(secretKey)
+                            .build()
                             .parseClaimsJws(authorization);
         } catch (Exception e) {
             log.error(e.getMessage());
