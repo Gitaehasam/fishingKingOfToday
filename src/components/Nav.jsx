@@ -18,14 +18,14 @@ const Nav = () => {
     setIsOpen(false);
   };
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("user")) {
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     setIsLoggedIn(false);
-  //   }
-  //   console.log(isLoggedIn);
-  // });
+  useEffect(() => {
+    if (sessionStorage.getItem("jwt")) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+    console.log(isLoggedIn);
+  });
 
   return (
     <>
@@ -81,7 +81,6 @@ const Nav = () => {
             </>
           ) : (
             <li>
-              {/* <Login closeCheck={closeCheck} setIsLogin={setIsLogin} /> */}
               <Login closeCheck={closeCheck} />
             </li>
           )}

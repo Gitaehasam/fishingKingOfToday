@@ -8,11 +8,9 @@ const SocialGoogle = () => {
   const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?scope=email%20openid&response_type=code&redirect_uri=${redirect_uri}&client_id=${clientId}`;
   const handleLogin = () => {
     window.location.href = googleURL;
-    // window.open(googleURL, '_self', 'width=500px,height=600px,scrollbars=yes')
   };
   return (
     <>
-      {/* <button onClick={handleLogin}>구글 로그인</button> */}
       <img src={google_logo} alt="구글로그인" onClick={handleLogin} />
     </>
   );

@@ -10,7 +10,6 @@ const SocialKakao = () => {
   };
   return (
     <>
-      {/* <button onClick={handleLogin}>카카오 로그인</button> */}
       <img src={kakao_logo} alt="카카오로그인" onClick={handleLogin} />
     </>
   );

@@ -41,21 +41,10 @@ const Login = ({ closeCheck, setIsLogin }) => {
             </form>
           </div>
           <div className="footer-modal">
-            <div
-              className="login-logo"
-              // onClick={() => {
-              //   localStorage.setItem("user", 1);
-              //   dialogRef.current.close();
-              //   navigate("/");
-              //   setIsLogin(true);
-              // }}
-            >
-              {/* <img src={naver_logo} alt="네이버로그인" /> */}
+            <div className="login-logo">
               <SocialNaver />
               <SocialKakao />
-              {/* <img src={kakao_logo} alt="카카오로그인" /> */}
               <SocialGoogle />
-              {/* <img src={google_logo} alt="구글로그인" /> */}
             </div>
             <div className="explain-modal">
               회원가입 없이 소셜 계정을 통해 바로 이용 가능하며 첫 로그인시{" "}

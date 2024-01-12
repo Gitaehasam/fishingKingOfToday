@@ -1,9 +1,9 @@
 import naver_logo from "../assets/images/naver_logo.png";
 
 const SocialNaver = () => {
-  const clientId = "IfzEwWXTArwqWeFjiNwb";
+  const clientId = "w88WA5fuXobhPaQEmw1p";
   //클라이언트 ID
-  const stateString = "w4Lj7FkaZH";
+  const stateString = "niwXgvCl5E";
 
   const reUrl = "http://localhost:3000/login/naver"; //리디렉션 URI
   // oauth 요청 URL
@@ -13,7 +13,6 @@ const SocialNaver = () => {
   };
   return (
     <>
-      {/* <button onClick={handleLogin}>네이버 로그인</button>; */}
       <img src={naver_logo} alt="네이버로그인" onClick={handleLogin} />
     </>
   );

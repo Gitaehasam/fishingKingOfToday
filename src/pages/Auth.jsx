@@ -22,15 +22,17 @@ const Auth = () => {
       const data = res.data.accessToken;
       sessionStorage.setItem("jwt", data);
       navigate("/", { replace: true });
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    // getToken();
-    sessionStorage.setItem("jwt", code);
-    navigate("/", { replace: true });
+    getToken();
+    // console.log(code);
+    // sessionStorage.setItem("jwt", code);
+    // navigate("/", { replace: true });
   }, []);
 
   return (
