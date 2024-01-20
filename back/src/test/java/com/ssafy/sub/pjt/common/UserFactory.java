@@ -7,7 +7,7 @@ public class UserFactory {
 
     public static User mockUser() {
         return User.builder()
-                .id(1L)
+                .id(1)
                 .name("testUser")
                 .nickName("IU")
                 .socialId("socialId00")

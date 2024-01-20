@@ -1,7 +1,6 @@
 package com.ssafy.sub.pjt.service;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 import com.ssafy.sub.pjt.common.UserFactory;
@@ -26,11 +25,11 @@ public class UserServiceTest {
     public void testUpdateMyPageInfo() {
 
         // given
-        when(userRepository.findById(anyLong()))
+        when(userRepository.findById(anyInt()))
                 .thenReturn(Optional.ofNullable(UserFactory.mockUser()));
 
         // when
-        userService.updateMyPageInfo(anyLong(), UserFactory.mockMyPageRequest());
+        userService.updateMyPageInfo(anyInt(), UserFactory.mockMyPageRequest());
 
         // then
         verify(userRepository, times(1)).save(any());
