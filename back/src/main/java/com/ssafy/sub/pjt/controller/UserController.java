@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getMyInfo(
-            @PathVariable final Long userId, @RequestBody final MyPageRequest myPageRequest) {
+            @PathVariable final Integer userId, @RequestBody final MyPageRequest myPageRequest) {
         userService.updateMyPageInfo(userId, myPageRequest);
         return ResponseEntity.noContent().build();
     }

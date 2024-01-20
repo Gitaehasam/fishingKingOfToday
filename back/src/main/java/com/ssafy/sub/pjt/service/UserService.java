@@ -28,7 +28,7 @@ public class UserService {
         return MyPageResponse.from(user);
     }
 
-    public void updateMyPageInfo(final Long userId, final MyPageRequest myPageRequest) {
+    public void updateMyPageInfo(final Integer userId, final MyPageRequest myPageRequest) {
         final User user =
                 userRepository
                         .findById(userId)

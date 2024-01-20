@@ -24,7 +24,5 @@ public class LiveRoom extends BaseTime {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @ManyToOne
-    @Column(name = "owner_id")
-    private Integer ownerId;
+    @ManyToOne private User ownerId;
 }
