@@ -3,6 +3,7 @@ package com.ssafy.sub.pjt.service;
 import com.ssafy.sub.pjt.domain.LiveRoom;
 import com.ssafy.sub.pjt.domain.repository.LiveRoomRepository;
 import com.ssafy.sub.pjt.dto.LiveRoomListResponse;
+import com.ssafy.sub.pjt.dto.LiveRoomRequest;
 import com.ssafy.sub.pjt.dto.LiveRoomResponse;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,30 @@ import org.springframework.transaction.annotation.Transactional;
 public class LiveRoomService {
 
     private final LiveRoomRepository liveRoomRepository;
+
+    public int createBy(LiveRoomRequest liveRoomRequest) {
+
+        try {
+//            Long foundUserId = getUserBy(phoneNumber).getId();
+            LiveRoom savedLiveRoom = createAuctionRoom(liveRoomRequest);
+
+            return savedLiveRoom.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    private LiveRoom createAuctionRoom(LiveRoomRequest liveRoomRequest) {
+        LiveRoom liveRoom = LiveRoom.builder()
+                .ownerId(liveRoomResponse.getOwnerId())
+                .auctionRoomTitle(liveRoomRequest.getName())
+                .image(liveRoomRequest.getImageUrl())
+                .isActive(false)
+                .build();
+
+        return liveRoomRepository.save(liveRoom);
+    }
 
     @Transactional(readOnly = true)
     public LiveRoomListResponse getLiveRooms(String name, Pageable pageable) {
