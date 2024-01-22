@@ -1,13 +1,13 @@
 package com.ssafy.sub.pjt.controller;
 
+import com.ssafy.sub.pjt.dto.LiveRoomCreatedResponse;
 import com.ssafy.sub.pjt.dto.LiveRoomRequest;
 import com.ssafy.sub.pjt.service.LiveRoomService;
+import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/lives")
@@ -16,15 +16,14 @@ public class LiveRoomController {
 
     private final LiveRoomService liveRoomService;
 
-    @PostMapping("/create-room/")
-    public ResponseEntity<HashMap<String, Object>> createRoom(@RequestBody LiveRoomRequest liveRoomRequest){
-        HashMap<String, Object> jsonMap = new HashMap<>();
-        int liveRoomId = liveRoomService.createBy(liveRoomRequest);
+    @PostMapping
+    public ResponseEntity<?> createRoom(@RequestBody LiveRoomRequest liveRoomRequest) {
 
-        if(liveRoomId > 0) jsonMap.put("LiveRoomId", liveRoomId);
-        else jsonMap.put("isSuccess", false);
+        LiveRoomCreatedResponse liveRoomCreatedResponse =
+                liveRoomService.createBy(
+                        liveRoomRequest, AuthenticationUtil.getCurrentUserSocialId());
 
-        return ResponseEntity.ok(jsonMap);
+        return ResponseEntity.ok(liveRoomCreatedResponse);
     }
 
     @GetMapping
