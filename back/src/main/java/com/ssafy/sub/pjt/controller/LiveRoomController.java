@@ -1,13 +1,13 @@
 package com.ssafy.sub.pjt.controller;
 
+import com.ssafy.sub.pjt.dto.LiveRoomCreatedResponse;
+import com.ssafy.sub.pjt.dto.LiveRoomRequest;
 import com.ssafy.sub.pjt.service.LiveRoomService;
+import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/lives")
@@ -15,6 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class LiveRoomController {
 
     private final LiveRoomService liveRoomService;
+
+    @PostMapping
+    public ResponseEntity<?> createRoom(@RequestBody LiveRoomRequest liveRoomRequest) {
+
+        LiveRoomCreatedResponse liveRoomCreatedResponse =
+                liveRoomService.createBy(
+                        liveRoomRequest, AuthenticationUtil.getCurrentUserSocialId());
+
+        return ResponseEntity.ok(liveRoomCreatedResponse);
+    }
 
     @GetMapping
     public ResponseEntity<?> getLiveRooms(
