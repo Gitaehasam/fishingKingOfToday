@@ -1,10 +1,16 @@
 package com.ssafy.sub.pjt.service;
 
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.NOT_AUTHENTICATED_ACCOUNT;
+
 import com.ssafy.sub.pjt.domain.LiveRoom;
 import com.ssafy.sub.pjt.domain.repository.LiveRoomRepository;
+import com.ssafy.sub.pjt.domain.repository.UserRepository;
+import com.ssafy.sub.pjt.dto.LiveRoomCreatedResponse;
 import com.ssafy.sub.pjt.dto.LiveRoomListResponse;
 import com.ssafy.sub.pjt.dto.LiveRoomRequest;
 import com.ssafy.sub.pjt.dto.LiveRoomResponse;
+import com.ssafy.sub.pjt.exception.AuthException;
+import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -17,29 +23,35 @@ import org.springframework.transaction.annotation.Transactional;
 public class LiveRoomService {
 
     private final LiveRoomRepository liveRoomRepository;
+    private final UserRepository uerRepository;
 
-    public int createBy(LiveRoomRequest liveRoomRequest) {
+    //    public void validateCreateLiveRoomByUser(String socialId) {
+    //        if (!uerRepository.existsBySocialId(socialId)) {
+    //            throw new AuthException(NOT_AUTHENTICATED_ACCOUNT);
+    //        }
+    //    }
 
-        try {
-//            Long foundUserId = getUserBy(phoneNumber).getId();
-            LiveRoom savedLiveRoom = createAuctionRoom(liveRoomRequest);
-
-            return savedLiveRoom.getId();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
+    public LiveRoomCreatedResponse createBy(
+            LiveRoomRequest liveRoomRequest, String currentSocialId) {
+        // validateCreateLiveRoomByUser(currentSocialId);
+        if (!uerRepository.existsBySocialId(currentSocialId)) {
+            throw new AuthException(NOT_AUTHENTICATED_ACCOUNT);
         }
-    }
 
-    private LiveRoom createAuctionRoom(LiveRoomRequest liveRoomRequest) {
-        LiveRoom liveRoom = LiveRoom.builder()
-                .ownerId(liveRoomResponse.getOwnerId())
-                .auctionRoomTitle(liveRoomRequest.getName())
-                .image(liveRoomRequest.getImageUrl())
-                .isActive(false)
-                .build();
+        LiveRoom liveRoom =
+                LiveRoom.builder()
+                        .ownerId(
+                                uerRepository
+                                        .findBySocialId(AuthenticationUtil.getCurrentUserSocialId())
+                                        .get())
+                        .name(liveRoomRequest.getName())
+                        .imageUrl(liveRoomRequest.getImageUrl())
+                        .isActive(false)
+                        .build();
 
-        return liveRoomRepository.save(liveRoom);
+        LiveRoom savedLiveRoom = liveRoomRepository.save(liveRoom);
+
+        return new LiveRoomCreatedResponse(savedLiveRoom.getId());
     }
 
     @Transactional(readOnly = true)
