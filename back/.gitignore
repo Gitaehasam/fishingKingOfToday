@@ -39,5 +39,6 @@ out/
 ### properties ###
 application-oauth.properties
 application-aws.properties
+application-test.properties
 
 /src/main/generated
