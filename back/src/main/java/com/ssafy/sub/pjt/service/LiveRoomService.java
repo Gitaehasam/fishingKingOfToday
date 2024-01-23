@@ -54,30 +54,6 @@ public class LiveRoomService {
         return new LiveRoomCreatedResponse(savedLiveRoom.getId());
     }
 
-    public int createBy(LiveRoomRequest liveRoomRequest) {
-
-        try {
-//            Long foundUserId = getUserBy(phoneNumber).getId();
-            LiveRoom savedLiveRoom = createAuctionRoom(liveRoomRequest);
-
-            return savedLiveRoom.getId();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    private LiveRoom createAuctionRoom(LiveRoomRequest liveRoomRequest) {
-        LiveRoom liveRoom = LiveRoom.builder()
-                .ownerId(liveRoomResponse.getOwnerId())
-                .auctionRoomTitle(liveRoomRequest.getName())
-                .image(liveRoomRequest.getImageUrl())
-                .isActive(false)
-                .build();
-
-        return liveRoomRepository.save(liveRoom);
-    }
-
     @Transactional(readOnly = true)
     public LiveRoomListResponse getLiveRooms(String name, Pageable pageable) {
         Slice<LiveRoom> liveRooms = liveRoomRepository.findBySearchCondition(name, pageable);
