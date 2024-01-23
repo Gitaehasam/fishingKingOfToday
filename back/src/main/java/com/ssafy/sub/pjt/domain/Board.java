@@ -19,8 +19,6 @@ public class Board extends BaseTime {
     @Column(name = "board_id")
     private Integer id;
 
-    private String title;
-
     private String content;
 
     @Type(type = "json")
@@ -34,4 +32,8 @@ public class Board extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fish_book_id")
+    private FishBook fishBook;
 }

@@ -7,6 +7,7 @@ import lombok.*;
 @Builder
 @Getter
 @AllArgsConstructor
+@Table(name = "LIKES")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Like {
     @Id
@@ -16,7 +17,7 @@ public class Like {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
