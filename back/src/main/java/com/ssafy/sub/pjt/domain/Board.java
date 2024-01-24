@@ -1,6 +1,12 @@
 package com.ssafy.sub.pjt.domain;
 
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.CANNOT_ADD_HASHTAG_EXCEPTION;
+
+import com.ssafy.sub.pjt.dto.BoardRequest;
+import com.ssafy.sub.pjt.exception.BadRequestException;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -27,7 +33,7 @@ public class Board extends BaseTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Category categoryId;
+    private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -36,4 +42,54 @@ public class Board extends BaseTime {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fish_book_id")
     private FishBook fishBook;
+
+    @OneToMany(
+            mappedBy = "board",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true)
+    private List<BoardHashTag> boardHashTags;
+
+    public void addHashTags(List<HashTag> hashTags) {
+        this.addAll(this, hashTags);
+    }
+
+    public void addAll(Board board, List<HashTag> hashTags) {
+        validateDuplicateHashTag(hashTags);
+        hashTags.forEach(this::validateDuplicateHashTagAlreadyExistsInBoard);
+
+        hashTags.stream().map(tag -> new BoardHashTag(board, tag)).forEach(boardHashTags::add);
+    }
+
+    private void validateDuplicateHashTag(List<HashTag> hashTags) {
+        long distinctCountOfNewTags = hashTags.stream().map(HashTag::getName).distinct().count();
+
+        if (distinctCountOfNewTags != hashTags.size()) {
+            throw new BadRequestException(CANNOT_ADD_HASHTAG_EXCEPTION);
+        }
+    }
+
+    private void validateDuplicateHashTagAlreadyExistsInBoard(HashTag hashTag) {
+        boolean isDuplicate =
+                boardHashTags.stream().anyMatch(postTag -> postTag.hasSameTag(hashTag));
+
+        if (isDuplicate) {
+            throw new BadRequestException(CANNOT_ADD_HASHTAG_EXCEPTION);
+        }
+    }
+
+    public static Board of(
+            final User user,
+            final Category category,
+            final FishBook fishBook,
+            final BoardRequest boardRequest) {
+        return new Board(
+                null,
+                boardRequest.getContent(),
+                Image.of(boardRequest.getImageUrl(), null, null, null),
+                category,
+                user,
+                fishBook,
+                new ArrayList<>());
+    }
 }

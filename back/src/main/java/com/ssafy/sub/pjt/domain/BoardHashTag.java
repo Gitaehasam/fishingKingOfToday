@@ -1,5 +1,6 @@
 package com.ssafy.sub.pjt.domain;
 
+import java.util.Objects;
 import javax.persistence.*;
 import lombok.*;
 
@@ -22,4 +23,13 @@ public class BoardHashTag {
     @JoinColumn(name = "hashtag_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private HashTag hashTag;
+
+    public BoardHashTag(Board board, HashTag hashTag) {
+        this.board = board;
+        this.hashTag = hashTag;
+    }
+
+    public boolean hasSameTag(HashTag hashTag) {
+        return Objects.equals(this.hashTag, hashTag);
+    }
 }

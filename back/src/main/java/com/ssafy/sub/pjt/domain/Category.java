@@ -16,5 +16,8 @@ public class Category {
     private Integer id;
 
     private String name;
-}
 
+    public static Category of(final Integer id, final String name) {
+        return new Category(id, name);
+    }
+}

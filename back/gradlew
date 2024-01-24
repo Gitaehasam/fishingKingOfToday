@@ -100,11 +100,11 @@ die () {
     exit 1
 } >&2
 
-# OS specific support (must be 'true' or 'false').
-cygwin=false
-msys=false
-darwin=false
-nonstop=false
+# OS specific support (must be 'true' or '').
+cygwin=
+msys=
+darwin=
+nonstop=
 case "$( uname )" in                #(
   CYGWIN* )         cygwin=true  ;; #(
   Darwin* )         darwin=true  ;; #(
@@ -178,10 +178,10 @@ if "$cygwin" || "$msys" ; then
     for arg do
         if
             case $arg in                                #(
-              -*)   false ;;                            # don't mess with options #(
+              -*)    ;;                            # don't mess with options #(
               /?*)  t=${arg#/} t=/${t%%/*}              # looks like a POSIX filepath
                     [ -e "$t" ] ;;                      #(
-              *)    false ;;
+              *)     ;;
             esac
         then
             arg=$( cygpath --path --ignore --mixed "$arg" )
