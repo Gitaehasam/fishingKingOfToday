@@ -2,6 +2,7 @@ package com.ssafy.sub.pjt.controller;
 
 import com.ssafy.sub.pjt.dto.LiveRoomCreatedResponse;
 import com.ssafy.sub.pjt.dto.LiveRoomRequest;
+import com.ssafy.sub.pjt.dto.LiveRoomUpdateRequest;
 import com.ssafy.sub.pjt.service.LiveRoomService;
 import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,14 @@ public class LiveRoomController {
             Pageable pageable) {
 
         return ResponseEntity.ok().body(liveRoomService.getLiveRooms(name, pageable));
+    }
+
+    @PutMapping("/{roomId}")
+    public ResponseEntity<?> modifyRoom(
+            @PathVariable final Integer roomId,
+            @RequestBody LiveRoomUpdateRequest liveRoomUpdateRequest) {
+
+        liveRoomService.updateLiveRoom(roomId, liveRoomUpdateRequest);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,15 +1,14 @@
 package com.ssafy.sub.pjt.service;
 
 import static com.ssafy.sub.pjt.common.CustomExceptionStatus.NOT_AUTHENTICATED_ACCOUNT;
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.REQUEST_ERROR;
 
 import com.ssafy.sub.pjt.domain.LiveRoom;
 import com.ssafy.sub.pjt.domain.repository.LiveRoomRepository;
 import com.ssafy.sub.pjt.domain.repository.UserRepository;
-import com.ssafy.sub.pjt.dto.LiveRoomCreatedResponse;
-import com.ssafy.sub.pjt.dto.LiveRoomListResponse;
-import com.ssafy.sub.pjt.dto.LiveRoomRequest;
-import com.ssafy.sub.pjt.dto.LiveRoomResponse;
+import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.exception.AuthException;
+import com.ssafy.sub.pjt.exception.BadRequestException;
 import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -62,5 +61,27 @@ public class LiveRoomService {
                         .map(liveRoom -> LiveRoomResponse.of(liveRoom))
                         .collect(Collectors.toList()),
                 liveRooms.hasNext());
+    }
+
+    public void updateLiveRoom(
+            final Integer roomId, final LiveRoomUpdateRequest liveRoomUpdateRequest) {
+        final LiveRoom liveRoom =
+                liveRoomRepository
+                        .findById(roomId)
+                        .orElseThrow(() -> new BadRequestException(REQUEST_ERROR));
+        // 에러코드 추가 규칙을 몰라서 임시로 리퀘스트 에러 가져다 씀
+        final LiveRoom updateLiveRoom =
+                LiveRoom.builder()
+                        .id(roomId)
+                        .name(liveRoomUpdateRequest.getName())
+                        .isActive(liveRoomUpdateRequest.getIsActive())
+                        .ownerId(liveRoom.getOwnerId())
+                        // .joinAt(user.getJoinAt())
+                        // .lastLoginAt(user.getLastLoginAt())
+                        .imageUrl(liveRoomUpdateRequest.getImageUrl())
+                        .build();
+
+        // deleteOriginalImage(member.getImageUrl(), updateMember.getImageUrl());
+        liveRoomRepository.save(updateLiveRoom);
     }
 }
