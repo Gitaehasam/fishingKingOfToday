@@ -23,7 +23,7 @@ public class LiveRoomResponse {
                 liveRoom.getName(),
                 liveRoom.getImageUrl(),
                 liveRoom.getIsActive(),
-                liveRoom.getJoinAt(),
+                liveRoom.getCreatedAt(),
                 liveRoom.getOwnerId().getNickName());
     }
 }

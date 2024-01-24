@@ -1,9 +1,11 @@
 package com.ssafy.sub.pjt.service;
 
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.NOT_FOUND_MEMBER_ID;
+
 import com.ssafy.sub.pjt.domain.repository.UserRepository;
 import com.ssafy.sub.pjt.dto.IssuePreSignedUrlRequest;
 import com.ssafy.sub.pjt.dto.IssuePreSignedUrlResponse;
-import com.ssafy.sub.pjt.exception.UserNotFoundException;
+import com.ssafy.sub.pjt.exception.AuthException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ public class IssuePreSignedUrlService {
         boolean isExist = userRepository.existsBySocialId(socialId);
 
         if (!isExist) {
-            throw UserNotFoundException.EXCEPTION;
+            throw new AuthException(NOT_FOUND_MEMBER_ID);
         }
 
         return IssuePreSignedUrlResponse.from(
