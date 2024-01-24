@@ -50,6 +50,16 @@ public class Board extends BaseTime {
             orphanRemoval = true)
     private List<BoardHashTag> boardHashTags;
 
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
+
+    @OneToMany(
+            mappedBy = "board",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true)
+    private List<Like> likes;
+
     public void addHashTags(List<HashTag> hashTags) {
         this.addAll(this, hashTags);
     }
@@ -90,6 +100,8 @@ public class Board extends BaseTime {
                 category,
                 user,
                 fishBook,
+                new ArrayList<>(),
+                new ArrayList<>(),
                 new ArrayList<>());
     }
 }
