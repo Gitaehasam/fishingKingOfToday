@@ -108,6 +108,15 @@ public class Board extends BaseTime {
         return !this.user.equals(user);
     }
 
+    public void like(User user) {
+        Like like = Like.builder().user(user).board(this).build();
+        likes.add(like);
+    }
+
+    public int getLikeCounts() {
+        return likes.size();
+    }
+
     public static Board of(
             final User user,
             final Category category,

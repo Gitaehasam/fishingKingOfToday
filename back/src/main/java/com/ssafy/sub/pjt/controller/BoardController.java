@@ -5,6 +5,7 @@ import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 import com.ssafy.sub.pjt.dto.BoardListResponse;
 import com.ssafy.sub.pjt.dto.BoardRequest;
 import com.ssafy.sub.pjt.dto.BoardUpdateRequest;
+import com.ssafy.sub.pjt.dto.LikeResponse;
 import com.ssafy.sub.pjt.service.BoardService;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,12 @@ public class BoardController {
         boardService.delete(getCurrentUserSocialId(), boardId);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{boardId}/likes")
+    public ResponseEntity<LikeResponse> likeBoard(@PathVariable Integer boardId) {
+        LikeResponse likeResponse = boardService.like(getCurrentUserSocialId(), boardId);
+
+        return ResponseEntity.ok(likeResponse);
     }
 }

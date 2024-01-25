@@ -125,6 +125,15 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
+    @Transactional
+    public LikeResponse like(String socialId, Integer boardId) {
+        User source = findUserBySocialId(socialId);
+        Board target = findBoardById(boardId);
+
+        target.like(source);
+        return LikeResponse.of(target.getLikeCounts(), true);
+    }
+
     private Board findBoardById(Integer id) {
         return boardRepository
                 .findById(id)
