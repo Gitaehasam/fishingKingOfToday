@@ -107,8 +107,6 @@ public class BoardService {
         board.updateHashTags(hashTags);
         updateImage(board.getImage().getUrl(), boardUpdateRequest.getImageUrl());
         board.update(boardUpdateRequest, category, fishBook);
-
-        // boardRepository.save(board);
     }
 
     private void updateImage(final String originalImageName, final String updateImageName) {
@@ -116,5 +114,20 @@ public class BoardService {
             return;
         }
         publisher.publishEvent(new S3ImageEvent(originalImageName));
+    }
+
+    @Transactional
+    public void delete(String socialId, Integer boardId) {
+        User user = findUserBySocialId(socialId);
+        Board board = findBoardById(boardId);
+
+        user.delete(board);
+        boardRepository.delete(board);
+    }
+
+    private Board findBoardById(Integer id) {
+        return boardRepository
+                .findById(id)
+                .orElseThrow(() -> new BadRequestException(NOT_FOUND_BOARD_ID));
     }
 }
