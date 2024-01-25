@@ -104,6 +104,10 @@ public class Board extends BaseTime {
         }
     }
 
+    public boolean isNotWrittenBy(User user) {
+        return !this.user.equals(user);
+    }
+
     public static Board of(
             final User user,
             final Category category,

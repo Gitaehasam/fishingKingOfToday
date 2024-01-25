@@ -1,5 +1,9 @@
 package com.ssafy.sub.pjt.domain;
 
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.BOARD_NOT_BELONG_TO_USER_EXCEPTION;
+
+import com.ssafy.sub.pjt.exception.BadRequestException;
+import java.util.List;
 import javax.persistence.*;
 import lombok.*;
 
@@ -27,7 +31,18 @@ public class User extends BaseTime {
 
     private String imageUrl;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Board> boards;
+
     public boolean isNicknameChanged(final String inputNickname) {
         return !nickName.equals(inputNickname);
+    }
+
+    public void delete(Board board) {
+        if (board.isNotWrittenBy(this)) {
+            throw new BadRequestException(BOARD_NOT_BELONG_TO_USER_EXCEPTION);
+        }
+
+        boards.remove(board);
     }
 }
