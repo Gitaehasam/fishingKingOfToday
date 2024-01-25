@@ -134,6 +134,15 @@ public class BoardService {
         return LikeResponse.of(target.getLikeCounts(), true);
     }
 
+    @Transactional
+    public LikeResponse unlike(String socialId, Integer boardId) {
+        User source = findUserBySocialId(socialId);
+        Board target = findBoardById(boardId);
+
+        target.unlike(source);
+        return LikeResponse.of(target.getLikeCounts(), false);
+    }
+
     private Board findBoardById(Integer id) {
         return boardRepository
                 .findById(id)

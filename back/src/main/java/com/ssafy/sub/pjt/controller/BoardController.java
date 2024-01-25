@@ -58,4 +58,11 @@ public class BoardController {
 
         return ResponseEntity.ok(likeResponse);
     }
+
+    @DeleteMapping("/{boardId}/likes")
+    public ResponseEntity<LikeResponse> unlikePost(@PathVariable Integer boardId) {
+        LikeResponse likeResponse = boardService.unlike(getCurrentUserSocialId(), boardId);
+
+        return ResponseEntity.ok(likeResponse);
+    }
 }

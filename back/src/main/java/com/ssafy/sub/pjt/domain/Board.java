@@ -113,6 +113,11 @@ public class Board extends BaseTime {
         likes.add(like);
     }
 
+    public void unlike(User user) {
+        Like like = Like.builder().user(user).board(this).build();
+        likes.remove(like);
+    }
+
     public int getLikeCounts() {
         return likes.size();
     }
