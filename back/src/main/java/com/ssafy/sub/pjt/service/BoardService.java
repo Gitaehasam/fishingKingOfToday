@@ -4,15 +4,13 @@ import static com.ssafy.sub.pjt.common.CustomExceptionStatus.*;
 
 import com.ssafy.sub.pjt.domain.*;
 import com.ssafy.sub.pjt.domain.repository.*;
-import com.ssafy.sub.pjt.dto.BoardListResponse;
-import com.ssafy.sub.pjt.dto.BoardRequest;
-import com.ssafy.sub.pjt.dto.BoardResponse;
-import com.ssafy.sub.pjt.dto.HashTagsRequest;
+import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.exception.AuthException;
 import com.ssafy.sub.pjt.exception.BadRequestException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -28,6 +26,7 @@ public class BoardService {
     private final CategoryRepository categoryRepository;
     private final FishBookRepository fishBookRepository;
     private final CommentRepository commentRepository;
+    private final ApplicationEventPublisher publisher;
 
     public Integer write(BoardRequest boardRequest, String socialId) {
         Board savedBoard = boardRepository.save(createBoard(boardRequest, socialId));
@@ -76,5 +75,46 @@ public class BoardService {
                                                 board.getLikes().size()))
                         .collect(Collectors.toList());
         return new BoardListResponse(boardResponses, boards.hasNext());
+    }
+
+    public void validateBoardByUser(final String socialId, final Integer boardId) {
+        if (!boardRepository.existsByUserSocialIdAndId(socialId, boardId)) {
+            throw new AuthException(INVALID_BOARD_WITH_USER);
+        }
+    }
+
+    @Transactional
+    public void update(final Integer boardId, final BoardUpdateRequest boardUpdateRequest) {
+        final Board board =
+                boardRepository
+                        .findById(boardId)
+                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_BOARD_ID));
+
+        final Category category =
+                categoryRepository
+                        .findById(boardUpdateRequest.getCategoryId())
+                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_CATEGORY));
+
+        final FishBook fishBook =
+                fishBookRepository
+                        .findById(boardUpdateRequest.getFishBookId())
+                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_FISH));
+
+        final List<HashTag> hashTags =
+                hashTagService.findOrCreateHashTags(
+                        new HashTagsRequest(boardUpdateRequest.getHashTags()));
+
+        board.updateHashTags(hashTags);
+        updateImage(board.getImage().getUrl(), boardUpdateRequest.getImageUrl());
+        board.update(boardUpdateRequest, category, fishBook);
+
+        // boardRepository.save(board);
+    }
+
+    private void updateImage(final String originalImageName, final String updateImageName) {
+        if (originalImageName.equals(updateImageName)) {
+            return;
+        }
+        publisher.publishEvent(new S3ImageEvent(originalImageName));
     }
 }
