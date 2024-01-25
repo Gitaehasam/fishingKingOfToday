@@ -23,4 +23,16 @@ public class CommentController {
 
         return ResponseEntity.ok(commentResponse);
     }
+
+    @DeleteMapping("/boards/{boardId}/comments/{commentId}")
+    public ResponseEntity<Void> delete(
+            @PathVariable Integer boardId,
+            @PathVariable Integer commentId
+    ) {
+        commentService.delete(getCurrentUserSocialId(), boardId, commentId);
+
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
