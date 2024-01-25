@@ -23,6 +23,8 @@ public enum CustomExceptionStatus {
     NOT_FOUND_CATEGORY(2000, "카테고리를 찾을 수 없습니다."),
     CANNOT_ADD_HASHTAG_EXCEPTION(2001, "해시 태그를 추가 할 수 없습니다."),
     HASHTAG_FORMAT_EXCEPTION(2002, "해시 태그 포맷이 잘못되었습니다."),
+    INVALID_BOARD_WITH_USER(2003, "요청한 멤버와 ID에 해당하는 게시물이 존재하지 않습니다."),
+    NOT_FOUND_BOARD_ID(2004, "요청한 ID에 해당하는 게시물이 존재하지 않습니다."),
 
     NOT_FOUND_FISH(3000, "도감에서 존재하지 않는 어종입니다.");
 

@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query(value = "SELECT board FROM Board board LEFT JOIN board.user user")
     Slice<Board> findBoardByPageable(final Pageable pageable);
+
+    boolean existsByUserSocialIdAndId(final String socialId, final Integer id);
 }

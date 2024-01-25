@@ -4,6 +4,7 @@ import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 
 import com.ssafy.sub.pjt.dto.BoardListResponse;
 import com.ssafy.sub.pjt.dto.BoardRequest;
+import com.ssafy.sub.pjt.dto.BoardUpdateRequest;
 import com.ssafy.sub.pjt.service.BoardService;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,14 @@ public class BoardController {
     public ResponseEntity<?> getBoards(final Pageable pageable) {
         final BoardListResponse boardListResponse = boardService.getBoardsByPage(pageable);
         return ResponseEntity.ok().body(boardListResponse);
+    }
+
+    @PutMapping("/{boardId}")
+    public ResponseEntity<?> update(
+            @PathVariable final Integer boardId,
+            @RequestBody final BoardUpdateRequest boardUpdateRequest) {
+        boardService.validateBoardByUser(getCurrentUserSocialId(), boardId);
+        boardService.update(boardId, boardUpdateRequest);
+        return ResponseEntity.noContent().build();
     }
 }

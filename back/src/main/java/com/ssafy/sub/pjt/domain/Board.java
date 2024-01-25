@@ -3,6 +3,7 @@ package com.ssafy.sub.pjt.domain;
 import static com.ssafy.sub.pjt.common.CustomExceptionStatus.CANNOT_ADD_HASHTAG_EXCEPTION;
 
 import com.ssafy.sub.pjt.dto.BoardRequest;
+import com.ssafy.sub.pjt.dto.BoardUpdateRequest;
 import com.ssafy.sub.pjt.exception.BadRequestException;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import java.util.ArrayList;
@@ -59,6 +60,21 @@ public class Board extends BaseTime {
             cascade = CascadeType.PERSIST,
             orphanRemoval = true)
     private List<Like> likes;
+
+    public void update(
+            final BoardUpdateRequest updateRequest,
+            final Category category,
+            final FishBook fishBook) {
+        this.content = updateRequest.getContent();
+        this.image = Image.of(updateRequest.getImageUrl(), null, null, null);
+        this.category = category;
+        this.fishBook = fishBook;
+    }
+
+    public void updateHashTags(List<HashTag> hashTags) {
+        boardHashTags.clear();
+        addHashTags(hashTags);
+    }
 
     public void addHashTags(List<HashTag> hashTags) {
         this.addAll(this, hashTags);

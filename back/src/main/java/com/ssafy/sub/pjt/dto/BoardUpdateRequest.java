@@ -6,13 +6,8 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class BoardRequest {
-
-    // private MultipartFile image;
+public class BoardUpdateRequest {
     private String imageUrl;
-    // private LocalDateTime createdAt;
-    // private Float longitude;
-    // private Float latitude;
     private Integer categoryId;
     private Integer fishBookId;
     private String content;
