@@ -4,10 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.ssafy.sub.pjt.domain.Comment;
 import com.ssafy.sub.pjt.domain.User;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
@@ -21,6 +20,10 @@ public class CommentResponse {
 
     public static CommentResponse of(final Comment comment, final User user) {
         return new CommentResponse(
-                comment.getId(), user.getImageUrl(), user.getNickName(), comment.getContent(), comment.getCreatedAt());
+                comment.getId(),
+                user.getImageUrl(),
+                user.getNickName(),
+                comment.getContent(),
+                comment.getCreatedAt());
     }
 }

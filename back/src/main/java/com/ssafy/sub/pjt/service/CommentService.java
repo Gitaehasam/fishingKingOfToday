@@ -1,5 +1,7 @@
 package com.ssafy.sub.pjt.service;
 
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.*;
+
 import com.ssafy.sub.pjt.domain.Board;
 import com.ssafy.sub.pjt.domain.Comment;
 import com.ssafy.sub.pjt.domain.User;
@@ -13,8 +15,6 @@ import com.ssafy.sub.pjt.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static com.ssafy.sub.pjt.common.CustomExceptionStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -68,7 +68,8 @@ public class CommentService {
     }
 
     public Comment findCommentById(Integer commentId) {
-        return commentRepository.findById(commentId)
+        return commentRepository
+                .findById(commentId)
                 .orElseThrow(() -> new BadRequestException(COMMENT_NOT_FOUND_EXCEPTION));
     }
 }
