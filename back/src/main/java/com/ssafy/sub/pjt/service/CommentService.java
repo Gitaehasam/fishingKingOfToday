@@ -1,8 +1,5 @@
 package com.ssafy.sub.pjt.service;
 
-import static com.ssafy.sub.pjt.common.CustomExceptionStatus.NOT_FOUND_BOARD_ID;
-import static com.ssafy.sub.pjt.common.CustomExceptionStatus.NOT_FOUND_MEMBER_ID;
-
 import com.ssafy.sub.pjt.domain.Board;
 import com.ssafy.sub.pjt.domain.Comment;
 import com.ssafy.sub.pjt.domain.User;
@@ -16,6 +13,8 @@ import com.ssafy.sub.pjt.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +42,19 @@ public class CommentService {
         return CommentResponse.of(comment, user);
     }
 
+    @Transactional
+    public void delete(String socialId, Integer boardId, Integer commentId) {
+        Board board = findBoardById(boardId);
+        User user = findUserBySocialId(socialId);
+        Comment comment = findCommentById(commentId);
+
+        if (board.isNotWrittenBy(user) && comment.isNotCommentedBy(user)) {
+            throw new BadRequestException(CANNOT_DELETE_COMMENT_EXCEPTION);
+        }
+
+        commentRepository.delete(comment);
+    }
+
     private User findUserBySocialId(String socialId) {
         return userRepository
                 .findBySocialId(socialId)
@@ -53,5 +65,10 @@ public class CommentService {
         return boardRepository
                 .findById(id)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_BOARD_ID));
+    }
+
+    public Comment findCommentById(Integer commentId) {
+        return commentRepository.findById(commentId)
+                .orElseThrow(() -> new BadRequestException(COMMENT_NOT_FOUND_EXCEPTION));
     }
 }

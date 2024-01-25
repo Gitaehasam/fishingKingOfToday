@@ -24,4 +24,8 @@ public class Comment extends BaseTime {
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    public boolean isNotCommentedBy(User user) {
+        return !this.user.equals(user);
+    }
 }
