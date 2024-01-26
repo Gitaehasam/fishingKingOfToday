@@ -1,9 +1,8 @@
 package com.ssafy.sub.pjt.domain;
 
+import java.util.Objects;
 import javax.persistence.*;
 import lombok.*;
-
-import java.util.Objects;
 
 @Entity
 @Builder
@@ -34,8 +33,7 @@ public class Like {
             return false;
         }
         Like like = (Like) o;
-        return Objects.equals(board, like.getBoard()) &&
-                Objects.equals(user, like.getUser());
+        return Objects.equals(board, like.getBoard()) && Objects.equals(user, like.getUser());
     }
 
     @Override
