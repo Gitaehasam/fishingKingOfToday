@@ -66,7 +66,12 @@ public class Board extends BaseTime {
             final Category category,
             final FishBook fishBook) {
         this.content = updateRequest.getContent();
-        this.image = Image.of(updateRequest.getImageUrl(), null, null, null);
+        this.image =
+                Image.of(
+                        updateRequest.getImageUrl(),
+                        updateRequest.getLongitude(),
+                        updateRequest.getLatitude(),
+                        updateRequest.getCreatedAt());
         this.category = category;
         this.fishBook = fishBook;
     }
@@ -130,7 +135,11 @@ public class Board extends BaseTime {
         return new Board(
                 null,
                 boardRequest.getContent(),
-                Image.of(boardRequest.getImageUrl(), null, null, null),
+                Image.of(
+                        boardRequest.getImageUrl(),
+                        boardRequest.getLongitude(),
+                        boardRequest.getLatitude(),
+                        boardRequest.getCreatedAt()),
                 category,
                 user,
                 fishBook,

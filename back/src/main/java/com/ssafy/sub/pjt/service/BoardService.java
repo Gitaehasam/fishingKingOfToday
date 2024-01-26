@@ -7,6 +7,7 @@ import com.ssafy.sub.pjt.domain.repository.*;
 import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.exception.AuthException;
 import com.ssafy.sub.pjt.exception.BadRequestException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,6 @@ public class BoardService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final FishBookRepository fishBookRepository;
-    private final CommentRepository commentRepository;
     private final ApplicationEventPublisher publisher;
 
     public Integer write(BoardRequest boardRequest, String socialId) {
@@ -34,9 +34,7 @@ public class BoardService {
     }
 
     private Board createBoard(BoardRequest boardRequest, String socialId) {
-        final List<HashTag> hashTags =
-                hashTagService.findOrCreateHashTags(
-                        new HashTagsRequest(boardRequest.getHashTags()));
+        final List<HashTag> hashTags = getHashTagList(boardRequest.getHashTags());
 
         final User user = findUserBySocialId(socialId);
 
@@ -45,10 +43,7 @@ public class BoardService {
                         .findById(boardRequest.getCategoryId())
                         .orElseThrow(() -> new BadRequestException(NOT_FOUND_CATEGORY));
 
-        final FishBook fishBook =
-                fishBookRepository
-                        .findById(boardRequest.getFishBookId())
-                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_FISH));
+        final FishBook fishBook = findByFishBookId(boardRequest.getFishBookId());
 
         final Board board = Board.of(user, category, fishBook, boardRequest);
         board.addHashTags(hashTags);
@@ -95,18 +90,37 @@ public class BoardService {
                         .findById(boardUpdateRequest.getCategoryId())
                         .orElseThrow(() -> new BadRequestException(NOT_FOUND_CATEGORY));
 
-        final FishBook fishBook =
-                fishBookRepository
-                        .findById(boardUpdateRequest.getFishBookId())
-                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_FISH));
+        final FishBook fishBook = findByFishBookId(boardUpdateRequest.getFishBookId());
 
-        final List<HashTag> hashTags =
-                hashTagService.findOrCreateHashTags(
-                        new HashTagsRequest(boardUpdateRequest.getHashTags()));
+        final List<HashTag> hashTags = getHashTagList(boardUpdateRequest.getHashTags());
 
         board.updateHashTags(hashTags);
         updateImage(board.getImage().getUrl(), boardUpdateRequest.getImageUrl());
         board.update(boardUpdateRequest, category, fishBook);
+    }
+
+    private FishBook findByFishBookId(final Integer fishBookId) {
+        if (fishBookId == null) {
+            return null;
+        }
+
+        final FishBook fishBook =
+                fishBookRepository
+                        .findById(fishBookId)
+                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_FISH));
+
+        return fishBook;
+    }
+
+    private List<HashTag> getHashTagList(List<String> hashTagsRequest) {
+        if (hashTagsRequest == null) {
+            return new ArrayList<>();
+        }
+
+        final List<HashTag> hashTags =
+                hashTagService.findOrCreateHashTags(new HashTagsRequest(hashTagsRequest));
+
+        return hashTags;
     }
 
     private void updateImage(final String originalImageName, final String updateImageName) {
