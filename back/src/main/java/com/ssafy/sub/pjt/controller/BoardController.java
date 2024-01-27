@@ -31,8 +31,13 @@ public class BoardController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getBoards(final Pageable pageable) {
-        final BoardListResponse boardListResponse = boardService.getBoardsByPage(pageable);
+    public ResponseEntity<?> getBoards(
+            @RequestParam(required = false, defaultValue = "") final String sortType,
+            @RequestParam(required = false, defaultValue = "") final Integer fishBookId,
+            @RequestParam(required = false, defaultValue = "") final Integer hashTagId,
+            final Pageable pageable) {
+        final BoardListResponse boardListResponse =
+                boardService.getBoardsByPage(pageable, sortType, fishBookId, hashTagId);
         return ResponseEntity.ok().body(boardListResponse);
     }
 
