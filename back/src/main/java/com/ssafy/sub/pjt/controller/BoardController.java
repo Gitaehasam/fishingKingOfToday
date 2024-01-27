@@ -2,10 +2,7 @@ package com.ssafy.sub.pjt.controller;
 
 import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 
-import com.ssafy.sub.pjt.dto.BoardListResponse;
-import com.ssafy.sub.pjt.dto.BoardRequest;
-import com.ssafy.sub.pjt.dto.BoardUpdateRequest;
-import com.ssafy.sub.pjt.dto.LikeResponse;
+import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.service.BoardService;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +25,11 @@ public class BoardController {
         final String redirectUrl = String.format(REDIRECT_URL, postId);
 
         return ResponseEntity.created(URI.create(redirectUrl)).build();
+    }
+
+    @GetMapping("/{boardId}")
+    public ResponseEntity<?> getBoard(@PathVariable final Integer boardId) {
+        return ResponseEntity.ok().body(boardService.searchById(boardId));
     }
 
     @GetMapping
