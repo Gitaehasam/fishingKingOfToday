@@ -2,10 +2,9 @@ package com.ssafy.sub.pjt.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.ssafy.sub.pjt.domain.Board;
+import com.ssafy.sub.pjt.domain.BoardData;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -24,17 +23,15 @@ public class BoardResponse {
     private final Integer likeCnt;
 
     public static BoardResponse of(
-            final Board board, final Integer commentCnt, final Integer likeCnt) {
+            final BoardData boardData, final Integer commentCnt, final Integer likeCnt) {
         return new BoardResponse(
-                board.getUser().getNickName(),
-                board.getUser().getImageUrl(),
-                board.getId(),
-                board.getImage().getUrl(),
-                board.getBoardHashTags().stream()
-                        .map(hashtag -> hashtag.getHashTag().getName())
-                        .collect(Collectors.toList()),
-                board.getContent(),
-                board.getCreatedAt(),
+                boardData.getNickName(),
+                boardData.getProfileImageUrl(),
+                boardData.getBoardId(),
+                boardData.getBoardImageUrl().getUrl(),
+                boardData.getHashtags(),
+                boardData.getContent(),
+                boardData.getCreatedAt(),
                 commentCnt,
                 likeCnt);
     }

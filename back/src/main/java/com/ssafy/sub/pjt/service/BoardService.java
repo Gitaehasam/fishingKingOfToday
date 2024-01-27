@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final BoardQueryRepository boardQueryRepository;
     private final HashTagService hashTagService;
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
@@ -58,18 +59,28 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public BoardListResponse getBoardsByPage(final Pageable pageable) {
-        final Slice<Board> boards = boardRepository.findBoardByPageable(pageable.previousOrFirst());
+    public BoardListResponse getBoardsByPage(
+            final Pageable pageable,
+            final String sortType,
+            final Integer fishBookId,
+            final Integer hashTagId) {
+        final Slice<BoardData> boardData =
+                boardQueryRepository.searchBy(
+                        BoardSearchCondition.builder()
+                                .fishBookId(fishBookId)
+                                .hashTagId(hashTagId)
+                                .sortType(sortType)
+                                .build(),
+                        pageable);
+
         final List<BoardResponse> boardResponses =
-                boards.stream()
+                boardData.stream()
                         .map(
                                 board ->
                                         BoardResponse.of(
-                                                board,
-                                                board.getComments().size(),
-                                                board.getLikes().size()))
+                                                board, board.getCommentCnt(), board.getLikeCnt()))
                         .collect(Collectors.toList());
-        return new BoardListResponse(boardResponses, boards.hasNext());
+        return new BoardListResponse(boardResponses, boardData.hasNext());
     }
 
     public void validateBoardByUser(final String socialId, final Integer boardId) {
