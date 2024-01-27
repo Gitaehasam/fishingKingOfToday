@@ -1,6 +1,5 @@
 package com.ssafy.sub.pjt.domain;
 
-import java.util.Objects;
 import javax.persistence.*;
 import lombok.*;
 
@@ -28,5 +27,4 @@ public class FishingSpotFishBook {
         this.fishingSpot = fishingSpot;
         this.fishBook = fishBook;
     }
-
 }

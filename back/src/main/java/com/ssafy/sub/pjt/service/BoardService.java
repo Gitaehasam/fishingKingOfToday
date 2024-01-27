@@ -58,6 +58,11 @@ public class BoardService {
                 .orElseThrow(() -> new AuthException(NOT_FOUND_MEMBER_ID));
     }
 
+    public BoardDetailResponse searchById(Integer boardId) {
+        final Board board = findBoardById(boardId);
+        return BoardDetailResponse.of(board);
+    }
+
     @Transactional(readOnly = true)
     public BoardListResponse getBoardsByPage(
             final Pageable pageable,
