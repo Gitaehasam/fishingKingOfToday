@@ -1,6 +1,7 @@
 package com.ssafy.sub.pjt.domain;
 
 import com.ssafy.sub.pjt.dto.SpotType;
+import java.util.List;
 import javax.persistence.*;
 import lombok.*;
 
@@ -40,4 +41,11 @@ public class FishingSpot {
 
     @Column(name = "local_address")
     private String localAddress;
+
+    @OneToMany(
+            mappedBy = "fishingSpot",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true)
+    private List<FishingSpotFishBook> fishingSpotFishBooks;
 }
