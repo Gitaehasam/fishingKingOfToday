@@ -1,5 +1,7 @@
 plugins {
 	id 'java'
+	id 'jacoco'
+	id 'application'
 	id 'org.springframework.boot' version '2.7.17'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'com.diffplug.spotless' version '6.16.0'
@@ -76,4 +78,29 @@ tasks.withType(JavaCompile) {
 
 clean.doLast {
 	file(generated).deleteDir()
+}
+
+jacoco {
+	applyTo run
+	toolVersion = "0.8.10"
+	reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+tasks.register('applicationCodeCoverageReport', JacocoReport) {
+	executionData run
+	sourceSets sourceSets.main
 }
