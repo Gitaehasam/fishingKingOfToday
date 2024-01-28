@@ -1,0 +1,44 @@
+services:
+  spring-boot:
+    restart: 'on-failure'
+    build:
+      dockerfile: Dockerfile
+      args:
+        PROFILE: dev
+    container_name: 'gitaehasam-dev'
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+      - mysql
+    networks:
+      - gitaehasam_network
+  redis:
+    restart: 'on-failure'
+    image: redis:latest
+    container_name: "gitaehasam-dev-redis"
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-vol:/var/lib/redis
+    networks:
+      - gitaehasam_network
+  mysql:
+    image: mysql:8.0.36
+    container_name: "devmysql"
+    ports:
+      - 3307:3306
+    volumes:
+      - mysql-vol:/var/lib/mysql
+    env_file:
+      - .env
+    restart: 'on-failure'
+    networks:
+      - gitaehasam_network
+
+volumes:
+  mysql-vol:
+  redis-vol:
+
+networks:
+  gitaehasam_network:

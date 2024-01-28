@@ -40,5 +40,9 @@ out/
 application-oauth.properties
 application-aws.properties
 application-test.properties
+application-dev.properties
+
+### docker env file ###
+.env
 
 /src/main/generated
