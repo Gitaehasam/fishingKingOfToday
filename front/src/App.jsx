@@ -11,6 +11,8 @@ import ImageEditPage from "./pages/ImageEditPage";
 import FishBookPage from "./components/FishBook/FishBookPage"
 import FishBookDetailPage from "./components/FishBook/FishBookDetailPage"
 import LoginPage from "./pages/LoginPage";
+import RoomList from "./pages/room/RoomList";
+import CreateRoom from "./pages/room/CreateRoom";
 
 function App() {
   const [count, setCount] = useState(0);
