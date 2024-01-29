@@ -25,8 +25,6 @@ public class FishBook {
 
     private String scientificName;
 
-    private String endangeredSpecies;
-
     private LocalDate tabooStartAt;
 
     private LocalDate tabooEndAt;
@@ -34,7 +32,7 @@ public class FishBook {
     private Integer minimumSize;
 
     @Enumerated(EnumType.STRING)
-    private FishType fishtype;
+    private FishType fishType;
 
     private String size;
 

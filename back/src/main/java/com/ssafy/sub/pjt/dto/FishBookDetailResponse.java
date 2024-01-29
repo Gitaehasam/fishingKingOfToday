@@ -12,7 +12,7 @@ public class FishBookDetailResponse {
     private final Integer fishBookId;
     private final String name;
     private final String scientificName;
-    private final FishType fishtype;
+    private final FishType fishType;
     private final String size;
     private final String habitat;
     private final String bait;
@@ -24,7 +24,7 @@ public class FishBookDetailResponse {
                 fishBook.getId(),
                 fishBook.getName(),
                 fishBook.getScientificName(),
-                fishBook.getFishtype(),
+                fishBook.getFishType(),
                 fishBook.getSize(),
                 fishBook.getHabitat(),
                 fishBook.getBait(),

@@ -13,7 +13,6 @@ public class FishBookResponse {
 
     private final Integer id;
     private final String name;
-    private final String endangeredSpecies;
     private final LocalDate tabooStartAt;
     private final LocalDate tabooEndAt;
     private final Integer mininumSize;
@@ -23,7 +22,6 @@ public class FishBookResponse {
         return new FishBookResponse(
                 fishBook.getId(),
                 fishBook.getName(),
-                fishBook.getEndangeredSpecies(),
                 fishBook.getTabooStartAt(),
                 fishBook.getTabooEndAt(),
                 fishBook.getMinimumSize(),
