@@ -1,0 +1,58 @@
+.LoginPage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .LoginPage_header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 8vh;
+    padding: 0 20px;
+
+    img {
+      height: 20%;
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 150%;
+      margin-bottom: 5px;
+    }
+  }
+
+  .LoginPage_body {
+    display: flex;
+
+    img {
+      height: 35%;
+      position: fixed;
+      // margin: 34% 35%;
+      top: 43%;
+      left: 55%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .LoginPage_footer {
+    background: rgba($color: #6ae3e3, $alpha: 0.2);
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+
+    img {
+      height: 15%;
+      border-radius: 50%;
+      box-shadow: -2px -7px 10px #f1f1f1, 4px 6px 10px #d4d7da;
+
+      &:nth-child(3) {
+        background: white;
+        border-radius: 50%;
+      }
+    }
+  }
+}
