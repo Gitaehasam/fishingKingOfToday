@@ -1,13 +1,13 @@
 package com.ssafy.sub.pjt.domain;
 
 public class Interview {
-    private String FirstQuestion;
+    private String firstQuestion;
 
-    private String FirstAnswer;
+    private String firstAnswer;
 
-    private String SecondQuestion;
+    private String secondQuestion;
 
-    private String SecondAnswer;
+    private String secondAnswer;
 
     private String thirdQuestion;
 
