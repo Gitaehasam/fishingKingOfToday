@@ -1,0 +1,67 @@
+.Navbar_body {
+  padding-bottom: 80px;
+}
+
+nav {
+  position: fixed;
+  height: 70px;
+  width: 100%;
+  bottom: 0;
+  background: white;
+  border-radius: 1.5rem 1.5rem 0 0;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+  padding: 0 20px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+
+  .nav-item {
+    color: gray;
+    display: flex;
+    padding-top: 15px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    width: 40px;
+
+    &.btn {
+      position: absolute;
+      top: -55%;
+      left: 50%;
+      transform: translate(-50%);
+    }
+
+    &.hidden {
+      opacity: 0;
+    }
+
+    svg {
+      font-size: 1.3rem;
+    }
+
+    span,
+    .login-btn {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .custum-file-upload {
+      width: 70px;
+      height: 70px;
+      background: lightblue;
+      color: #fff;
+      border: 1px solid gray;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      input {
+        display: none;
+      }
+    }
+  }
+}

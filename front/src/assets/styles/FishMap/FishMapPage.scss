@@ -1,0 +1,189 @@
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.FishMap {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .FishMap_header {
+    padding: 10px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: -2px -7px 10px #f1f1f1, 4px 6px 10px #d4d7da;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    height: 8vh;
+    justify-content: space-between;
+
+    &.expand {
+      height: 14vh;
+    }
+
+    .wrapper {
+      border: 1px solid black;
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+      height: 100%;
+      // height: calc(20px);/
+      // flex-shrink: 0;
+
+      &.expand {
+        height: calc(59% - 10px);
+        // height: 75%;
+      }
+
+      .mode {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 15px;
+        // height: 100%;
+      }
+
+      input {
+        // border-radius: 5px;
+        flex: 1;
+        border: none;
+        height: 100%;
+        font-size: 15px;
+        outline: none;
+      }
+
+      .search {
+        padding: 0 15px;
+      }
+    }
+
+    .hashTags {
+      // animation: slideDown 1s;
+      display: flex;
+      // flex: 1;
+      gap: 10px;
+      margin: 5px 0;
+      // margin: 10px 0 0;
+      // height: 50%;
+
+      .input-container {
+        // position: relative;
+        // margin: 0.5rem;
+
+        .radio-button {
+          display: none;
+          cursor: pointer;
+
+          &:checked {
+            + .radio-tile {
+              background-color: lightblue;
+            }
+
+            + .radio-tile .radio-tile-label {
+              color: white;
+            }
+          }
+        }
+
+        .radio-tile {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid lightblue;
+          border-radius: 20px;
+          padding: 10px;
+
+          .radio-tile-label {
+            font-size: 10px;
+            font-weight: bold;
+            color: lightblue;
+          }
+        }
+      }
+    }
+  }
+
+  .FishMap_body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    #__react-kakao-maps-sdk___Map {
+      // height: 100%;
+      flex-grow: 1;
+    }
+
+    .reSearch {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      position: absolute;
+      z-index: 9999;
+      top: 3vh;
+      left: 50%;
+      transform: translate(-50%);
+      padding: 10px 15px;
+      background: white;
+      border-radius: 30px;
+      box-shadow: -2px -2px 2px #f1f1f1, 2px 2px 2px #d4d7da;
+
+      svg {
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+
+  .FishMap_btn {
+    user-select: none;
+    position: absolute;
+    right: 20px;
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    transform: scale(1);
+    border-style: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50%;
+    background: rgb(228, 232, 236);
+    background: linear-gradient(
+      45deg,
+      rgb(228, 232, 236) 0%,
+      rgb(234 234 234) 100%
+    );
+    box-shadow: -2px -7px 10px #f1f1f1, 4px 6px 10px #d4d7da;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:active {
+      background: rgb(218, 221, 224);
+      background: linear-gradient(
+        45deg,
+        rgb(218, 221, 224) 0%,
+        rgb(241, 241, 241) 100%
+      );
+      box-shadow: -2px -7px 10px #d4d7da, 4px 6px 10px #f1f1f1,
+        inset -2px -7px 10px #f1f1f1, inset 4px 6px 10px #d4d7da;
+      transition: all 0.3s;
+      transform: scale(0.95);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

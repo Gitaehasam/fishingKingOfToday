@@ -1,0 +1,75 @@
+#__react-kakao-maps-sdk___Map > div:nth-child(1) > div > div:nth-child(6) {
+  filter: drop-shadow(0 0 1px #000);
+}
+
+.info {
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+  // animation: slideUp 0.1s ease-in-out;
+  // height: 200px;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 25px 20px;
+
+  .info_header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .info_name {
+      color: #3496ff;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .info_type {
+      color: gray;
+      font-size: 15px;
+    }
+  }
+
+  .info_body {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .info_distance {
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .info_addr {
+      font-size: 15px;
+    }
+  }
+
+  .info_footer {
+    hr {
+      margin: 8px 0;
+    }
+
+    .info_icons {
+      display: flex;
+      gap: 20px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        color: gray;
+      }
+    }
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
