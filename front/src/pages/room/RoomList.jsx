@@ -7,6 +7,8 @@ import "../../assets/styles/Room/RoomList/RoomList.scss"
 import Thumbnail_1 from "../../assets/images/Thumbnail_1.jfif"
 import Thumbnail_2 from "../../assets/images/Thumbnail_2.jfif"
 import Thumbnail_3 from "../../assets/images/Thumbnail_3.jfif"
+import RoomFilterModal from "../../components/Room/RoomFilterModal";
+import group from "../../assets/images/Room/Group.svg"
 
 function RoomList () {
   const [liveRoomList, setLiveRoomList] = useState([
@@ -31,8 +33,49 @@ function RoomList () {
       constructor:"멋쟁이오징어",
       subscribers:15,
     },
+    {
+      id:4,
+      imageUrl:'',
+      title:"오늘은 장충동왕족발보쌈.",
+      constructor:"멋쟁이오징어",
+      subscribers:13,
+    },
+    {
+      id:5,
+      imageUrl:'',
+      title:"오늘은 장충동왕족발보쌈.",
+      constructor:"멋쟁이오징어",
+      subscribers:15,
+    },
+    {
+      id:6,
+      imageUrl:'',
+      title:"오늘은 장충동왕족발보쌈.",
+      constructor:"멋쟁이오징어",
+      subscribers:15,
+    },
   ])
+
+  // const OPENVIDU_SERVER_URL = 'https://YOUR_OPENVIDU_SERVER';
+  // const OPENVIDU_SERVER_SECRET = 'YOUR_OPENVIDU_SECRET';
+
+  // useEffect(() => {
+  //   axios.get(OPENVIDU_SERVER_URL + '/api/sessions', {
+  //     headers: {
+  //       Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
+  //     },
+  //   })
+  //   .then((res) => {
+  //     setLiveRoomList(res.data.content);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // }, []);
+
   const navigate = useNavigate();
+  const [isFilterModal, setIsFilterModal] = useState(false)
+  const [isSortBy, setIsSortBy] = useState(0)
 
   // useEffect(() => {
   //   axios.get("http://localhost:8000/gitaehasam/lives")
@@ -46,6 +89,21 @@ function RoomList () {
   //   })
   // }, [liveRoomList])
 
+  const handleChangeModal = () => {
+    setIsFilterModal(!isFilterModal)
+  }
+
+  useEffect(() => {
+    let sortedLiveRoomList
+
+    if (isSortBy === 1) {
+      sortedLiveRoomList = [...liveRoomList].sort((a, b) => b.subscribers - a.subscribers)
+    } else {
+      sortedLiveRoomList = [...liveRoomList].sort((a, b) => a.id - b.id)
+    }
+    setLiveRoomList(sortedLiveRoomList)
+  }, [isSortBy])
+
   return (
     <>
       <div>
@@ -54,26 +112,28 @@ function RoomList () {
           <span>낚시 라이브</span>
         </div>
 
-        <div>
-          <span>전체 라이브</span>
-        </div>
-
-        <div>
+        <div onClick={handleChangeModal} className="roomList-filter">
+          {isSortBy === 1 ? <span>참여인원순</span> : <span>최신순</span>}
           <img src={filter} alt="" />
+          {isFilterModal && <RoomFilterModal state={setIsFilterModal} sortBy={setIsSortBy}/>}
         </div>
-
+        
         <>
           {liveRoomList.map((room, idx) => (
-            <div key={idx}>
-              <img src={room.imageUrl} alt="" />
-              {room.title},
-              {room.constructor},
-              {room.subscribers}명
+            <div key={idx} className="roomList-info">
+              <img src={room.imageUrl} alt="" className="thumbnail" />
+              <div>
+                <p>{room.title}</p>
+                <div>
+                  <span>{room.constructor}</span>
+                  <span><img src={group} alt="" /> {room.subscribers}</span>
+                </div>
+              </div>
             </div>
           ))}
         </>
 
-        <NavLink to={"/roomList/create"} className="nav-item">
+        <NavLink to={"/roomList/create"} className="nav-item createLive-btn">
           <span>라이브 켜기</span>
         </NavLink>
       </div>
