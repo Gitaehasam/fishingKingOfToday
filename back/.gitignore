@@ -41,6 +41,7 @@ application-oauth.properties
 application-aws.properties
 application-test.properties
 application-dev.properties
+application-prod.properties
 
 ### docker env file ###
 .env
