@@ -1,0 +1,19 @@
+.Home_header {
+  display: flex;
+  padding: 10px 0 0;
+  margin: 0 20px 10px;
+  height: 8vh;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  // box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+
+  img {
+    height: 50px;
+  }
+
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+}
