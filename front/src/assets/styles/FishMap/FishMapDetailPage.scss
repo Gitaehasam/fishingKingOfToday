@@ -1,0 +1,23 @@
+.FishMapDetailPage {
+  .header {
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    padding: 0 3vh;
+
+    img {
+      height: 20%;
+    }
+  }
+
+  .body {
+    .content {
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
+      gap: 1vh;
+      color: gray;
+      font-size: 2.2vh;
+    }
+  }
+}

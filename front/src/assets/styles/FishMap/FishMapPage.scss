@@ -126,13 +126,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 5px;
+      gap: 1vh;
       position: absolute;
       z-index: 9999;
       top: 3vh;
       left: 50%;
       transform: translate(-50%);
-      padding: 10px 15px;
+      padding: 1vh 2vh;
       background: white;
       border-radius: 30px;
       box-shadow: -2px -2px 2px #f1f1f1, 2px 2px 2px #d4d7da;
@@ -142,56 +142,77 @@
         width: 20px;
       }
     }
-  }
 
-  .FishMap_btn {
-    user-select: none;
-    position: absolute;
-    right: 20px;
-    z-index: 9999;
-    width: 50px;
-    height: 50px;
-    transform: scale(1);
-    border-style: none;
-    outline: none;
-    cursor: pointer;
-    border-radius: 50%;
-    background: rgb(228, 232, 236);
-    background: linear-gradient(
-      45deg,
-      rgb(228, 232, 236) 0%,
-      rgb(234 234 234) 100%
-    );
-    box-shadow: -2px -7px 10px #f1f1f1, 4px 6px 10px #d4d7da;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:active {
-      background: rgb(218, 221, 224);
+    .FishMap_btn {
+      user-select: none;
+      position: absolute;
+      right: 20px;
+      z-index: 9999;
+      width: 50px;
+      height: 50px;
+      transform: scale(1);
+      border-style: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 50%;
+      background: rgb(228, 232, 236);
       background: linear-gradient(
         45deg,
-        rgb(218, 221, 224) 0%,
-        rgb(241, 241, 241) 100%
+        rgb(228, 232, 236) 0%,
+        rgb(234 234 234) 100%
       );
-      box-shadow: -2px -7px 10px #d4d7da, 4px 6px 10px #f1f1f1,
-        inset -2px -7px 10px #f1f1f1, inset 4px 6px 10px #d4d7da;
+      box-shadow: -2px -7px 10px #f1f1f1, 4px 6px 10px #d4d7da;
       transition: all 0.3s;
-      transform: scale(0.95);
-    }
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    svg {
-      width: 20px;
-      height: 20px;
+      &:active {
+        background: rgb(218, 221, 224);
+        background: linear-gradient(
+          45deg,
+          rgb(218, 221, 224) 0%,
+          rgb(241, 241, 241) 100%
+        );
+        box-shadow: -2px -7px 10px #d4d7da, 4px 6px 10px #f1f1f1,
+          inset -2px -7px 10px #f1f1f1, inset 4px 6px 10px #d4d7da;
+        transition: all 0.3s;
+        transform: scale(0.95);
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 
   .FishMap_footer {
-    padding: 10px;
+    height: 6vh;
+    margin: 0 3vh;
+    transition: height 0.5s;
 
     &.expand {
       height: 100%;
+    }
+
+    .item {
+      padding: 3vh 0;
+      border-bottom: 1px solid black;
+    }
+
+    .mode {
+      position: fixed;
+      bottom: 0;
+      height: 6vh;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      svg {
+        height: 2vh;
+        width: 2vh;
+      }
     }
   }
 }

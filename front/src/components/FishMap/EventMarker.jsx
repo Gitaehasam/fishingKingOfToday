@@ -5,9 +5,11 @@ import MarkerOn from "../../assets/images/marker_place.png";
 import "../../assets/styles/FishMap/EventMarker.scss";
 import { IoCall } from "react-icons/io5";
 import { FaShareSquare } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const EventMarker = ({ position, content, isActive, onClick }) => {
   const map = useMap();
+  const navigate = useNavigate();
 
   const handleClick = (marker) => {
     map.panTo(marker.getPosition());
@@ -38,7 +40,16 @@ const EventMarker = ({ position, content, isActive, onClick }) => {
       {isActive && (
         <div className="info">
           <div className="info_header">
-            <div className="info_name">{content.name}</div>
+            <div
+              className="info_name"
+              onClick={() =>
+                navigate(`${position.lat}-${position.lng}`, {
+                  state: { data: { content, position } },
+                })
+              }
+            >
+              {content.name}
+            </div>
             <div className="info_type">{content.type}</div>
           </div>
           <div className="info_body">
