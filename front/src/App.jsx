@@ -20,6 +20,12 @@ function App() {
       <Route path="/" element={<Navbar />}>
         <Route index element={<HomePage />} />
         <Route path="fish/image/result" element={<ImageResultPage />} />
+        <Route path="/roomList" >
+          <Route index element={<RoomList />}/>
+          <Route path="create">
+            <Route index element={<CreateRoom />}/>
+          </Route>
+        </Route>
       </Route>
       <Route path="/fish">
         <Route path="map">
