@@ -1,0 +1,44 @@
+services:
+  prod-spring-boot:
+    restart: 'on-failure'
+    build:
+      dockerfile: Dockerfile
+      args:
+        PROFILE: prod
+    container_name: 'prod-spring-boot'
+    ports:
+      - 8080:8080
+    depends_on:
+      - prod-redis
+      - prod-mysql
+    networks:
+      - gitaehasam_prod_network
+  prod-redis:
+    restart: 'on-failure'
+    image: redis:latest
+    container_name: "prod-redis"
+    ports:
+      - 6379:6379
+    volumes:
+      - prod-redis-vol:/var/lib/redis
+    networks:
+      - gitaehasam_prod_network
+  prod-mysql:
+    image: mysql:8.0.36
+    container_name: "prodmysql"
+    ports:
+      - 3307:3306
+    volumes:
+      - prod-mysql-vol:/var/lib/mysql
+    env_file:
+      - .env
+    restart: 'on-failure'
+    networks:
+      - gitaehasam_prod_network
+
+volumes:
+  prod-mysql-vol:
+  prod-redis-vol:
+
+networks:
+  gitaehasam_prod_network:
