@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,5 +24,10 @@ public class FishBookController {
         final FishBookListResponse fishBookListResponse =
                 fishBookService.getFishBooksByPage(pageable);
         return ResponseEntity.ok().body(fishBookListResponse);
+    }
+
+    @GetMapping("/{fishBookId}")
+    public ResponseEntity<?> getFishBook(@PathVariable final Integer fishBookId) {
+        return ResponseEntity.ok().body(fishBookService.searchById(fishBookId));
     }
 }
