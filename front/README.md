@@ -1,17 +1,8 @@
-## 나는 민준
+# React + Vite
 
-ㅎㅇㅎㅇ
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 나는 태윤
+Currently, two official plugins are available:
 
-ㅂㅇㅂㅇ
-
-## 나는 자영
-ㅋㅋㅋㅋ
-
-## 나는 민준
-
-다시 연습 한다
-
-## 나는 자영
-나도 연습어게인ㅇㅇ
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
