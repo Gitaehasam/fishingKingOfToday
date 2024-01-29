@@ -1,0 +1,12 @@
+.fish-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.fish-item{
+  width: 150px;
+  height: 150px;
+  background-color: pink;
+}

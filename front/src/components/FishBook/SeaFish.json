@@ -1,0 +1,52 @@
+{
+  "fishbook": [
+    {
+      "id": 1,
+      "name": "가다랑어",
+      "tabooStartAt": null,
+      "tabooEndAt": null,
+      "minimumSize": null,
+      "imageUrl": ""
+    },
+    {
+      "id": 2,
+      "name": "갈치",
+      "tabooStartAt": "2024-07-01",
+      "tabooEndAt": "2024-07-31",
+      "minimumSize": null,
+      "imageUrl": ""
+    },
+    {
+      "id": 3,
+      "name": "감성돔",
+      "tabooStartAt": "2024-05-01",
+      "tabooEndAt": "2024-05-31",
+      "minimumSize": 25,
+      "imageUrl": ""
+    },
+    {
+      "id": 4,
+      "name": "갑오징어",
+      "tabooStartAt": null,
+      "tabooEndAt": null,
+      "minimumSize": null,
+      "imageUrl": ""
+    },
+    {
+      "id": 5,
+      "name": "까치상어",
+      "tabooStartAt": null,
+      "tabooEndAt": null,
+      "minimumSize": null,
+      "imageUrl": ""
+    },
+    {
+      "id": 6,
+      "name": "넙치",
+      "tabooStartAt": null,
+      "tabooEndAt": null,
+      "minimumSize": 35,
+      "imageUrl": ""
+    }
+  ]
+}
