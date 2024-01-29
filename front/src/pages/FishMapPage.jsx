@@ -6,7 +6,7 @@ import { FaHashtag } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { TbLocation } from "react-icons/tb";
 import { IoMdRefresh } from "react-icons/io";
-import "../assets/styles/FishMapPage.scss";
+import "../assets/styles/FishMap/FishMapPage.scss";
 
 const data = [
   {
