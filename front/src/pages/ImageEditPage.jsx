@@ -12,6 +12,7 @@ function ImageEditPage() {
   const navigate = useNavigate();
   const number = location.state.value;
   const cropperRef = useRef(null);
+  console.log(number);
 
   const getCropData = () => {
     navigate("/fish/image/result", {

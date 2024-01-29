@@ -6,6 +6,7 @@ import { FaHashtag } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { TbLocation } from "react-icons/tb";
 import { IoMdRefresh } from "react-icons/io";
+import { FaListUl } from "react-icons/fa";
 import "../assets/styles/FishMap/FishMapPage.scss";
 
 const data = [
@@ -76,6 +77,7 @@ const hashTags = ["#사진맛집", "#노을맛집", "#월척"];
 const FishMapPage = () => {
   const [activeMarker, setActiveMarker] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isIs, setIsIs] = useState(false);
   const [mode, setMode] = useState(false);
   const [search, setSearch] = useState("");
   const [centerChange, setCenterChange] = useState(false);
@@ -85,7 +87,7 @@ const FishMapPage = () => {
       lng: 126.570667,
     },
     errMsg: null,
-    isLoading: true,
+    isLoading: false,
   });
 
   const mapRef = useRef(null);
@@ -106,16 +108,16 @@ const FishMapPage = () => {
 
   const myLocation = () => {
     if (navigator.geolocation) {
-      // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          const { latitude, longitude } = position.coords;
           setState((prev) => ({
             ...prev,
             center: {
-              lat: position.coords.latitude, // 위도
-              lng: position.coords.longitude, // 경도
+              lat: latitude, // 위도
+              lng: longitude, // 경도
             },
-            isLoading: false,
+            isLoading: true,
           }));
         },
         (err) => {
@@ -128,7 +130,6 @@ const FishMapPage = () => {
         }
       );
     } else {
-      // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
       setState((prev) => ({
         ...prev,
         errMsg: "geolocation을 사용할수 없어요..",
@@ -138,13 +139,21 @@ const FishMapPage = () => {
   };
 
   const handleClick = () => {
-    console.log(navigator.geolocation);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         const locPosition = new kakao.maps.LatLng(lat, lng);
         mapRef.current.setCenter(locPosition);
+        setCenterChange(false);
+        setState((prev) => ({
+          ...prev,
+          center: {
+            lat: lat, // 위도
+            lng: lng, // 경도
+          },
+          isLoading: true,
+        }));
       });
     } else {
       window.alert("이 브라우저에서는 Geolocation을 지원하지 않습니다.");
@@ -157,12 +166,16 @@ const FishMapPage = () => {
 
     const center = map.getCenter();
 
+    map.setCenter(center);
+    setCenterChange(false);
+
     setState((prev) => ({
       ...prev,
       center: {
         lat: center.getLat(),
         lng: center.getLng(),
       },
+      isLoading: false,
     }));
   };
 
@@ -200,7 +213,6 @@ const FishMapPage = () => {
 
   useEffect(() => {
     myLocation();
-    // console.log(ddd);
   }, []);
 
   return (
@@ -269,7 +281,7 @@ const FishMapPage = () => {
               onClick={() => setActiveMarker(index)}
             />
           ))}
-          {!state.isLoading && (
+          {state.isLoading && (
             <MapMarker
               position={state.center}
               clickable={true}
@@ -302,6 +314,15 @@ const FishMapPage = () => {
           </button>
         </Map>
       </div>
+      {activeMarker === null && (
+        <div
+          className={`FishMap_footer ${isIs && "expand"}`}
+          onClick={() => setIsIs(true)}
+        >
+          <FaListUl />
+          목록보기
+        </div>
+      )}
     </div>
   );
 };
