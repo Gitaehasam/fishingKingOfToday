@@ -1,0 +1,75 @@
+.Result {
+  display: flex;
+  flex-direction: column;
+
+  .Result_header {
+    display: flex;
+    height: 8vh;
+    padding: 10px 0 0;
+    margin: 0 20px 10px;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    // box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    div {
+      font-weight: bold;
+      font-size: 30px;
+    }
+  }
+
+  .Result_body {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 250px;
+    background: transparent;
+    position: relative;
+
+    .ml_result {
+      width: 80%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .Result_footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 30px;
+    gap: 20px;
+
+    .Result_fish {
+      text-align: center;
+      background: lightblue;
+      padding: 20px;
+      width: 80%;
+      // margin: 30px;
+      border-radius: 10px;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .Result_detail {
+      text-align: center;
+      border: 3px solid lightblue;
+      background: transparent;
+      padding: 20px;
+      width: 80%;
+      height: 1000px;
+      // margin: 30px;
+      border-radius: 10px;
+      font-size: 30px;
+      font-weight: bold;
+      color: lightblue;
+    }
+  }
+}

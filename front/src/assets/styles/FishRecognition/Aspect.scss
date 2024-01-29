@@ -1,0 +1,59 @@
+.Aspect {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20%;
+  background: #191919;
+  width: 60%;
+  padding: 20px;
+  border-radius: 10px;
+
+  .Aspect_header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .Aspect_length,
+    .Aspect_width {
+      border-radius: 5px;
+      border: 2px solid white;
+
+      svg {
+        display: none;
+      }
+
+      &.active {
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          display: block;
+        }
+      }
+    }
+
+    .Aspect_length {
+      width: 20px;
+      height: 30px;
+    }
+
+    .Aspect_width {
+      width: 30px;
+      height: 20px;
+    }
+  }
+
+  .Aspect_body {
+    display: flex;
+    gap: 20px;
+
+    button {
+      border: none;
+      background: transparent;
+      color: white;
+    }
+  }
+}
