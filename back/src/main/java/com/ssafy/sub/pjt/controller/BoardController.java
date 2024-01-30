@@ -4,7 +4,9 @@ import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 
 import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.service.BoardService;
+import com.ssafy.sub.pjt.service.HashTagService;
 import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ public class BoardController {
     private static final String REDIRECT_URL = "/boards/%d";
 
     private final BoardService boardService;
+    private final HashTagService hashTagService;
 
     @PostMapping
     public ResponseEntity<Void> write(@RequestBody final BoardRequest request) {
@@ -71,5 +74,11 @@ public class BoardController {
         LikeResponse likeResponse = boardService.unlike(getCurrentUserSocialId(), boardId);
 
         return ResponseEntity.ok(likeResponse);
+    }
+
+    @GetMapping("/hashtags")
+    public ResponseEntity<?> findTopFiveHashTags() {
+        final List<HashTagResponse> hashtags = hashTagService.findTopFiveHashTags();
+        return ResponseEntity.ok().body(hashtags);
     }
 }
