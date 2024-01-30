@@ -58,21 +58,6 @@ function RoomList () {
 
   const OPENVIDU_SERVER_URL = 'https://i10c203.p.ssafy.io/dashboard/#/';
   const OPENVIDU_SERVER_SECRET = 'wearegitaehasam';
-
-  useEffect(() => {
-    axios.get(OPENVIDU_SERVER_URL + '/api/sessions', {
-      headers: {
-        Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
-      },
-    })
-    .then((res) => {
-      setLiveRoomList(res.data.content);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }, [liveRoomList]);
-
   const navigate = useNavigate();
   const [isFilterModal, setIsFilterModal] = useState(false)
   const [isSortBy, setIsSortBy] = useState(0)
