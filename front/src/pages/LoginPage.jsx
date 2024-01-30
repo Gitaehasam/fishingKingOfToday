@@ -11,8 +11,8 @@ const LoginPage = () => {
 
   return (
     <div className="LoginPage">
-      <div className="LoginPage_header" onClick={() => navigate("/")}>
-        <img src={back} alt="" />
+      <div className="LoginPage_header">
+        <img src={back} alt="" onClick={() => navigate("/")} />
         <span>Login</span>
       </div>
       <div className="LoginPage_body">

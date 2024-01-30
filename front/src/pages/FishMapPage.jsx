@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
-import EventMarker from "../components/FishMap/EventMarker";
-import { MdGpsFixed, MdOutlineMap } from "react-icons/md";
-import { FaSearch, FaHashtag, FaListUl } from "react-icons/fa";
-import { TbLocation } from "react-icons/tb";
-import { IoMdRefresh } from "react-icons/io";
+
 import "../assets/styles/FishMap/FishMapPage.scss";
+import FishMapFooter from "../components/FishMap/FishMapFooter";
+import FishMapHeader from "../components/FishMap/FishMapHeader";
+import FishMapBody from "../components/FishMap/FishMapBody";
 
 const data = [
   {
@@ -76,10 +74,14 @@ const FishMapPage = () => {
   const [activeMarker, setActiveMarker] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isIs, setIsIs] = useState(false);
-  const [mode, setMode] = useState(false);
   const [search, setSearch] = useState("");
   const [centerChange, setCenterChange] = useState(false);
-  const [state, setState] = useState({
+  const [filterMode, setFilterMode] = useState("dist");
+  const [mapCenter, setMapCenter] = useState({
+    lat: 33.450701,
+    lng: 126.570667,
+  });
+  const [myCenter, setMyCenter] = useState({
     center: {
       lat: 33.450701,
       lng: 126.570667,
@@ -89,11 +91,6 @@ const FishMapPage = () => {
   });
 
   const mapRef = useRef(null);
-
-  const chageMode = useCallback(() => {
-    setMode((prev) => !prev);
-    setSearch("");
-  }, []);
 
   const handleClickMarker = useCallback(() => {
     setActiveMarker(null);
@@ -106,12 +103,10 @@ const FishMapPage = () => {
 
   const myLocation = () => {
     if (navigator.geolocation) {
-      console.log(navigator.geolocation.getCurrentPosition);
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log(2);
           const { latitude, longitude } = position.coords;
-          setState((prev) => ({
+          setMyCenter((prev) => ({
             ...prev,
             center: {
               lat: latitude, // 위도
@@ -119,10 +114,14 @@ const FishMapPage = () => {
             },
             isLoading: true,
           }));
+          setMapCenter({
+            lat: latitude,
+            lng: longitude,
+          });
         },
         (err) => {
           console.log(err);
-          setState((prev) => ({
+          setMyCenter((prev) => ({
             ...prev,
             errMsg: err.message,
             isLoading: false,
@@ -130,7 +129,7 @@ const FishMapPage = () => {
         }
       );
     } else {
-      setState((prev) => ({
+      setMyCenter((prev) => ({
         ...prev,
         errMsg: "geolocation을 사용할수 없어요..",
         isLoading: false,
@@ -146,7 +145,7 @@ const FishMapPage = () => {
         const locPosition = new kakao.maps.LatLng(lat, lng);
         mapRef.current.setCenter(locPosition);
         setCenterChange(false);
-        setState((prev) => ({
+        setMyCenter((prev) => ({
           ...prev,
           center: {
             lat: lat, // 위도
@@ -169,14 +168,10 @@ const FishMapPage = () => {
     map.setCenter(center);
     setCenterChange(false);
 
-    setState((prev) => ({
-      ...prev,
-      center: {
-        lat: center.getLat(),
-        lng: center.getLng(),
-      },
-      isLoading: false,
-    }));
+    setMapCenter({
+      lat: center.getLat(),
+      lng: center.getLng(),
+    });
   };
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
@@ -203,13 +198,13 @@ const FishMapPage = () => {
     return data.filter(
       (item) =>
         getDistanceFromLatLonInKm(
-          state.center.lat,
-          state.center.lng,
+          mapCenter.lat,
+          mapCenter.lng,
           item.latlng.lat,
           item.latlng.lng
         ) <= 20
     );
-  }, [state]);
+  }, [mapCenter]);
 
   useEffect(() => {
     myLocation();
@@ -217,144 +212,41 @@ const FishMapPage = () => {
 
   return (
     <div className="FishMap">
-      <div className={`FishMap_header ${mode && "expand"}`}>
-        <div className={`wrapper ${mode && "expand"}`}>
-          <div className="mode" onClick={chageMode}>
-            {mode ? <FaHashtag /> : <TbLocation />}
-          </div>
-          <input
-            type="text"
-            placeholder={mode ? "해시태그 검색" : "장소 검색"}
-            value={search}
-            onChange={handleChange}
-          />
-          <div className="search">
-            <FaSearch />
-          </div>
-        </div>
-        {mode && (
-          <div className="hashTags">
-            {hashTags.map((hashTag, index) => {
-              // return <div key={index}>{hashTag}</div>;
-              return (
-                <div className="input-container" key={index}>
-                  <input
-                    id={`${hashTag}`}
-                    className="radio-button"
-                    type="radio"
-                    name="radio"
-                    checked={search === hashTag.substring(1)}
-                    value={hashTag.substring(1)}
-                    onChange={handleChange}
-                  />
-                  <div className="radio-tile">
-                    <label htmlFor={`${hashTag}`} className="radio-tile-label">
-                      {hashTag}
-                    </label>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      <div className="FishMap_body">
-        {centerChange && !isIs && (
-          <div className="reSearch" onClick={getInfo}>
-            <IoMdRefresh />이 지역 검색
-          </div>
-        )}
-        <Map // 지도를 표시할 Container
-          center={state.center}
-          ref={mapRef}
-          level={10} // 지도의 확대 레벨
-          onClick={handleClickMarker}
-          onCenterChanged={() => setCenterChange(true)}
-        >
-          {ddd.map((value, index) => (
-            <EventMarker
-              key={`EventMarkerContainer-${value.latlng.lat}-${value.latlng.lng}`}
-              position={value.latlng}
-              content={value.content}
-              isActive={activeMarker === index}
-              onClick={() => setActiveMarker(index)}
-            />
-          ))}
-          {state.isLoading && (
-            <MapMarker
-              position={state.center}
-              clickable={true}
-              onClick={() => setIsOpen(true)}
-              image={{
-                src: "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png",
-                size: { width: 30, height: 30 },
-                // options: {
-                //   offset: {
-                //     x: 15,
-                //     y: 0,
-                //   },
-                // },
-              }}
-            >
-              {isOpen && (
-                <div style={{ padding: "5px", color: "#000" }}>
-                  {state.errMsg ? state.errMsg : "여기에 계신가요?!"}
-                </div>
-              )}
-            </MapMarker>
-          )}
-
-          {!isIs && (
-            <button
-              style={{ bottom: activeMarker !== null ? "180px" : "20px" }}
-              className="FishMap_btn"
-              onClick={handleClick}
-            >
-              <MdGpsFixed />
-            </button>
-          )}
-        </Map>
-      </div>
+      <FishMapHeader
+        search={search}
+        setSearch={setSearch}
+        handleChange={handleChange}
+        hashTags={hashTags}
+      />
+      <FishMapBody
+        centerChange={centerChange}
+        mapRef={mapRef}
+        handleClickMarker={handleClickMarker}
+        setCenterChange={setCenterChange}
+        ddd={ddd}
+        state={myCenter}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+        isIs={isIs}
+        activeMarker={activeMarker}
+        setActiveMarker={setActiveMarker}
+        handleClick={handleClick}
+        getInfo={getInfo}
+        getDistanceFromLatLonInKm={getDistanceFromLatLonInKm}
+      />
       {activeMarker === null && (
-        <div className={`FishMap_footer ${isIs && "expand"}`}>
-          {isIs &&
-            ddd.map((item, idx) => {
-              return (
-                <div
-                  key={idx}
-                  className="item"
-                  onClick={() => {
-                    setIsIs(false);
-                    setActiveMarker(idx);
-                    const locPosition = new kakao.maps.LatLng(
-                      item.latlng.lat,
-                      item.latlng.lng
-                    );
-                    mapRef.current.setLevel(4);
-                    mapRef.current.setCenter(locPosition);
-                    setCenterChange(false);
-                  }}
-                >
-                  <div>{item.content.name}</div>
-                  <div>{item.content.type}</div>
-                </div>
-              );
-            })}
-          <div className="mode" onClick={() => setIsIs((prev) => !prev)}>
-            {isIs ? (
-              <>
-                <MdOutlineMap />
-                <div>지도보기</div>
-              </>
-            ) : (
-              <>
-                <FaListUl />
-                <div>목록보기</div>
-              </>
-            )}
-          </div>
-        </div>
+        <FishMapFooter
+          isIs={isIs}
+          myCenter={myCenter.center}
+          ddd={ddd}
+          setIsIs={setIsIs}
+          setActiveMarker={setActiveMarker}
+          setCenterChange={setCenterChange}
+          mapRef={mapRef}
+          filterMode={filterMode}
+          setFilterMode={setFilterMode}
+          getDistanceFromLatLonInKm={getDistanceFromLatLonInKm}
+        />
       )}
     </div>
   );

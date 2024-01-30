@@ -1,0 +1,82 @@
+.FishMapFooter {
+  height: 6vh;
+  margin: 0 3vh;
+  transition: height 0.5s;
+
+  &.expand {
+    height: 100%;
+    margin-top: 3vh;
+  }
+
+  .item {
+    padding: 3vh 0;
+    border-bottom: 1px solid black;
+  }
+
+  .mode {
+    position: fixed;
+    bottom: 0;
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    svg {
+      height: 2vh;
+      width: 2vh;
+    }
+  }
+
+  .filterOpen {
+    position: absolute;
+    inset: 0;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+    background: rgba($color: black, $alpha: 0.3);
+  }
+
+  .content {
+    // padding: 3vh;
+    position: absolute;
+    width: 35vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    display: flex;
+    // gap: 20px;
+    flex-direction: column;
+    border-radius: 10px;
+
+    h2 {
+      padding: 2.5vh 2.5vh;
+    }
+
+    > div {
+      border-bottom: 1px solid gray;
+      padding: 2.5vh 2.5vh;
+
+      button {
+        background: transparent;
+        border: none;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 2vh;
+
+        &.pick {
+          color: red;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+        }
+
+        &.cancel {
+          display: flex;
+          justify-content: end;
+        }
+      }
+    }
+  }
+}

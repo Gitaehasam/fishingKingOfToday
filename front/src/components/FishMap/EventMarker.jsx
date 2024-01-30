@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { MapMarker, useMap } from "react-kakao-maps-sdk";
 import MarkerOff from "../../assets/images/marker_place_off.png";
 import MarkerOn from "../../assets/images/marker_place.png";
@@ -7,7 +7,14 @@ import { IoCall } from "react-icons/io5";
 import { FaShareSquare } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const EventMarker = ({ position, content, isActive, onClick }) => {
+const EventMarker = ({
+  position,
+  content,
+  isActive,
+  onClick,
+  getDistanceFromLatLonInKm,
+  state,
+}) => {
   const map = useMap();
   const navigate = useNavigate();
 
@@ -15,6 +22,15 @@ const EventMarker = ({ position, content, isActive, onClick }) => {
     map.panTo(marker.getPosition());
     onClick();
   };
+
+  const distance = useMemo(() => {
+    return getDistanceFromLatLonInKm(
+      state.lat,
+      state.lng,
+      position.lat,
+      position.lng
+    );
+  }, []);
 
   // map.addListener("click", () => {
   //   setIsVisible(false);
@@ -53,7 +69,11 @@ const EventMarker = ({ position, content, isActive, onClick }) => {
             <div className="info_type">{content.type}</div>
           </div>
           <div className="info_body">
-            <div className="info_distance">{content.distance}</div>
+            <div className="info_distance">
+              {distance >= 1
+                ? `${distance.toFixed(1)}km`
+                : `${(distance / 1000).toFixed()}`}
+            </div>
             <div className="info_addr">{content.addr}</div>
           </div>
           <div className="info_footer">

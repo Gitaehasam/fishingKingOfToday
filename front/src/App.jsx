@@ -8,8 +8,8 @@ import ImageResultPage from "./pages/ImageResultPage";
 import FishMapPage from "./pages/FishMapPage";
 import FishMapDetailPage from "./pages/FishMapDetailPage";
 import ImageEditPage from "./pages/ImageEditPage";
-import FishBookPage from "./components/FishBook/FishBookPage"
-import FishBookDetailPage from "./components/FishBook/FishBookDetailPage"
+import FishBookPage from "./components/FishBook/FishBookPage";
+import FishBookDetailPage from "./components/FishBook/FishBookDetailPage";
 import LoginPage from "./pages/LoginPage";
 import RoomList from "./pages/room/RoomList";
 import CreateRoom from "./pages/room/CreateRoom";
@@ -20,21 +20,20 @@ function App() {
 
   return (
     <Routes>
-
       <Route path="/" element={<Navbar />}>
         <Route index element={<HomePage />} />
         <Route path="fish/image/result" element={<ImageResultPage />} />
-        <Route path="/media">
+        <Route path="media">
           {/* <Route path="/roomList" >
             <Route index element={<RoomList />}/>
             <Route path="create">
               <Route index element={<CreateRoom />}/>
             </Route>
           </Route> */}
-          <Route path="roomList" >
-            <Route index element={<RoomList />}/>
+          <Route path="roomList">
+            <Route index element={<RoomList />} />
             <Route path="create">
-              <Route index element={<CreateRoom />}/>
+              <Route index element={<CreateRoom />} />
             </Route>
           </Route>
         </Route>
@@ -48,7 +47,7 @@ function App() {
         <Route path="image/edit" element={<ImageEditPage />} />
       </Route>
       <Route path="/fishbook">
-        <Route index element={<FishBookPage/>}/>
+        <Route index element={<FishBookPage />} />
         <Route path=":id" element={<FishBookDetailPage />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
@@ -56,7 +55,6 @@ function App() {
       <Route path="/live">
         <Route path=":idx" element={<FishLiveStream />} />
       </Route>
-
     </Routes>
   );
 }
