@@ -13,22 +13,33 @@ import FishBookDetailPage from "./components/FishBook/FishBookDetailPage"
 import LoginPage from "./pages/LoginPage";
 import RoomList from "./pages/room/RoomList";
 import CreateRoom from "./pages/room/CreateRoom";
+import FishLiveStream from "./pages/room/FishLiveStream";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <Routes>
+
       <Route path="/" element={<Navbar />}>
         <Route index element={<HomePage />} />
         <Route path="fish/image/result" element={<ImageResultPage />} />
-        <Route path="/roomList" >
-          <Route index element={<RoomList />}/>
-          <Route path="create">
-            <Route index element={<CreateRoom />}/>
+        <Route path="/media">
+          {/* <Route path="/roomList" >
+            <Route index element={<RoomList />}/>
+            <Route path="create">
+              <Route index element={<CreateRoom />}/>
+            </Route>
+          </Route> */}
+          <Route path="roomList" >
+            <Route index element={<RoomList />}/>
+            <Route path="create">
+              <Route index element={<CreateRoom />}/>
+            </Route>
           </Route>
         </Route>
       </Route>
+
       <Route path="/fish">
         <Route path="map">
           <Route index element={<FishMapPage />} />
@@ -41,6 +52,11 @@ function App() {
         <Route path=":id" element={<FishBookDetailPage />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
+
+      <Route path="/live">
+        <Route path=":idx" element={<FishLiveStream />} />
+      </Route>
+
     </Routes>
   );
 }
