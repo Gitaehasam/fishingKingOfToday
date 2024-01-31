@@ -1,5 +1,6 @@
-import { FaSearch, FaHashtag } from "react-icons/fa";
-import { TbLocation } from "react-icons/tb";
+import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
+import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
+import SearchIcon from "@mui/icons-material/Search";
 import "../../assets/styles/FishMap/FishMapHeader.scss";
 import { useState } from "react";
 
@@ -15,7 +16,7 @@ const FishMapHeader = ({ setSearch, search, handleChange, hashTags }) => {
     <div className={`FishMapHeader ${mode && "expand"}`}>
       <div className={`wrapper ${mode && "expand"}`}>
         <div className="mode" onClick={changeMode}>
-          {mode ? <FaHashtag /> : <TbLocation />}
+          {mode ? <TagOutlinedIcon /> : <NearMeOutlinedIcon />}
         </div>
         <input
           type="text"
@@ -24,7 +25,7 @@ const FishMapHeader = ({ setSearch, search, handleChange, hashTags }) => {
           onChange={handleChange}
         />
         <div className="search">
-          <FaSearch />
+          <SearchIcon />
         </div>
       </div>
       {mode && (

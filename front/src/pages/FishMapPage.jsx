@@ -13,6 +13,7 @@ const data = [
       addr: "광주광역시 서구 유덕로141번길 31-1",
       tel: "062-373-0558",
       hashTag: ["월척"],
+      expense: 10000,
     },
     latlng: { lat: 35.16357724, lng: 126.8386542 },
   },
@@ -23,6 +24,7 @@ const data = [
       addr: "전라남도 해남군 송지면 갈산길 93, 땅끝낚시터",
       tel: "061-536-1234",
       hashTag: ["사진맛집", "월척"],
+      expense: 20000,
     },
     latlng: { lat: 34.30556, lng: 126.516116 },
   },
@@ -33,6 +35,7 @@ const data = [
       addr: "전라남도 장흥군 회진면 해양낚시길 135",
       tel: "061-867-0555",
       hashTag: ["사진맛집"],
+      expense: 15000,
     },
     latlng: { lat: 34.4706335, lng: 126.9740566 },
   },
@@ -43,6 +46,7 @@ const data = [
       addr: "전라남도 고흥군 금산면 신촌내동길 18-132",
       tel: "061-843-6060",
       hashTag: ["#사진맛집", "#노을맛집", "#월척"],
+      expense: 14000,
     },
     latlng: { lat: 34.46942797, lng: 127.104524 },
   },
@@ -53,6 +57,7 @@ const data = [
       addr: "전라남도 무안군 현경면 홀통길 198-1",
       tel: "",
       hashTag: ["#노을맛집", "#월척"],
+      expense: 10000,
     },
     latlng: { lat: 35.0616396163, lng: 126.3321694341 },
   },
@@ -63,6 +68,7 @@ const data = [
       addr: "전라남도 무안군 운남면 운해로 1",
       tel: "061-452-5660",
       hashTag: ["#노을맛집"],
+      expense: 20000,
     },
     latlng: { lat: 34.9153538678, lng: 126.3384728811 },
   },
@@ -114,6 +120,7 @@ const FishMapPage = () => {
             },
             isLoading: true,
           }));
+
           setMapCenter({
             lat: latitude,
             lng: longitude,
@@ -195,15 +202,25 @@ const FishMapPage = () => {
   };
 
   const ddd = useMemo(() => {
-    return data.filter(
-      (item) =>
-        getDistanceFromLatLonInKm(
+    return data
+      .filter((item) => {
+        const dist = getDistanceFromLatLonInKm(
           mapCenter.lat,
           mapCenter.lng,
           item.latlng.lat,
           item.latlng.lng
-        ) <= 20
-    );
+        );
+        return dist <= 15;
+      })
+      .map((item) => {
+        const dist = getDistanceFromLatLonInKm(
+          mapCenter.lat,
+          mapCenter.lng,
+          item.latlng.lat,
+          item.latlng.lng
+        );
+        return { ...item, dist: dist };
+      });
   }, [mapCenter]);
 
   useEffect(() => {
