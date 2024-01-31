@@ -36,6 +36,7 @@ const FishMapItem = ({
     >
       <div>{item.content.name}</div>
       <div>{item.content.type}</div>
+      <div>{item.content.expense}</div>
       <div>
         {distance >= 1
           ? `${distance.toFixed(1)}km`

@@ -1,5 +1,5 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { MdGpsFixed } from "react-icons/md";
+import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import EventMarker from "./EventMarker";
 import { IoMdRefresh } from "react-icons/io";
 import "../../assets/styles/FishMap/FishMapBody.scss";
@@ -75,7 +75,7 @@ const FishMapBody = ({
             className="FishMap_btn"
             onClick={handleClick}
           >
-            <MdGpsFixed />
+            <GpsFixedIcon />
           </button>
         )}
       </Map>

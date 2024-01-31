@@ -4,6 +4,7 @@ import { FaListUl, FaCaretDown } from "react-icons/fa";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa6";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FishMapItem from "./FishMapItem";
 
 const FishMapFooter = ({
@@ -25,6 +26,14 @@ const FishMapFooter = ({
     setFilterMode(mode);
   };
 
+  const sortData = useMemo(() => {
+    return ddd.toSorted((a, b) =>
+      filterMode === "dist"
+        ? a.dist - b.dist
+        : a.content.expense - b.content.expense
+    );
+  }, [filterMode, ddd]);
+
   return (
     <div className={`FishMapFooter ${isIs && "expand"}`}>
       {isIs && (
@@ -42,7 +51,7 @@ const FishMapFooter = ({
                 <h2>검색 설정</h2>
                 <div>
                   <button
-                    className={`${filterMode === "dist" && "pick"}`}
+                    className={`${filterMode === "dist" ? "pick" : ""}`}
                     onClick={() => handleSubmit("dist")}
                   >
                     거리순 <div>{filterMode === "dist" && <FaCheck />}</div>
@@ -50,8 +59,8 @@ const FishMapFooter = ({
                 </div>
                 <div>
                   <button
-                    className={`${filterMode === "money" && "pick"}`}
-                    onClick={() => handleSubmit("moeny")}
+                    className={`${filterMode === "money" ? "pick" : ""}`}
+                    onClick={() => handleSubmit("money")}
                   >
                     비용순<div>{filterMode === "money" && <FaCheck />}</div>
                   </button>
@@ -67,18 +76,25 @@ const FishMapFooter = ({
               </div>
             </>
           )}
-          {ddd.map((item, idx) => (
-            <FishMapItem
-              key={idx}
-              item={item}
-              idx={idx}
-              myCenter={myCenter}
-              setIsIs={setIsIs}
-              setActiveMarker={setActiveMarker}
-              setCenterChange={setCenterChange}
-              getDistanceFromLatLonInKm={getDistanceFromLatLonInKm}
-            />
-          ))}
+          {ddd.length ? (
+            sortData.map((item, idx) => (
+              <FishMapItem
+                key={idx}
+                item={item}
+                idx={idx}
+                myCenter={myCenter}
+                setIsIs={setIsIs}
+                setActiveMarker={setActiveMarker}
+                setCenterChange={setCenterChange}
+                getDistanceFromLatLonInKm={getDistanceFromLatLonInKm}
+              />
+            ))
+          ) : (
+            <div className="noneData">
+              <InfoOutlinedIcon />
+              <div>조건에 맞는 업체가 없습니다.</div>
+            </div>
+          )}
         </>
       )}
       <div className="mode" onClick={() => setIsIs((prev) => !prev)}>
