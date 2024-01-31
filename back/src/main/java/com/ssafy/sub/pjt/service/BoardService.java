@@ -68,13 +68,15 @@ public class BoardService {
             final Pageable pageable,
             final String sortType,
             final Integer fishBookId,
-            final Integer hashTagId) {
+            final Integer hashTagId,
+            final Integer categoryId) {
         final Slice<BoardData> boardData =
                 boardQueryRepository.searchBy(
                         BoardSearchCondition.builder()
                                 .fishBookId(fishBookId)
                                 .hashTagId(hashTagId)
                                 .sortType(sortType)
+                                .categoryId(categoryId)
                                 .build(),
                         pageable);
 

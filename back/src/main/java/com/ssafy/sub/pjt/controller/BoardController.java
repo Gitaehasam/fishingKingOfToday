@@ -40,9 +40,10 @@ public class BoardController {
             @RequestParam(required = false, defaultValue = "") final String sortType,
             @RequestParam(required = false, defaultValue = "") final Integer fishBookId,
             @RequestParam(required = false, defaultValue = "") final Integer hashTagId,
+            @RequestParam final Integer categoryId,
             final Pageable pageable) {
         final BoardListResponse boardListResponse =
-                boardService.getBoardsByPage(pageable, sortType, fishBookId, hashTagId);
+                boardService.getBoardsByPage(pageable, sortType, fishBookId, hashTagId, categoryId);
         return ResponseEntity.ok().body(boardListResponse);
     }
 
