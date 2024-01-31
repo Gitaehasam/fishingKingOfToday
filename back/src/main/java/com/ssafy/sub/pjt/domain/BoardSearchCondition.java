@@ -11,4 +11,5 @@ public class BoardSearchCondition {
     private String sortType;
     private Integer fishBookId;
     private Integer hashTagId;
+    private Integer categoryId;
 }

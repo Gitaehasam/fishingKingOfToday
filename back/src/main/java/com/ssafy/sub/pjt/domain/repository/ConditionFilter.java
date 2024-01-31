@@ -12,6 +12,7 @@ public class ConditionFilter {
     public BooleanBuilder filterByCondition(BoardSearchCondition condition) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
+        filterByCategory(booleanBuilder, condition.getCategoryId());
         filterByFishBook(booleanBuilder, condition.getFishBookId());
         filterByHashTag(booleanBuilder, condition.getHashTagId());
 
@@ -28,5 +29,9 @@ public class ConditionFilter {
         if (hashTagId != null) {
             booleanBuilder.and(board.boardHashTags.any().hashTag.id.eq(hashTagId));
         }
+    }
+
+    private void filterByCategory(BooleanBuilder booleanBuilder, Integer categoryId) {
+        booleanBuilder.and(board.category.id.eq(categoryId));
     }
 }
