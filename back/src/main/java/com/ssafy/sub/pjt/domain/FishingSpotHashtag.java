@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FishingSpotHashtag {
     @Id
-    @Column(name = "fishing_spot_hashtag")
+    @Column(name = "fishing_spot_hashtag_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

@@ -1,7 +1,11 @@
 package com.ssafy.sub.pjt.domain.repository;
 
+import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.ssafy.sub.pjt.domain.QFishingSpot.fishingSpot;
+import static com.ssafy.sub.pjt.domain.QFishingSpotHashtag.fishingSpotHashtag;
+import static com.ssafy.sub.pjt.domain.QHashTag.hashTag;
 
+import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -10,6 +14,7 @@ import com.ssafy.sub.pjt.domain.FishingSpotData;
 import com.ssafy.sub.pjt.domain.FishingSpotSearchCondition;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -33,17 +38,11 @@ public class FishingSpotQueryRepository {
                                 fishingSpotConditionFilter.filterByCondition(
                                         fishingSpotSearchCondition))
                         .distinct()
-                        .offset(pageable.getOffset())
-                        .limit(pageable.getPageSize() + 1)
-                        .orderBy(
-                                orderByCondition(
-                                                fishingSpotSearchCondition.getSortType(),
-                                                fishingSpotSearchCondition.getLatitude(),
-                                                fishingSpotSearchCondition.getLongitude())
-                                        .toArray(OrderSpecifier[]::new))
+                        // .offset(pageable.getOffset())
+                        // .limit(pageable.getPageSize() + 1)
                         .fetch();
 
-        // setHashTagName(fishingSpots);
+        setHashTagName(fishingSpots);
 
         return new SliceImpl<FishingSpotData>(
                 getCurrentPageFishingSpots(fishingSpots, pageable),
@@ -59,27 +58,27 @@ public class FishingSpotQueryRepository {
                 fishingSpot.latitude,
                 fishingSpot.longitude,
                 fishingSpot.spotType,
-                fishingSpot.spotPhone,
                 fishingSpot.charge,
+                fishingSpot.spotPhone,
                 fishingSpot.sido,
                 fishingSpot.streetAddress,
                 fishingSpot.localAddress);
     }
 
-    //    private Map<Integer, List<String>> findHashTagNameMap(List<Integer> fishingSpotIds) {
-    //        return jpaQueryFactory
-    //                .from(fishingSpot)
-    //                .leftJoin(fishingSpot.boardHashTags, boardHashTag)
-    //                .leftJoin(boardHashTag.hashTag, hashTag)
-    //                .where(fishingSpot.id.in(fishingSpotIds))
-    //                .transform(groupBy(fishingSpot.id).as(GroupBy.list(hashTag.name)));
-    //    }
+    private Map<Integer, List<String>> findHashTagNameMap(List<Integer> fishingSpotIds) {
+        return jpaQueryFactory
+                .from(fishingSpot)
+                .leftJoin(fishingSpot.fishingSpotHashtags, fishingSpotHashtag)
+                .leftJoin(fishingSpotHashtag.hashTag, hashTag)
+                .where(fishingSpot.id.in(fishingSpotIds))
+                .transform(groupBy(fishingSpot.id).as(GroupBy.list(hashTag.name)));
+    }
 
-    //    private void setHashTagName(List<FishingSpotData> fetch) {
-    //        List<Integer> FishingSpotIds = toFishingSpotIds(fetch);
-    //        Map<Integer, List<String>> keywordNameMap = findHashTagNameMap(FishingSpotIds);
-    //        fetch.forEach(o -> o.setHashTags(keywordNameMap.get(o.getId())));
-    //    }
+    private void setHashTagName(List<FishingSpotData> fetch) {
+        List<Integer> FishingSpotIds = toFishingSpotIds(fetch);
+        Map<Integer, List<String>> keywordNameMap = findHashTagNameMap(FishingSpotIds);
+        fetch.forEach(o -> o.setHashTags(keywordNameMap.get(o.getId())));
+    }
 
     private List<Integer> toFishingSpotIds(List<FishingSpotData> result) {
         return result.stream().map(FishingSpotData::getId).collect(Collectors.toList());
