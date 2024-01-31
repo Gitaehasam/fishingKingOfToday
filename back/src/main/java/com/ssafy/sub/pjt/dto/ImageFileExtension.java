@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum ImageFileExtension {
     JPEG("jpeg"),
     JPG("jpg"),
-    PNG("png");
+    PNG("png"),
+    HEIC("heic");
 
     private final String uploadExtension;
 }
