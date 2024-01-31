@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-// import IconButton from '@material-ui/core/IconButton';
-// import Fab from '@material-ui/core/Fab';
-// import HighlightOff from '@material-ui/icons/HighlightOff';
-// import Send from '@material-ui/icons/Send';
-
 import './ChatComponent.css';
-// import { Tooltip } from '@material-ui/core';
 
 // 채팅 기능을 구현하는 컴포넌트
 export default class ChatComponent extends Component {
@@ -32,10 +26,6 @@ export default class ChatComponent extends Component {
             const document = window.document;
             setTimeout(() => {
                 const userImg = document.getElementById('userImg-' + (this.state.messageList.length - 1));
-                const video = document.getElementById('video-' + data.streamId);
-                const avatar = userImg.getContext('2d');
-                avatar.drawImage(video, 200, 120, 285, 285, 0, 0, 60, 60);
-                this.props.messageReceived();
             }, 50);
             this.setState({ messageList: messageList });
             this.scrollToBottom();
@@ -85,19 +75,13 @@ export default class ChatComponent extends Component {
         return (
             <div id="chatContainer">
                 <div id="chatComponent" style={styleChat}>
-                    <div id="chatToolbar">
-                        <span>{this.props.user.getStreamManager().stream.session.sessionId} - CHAT</span>
-                        <IconButton id="closeButton" onClick={this.close}>
-                            <HighlightOff color="secondary" />
-                        </IconButton>
-                    </div>
                     <div className="message-wrap" ref={this.chatScroll}>
                         {this.state.messageList.map((data, i) => (
                             <div
                                 key={i}
                                 id="remoteUsers"
                                 className={
-                                    'message' + (data.connectionId !== this.props.user.getConnectionId() ? ' left' : ' right')
+                                    'message' + (data.connectionId !== this.props.user.getConnectionId() ? ' left' : ' left')
                                 }
                             >
                                 <canvas id={'userImg-' + i} width="60" height="60" className="user-img" />
@@ -116,17 +100,17 @@ export default class ChatComponent extends Component {
 
                     <div id="messageInput">
                         <input
-                            placeholder="Send a messge"
+                            placeholder="댓글 달기"
                             id="chatInput"
                             value={this.state.message}
                             onChange={this.handleChange}
                             onKeyPress={this.handlePressKey}
                         />
-                        <Tooltip title="Send message">
-                            <Fab size="small" id="sendButton" onClick={this.sendMessage}>
-                                <Send />
-                            </Fab>
-                        </Tooltip>
+                        <div title="Send message">
+                            <div size="small" id="sendButton" onClick={this.sendMessage}>
+                                {/* <span>전송</span> */}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

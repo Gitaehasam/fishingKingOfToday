@@ -55,7 +55,7 @@ function App() {
       </Route>
       <Route path="/login" element={<LoginPage />} />
 
-      <Route path="/live/:id"element={<VideoRoomComponent />}>
+      <Route path="/live"element={<VideoRoomComponent />}>
       </Route>
     </Routes>
   );

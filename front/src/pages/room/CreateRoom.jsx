@@ -27,8 +27,6 @@ function CreateRoom() {
       setAttachment(result);
     }
     reader.readAsDataURL(theFile);
-    console.log(e.target.files[0])    
-
     createPresignedURL(e.target.files[0]);
   }
 
@@ -90,7 +88,7 @@ function CreateRoom() {
         { attachment && <img src={ attachment }/> }
       </div>
 
-      <NavLink to={"/live/:id"} className="nav-item createLive-btn">
+      <NavLink to={"/live"} className="nav-item createLive-btn">
         <span>라이브 켜기</span>
       </NavLink>
     </>
