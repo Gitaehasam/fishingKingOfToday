@@ -1,24 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
-// import { OpenVidu } from 'openvidu-browser';
 import back from '../../assets/images/backSymbol.svg';
+import axios from 'axios';
 
 function CreateRoom() {
   const navigate = useNavigate();
   const [title, setTitle] = useState('')
-  const [thumbnail, setThumbnail] = useState('')
+  const [attachment, setAttachment] = useState(); 
+  const baseURL = "http://43.201.20.14:8080/gitaehasam"
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value)
   }
 
   const handleThumbNailChange = (e) => {
-    setThumbnail(e.target.files[0])
+    const {
+      target: {files},
+    } = e;
+    const theFile = files[0];
+    const reader = new FileReader();  
+    
+    reader.onload = (finishedEvent) => {
+      const {
+        currentTarget: {result},
+      } = finishedEvent;
+      setAttachment(result);
+    }
+    reader.readAsDataURL(theFile);
+    console.log(e.target.files[0])    
+
+    createPresignedURL(e.target.files[0]);
+  }
+
+  // 로그인 하면 될거임~
+  const createPresignedURL = (file) => {
+    axios.post(baseURL + "/images/presigned", {filename: file.name})
+      .then((res) => {
+        console.log(res.data)
+        const presignedUrl = res.data;
+        uploadImageToS3(presignedUrl, file);
+      })
+      .catch((error) => console.error(error));
+  }
+
+  const uploadImageToS3 = (url, file) => {
+    axios.put(url, 
+      {
+        file:File
+      },
+      {
+        headers: 
+        {
+          'Content-Type': file?.type,
+        }
+      },
+      )
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
   
   return (
     <>
-      <div className="roomList-header" onClick={() => navigate('/roomList')}>
+      <div className="roomList-header" onClick={() => navigate('/media/roomList')}>
         <img src={back} alt="" />
         <span>라이브 대기방</span>
       </div>
@@ -38,12 +85,12 @@ function CreateRoom() {
         <span>특별한 사진 한 장으로 라이브를 표현해주세요.</span>
         <input 
           type="file" 
-          value={thumbnail}
           onChange={handleThumbNailChange}
         />
+        { attachment && <img src={ attachment }/> }
       </div>
 
-      <NavLink to={"/roomList/create"} className="nav-item createLive-btn">
+      <NavLink to={"/live/:id"} className="nav-item createLive-btn">
         <span>라이브 켜기</span>
       </NavLink>
     </>
