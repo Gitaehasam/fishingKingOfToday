@@ -13,7 +13,8 @@ import FishBookDetailPage from "./components/FishBook/FishBookDetailPage";
 import LoginPage from "./pages/LoginPage";
 import RoomList from "./pages/room/RoomList";
 import CreateRoom from "./pages/room/CreateRoom";
-import FishLiveStream from "./pages/room/FishLiveStream";
+// import LiveStream from "./pages/room/LiveStream";
+import VideoRoomComponent from "./pages/room/openVidu/VideoRoomComponent";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -52,8 +53,7 @@ function App() {
       </Route>
       <Route path="/login" element={<LoginPage />} />
 
-      <Route path="/live">
-        <Route path=":idx" element={<FishLiveStream />} />
+      <Route path="/live/:id"element={<VideoRoomComponent />}>
       </Route>
     </Routes>
   );

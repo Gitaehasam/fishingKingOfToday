@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 // import Button from '@material-ui/core/Button';
 import './DialogExtension.css';
 
+// 화면 공유를 위해 필요한 OpenVidu Chrome 확장 프로그램의 설치를 안내하는 대화 상자 컴포넌트
 export default class DialogExtensionComponent extends Component {
     constructor(props) {
         super(props);

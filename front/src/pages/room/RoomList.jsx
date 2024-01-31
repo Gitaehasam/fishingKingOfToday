@@ -3,12 +3,12 @@ import axios from "axios"
 import back from "../../assets/images/backSymbol.svg"
 import filter from "../../assets/images/filter.png"
 import { useNavigate, NavLink } from "react-router-dom";
-import "../../assets/styles/Room/RoomList/RoomList.scss"
+import "../../assets/styles/room/roomList/RoomList.scss"
 import Thumbnail_1 from "../../assets/images/Thumbnail_1.jfif"
 import Thumbnail_2 from "../../assets/images/Thumbnail_2.jfif"
 import Thumbnail_3 from "../../assets/images/Thumbnail_3.jfif"
-import RoomFilterModal from "../../components/Room/RoomFilterModal";
-import group from "../../assets/images/Room/Group.svg"
+import RoomFilterModal from "../../components/room/RoomFilterModal";
+import group from "../../assets/images/room/Group.svg"
 
 function RoomList () {
   const [liveRoomList, setLiveRoomList] = useState([
@@ -56,8 +56,6 @@ function RoomList () {
     // },
   ])
 
-  const OPENVIDU_SERVER_URL = 'https://i10c203.p.ssafy.io/dashboard/#/';
-  const OPENVIDU_SERVER_SECRET = 'wearegitaehasam';
   const navigate = useNavigate();
   const [isFilterModal, setIsFilterModal] = useState(false)
   const [isSortBy, setIsSortBy] = useState(0)
@@ -111,7 +109,7 @@ function RoomList () {
           ))}
         </>
 
-        <NavLink to={"/roomList/create"} className="nav-item createLive-btn">
+        <NavLink to={"/media/roomList/create"} className="nav-item createLive-btn">
           <span>라이브 켜기</span>
         </NavLink>
       </div>

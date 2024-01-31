@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import Fab from '@material-ui/core/Fab';
-import HighlightOff from '@material-ui/icons/HighlightOff';
-import Send from '@material-ui/icons/Send';
+// import IconButton from '@material-ui/core/IconButton';
+// import Fab from '@material-ui/core/Fab';
+// import HighlightOff from '@material-ui/icons/HighlightOff';
+// import Send from '@material-ui/icons/Send';
 
 import './ChatComponent.css';
-import { Tooltip } from '@material-ui/core';
+// import { Tooltip } from '@material-ui/core';
 
+// 채팅 기능을 구현하는 컴포넌트
 export default class ChatComponent extends Component {
     constructor(props) {
         super(props);
@@ -26,7 +27,7 @@ export default class ChatComponent extends Component {
     componentDidMount() {
         this.props.user.getStreamManager().stream.session.on('signal:chat', (event) => {
             const data = JSON.parse(event.data);
-            let messageList = this.state.messageList;
+            let messageList = this.state.messageList;       // 연결 ID, 닉네임, 메시지 텍스트를 포함하는 객체
             messageList.push({ connectionId: event.from.connectionId, nickname: data.nickname, message: data.message });
             const document = window.document;
             setTimeout(() => {
@@ -66,6 +67,7 @@ export default class ChatComponent extends Component {
         this.setState({ message: '' });
     }
 
+    // 채팅 스크롤을 맨 아래로 이동
     scrollToBottom() {
         setTimeout(() => {
             try {

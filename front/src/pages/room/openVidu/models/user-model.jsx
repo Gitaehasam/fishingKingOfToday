@@ -1,3 +1,4 @@
+// 각 사용자의 상태와 스트림을 관리하는 데 사용
 class UserModel {
     connectionId;
     audioActive;
@@ -7,6 +8,7 @@ class UserModel {
     streamManager;
     type; // 'remote' | 'local'
 
+    // 생성자
     constructor() {
         this.connectionId = '';
         this.audioActive = true;
@@ -37,13 +39,17 @@ class UserModel {
         return this.nickname;
     }
 
+    // 스트림 관리자를 반환
     getStreamManager() {
         return this.streamManager;
     }
 
+    // 로컬 사용자인지 여부
     isLocal() {
         return this.type === 'local';
     }
+
+    // 원격 사용자인지 여부
     isRemote() {
         return !this.isLocal();
     }

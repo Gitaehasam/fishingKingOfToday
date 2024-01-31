@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
-import group from "../../assets/images/Room/Group.svg"
-import sort from "../../assets/images/Room/Sort.svg"
-import "../../assets/styles/Room/RoomList/RoomFilterModal.scss"
+import group from "../../assets/images/room/Group.svg"
+import sort from "../../assets/images/room/Sort.svg"
+import "../../assets/styles/room/roomList/RoomFilterModal.scss"
 
 function RoomFilterModal ({state, sortBy}) {
   const roomFilterModal = useRef()

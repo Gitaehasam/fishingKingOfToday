@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import './StreamComponent.css';
 import OvVideoComponent from './OvVideo';
 
-import MicOff from '@material-ui/icons/MicOff';
-import VideocamOff from '@material-ui/icons/VideocamOff';
-import VolumeUp from '@material-ui/icons/VolumeUp';
-import VolumeOff from '@material-ui/icons/VolumeOff';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import IconButton from '@material-ui/core/IconButton';
-import HighlightOff from '@material-ui/icons/HighlightOff';
-import FormHelperText from '@material-ui/core/FormHelperText';
+// import MicOff from '@material-ui/icons/MicOff';
+// import VideocamOff from '@material-ui/icons/VideocamOff';
+// import VolumeUp from '@material-ui/icons/VolumeUp';
+// import VolumeOff from '@material-ui/icons/VolumeOff';
+// import FormControl from '@material-ui/core/FormControl';
+// import Input from '@material-ui/core/Input';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import IconButton from '@material-ui/core/IconButton';
+// import HighlightOff from '@material-ui/icons/HighlightOff';
+// import FormHelperText from '@material-ui/core/FormHelperText';
 
+// 각 사용자의 비디오 스트림과 상태를 표시하는 컴포넌트
 export default class StreamComponent extends Component {
     constructor(props) {
         super(props);
@@ -23,21 +24,25 @@ export default class StreamComponent extends Component {
         this.toggleSound = this.toggleSound.bind(this);
     }
 
+    // 닉네임 변경
     handleChange(event) {
         this.setState({ nickname: event.target.value });
         event.preventDefault();
     }
 
+    // 닉네임 변경 폼 열고 닫기
     toggleNicknameForm() {
         if (this.props.user.isLocal()) {
             this.setState({ showForm: !this.state.showForm });
         }
     }
 
+    // 음소거 on/off
     toggleSound() {
         this.setState({ mutedSound: !this.state.mutedSound });
     }
 
+    // 닉네임 유효성 검사
     handlePressKey(event) {
         if (event.key === 'Enter') {
             console.log(this.state.nickname);
