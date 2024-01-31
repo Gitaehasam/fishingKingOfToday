@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../assets/styles/fishbook/fishBookDetail.scss";
+import "../../assets/styles/fishbook/FishBookDetail.scss";
 
 const FishBookDetail = ({ fish }) => {
   const [turn, setTurn] = useState(false);
