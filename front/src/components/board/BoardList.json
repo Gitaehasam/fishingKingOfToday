@@ -1,0 +1,69 @@
+{ 
+    "boards": [
+     {
+      "nickName": "귀여운돌돔",
+       "profileImageUrl": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtEMUl%2FbtrDc6957nj%2FNwJoDw0EOapJNDSNRNZK8K%2Fimg.jpg&tbnid=CntxVJ8t35E6kM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa..i&imgrefurl=https%3A%2F%2Fstylezineblog.com%2F4934&docid=gyVQxxaKan6uFM&w=4585&h=3055&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa",
+       "boardId": 2,
+       "boardImageUrl": "https://www.google.com/imgres?imgurl=http%3A%2F%2Fnews.samsungdisplay.com%2Fwp-content%2Fuploads%2F2018%2F08%2F8.jpg&tbnid=RphRDSVJfIBPXM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW..i&imgrefurl=https%3A%2F%2Fnews.samsungdisplay.com%2F15580&docid=u8sS4VLhEDDq-M&w=820&h=615&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW",
+       "hashtags": ["#돌돔"],
+       "content": "첫 게시글", 
+       "createdAt": "2024-01-25T21:58:14",
+       "commentCnt": 2,
+       "likeCnt": 1 
+       },
+     { 
+      "nickName": "슬픈도다리",
+       "profileImageUrl": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtEMUl%2FbtrDc6957nj%2FNwJoDw0EOapJNDSNRNZK8K%2Fimg.jpg&tbnid=CntxVJ8t35E6kM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa..i&imgrefurl=https%3A%2F%2Fstylezineblog.com%2F4934&docid=gyVQxxaKan6uFM&w=4585&h=3055&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa",
+       "boardId": 10,
+       "boardImageUrl": "https://www.google.com/imgres?imgurl=http%3A%2F%2Fnews.samsungdisplay.com%2Fwp-content%2Fuploads%2F2018%2F08%2F8.jpg&tbnid=RphRDSVJfIBPXM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW..i&imgrefurl=https%3A%2F%2Fnews.samsungdisplay.com%2F15580&docid=u8sS4VLhEDDq-M&w=820&h=615&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW",
+       "hashtags": ["#돌돔","#돌돔","#돌돔"],
+       "content": "잡은 물고기 게시글",
+       "createdAt": "2024-01-26T21:59:20",
+       "commentCnt": 3,
+       "likeCnt": 2
+      },
+       { 
+        "nickName": "매력적인오징어",
+       "profileImageUrl": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtEMUl%2FbtrDc6957nj%2FNwJoDw0EOapJNDSNRNZK8K%2Fimg.jpg&tbnid=CntxVJ8t35E6kM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa..i&imgrefurl=https%3A%2F%2Fstylezineblog.com%2F4934&docid=gyVQxxaKan6uFM&w=4585&h=3055&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa",
+       "boardId": 11,
+       "boardImageUrl": "https://www.google.com/imgres?imgurl=http%3A%2F%2Fnews.samsungdisplay.com%2Fwp-content%2Fuploads%2F2018%2F08%2F8.jpg&tbnid=RphRDSVJfIBPXM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW..i&imgrefurl=https%3A%2F%2Fnews.samsungdisplay.com%2F15580&docid=u8sS4VLhEDDq-M&w=820&h=615&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW",
+       "hashtags": ["#돌돔","#돌돔"],
+       "content": "잡은 물고기 게시글",
+       "createdAt": "2024-01-27T21:59:20",
+       "commentCnt": 3,
+       "likeCnt": 1 
+      },
+       { 
+        "nickName": "까칠한가물치",
+       "profileImageUrl": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtEMUl%2FbtrDc6957nj%2FNwJoDw0EOapJNDSNRNZK8K%2Fimg.jpg&tbnid=CntxVJ8t35E6kM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa..i&imgrefurl=https%3A%2F%2Fstylezineblog.com%2F4934&docid=gyVQxxaKan6uFM&w=4585&h=3055&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa",
+       "boardId": 12,
+       "boardImageUrl": "https://www.google.com/imgres?imgurl=http%3A%2F%2Fnews.samsungdisplay.com%2Fwp-content%2Fuploads%2F2018%2F08%2F8.jpg&tbnid=RphRDSVJfIBPXM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW..i&imgrefurl=https%3A%2F%2Fnews.samsungdisplay.com%2F15580&docid=u8sS4VLhEDDq-M&w=820&h=615&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW",
+       "hashtags": ["#돌돔"],
+       "content": "잡은 물고기 게시글",
+       "createdAt": "2024-01-28T21:59:20",
+       "commentCnt": 1,
+       "likeCnt": 2 
+      },
+      { 
+        "nickName": "까칠한가물치",
+       "profileImageUrl": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtEMUl%2FbtrDc6957nj%2FNwJoDw0EOapJNDSNRNZK8K%2Fimg.jpg&tbnid=CntxVJ8t35E6kM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa..i&imgrefurl=https%3A%2F%2Fstylezineblog.com%2F4934&docid=gyVQxxaKan6uFM&w=4585&h=3055&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa",
+       "boardId": 13,
+       "boardImageUrl": "https://www.google.com/imgres?imgurl=http%3A%2F%2Fnews.samsungdisplay.com%2Fwp-content%2Fuploads%2F2018%2F08%2F8.jpg&tbnid=RphRDSVJfIBPXM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW..i&imgrefurl=https%3A%2F%2Fnews.samsungdisplay.com%2F15580&docid=u8sS4VLhEDDq-M&w=820&h=615&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW",
+       "hashtags": ["#돌돔","#돌돔"],
+       "content": "잡은 물고기 게시글",
+       "createdAt": "2024-01-29T21:59:20",
+       "commentCnt": 5,
+       "likeCnt": 10 
+      },
+      { 
+        "nickName": "까칠한가물치",
+       "profileImageUrl": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtEMUl%2FbtrDc6957nj%2FNwJoDw0EOapJNDSNRNZK8K%2Fimg.jpg&tbnid=CntxVJ8t35E6kM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa..i&imgrefurl=https%3A%2F%2Fstylezineblog.com%2F4934&docid=gyVQxxaKan6uFM&w=4585&h=3055&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygCegQIARBa",
+       "boardId": 14,
+       "boardImageUrl": "https://www.google.com/imgres?imgurl=http%3A%2F%2Fnews.samsungdisplay.com%2Fwp-content%2Fuploads%2F2018%2F08%2F8.jpg&tbnid=RphRDSVJfIBPXM&vet=12ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW..i&imgrefurl=https%3A%2F%2Fnews.samsungdisplay.com%2F15580&docid=u8sS4VLhEDDq-M&w=820&h=615&q=%EC%82%AC%EC%A7%84&ved=2ahUKEwiP5IP2uIaEAxWCilYBHX5mCB0QMygAegQIARBW",
+       "hashtags": ["#돌돔", "#물반고기반"],
+       "content": "잡은 물고기 게시글",
+       "createdAt": "2024-01-30T21:59:20",
+       "commentCnt": 3,
+       "likeCnt": 0 
+      }
+], "hasNext": false}
