@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardDetailResponse {
     private final String nickName;
+    private final String socialId;
     private final String profileImageUrl;
     private final Integer boardId;
     private final String boardImageUrl;
@@ -30,6 +31,7 @@ public class BoardDetailResponse {
     public static BoardDetailResponse of(Board board) {
         return new BoardDetailResponse(
                 board.getUser().getNickName(),
+                board.getUser().getSocialId(),
                 board.getUser().getImageUrl(),
                 board.getId(),
                 board.getImage().getUrl(),

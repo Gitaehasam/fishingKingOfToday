@@ -34,8 +34,7 @@ public class HashTagService {
     }
 
     public List<HashTagResponse> findTopFiveHashTags() {
-        final List<BoardHashTag> hashTags =
-                boardHashTagRepository.findTop5ByOrderByCountDesc();
+        final List<BoardHashTag> hashTags = boardHashTagRepository.findTop5ByOrderByCountDesc();
         return hashTags.stream()
                 .map(hashTag -> HashTagResponse.of(hashTag))
                 .collect(Collectors.toList());
