@@ -1,14 +1,3 @@
-#header {
-  color: #ffffff;
-  background-color: #333333;
-  padding: 0 14px 0 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999999;
-  min-width: 400px !important;
-}
-
 .toolbar{
   min-height: 40px !important;
 
@@ -76,7 +65,7 @@
 .OT_root,
 .OT_root * {
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
   border: 0;
   font-size: 100%;
   font-family: Arial, Helvetica, sans-serif;

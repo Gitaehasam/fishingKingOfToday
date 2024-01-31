@@ -4,69 +4,39 @@ import back from "../../assets/images/backSymbol.svg"
 import filter from "../../assets/images/filter.png"
 import { useNavigate, NavLink } from "react-router-dom";
 import "../../assets/styles/room/roomList/RoomList.scss"
-import Thumbnail_1 from "../../assets/images/Thumbnail_1.jfif"
-import Thumbnail_2 from "../../assets/images/Thumbnail_2.jfif"
-import Thumbnail_3 from "../../assets/images/Thumbnail_3.jfif"
 import RoomFilterModal from "../../components/room/RoomFilterModal";
-import group from "../../assets/images/room/Group.svg"
 
 function RoomList () {
-  const [liveRoomList, setLiveRoomList] = useState([
-    // {
-    //   id:1,
-    //   imageUrl:Thumbnail_1,
-    //   title:"오늘은 잡아봅니다.",
-    //   constructor:"귀여운도다리",
-    //   subscribers:7,
-    // },
-    // {
-    //   id:2,
-    //   imageUrl:Thumbnail_2,
-    //   title:"목포 출조합니다.",
-    //   constructor:"맛있는광어",
-    //   subscribers:6,
-    // },
-    // {
-    //   id:3,
-    //   imageUrl:Thumbnail_3,
-    //   title:"오늘은 장충동왕족발보쌈.",
-    //   constructor:"멋쟁이오징어",
-    //   subscribers:15,
-    // },
-    // {
-    //   id:4,
-    //   imageUrl:'',
-    //   title:"오늘은 장충동왕족발보쌈.",
-    //   constructor:"멋쟁이오징어",
-    //   subscribers:13,
-    // },
-    // {
-    //   id:5,
-    //   imageUrl:'',
-    //   title:"오늘은 장충동왕족발보쌈.",
-    //   constructor:"멋쟁이오징어",
-    //   subscribers:15,
-    // },
-    // {
-    //   id:6,
-    //   imageUrl:'',
-    //   title:"오늘은 장충동왕족발보쌈.",
-    //   constructor:"멋쟁이오징어",
-    //   subscribers:15,
-    // },
-  ])
-
   const navigate = useNavigate();
+  
+  const [liveRoomList, setLiveRoomList] = useState([])
   const [isFilterModal, setIsFilterModal] = useState(false)
   const [isSortBy, setIsSortBy] = useState(0)
+  const OPENVIDU_SERVER_URL = "https://i10c203.p.ssafy.io"
+  const OPENVIDU_SERVER_SECRET = "wearegitaehasam"
 
   const handleChangeModal = () => {
     setIsFilterModal(!isFilterModal)
   }
 
   useEffect(() => {
-    let sortedLiveRoomList
+    axios.get(OPENVIDU_SERVER_URL + "/openvidu/api/sessions", {
+      headers:{
+        Authorization: "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
+        "Content-Type": "application/json",
+      }
+    })
+    .then((res) => {
+      console.log(res.data)
+      setLiveRoomList(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
 
+  useEffect(() => {
+    let sortedLiveRoomList
     if (isSortBy === 1) {
       sortedLiveRoomList = [...liveRoomList].sort((a, b) => b.subscribers - a.subscribers)
     } else {
@@ -83,7 +53,7 @@ function RoomList () {
           <span>낚시 라이브</span>
         </div>
 
-        {liveRoomList && liveRoomList.length > 0 ?
+        {liveRoomList.content && liveRoomList.content.length > 0 ?
           <div onClick={handleChangeModal} className="roomList-filter">
             {isSortBy === 1 ? <span>참여인원순</span> : <span>최신순</span>}
             <img src={filter} alt="" />
@@ -92,27 +62,23 @@ function RoomList () {
           :
           <span>진행되는 라이브가 없습니다.</span>
         }
-        
+
         <>
-          {liveRoomList && liveRoomList.length > 0 &&
-          liveRoomList.map((room, idx) => (
+          {liveRoomList.content && liveRoomList.content.length > 0 &&
+          liveRoomList.content.map((room, idx) => (
             <div key={idx} className="roomList-info">
-              <img src={room.imageUrl} alt="" className="thumbnail" />
+              <p>{room.sessionId}</p>
               <div>
-                <p>{room.title}</p>
-                <div>
-                  <span>{room.constructor}</span>
-                  <span><img src={group} alt="" /> {room.subscribers}</span>
-                </div>
+                {/* <span>생성 시간: {new Date(room.createdAt).toLocaleString()}</span> */}
               </div>
             </div>
           ))}
         </>
-
-        <NavLink to={"/media/roomList/create"} className="nav-item createLive-btn">
-          <span>라이브 켜기</span>
-        </NavLink>
       </div>
+
+      <NavLink to={"/media/roomList/create"} className="nav-item createLive-btn">
+        <span>라이브 켜기</span>
+      </NavLink>
     </>
   )
 }
