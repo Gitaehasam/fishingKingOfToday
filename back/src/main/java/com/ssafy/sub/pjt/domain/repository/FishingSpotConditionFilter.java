@@ -12,7 +12,7 @@ public class FishingSpotConditionFilter {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         filterByFishBook(booleanBuilder, condition.getFishBookId());
-        // filterByHashTag(booleanBuilder, condition.getHashTagId());
+        filterByHashTag(booleanBuilder, condition.getHashtagId());
         filterBySido(booleanBuilder, condition.getSido());
         searchByKeyword(booleanBuilder, condition.getKeyword());
 
@@ -25,11 +25,12 @@ public class FishingSpotConditionFilter {
         }
     }
 
-    //    private void filterByHashTag(BooleanBuilder booleanBuilder, Integer hashTagId) {
-    //        if (hashTagId != null) {
-    //            booleanBuilder.and(board.boardHashTags.any().hashTag.id.eq(hashTagId));
-    //        }
-    //    }
+    private void filterByHashTag(BooleanBuilder booleanBuilder, Integer hashTagId) {
+        if (hashTagId != null) {
+            booleanBuilder.and(fishingSpot.fishingSpotHashtags.any().hashTag.id.eq(hashTagId));
+        }
+    }
+
     private void filterBySido(BooleanBuilder booleanBuilder, String sido) {
         if (!sido.isEmpty()) {
             booleanBuilder.and(fishingSpot.sido.eq(sido));

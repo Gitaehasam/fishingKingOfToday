@@ -3,6 +3,7 @@ package com.ssafy.sub.pjt.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.ssafy.sub.pjt.domain.FishingSpotData;
+import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -13,8 +14,8 @@ public class FishingSpotResponse {
     private final String name;
     private final Float latitude;
     private final Float longitude;
-    private final SpotType spotType;
-    // private final List<String> hashtags;
+    private final String spotType;
+    private final List<String> hashtags;
     private final String spotPhone;
     private final Integer charge;
     private final String sido;
@@ -28,9 +29,7 @@ public class FishingSpotResponse {
                 fishingSpotData.getLatitude(),
                 fishingSpotData.getLongitude(),
                 fishingSpotData.getSpotType(),
-                //                fishingSpot.getSpotHashTags().stream()
-                //                        .map(hashtag -> hashtag.getHashTag().getName())
-                //                        .collect(Collectors.toList()),
+                fishingSpotData.getHashtags(),
                 fishingSpotData.getSpotPhone(),
                 fishingSpotData.getCharge(),
                 fishingSpotData.getSido(),

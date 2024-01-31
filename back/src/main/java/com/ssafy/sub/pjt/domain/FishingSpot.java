@@ -1,6 +1,5 @@
 package com.ssafy.sub.pjt.domain;
 
-import com.ssafy.sub.pjt.dto.SpotType;
 import java.util.List;
 import javax.persistence.*;
 import lombok.*;
@@ -25,8 +24,8 @@ public class FishingSpot {
     @Column(nullable = false)
     private Float longitude;
 
-    @Enumerated(EnumType.STRING)
-    private SpotType spotType;
+    @Column(name = "spot_type")
+    private String spotType;
 
     @Column(name = "spot_phone")
     private String spotPhone;
@@ -41,6 +40,13 @@ public class FishingSpot {
 
     @Column(name = "local_address")
     private String localAddress;
+
+    @OneToMany(
+            mappedBy = "fishingSpot",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true)
+    private List<FishingSpotHashtag> fishingSpotHashtags;
 
     @OneToMany(
             mappedBy = "fishingSpot",
