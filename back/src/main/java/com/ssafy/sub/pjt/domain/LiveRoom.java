@@ -25,4 +25,6 @@ public class LiveRoom extends BaseTime {
     private Boolean isActive;
 
     @ManyToOne private User ownerId;
+
+    private String sessionId;
 }
