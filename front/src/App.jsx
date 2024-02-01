@@ -14,6 +14,7 @@ import LoginPage from "./pages/LoginPage";
 import RoomList from "./pages/room/RoomList";
 import CreateRoom from "./pages/room/CreateRoom";
 import VideoRoomComponent from "./pages/room/openVidu/VideoRoomComponent";
+import LiveStream from "./pages/room/LiveStream";
 import MediaPage from "./pages/MediaPage";
 import BoardPage from "./pages/BoardPage";
 import BoardDetail from "./components/board/BoardDetail";
@@ -65,7 +66,8 @@ function App() {
       </Route>
       <Route path="/login" element={<LoginPage />} />
 
-      <Route path="/live/:id" element={<VideoRoomComponent />}></Route>
+      // 여기 부분이 계속 충돌나서 아예 최신버전으로 바꿔놨습니다.
+      <Route path="/live/:sessionId" element={<VideoRoomComponent />}/>
     </Routes>
   );
 }

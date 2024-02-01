@@ -42,7 +42,7 @@
   top: 40px;
   bottom: 0;
   height: inherit;
-  min-width: 400px !important;
+
   width: inherit;
 }
 
@@ -54,6 +54,8 @@
  */
 
  .custom-class {
+  /* position: absolute; */
+  /* left: -3px; */
   min-height: 0px !important;
 }
 
