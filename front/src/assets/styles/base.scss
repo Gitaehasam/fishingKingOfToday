@@ -11,23 +11,16 @@ li {
 }
 
 .shadow {
-  box-shadow: 0px 5px 10px 0px var(--color-brown-30);
+  box-shadow: 0px 2px 10px 0px var(--color-main-50);
 }
 
-.backfish{
+.backfish {
   width: 10%;
   margin: 15px;
 }
 
 .bg-blue {
-       
-  position: absolute;
   z-index: 1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
   overflow: hidden;
   background-image: linear-gradient(120deg, #85ddf8 0%, #8f85fd 100%);
   background-size: cover;
@@ -35,23 +28,22 @@ li {
   transform-style: preserve-3d;
   transform-origin: top center;
   will-change: transform;
-  transform: skewX(.001deg);
-  transition: transform .35s ease-in-out;
+  transform: skewX(0.001deg);
+  transition: transform 0.35s ease-in-out;
 
-  // Gloss 
-  
+  // Gloss
+
   &::after {
     display: block;
-    content: '';
+    content: "";
     position: absolute;
     z-index: 100;
     top: 0;
     left: 0;
     width: 100%;
     height: 120%;
-    background: linear-gradient(226deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.4) 35%, rgba(255,255,255,0.2) 42%, rgba(255,255,255,0) 60%);
+    background: linear-gradient(226deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 35%, rgba(255, 255, 255, 0.2) 42%, rgba(255, 255, 255, 0) 60%);
   }
-  
 }
 
 //김정철명조
@@ -83,8 +75,8 @@ li {
 
 //국민연금체
 @font-face {
-  font-family: 'NPSfontBold';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2') format('woff2');
+  font-family: "NPSfontBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
 }
