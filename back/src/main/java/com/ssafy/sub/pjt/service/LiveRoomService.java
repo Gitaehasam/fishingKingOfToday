@@ -45,6 +45,7 @@ public class LiveRoomService {
                                         .get())
                         .name(liveRoomRequest.getName())
                         .imageUrl(liveRoomRequest.getImageUrl())
+                        .sessionId(liveRoomRequest.getSessionId())
                         .isActive(false)
                         .build();
 
@@ -79,6 +80,7 @@ public class LiveRoomService {
                         // .joinAt(user.getJoinAt())
                         // .lastLoginAt(user.getLastLoginAt())
                         .imageUrl(liveRoomUpdateRequest.getImageUrl())
+                        .sessionId(liveRoomUpdateRequest.getSessionId())
                         .build();
 
         // deleteOriginalImage(member.getImageUrl(), updateMember.getImageUrl());

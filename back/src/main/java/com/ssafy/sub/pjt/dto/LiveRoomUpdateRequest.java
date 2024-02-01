@@ -9,4 +9,5 @@ public class LiveRoomUpdateRequest {
     private String name;
     private Boolean isActive;
     private String imageUrl;
+    private String sessionId;
 }

@@ -16,6 +16,7 @@ public class LiveRoomResponse {
     private final Boolean isActive;
     private final LocalDateTime createdAt;
     private final String nickName;
+    private final String sessionId;
 
     public static LiveRoomResponse of(final LiveRoom liveRoom) {
         return new LiveRoomResponse(
@@ -24,6 +25,7 @@ public class LiveRoomResponse {
                 liveRoom.getImageUrl(),
                 liveRoom.getIsActive(),
                 liveRoom.getCreatedAt(),
-                liveRoom.getOwnerId().getNickName());
+                liveRoom.getOwnerId().getNickName(),
+                liveRoom.getSessionId());
     }
 }
