@@ -1,0 +1,32 @@
+.full-size {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  li {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+}
+
+.mini-size {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  justify-content: center;
+  gap: 20px;
+
+  a {
+    width: 46%;
+  }
+
+  .post-info {
+    display: none;
+  }
+
+  .hashtag-list{
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

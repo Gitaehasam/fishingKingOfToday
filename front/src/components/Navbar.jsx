@@ -12,9 +12,7 @@ const Navbar = () => {
     const nextPreview = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(nextPreview);
-    reader.onloadend = () => [
-      navigate("/fish/image/edit", { state: { value: reader.result } }),
-    ];
+    reader.onloadend = () => [navigate("/fish/image/edit", { state: { value: reader.result } })];
   };
 
   return (
@@ -51,30 +49,11 @@ const Navbar = () => {
           <span>Home</span>
         </div>
         <div className="nav-item btn">
-          <label className="custum-file-upload" htmlFor="file">
-            <svg
-              className="icon"
-              stroke="currentColor"
-              fill="none"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
+          <label className="custum-file-upload bg-blue" htmlFor="file">
+            <svg className="icon" stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
-            <input
-              type="file"
-              id="file"
-              accept="image/*"
-              onChange={handleChangeFile}
-            />
+            <input type="file" id="file" accept="image/*" onChange={handleChangeFile} />
           </label>
         </div>
         <div className="nav-item">
