@@ -1,10 +1,11 @@
 package com.ssafy.sub.pjt.controller;
 
+import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
+
 import com.ssafy.sub.pjt.dto.LiveRoomCreatedResponse;
 import com.ssafy.sub.pjt.dto.LiveRoomRequest;
 import com.ssafy.sub.pjt.dto.LiveRoomUpdateRequest;
 import com.ssafy.sub.pjt.service.LiveRoomService;
-import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,7 @@ public class LiveRoomController {
     public ResponseEntity<?> createRoom(@RequestBody LiveRoomRequest liveRoomRequest) {
 
         LiveRoomCreatedResponse liveRoomCreatedResponse =
-                liveRoomService.createBy(
-                        liveRoomRequest, AuthenticationUtil.getCurrentUserSocialId());
+                liveRoomService.createBy(liveRoomRequest, getCurrentUserSocialId());
 
         return ResponseEntity.ok(liveRoomCreatedResponse);
     }
@@ -41,6 +41,12 @@ public class LiveRoomController {
             @RequestBody LiveRoomUpdateRequest liveRoomUpdateRequest) {
 
         liveRoomService.updateLiveRoom(roomId, liveRoomUpdateRequest);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{roomId}")
+    public ResponseEntity<?> deleteRoom(@PathVariable final Integer roomId) {
+        liveRoomService.deleteRoom(getCurrentUserSocialId(), roomId);
         return ResponseEntity.noContent().build();
     }
 }

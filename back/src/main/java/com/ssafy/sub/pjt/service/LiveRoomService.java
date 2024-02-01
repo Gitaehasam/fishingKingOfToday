@@ -1,7 +1,6 @@
 package com.ssafy.sub.pjt.service;
 
-import static com.ssafy.sub.pjt.common.CustomExceptionStatus.NOT_AUTHENTICATED_ACCOUNT;
-import static com.ssafy.sub.pjt.common.CustomExceptionStatus.REQUEST_ERROR;
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.*;
 
 import com.ssafy.sub.pjt.domain.LiveRoom;
 import com.ssafy.sub.pjt.domain.repository.LiveRoomRepository;
@@ -34,7 +33,7 @@ public class LiveRoomService {
             LiveRoomRequest liveRoomRequest, String currentSocialId) {
         // validateCreateLiveRoomByUser(currentSocialId);
         if (!uerRepository.existsBySocialId(currentSocialId)) {
-            throw new AuthException(NOT_AUTHENTICATED_ACCOUNT);
+            throw new AuthException(ACCOUNT_NOT_FOUND);
         }
 
         LiveRoom liveRoom =
@@ -55,7 +54,7 @@ public class LiveRoomService {
     }
 
     @Transactional(readOnly = true)
-    public LiveRoomListResponse getLiveRooms(String name, Pageable pageable) {
+    public LiveRoomListResponse getLiveRooms(final String name, final Pageable pageable) {
         Slice<LiveRoom> liveRooms = liveRoomRepository.findBySearchCondition(name, pageable);
         return new LiveRoomListResponse(
                 liveRooms.stream()
@@ -85,5 +84,16 @@ public class LiveRoomService {
 
         // deleteOriginalImage(member.getImageUrl(), updateMember.getImageUrl());
         liveRoomRepository.save(updateLiveRoom);
+    }
+
+    public void deleteRoom(String socialId, Integer roomId) {
+        if (!uerRepository.existsBySocialId(socialId)) {
+            throw new AuthException(ACCOUNT_NOT_FOUND);
+        }
+        liveRoomRepository
+                .findById(roomId)
+                .orElseThrow(() -> new BadRequestException(NOT_FOUND_LIVEROOM));
+
+        liveRoomRepository.deleteById(roomId);
     }
 }
