@@ -33,13 +33,6 @@ export default class StreamComponent extends Component {
                   </div>
                 ) : null}
               </div>
-              <div>
-                {!this.props.user.isLocal() && (
-                  <button id="volumeButton" onClick={this.toggleSound}>
-                      {this.state.mutedSound ? <span>소리 끄기</span> : <span>소리 켜기</span>}
-                  </button>
-                )}
-              </div>
             </div>
           ) : null}
         </div>

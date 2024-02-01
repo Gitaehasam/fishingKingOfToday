@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, NavLink } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import back from '../../assets/images/backSymbol.svg';
 import axios from 'axios';
 
 function CreateRoom() {
   const navigate = useNavigate();
-  const [title, setTitle] = useState('')
+  const [sessionId, setSessionId] = useState('')
   const [attachment, setAttachment] = useState(); 
   const baseURL = "http://43.201.20.14:8080/gitaehasam"
 
+  // const s3URL = "https://trend-gaza-bucket.s3.ap-northeast-2.amazonaws.com/board/original/0e4ee7cf-9d0a-4cf8-8def-d59d0731b5b1.png?x-amz-acl=public-read&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240201T133210Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=59&X-Amz-Credential=AKIA5MVYYSWKQW3APN76%2F20240201%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Signature=9ac6dbe1b1cac2eb758210422db7c08e8dba84605672fecd7f88d4fe3765d359"
+
   const handleTitleChange = (e) => {
-    setTitle(e.target.value)
+    setSessionId(e.target.value)
   }
 
   const handleThumbNailChange = (e) => {
@@ -35,10 +37,9 @@ function CreateRoom() {
     axios.post(baseURL + "/images/presigned", {filename: file.name})
       .then((res) => {
         console.log(res.data)
-        const presignedUrl = res.data;
-        uploadImageToS3(presignedUrl, file);
+        uploadImageToS3(res.data, file);
       })
-      .catch((error) => console.error(error));
+    .catch((error) => console.error(error));
   }
 
   const uploadImageToS3 = (url, file) => {
@@ -73,24 +74,31 @@ function CreateRoom() {
         <input 
           type="text" 
           maxLength={15} 
-          value={title} 
+          value={sessionId} 
           onChange={handleTitleChange} 
           placeholder='라이브 제목을 적어주세요.'
+          required
         />
       </div>
 
       <div>
         <span>특별한 사진 한 장으로 라이브를 표현해주세요.</span>
         <input 
-          type="file" 
+          type="file"
           onChange={handleThumbNailChange}
+          value={ attachment && <img src={ attachment }/> }
         />
-        { attachment && <img src={ attachment }/> }
       </div>
 
-      <NavLink to={"/live"} className="nav-item createLive-btn">
+      <div onClick={() => navigate(`/live/${sessionId}`, {
+        state: {
+          sessionId : sessionId,
+            }
+          })
+        } 
+        className="nav-item createLive-btn">
         <span>라이브 켜기</span>
-      </NavLink>
+      </div>
     </>
   );
 }
