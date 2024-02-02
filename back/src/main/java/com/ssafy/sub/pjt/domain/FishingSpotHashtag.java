@@ -3,7 +3,7 @@ package com.ssafy.sub.pjt.domain;
 import javax.persistence.*;
 import lombok.*;
 
-@Entity
+// @Entity
 @Builder
 @Getter
 @AllArgsConstructor
@@ -13,17 +13,4 @@ public class FishingSpotHashtag {
     @Column(name = "fishing_spot_hashtag_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @JoinColumn(name = "fishing_spot_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private FishingSpot fishingSpot;
-
-    @JoinColumn(name = "hashtag_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private HashTag hashTag;
-
-    public FishingSpotHashtag(FishingSpot fishingSpot, HashTag hashTag) {
-        this.fishingSpot = fishingSpot;
-        this.hashTag = hashTag;
-    }
 }

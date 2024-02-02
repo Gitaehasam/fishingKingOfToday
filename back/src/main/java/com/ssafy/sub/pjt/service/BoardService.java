@@ -45,8 +45,8 @@ public class BoardService {
                         .orElseThrow(() -> new BadRequestException(NOT_FOUND_CATEGORY));
 
         final FishBook fishBook = findByFishBookId(boardRequest.getFishBookId());
-
-        final Board board = Board.of(user, category, fishBook, boardRequest);
+        final FishingSpot fishingSpot = null;
+        final Board board = Board.of(user, category, fishBook, fishingSpot, boardRequest);
         board.addHashTags(hashTags);
 
         return board;

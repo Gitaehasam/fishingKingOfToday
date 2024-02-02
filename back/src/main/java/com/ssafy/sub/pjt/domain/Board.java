@@ -44,6 +44,10 @@ public class Board extends BaseTime {
     @JoinColumn(name = "fish_book_id")
     private FishBook fishBook;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fishing_spot_id")
+    private FishingSpot fishingSpot;
+
     @OneToMany(
             mappedBy = "board",
             fetch = FetchType.LAZY,
@@ -131,6 +135,7 @@ public class Board extends BaseTime {
             final User user,
             final Category category,
             final FishBook fishBook,
+            final FishingSpot fishingSpot,
             final BoardRequest boardRequest) {
         return new Board(
                 null,
@@ -143,6 +148,7 @@ public class Board extends BaseTime {
                 category,
                 user,
                 fishBook,
+                fishingSpot,
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>());
