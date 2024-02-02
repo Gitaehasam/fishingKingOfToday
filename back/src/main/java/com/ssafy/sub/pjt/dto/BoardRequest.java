@@ -17,4 +17,5 @@ public class BoardRequest {
     private Integer fishBookId;
     private String content;
     private List<String> hashTags;
+    private Integer fishingSpotId;
 }

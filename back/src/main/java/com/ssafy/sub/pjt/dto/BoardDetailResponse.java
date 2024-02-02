@@ -46,7 +46,7 @@ public class BoardDetailResponse {
                         .map(comment -> CommentResponse.of(comment, comment.getUser()))
                         .collect(Collectors.toList()),
                 board.getLikeCounts(),
-                board.getImage().getLongitude(),
-                board.getImage().getLatitude());
+                board.getFishingSpot().getLongitude(),
+                board.getFishingSpot().getLatitude());
     }
 }
