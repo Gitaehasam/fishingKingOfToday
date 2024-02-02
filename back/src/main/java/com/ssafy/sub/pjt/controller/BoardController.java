@@ -5,6 +5,7 @@ import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 import com.ssafy.sub.pjt.domain.HashTag;
 import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.service.BoardService;
+import com.ssafy.sub.pjt.service.FishBookService;
 import com.ssafy.sub.pjt.service.HashTagService;
 import java.net.URI;
 import java.util.List;
@@ -22,6 +23,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final HashTagService hashTagService;
+    private final FishBookService fishBookService;
 
     @PostMapping
     public ResponseEntity<Void> write(@RequestBody final BoardRequest request) {
@@ -89,5 +91,13 @@ public class BoardController {
         final List<HashTag> hashTagAutoCompleteResponses =
                 hashTagService.findAutoCompleteName(searchWord.strip());
         return ResponseEntity.ok().body(hashTagAutoCompleteResponses);
+    }
+
+    @GetMapping("/search/fishBook")
+    public ResponseEntity<?> getFishBookAutoCompleteSearch(@RequestParam final String searchWord) {
+        final List<FishBookAutoCompleteResponse> fishBookAutoCompleteResponse =
+                fishBookService.findAutoCompleteName(searchWord.strip());
+
+        return ResponseEntity.ok().body(fishBookAutoCompleteResponse);
     }
 }
