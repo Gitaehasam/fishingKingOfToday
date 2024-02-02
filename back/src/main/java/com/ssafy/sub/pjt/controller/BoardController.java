@@ -2,6 +2,7 @@ package com.ssafy.sub.pjt.controller;
 
 import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 
+import com.ssafy.sub.pjt.domain.HashTag;
 import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.service.BoardService;
 import com.ssafy.sub.pjt.service.HashTagService;
@@ -81,5 +82,12 @@ public class BoardController {
     public ResponseEntity<?> findTopFiveHashTags() {
         final List<HashTagResponse> hashtags = hashTagService.findTopFiveHashTags();
         return ResponseEntity.ok().body(hashtags);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> getAutoCompleteSearch(@RequestParam final String searchWord) {
+        final List<HashTag> hashTagAutoCompleteResponses =
+                hashTagService.findAutoCompleteName(searchWord.strip());
+        return ResponseEntity.ok().body(hashTagAutoCompleteResponses);
     }
 }

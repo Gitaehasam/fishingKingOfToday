@@ -39,4 +39,8 @@ public class HashTagService {
                 .map(hashTag -> HashTagResponse.of(hashTag))
                 .collect(Collectors.toList());
     }
+
+    public List<HashTag> findAutoCompleteName(String searchWord) {
+        return hashTagRepository.findTop3ByNameStartsWithOrderByNameAsc(searchWord);
+    }
 }
