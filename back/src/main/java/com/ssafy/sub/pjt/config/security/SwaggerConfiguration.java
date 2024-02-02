@@ -1,5 +1,7 @@
 package com.ssafy.sub.pjt.config.security;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,12 +24,16 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
+
+    @Value("${swagger.host}")
+    private String host;
     private String version = "V1";
     private String title = "SSAFY Gitaehasam API " + version;
 
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .host(host)
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes())
                 .apiInfo(apiInfo())
