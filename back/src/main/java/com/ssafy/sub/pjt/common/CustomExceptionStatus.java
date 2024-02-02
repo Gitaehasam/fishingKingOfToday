@@ -28,10 +28,13 @@ public enum CustomExceptionStatus {
     BOARD_NOT_BELONG_TO_USER_EXCEPTION(2005, "해당하는 사용자의 게시물이 아닙니다."),
     COMMENT_NOT_FOUND_EXCEPTION(2006, "해당 댓글이 존재하지 않습니다."),
     CANNOT_DELETE_COMMENT_EXCEPTION(2007, "남 게시물, 남 댓글은 삭제할 수 없습니다."),
+    NOT_EQUAL_CATEGORY(2008, "작성한 카테고리와 다릅니다."),
 
     NOT_FOUND_FISH(3000, "도감에서 존재하지 않는 어종입니다."),
 
-    NOT_FOUND_LIVEROOM(4000, "존재하지 않는 라이브 방 입니다.");
+    NOT_FOUND_LIVEROOM(4000, "존재하지 않는 라이브 방 입니다."),
+
+    NOT_FOUND_FISHING_SPOT(5000, "존재하지 않는 낚시터입니다.");
 
     private final int code;
     private final String message;

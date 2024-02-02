@@ -27,6 +27,7 @@ public class BoardService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final FishBookRepository fishBookRepository;
+    private final FishingSpotRepository fishingSpotRepository;
     private final ApplicationEventPublisher publisher;
 
     public Integer write(BoardRequest boardRequest, String socialId) {
@@ -45,7 +46,7 @@ public class BoardService {
                         .orElseThrow(() -> new BadRequestException(NOT_FOUND_CATEGORY));
 
         final FishBook fishBook = findByFishBookId(boardRequest.getFishBookId());
-        final FishingSpot fishingSpot = null;
+        final FishingSpot fishingSpot = findByFishingSpotId(boardRequest.getFishingSpotId());
         final Board board = Board.of(user, category, fishBook, fishingSpot, boardRequest);
         board.addHashTags(hashTags);
 
@@ -108,13 +109,19 @@ public class BoardService {
                         .findById(boardUpdateRequest.getCategoryId())
                         .orElseThrow(() -> new BadRequestException(NOT_FOUND_CATEGORY));
 
+        if (!category.getId().equals(boardUpdateRequest.getCategoryId())) {
+            throw new BadRequestException(NOT_EQUAL_CATEGORY);
+        }
+
         final FishBook fishBook = findByFishBookId(boardUpdateRequest.getFishBookId());
 
         final List<HashTag> hashTags = getHashTagList(boardUpdateRequest.getHashTags());
 
+        final FishingSpot fishingSpot = findByFishingSpotId(boardUpdateRequest.getFishingSpotId());
+
         board.updateHashTags(hashTags);
         updateImage(board.getImage().getUrl(), boardUpdateRequest.getImageUrl());
-        board.update(boardUpdateRequest, category, fishBook);
+        board.update(boardUpdateRequest, category, fishBook, fishingSpot);
     }
 
     private FishBook findByFishBookId(final Integer fishBookId) {
@@ -128,6 +135,19 @@ public class BoardService {
                         .orElseThrow(() -> new BadRequestException(NOT_FOUND_FISH));
 
         return fishBook;
+    }
+
+    private FishingSpot findByFishingSpotId(final Integer fishingSpotId) {
+        if (fishingSpotId == null) {
+            return null;
+        }
+
+        final FishingSpot fishingSpot =
+                fishingSpotRepository
+                        .findById(fishingSpotId)
+                        .orElseThrow(() -> new BadRequestException(NOT_FOUND_FISHING_SPOT));
+
+        return fishingSpot;
     }
 
     private List<HashTag> getHashTagList(List<String> hashTagsRequest) {

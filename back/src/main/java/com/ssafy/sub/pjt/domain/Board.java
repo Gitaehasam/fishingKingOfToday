@@ -68,7 +68,8 @@ public class Board extends BaseTime {
     public void update(
             final BoardUpdateRequest updateRequest,
             final Category category,
-            final FishBook fishBook) {
+            final FishBook fishBook,
+            final FishingSpot fishingSpot) {
         this.content = updateRequest.getContent();
         this.image =
                 Image.of(
@@ -78,6 +79,7 @@ public class Board extends BaseTime {
                         updateRequest.getCreatedAt());
         this.category = category;
         this.fishBook = fishBook;
+        this.fishingSpot = fishingSpot;
     }
 
     public void updateHashTags(List<HashTag> hashTags) {
