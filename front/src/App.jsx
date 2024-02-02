@@ -18,6 +18,7 @@ import MediaPage from "./pages/MediaPage";
 import BoardPage from "./pages/BoardPage";
 import BoardDetail from "./components/board/BoardDetail";
 import BoardCreate from "./components/board/BoardCreate";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
   return (
@@ -64,7 +65,11 @@ function App() {
         <Route index element={<FishBookPage />} />
         <Route path=":id" element={<FishBookDetailPage />} />
       </Route>
-      <Route path="/login" element={<LoginPage />} />
+
+      <Route path="/login">
+        <Route index element={<LoginPage />} />
+        <Route path=":social" element={<AuthPage />} />
+      </Route>
 
       <Route path="/live/:id" element={<VideoRoomComponent />}></Route>
     </Routes>
