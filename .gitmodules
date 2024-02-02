@@ -1,0 +1,3 @@
+[submodule "back/gitaehasam_back_submodule"]
+	path = back/gitaehasam_back_submodule
+	url = https://lab.ssafy.com/a50070863/gitaehasam_back_submodule.git
