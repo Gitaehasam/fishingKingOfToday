@@ -5,16 +5,18 @@ import "../assets/styles/Login/LoginPage.scss";
 import SocialNaver from "../components/Login/SocialNaver";
 import SocialKakao from "../components/Login/SocialKakao";
 import SocialGoogle from "../components/Login/SocialGoogle";
+import Header from "../components/Header";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="LoginPage">
-      <div className="LoginPage_header">
+      <Header centerText={"Login"} />
+      {/* <div className="LoginPage_header">
         <img src={back} alt="" onClick={() => navigate("/")} />
         <span>Login</span>
-      </div>
+      </div> */}
       <div className="LoginPage_body">
         <img src={loginImg} alt="" />
       </div>
