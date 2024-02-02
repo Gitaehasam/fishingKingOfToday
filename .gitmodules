@@ -1,3 +1,6 @@
+[submodule "front/ssafy_c203_env"]
+	path = front/ssafy_c203_env
+	url = https://lab.ssafy.com/wjdxodbs52/ssafy_c203_env.git
 [submodule "back/gitaehasam_back_submodule"]
 	path = back/gitaehasam_back_submodule
 	url = https://lab.ssafy.com/a50070863/gitaehasam_back_submodule.git

@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev": "dotenv -e ./ssafy_c203_env/.env.development vite",
+    "test": "dotenv -e ./ssafy_c203_env/.env.test vite",
+    "build": "dotenv -e ./ssafy_c203_env/.env.production vite build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -16,6 +17,7 @@
     "@mui/material": "^5.15.6",
     "@teachablemachine/image": "^0.8.5",
     "axios": "^1.6.7",
+    "dotenv-cli": "^7.3.0",
     "openvidu-browser": "^2.29.1",
     "react": "^18.2.0",
     "react-cropper": "^2.3.3",
