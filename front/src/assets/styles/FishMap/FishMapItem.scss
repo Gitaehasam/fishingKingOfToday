@@ -1,5 +1,39 @@
-.item-head {
+.item {
   display: flex;
-  gap: 1.5vh;
-  gap: 10px;
+  flex-direction: column;
+  gap: 0.2vh;
+
+  .item-head {
+    display: flex;
+    align-items: end;
+    gap: 1vh;
+
+    .fishing-name {
+      color: #3496ff;
+      font-size: 2.5vh;
+      font-weight: bold;
+    }
+
+    .fishing-type {
+      color: gray;
+    }
+  }
+
+  .item-body {
+    display: flex;
+    gap: 1vh;
+
+    .fishing-dist,
+    .fishing-addr {
+      font-size: 1.9vh;
+    }
+
+    .fishing-dist {
+      font-weight: bold;
+    }
+  }
+
+  .fishing-exp {
+    font-size: 1.9vh;
+  }
 }

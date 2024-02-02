@@ -1,5 +1,5 @@
 .Navbar_body {
-  padding-bottom: 80px;
+  padding-bottom: 70px;
 }
 
 nav {
@@ -8,8 +8,8 @@ nav {
   width: 100%;
   bottom: 0;
   background: white;
-  border-radius: 1.5rem 1.5rem 0 0;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+  // border-radius: 1.5rem 1.5rem 0 0;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
   padding: 0 20px;
   display: flex;
   align-items: start;
@@ -28,9 +28,9 @@ nav {
 
     &.btn {
       position: absolute;
-      top: -55%;
+      top: -50%;
       left: 50%;
-      transform: translate(-50%);
+      transform: translate(-50%, -20%);
     }
 
     &.hidden {

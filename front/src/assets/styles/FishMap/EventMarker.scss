@@ -11,12 +11,12 @@
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  padding: 25px 20px;
+  padding: 3vh;
 
   .info_header {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: end;
+    gap: 1vh;
 
     .info_name {
       color: #3496ff;
@@ -33,7 +33,7 @@
   .info_body {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 1vh;
 
     .info_distance {
       font-size: 15px;

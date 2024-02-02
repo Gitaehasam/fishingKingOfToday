@@ -18,7 +18,7 @@ const Header = ({
 
   return (
     <header className="header" style={{ height: size }}>
-      <img src={back} alt="" onClick={() => navigate("/")} />
+      <img src={back} alt="" onClick={() => navigate(-1)} />
       <div className="center-text" style={{ justifyContent: align }}>
         {centerText}
       </div>

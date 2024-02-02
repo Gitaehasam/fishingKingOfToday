@@ -5,6 +5,7 @@ import back from "../assets/images/backSymbol.svg";
 import "../assets/styles/FishMap/FishMapDetailPage.scss";
 import axios from "axios";
 import Loading from "../components/Loading";
+import Header from "../components/Header";
 
 const FishMapDetailPage = () => {
   const location = useLocation();
@@ -43,9 +44,7 @@ const FishMapDetailPage = () => {
 
   return (
     <div className="FishMapDetailPage">
-      <div className="header">
-        <img src={back} alt="back button" onClick={() => navigate(-1)} />
-      </div>
+      <Header />
       <div className="body">
         <div className="fishing-info">
           <div className="fishing-name">

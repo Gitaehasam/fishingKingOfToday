@@ -5,7 +5,7 @@ import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FishMapItem from "./FishMapItem";
-import "../../assets/styles/FishMap/FishMapFooter.scss";
+import "@assets/styles/FishMap/FishMapFooter.scss";
 
 const FishMapFooter = ({
   openList,
