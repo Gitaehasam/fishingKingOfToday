@@ -1,18 +1,18 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MapMarker, useMap } from "react-kakao-maps-sdk";
 import MarkerOff from "../../assets/images/marker_place_off.png";
 import MarkerOn from "../../assets/images/marker_place.png";
-import "../../assets/styles/FishMap/EventMarker.scss";
-import { IoCall } from "react-icons/io5";
 import { FaShareSquare } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import CallIcon from "@mui/icons-material/Call";
+import "../../assets/styles/FishMap/EventMarker.scss";
 
 const EventMarker = ({
   position,
   content,
   isActive,
   onClick,
-  getDistanceFromLatLonInKm,
+  getDistance,
   state,
 }) => {
   const map = useMap();
@@ -24,12 +24,7 @@ const EventMarker = ({
   };
 
   const distance = useMemo(() => {
-    return getDistanceFromLatLonInKm(
-      state.lat,
-      state.lng,
-      position.lat,
-      position.lng
-    );
+    return getDistance(state.lat, state.lng, position.lat, position.lng);
   }, []);
 
   // map.addListener("click", () => {
@@ -79,7 +74,7 @@ const EventMarker = ({
           <div className="info_footer">
             <hr />
             <div className="info_icons">
-              {content.tel && <IoCall />}
+              {content.tel && <CallIcon />}
               <FaShareSquare />
             </div>
           </div>

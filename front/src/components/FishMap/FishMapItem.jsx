@@ -5,13 +5,14 @@ const FishMapItem = ({
   item,
   idx,
   myCenter,
-  setIsIs,
+  setOpenList,
+  mapRef,
   setActiveMarker,
   setCenterChange,
-  getDistanceFromLatLonInKm,
+  getDistance,
 }) => {
   const distance = useMemo(() => {
-    return getDistanceFromLatLonInKm(
+    return getDistance(
       myCenter.lat,
       myCenter.lng,
       item.latlng.lat,
@@ -19,23 +20,21 @@ const FishMapItem = ({
     );
   }, []);
 
+  const handleClick = () => {
+    setOpenList(false);
+    setActiveMarker(idx);
+    const locPosition = new kakao.maps.LatLng(item.latlng.lat, item.latlng.lng);
+    mapRef.current.setLevel(4);
+    mapRef.current.setCenter(locPosition);
+    setCenterChange(false);
+  };
+
   return (
-    <div
-      className="item"
-      onClick={() => {
-        setIsIs(false);
-        setActiveMarker(idx);
-        const locPosition = new kakao.maps.LatLng(
-          item.latlng.lat,
-          item.latlng.lng
-        );
-        mapRef.current.setLevel(4);
-        mapRef.current.setCenter(locPosition);
-        setCenterChange(false);
-      }}
-    >
-      <div>{item.content.name}</div>
-      <div>{item.content.type}</div>
+    <div className="item" onClick={handleClick}>
+      <div className="item-head">
+        <div>{item.content.name}</div>
+        <div>{item.content.type}</div>
+      </div>
       <div>{item.content.expense}</div>
       <div>
         {distance >= 1

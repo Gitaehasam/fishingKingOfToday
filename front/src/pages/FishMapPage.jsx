@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
 import "../assets/styles/FishMap/FishMapPage.scss";
 import FishMapFooter from "../components/FishMap/FishMapFooter";
 import FishMapHeader from "../components/FishMap/FishMapHeader";
 import FishMapBody from "../components/FishMap/FishMapBody";
 
-const data = [
+const dummyData = [
   {
     content: {
       name: "상무낚시터",
@@ -14,6 +13,7 @@ const data = [
       tel: "062-373-0558",
       hashTag: ["월척"],
       expense: 10000,
+      fishes: ["용치놀래기", "가다랑어", "붉바리", "보리멸", "자리돔", "참돔"],
     },
     latlng: { lat: 35.16357724, lng: 126.8386542 },
   },
@@ -25,6 +25,7 @@ const data = [
       tel: "061-536-1234",
       hashTag: ["사진맛집", "월척"],
       expense: 20000,
+      fishes: ["가다랑어", "보리멸"],
     },
     latlng: { lat: 34.30556, lng: 126.516116 },
   },
@@ -36,6 +37,7 @@ const data = [
       tel: "061-867-0555",
       hashTag: ["사진맛집"],
       expense: 15000,
+      fishes: ["자리돔", "참돔"],
     },
     latlng: { lat: 34.4706335, lng: 126.9740566 },
   },
@@ -47,6 +49,7 @@ const data = [
       tel: "061-843-6060",
       hashTag: ["#사진맛집", "#노을맛집", "#월척"],
       expense: 14000,
+      fishes: ["가다랑어", "붉바리"],
     },
     latlng: { lat: 34.46942797, lng: 127.104524 },
   },
@@ -69,6 +72,7 @@ const data = [
       tel: "061-452-5660",
       hashTag: ["#노을맛집"],
       expense: 20000,
+      fishes: ["가다랑어", "붉바리"],
     },
     latlng: { lat: 34.9153538678, lng: 126.3384728811 },
   },
@@ -77,16 +81,15 @@ const data = [
 const hashTags = ["#사진맛집", "#노을맛집", "#월척"];
 
 const FishMapPage = () => {
-  const [activeMarker, setActiveMarker] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isIs, setIsIs] = useState(false);
-  const [search, setSearch] = useState("");
-  const [centerChange, setCenterChange] = useState(false);
-  const [filterMode, setFilterMode] = useState("dist");
+  const [activeMarker, setActiveMarker] = useState(null); // 활성화 마커 인덱스 저장
+  const [openList, setOpenList] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // 검색어
+  const [centerChange, setCenterChange] = useState(false); // 지도 중심에서 움직임 파악
+  const [filterMode, setFilterMode] = useState("dist"); // 낚시터 리스트 필터 (거리순, 요금순)
   const [mapCenter, setMapCenter] = useState({
     lat: 33.450701,
     lng: 126.570667,
-  });
+  }); // 지도 중심 좌표
   const [myCenter, setMyCenter] = useState({
     center: {
       lat: 33.450701,
@@ -94,19 +97,11 @@ const FishMapPage = () => {
     },
     errMsg: null,
     isLoading: false,
-  });
+  }); // 현재 내위치 좌표
 
   const mapRef = useRef(null);
 
-  const handleClickMarker = useCallback(() => {
-    setActiveMarker(null);
-    setIsOpen(false);
-  }, []);
-
-  const handleChange = (e) => {
-    setSearch(e.target.value);
-  };
-
+  // 내위치
   const myLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -174,6 +169,8 @@ const FishMapPage = () => {
 
     map.setCenter(center);
     setCenterChange(false);
+    setActiveMarker(null);
+    setFilterMode("dist");
 
     setMapCenter({
       lat: center.getLat(),
@@ -181,7 +178,8 @@ const FishMapPage = () => {
     });
   };
 
-  const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
+  // 현재 내위치와 낚시터의 거리
+  const getDistance = (lat1, lon1, lat2, lon2) => {
     const deg2rad = (deg) => {
       return deg * (Math.PI / 180);
     };
@@ -201,26 +199,18 @@ const FishMapPage = () => {
     return d;
   };
 
-  const ddd = useMemo(() => {
-    return data
-      .filter((item) => {
-        const dist = getDistanceFromLatLonInKm(
-          mapCenter.lat,
-          mapCenter.lng,
-          item.latlng.lat,
-          item.latlng.lng
-        );
-        return dist <= 15;
-      })
+  const addData = useMemo(() => {
+    return dummyData
       .map((item) => {
-        const dist = getDistanceFromLatLonInKm(
+        const dist = getDistance(
           mapCenter.lat,
           mapCenter.lng,
           item.latlng.lat,
           item.latlng.lng
         );
-        return { ...item, dist: dist };
-      });
+        return dist <= 20 ? { ...item, dist: dist } : null;
+      })
+      .filter(Boolean);
   }, [mapCenter]);
 
   useEffect(() => {
@@ -230,39 +220,37 @@ const FishMapPage = () => {
   return (
     <div className="FishMap">
       <FishMapHeader
-        search={search}
-        setSearch={setSearch}
-        handleChange={handleChange}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        handleChange={(e) => setSearchTerm(e.target.value)}
         hashTags={hashTags}
       />
       <FishMapBody
         centerChange={centerChange}
         mapRef={mapRef}
-        handleClickMarker={handleClickMarker}
+        handleClickMarker={() => setActiveMarker(null)}
         setCenterChange={setCenterChange}
-        ddd={ddd}
-        state={myCenter}
-        setIsOpen={setIsOpen}
-        isOpen={isOpen}
-        isIs={isIs}
+        addData={addData}
+        myCenter={myCenter}
+        openList={openList}
         activeMarker={activeMarker}
         setActiveMarker={setActiveMarker}
         handleClick={handleClick}
         getInfo={getInfo}
-        getDistanceFromLatLonInKm={getDistanceFromLatLonInKm}
+        getDistance={getDistance}
       />
       {activeMarker === null && (
         <FishMapFooter
-          isIs={isIs}
+          openList={openList}
           myCenter={myCenter.center}
-          ddd={ddd}
-          setIsIs={setIsIs}
+          addData={addData}
+          setOpenList={setOpenList}
           setActiveMarker={setActiveMarker}
           setCenterChange={setCenterChange}
           mapRef={mapRef}
           filterMode={filterMode}
           setFilterMode={setFilterMode}
-          getDistanceFromLatLonInKm={getDistanceFromLatLonInKm}
+          getDistance={getDistance}
         />
       )}
     </div>
