@@ -1,7 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import "../../assets/styles/FishMap/MapDetailWeather.scss";
-import { useLocation } from "react-router-dom";
 
 const WEATHER_DESC = {
   201: "가벼운 비를 동반한 천둥구름",
@@ -79,55 +76,50 @@ const WEATHER_DESC = {
   962: "허리케인",
 };
 
-const FishSpot = () => {
-  const openWeatherApiKey = "87246d75e1ce26e1392a087b3d1d88c5";
+const WEEKDAY = ["일", "월", "화", "수", "목", "금", "토"];
 
-  const location = useLocation();
-
-  const { lat, lng } = location.state.data.position;
-
-  const [weatherData, setWeatherData] = useState([]);
-  const [sunrise, setSunrise] = useState("");
-  const [sunset, setSunset] = useState("");
-
-  useEffect(() => {
-    openWeather();
-  }, []);
-
-  const openWeather = async () => {
-    try {
-      const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${openWeatherApiKey}&units=metric&lang=kr`
-      );
-      console.log(res.data);
-      setSunrise(res.data.city.sunrise);
-      setSunset(res.data.city.sunset);
-      setWeatherData(res.data.list);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const NowSunrise = new Date(sunrise * 1000);
-  const NowSunset = new Date(sunset * 1000);
+const FishSpot = ({ weatherData, sunrise, sunset }) => {
+  const now = new Date();
+  const month = (now.getMonth() + 1).toString().padStart(2, "0");
+  const date = now.getDate().toString().padStart(2, "0");
+  const timeFormat = (time) =>
+    time.toLocaleTimeString("ko-KR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+  const hourFormat = (hour) =>
+    hour < 12
+      ? `오전${hour || 12}시`
+      : `오후${hour === 12 ? hour : hour - 12}시`;
 
   return (
     <div className="MapDetailWeather">
-      {weatherData.map((data, index) => (
-        <div key={index}>
-          <h1>시간 : {data.dt_txt}</h1>
-          <h2>일출시간 : {NowSunrise.toLocaleTimeString()}</h2>
-          <h2>일몰시간 : {NowSunset.toLocaleTimeString()}</h2>
-          <h1>날씨: {WEATHER_DESC[data.weather[0].id]}</h1>
-          <img
-            src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-            alt="날씨 아이콘"
-          />
-          <h2>기온 : {data.main.temp}도</h2>
-          <h2>강수 : {data.pop}</h2>
-          <hr />
-        </div>
-      ))}
+      <div className="todays-date">{`${month}.${date} ${
+        WEEKDAY[now.getDay()]
+      }`}</div>
+      <div className="sun-rs">
+        {`일출 ${timeFormat(sunrise)}`}
+        <span>•</span>
+        {`일몰 ${timeFormat(sunset)}`}
+      </div>
+
+      <div className="weather-data">
+        {weatherData.map((data, index) => (
+          <div key={index} className="weather-total">
+            <div className="weather-time">
+              {hourFormat(new Date(data.dt_txt).getHours())}
+            </div>
+            <img
+              className="weather-icon"
+              src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+              alt="날씨 아이콘"
+            />
+            <div>{data.main.temp.toFixed(0)}°</div>
+            <div>{`${(data.pop * 100).toFixed()}%`}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
-import { Map, MapMarker } from "react-kakao-maps-sdk";
-import GpsFixedIcon from "@mui/icons-material/GpsFixed";
+import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import EventMarker from "./EventMarker";
-import { IoMdRefresh } from "react-icons/io";
+import GpsFixedIcon from "@mui/icons-material/GpsFixed";
+import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import "../../assets/styles/FishMap/FishMapBody.scss";
 
 const FishMapBody = ({
@@ -9,67 +9,54 @@ const FishMapBody = ({
   mapRef,
   handleClickMarker,
   setCenterChange,
-  ddd,
-  state,
-  setIsOpen,
-  isOpen,
-  isIs,
+  addData,
+  myCenter,
+  openList,
   activeMarker,
   setActiveMarker,
   handleClick,
   getInfo,
-  getDistanceFromLatLonInKm,
+  getDistance,
 }) => {
   return (
     <div className="FishMapBody">
-      {centerChange && !isIs && (
+      {centerChange && !openList && (
         <div className="reSearch" onClick={getInfo}>
-          <IoMdRefresh />이 지역 검색
+          <RefreshOutlinedIcon />이 지역 검색
         </div>
       )}
       <Map // 지도를 표시할 Container
-        center={state.center}
+        center={myCenter.center}
         ref={mapRef}
-        level={10} // 지도의 확대 레벨
+        level={9} // 지도의 확대 레벨
         onClick={handleClickMarker}
         onCenterChanged={() => setCenterChange(true)}
       >
-        {ddd.map((value, index) => (
-          <EventMarker
-            key={`EventMarkerContainer-${value.latlng.lat}-${value.latlng.lng}`}
-            position={value.latlng}
-            content={value.content}
-            isActive={activeMarker === index}
-            onClick={() => setActiveMarker(index)}
-            state={state.center}
-            getDistanceFromLatLonInKm={getDistanceFromLatLonInKm}
-          />
-        ))}
-        {state.isLoading && (
+        <MarkerClusterer minLevel={12} averageCenter={true}>
+          {addData.map((value, index) => (
+            <EventMarker
+              key={`EventMarkerContainer-${value.latlng.lat}-${value.latlng.lng}`}
+              position={value.latlng}
+              content={value.content}
+              isActive={activeMarker === index}
+              onClick={() => setActiveMarker(index)}
+              state={myCenter.center}
+              getDistance={getDistance}
+            />
+          ))}
+        </MarkerClusterer>
+        {myCenter.isLoading && (
           <MapMarker
-            position={state.center}
+            position={myCenter.center}
             clickable={true}
-            onClick={() => setIsOpen(true)}
             image={{
               src: "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png",
-              size: { width: 30, height: 30 },
-              // options: {
-              //   offset: {
-              //     x: 15,
-              //     y: 0,
-              //   },
-              // },
+              size: { width: 25, height: 25 },
             }}
-          >
-            {isOpen && (
-              <div style={{ padding: "5px", color: "#000" }}>
-                {state.errMsg ? state.errMsg : "여기에 계신가요?!"}
-              </div>
-            )}
-          </MapMarker>
+          />
         )}
 
-        {!isIs && (
+        {!openList && (
           <button
             style={{ bottom: activeMarker !== null ? "180px" : "20px" }}
             className="FishMap_btn"

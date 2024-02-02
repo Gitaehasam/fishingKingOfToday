@@ -1,15 +1,20 @@
+import { useState } from "react";
 import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import "../../assets/styles/FishMap/FishMapHeader.scss";
-import { useState } from "react";
 
-const FishMapHeader = ({ setSearch, search, handleChange, hashTags }) => {
+const FishMapHeader = ({
+  setSearchTerm,
+  searchTerm,
+  handleChange,
+  hashTags,
+}) => {
   const [mode, setMode] = useState(false);
 
   const changeMode = () => {
     setMode((prev) => !prev);
-    setSearch("");
+    setSearchTerm("");
   };
 
   return (
@@ -21,7 +26,7 @@ const FishMapHeader = ({ setSearch, search, handleChange, hashTags }) => {
         <input
           type="text"
           placeholder={mode ? "해시태그 검색" : "장소 검색"}
-          value={search}
+          value={searchTerm}
           onChange={handleChange}
         />
         <div className="search">
@@ -39,7 +44,7 @@ const FishMapHeader = ({ setSearch, search, handleChange, hashTags }) => {
                   className="radio-button"
                   type="radio"
                   name="radio"
-                  checked={search === hashTag.substring(1)}
+                  checked={searchTerm === hashTag.substring(1)}
                   value={hashTag.substring(1)}
                   onChange={handleChange}
                 />

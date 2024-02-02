@@ -1,22 +1,22 @@
-import "../../assets/styles/FishMap/FishMapFooter.scss";
-import { MdOutlineMap } from "react-icons/md";
-import { FaListUl, FaCaretDown } from "react-icons/fa";
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FaCheck } from "react-icons/fa6";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FishMapItem from "./FishMapItem";
+import "../../assets/styles/FishMap/FishMapFooter.scss";
 
 const FishMapFooter = ({
-  isIs,
-  ddd,
-  setIsIs,
+  openList,
+  addData,
+  setOpenList,
   setActiveMarker,
   setCenterChange,
   mapRef,
   filterMode,
   setFilterMode,
-  getDistanceFromLatLonInKm,
+  getDistance,
   myCenter,
 }) => {
   const [openFilter, setOpenFilter] = useState(false);
@@ -27,20 +27,21 @@ const FishMapFooter = ({
   };
 
   const sortData = useMemo(() => {
-    return ddd.toSorted((a, b) =>
+    return addData.toSorted((a, b) =>
       filterMode === "dist"
         ? a.dist - b.dist
         : a.content.expense - b.content.expense
     );
-  }, [filterMode, ddd]);
+  }, [filterMode, addData]);
 
   return (
-    <div className={`FishMapFooter ${isIs && "expand"}`}>
-      {isIs && (
+    <div className={`FishMapFooter ${openList && "expand"}`}>
+      {openList && (
         <>
-          <div className="filter" onClick={() => setOpenFilter(true)}>
-            {filterMode === "dist" ? "거리순" : "비용순"} <FaCaretDown />
-          </div>
+          <button className="filter" onClick={() => setOpenFilter(true)}>
+            {filterMode === "dist" ? "거리순" : "비용순"}
+            <ArrowDropDownOutlinedIcon />
+          </button>
           {openFilter && (
             <>
               <div
@@ -54,7 +55,8 @@ const FishMapFooter = ({
                     className={`${filterMode === "dist" ? "pick" : ""}`}
                     onClick={() => handleSubmit("dist")}
                   >
-                    거리순 <div>{filterMode === "dist" && <FaCheck />}</div>
+                    거리순{" "}
+                    <div>{filterMode === "dist" && <CheckOutlinedIcon />}</div>
                   </button>
                 </div>
                 <div>
@@ -62,7 +64,8 @@ const FishMapFooter = ({
                     className={`${filterMode === "money" ? "pick" : ""}`}
                     onClick={() => handleSubmit("money")}
                   >
-                    비용순<div>{filterMode === "money" && <FaCheck />}</div>
+                    비용순
+                    <div>{filterMode === "money" && <CheckOutlinedIcon />}</div>
                   </button>
                 </div>
                 <div>
@@ -76,17 +79,18 @@ const FishMapFooter = ({
               </div>
             </>
           )}
-          {ddd.length ? (
+          {addData.length ? (
             sortData.map((item, idx) => (
               <FishMapItem
                 key={idx}
                 item={item}
                 idx={idx}
+                mapRef={mapRef}
                 myCenter={myCenter}
-                setIsIs={setIsIs}
+                setOpenList={setOpenList}
                 setActiveMarker={setActiveMarker}
                 setCenterChange={setCenterChange}
-                getDistanceFromLatLonInKm={getDistanceFromLatLonInKm}
+                getDistance={getDistance}
               />
             ))
           ) : (
@@ -97,15 +101,15 @@ const FishMapFooter = ({
           )}
         </>
       )}
-      <div className="mode" onClick={() => setIsIs((prev) => !prev)}>
-        {isIs ? (
+      <div className="mode" onClick={() => setOpenList((prev) => !prev)}>
+        {openList ? (
           <>
-            <MdOutlineMap />
+            <MapOutlinedIcon />
             <div>지도보기</div>
           </>
         ) : (
           <>
-            <FaListUl />
+            <FormatListBulletedIcon />
             <div>목록보기</div>
           </>
         )}
