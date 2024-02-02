@@ -14,7 +14,6 @@ import LoginPage from "./pages/LoginPage";
 import RoomList from "./pages/room/RoomList";
 import CreateRoom from "./pages/room/CreateRoom";
 import VideoRoomComponent from "./pages/room/openVidu/VideoRoomComponent";
-import LiveStream from "./pages/room/LiveStream";
 import MediaPage from "./pages/MediaPage";
 import BoardPage from "./pages/BoardPage";
 import BoardDetail from "./components/board/BoardDetail";
@@ -25,7 +24,10 @@ function App() {
     <Routes>
       <Route path="/" element={<Navbar />}>
         <Route index element={<HomePage />} />
-        <Route path="fish/image/result" element={<ImageResultPage />} />
+        <Route path="fish">
+          <Route path="image/result" element={<ImageResultPage />} />
+          <Route path="map" element={<FishMapPage />} />
+        </Route>
         <Route path="media">
           <Route index element={<MediaPage />} />
           <Route path="roomList">
@@ -45,17 +47,15 @@ function App() {
       </Route>
 
       <Route path="media">
-          <Route index element={<MediaPage />} />
-          <Route path="board">
-            <Route index element={<BoardPage />} />
-            <Route path="create" element={<BoardCreate />} />
-          </Route>
+        <Route index element={<MediaPage />} />
+        <Route path="board">
+          <Route index element={<BoardPage />} />
+          <Route path="create" element={<BoardCreate />} />
         </Route>
-
+      </Route>
 
       <Route path="/fish">
         <Route path="map">
-          <Route index element={<FishMapPage />} />
           <Route path=":idx" element={<FishMapDetailPage />} />
         </Route>
         <Route path="image/edit" element={<ImageEditPage />} />
@@ -66,8 +66,7 @@ function App() {
       </Route>
       <Route path="/login" element={<LoginPage />} />
 
-      // 여기 부분이 계속 충돌나서 아예 최신버전으로 바꿔놨습니다.
-      <Route path="/live/:sessionId" element={<VideoRoomComponent />}/>
+      <Route path="/live/:id" element={<VideoRoomComponent />}></Route>
     </Routes>
   );
 }

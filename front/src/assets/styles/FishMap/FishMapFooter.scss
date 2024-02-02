@@ -2,11 +2,11 @@
   height: 6vh;
   margin: 0 3vh;
   transition: height 0.5s;
+  position: relative;
 
   &.expand {
     height: 100%;
     margin-top: 3vh;
-    // position: relative;
   }
 
   .filter {
@@ -14,6 +14,13 @@
     align-items: center;
     background: transparent;
     border: none;
+    font-size: 2vh;
+    // color: gray;
+    font-weight: bold;
+
+    svg {
+      color: gray;
+    }
   }
 
   .noneData {
@@ -40,12 +47,13 @@
   }
 
   .mode {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     height: 6vh;
     display: flex;
     align-items: center;
     gap: 5px;
+    // color: gray;
 
     svg {
       height: 2vh;
@@ -54,25 +62,22 @@
   }
 
   .filterOpen {
-    position: absolute;
+    position: fixed;
     inset: 0;
-    // top: 50%;
-    // left: 50%;
-    // transform: translate(-50%, -50%);
     background: rgba($color: black, $alpha: 0.3);
+    z-index: 1;
   }
 
   .content {
-    // padding: 3vh;
+    z-index: 2;
     position: absolute;
     width: 35vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    display: flex;
-    // gap: 20px;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     border-radius: 10px;
 
     h2 {
