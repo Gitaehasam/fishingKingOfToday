@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  gap: 2vh;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2vh;
+
+  img,
+  svg,
+  .none,
+  .right-text {
+    height: 2vh;
+    width: 6vh;
+  }
+
+  .center-text {
+    font-size: 3.5vh;
+    font-weight: bold;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5vh;
+  }
+}
