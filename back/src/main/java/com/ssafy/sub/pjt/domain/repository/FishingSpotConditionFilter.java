@@ -4,18 +4,25 @@ import static com.ssafy.sub.pjt.domain.QFishingSpot.fishingSpot;
 
 import com.querydsl.core.BooleanBuilder;
 import com.ssafy.sub.pjt.domain.FishingSpotSearchCondition;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class FishingSpotConditionFilter {
+    private final HashTagRepository hashTagRepository;
+
     public BooleanBuilder filterByCondition(FishingSpotSearchCondition condition) {
+
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        filterByFishBook(booleanBuilder, condition.getFishBookId());
-        filterByHashTag(booleanBuilder, condition.getHashtagId());
-        filterBySido(booleanBuilder, condition.getSido());
+        // filterByFishBook(booleanBuilder, condition.getFishBookId());
+        // filterByHashTag(booleanBuilder, condition.getHashtagId());
         searchByKeyword(booleanBuilder, condition.getKeyword());
 
+        if (condition.getLongitude() == null || condition.getLatitude() == null) {
+            filterBySido(booleanBuilder, condition.getSido());
+        }
         return booleanBuilder;
     }
 
@@ -25,11 +32,12 @@ public class FishingSpotConditionFilter {
         }
     }
 
-    private void filterByHashTag(BooleanBuilder booleanBuilder, Integer hashTagId) {
-        if (hashTagId != null) {
-            booleanBuilder.and(fishingSpot.fishingSpotHashtags.any().hashTag.id.eq(hashTagId));
-        }
-    }
+    //    private void filterByHashTag(BooleanBuilder booleanBuilder, Integer hashTagId) {
+    //        if (hashTagId != null) {
+    //
+    // booleanBuilder.and(fishingSpot.fishingSpotHashtags.any().hashTag.id.eq(hashTagId));
+    //        }
+    //    }
 
     private void filterBySido(BooleanBuilder booleanBuilder, String sido) {
         if (!sido.isEmpty()) {

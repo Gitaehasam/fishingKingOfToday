@@ -46,12 +46,5 @@ public class FishingSpot {
             fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST,
             orphanRemoval = true)
-    private List<FishingSpotHashtag> fishingSpotHashtags;
-
-    @OneToMany(
-            mappedBy = "fishingSpot",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.PERSIST,
-            orphanRemoval = true)
     private List<FishingSpotFishBook> fishingSpotFishBooks;
 }
