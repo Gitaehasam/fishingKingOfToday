@@ -5,7 +5,7 @@ import filter from "../assets/images/filter.png";
 import "../assets/styles/board/BoardPage.scss";
 import WindowIcon from "@mui/icons-material/Window";
 import BoardList from "../components/board/BoardList";
-import EditNoteIcon from '@mui/icons-material/EditNote';
+import EditNoteIcon from "@mui/icons-material/EditNote";
 
 const BoardPage = () => {
   const [category, setCategory] = useState(1);
@@ -24,10 +24,14 @@ const BoardPage = () => {
   const gotoCreate = () => {
     navigate("/media/board/create", {
       state: {
-        categoryId : category
-      }
-    })
-  }
+        categoryId: category,
+      },
+    });
+  };
+
+  const modalOn = () => {
+    console.log("ss");
+  };
 
   return (
     <>
@@ -46,7 +50,7 @@ const BoardPage = () => {
           <WindowIcon />
         </div>
         <div className="filter">
-          <img src={filter} alt="" />
+          <img src={filter} alt="" onClick={() => modalOn()} />
         </div>
       </div>
       {category == 1 && <BoardList category={category} viewType={viewType} />}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "../../assets/styles/board/BoardFormItem.scss";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 
 //type은 글쓰기인지(create) 수정하기(modify) 인지, categoryId는 물고기인지(1), 장소인지(2)
 
@@ -16,15 +18,16 @@ const BoardFormItem = ({ type, categoryId }) => {
   //useEffect를 통해 previewURL변동시 preview에 URL을 가진 img태그 저장
   useEffect(() => {
     if (file !== "")
-      // 처음 파일 등록하지 않았을때를 방지
+      //처음 파일 등록하지 않았을 때를 방지
       setPreview(<img className="img_preview" src={previewURL}></img>);
     return () => {};
   }, [previewURL]);
 
-  const handleFileOnChange = (e) => {
+  const handleFileOnChange = (event) => {
+    console.log("2w");
     //파일 불러오기
-    e.preventDefault();
-    let file = e.target.files[0];
+    event.preventDefault();
+    let file = event.target.files[0];
     let reader = new FileReader();
 
     reader.onloadend = (e) => {
@@ -36,8 +39,14 @@ const BoardFormItem = ({ type, categoryId }) => {
   };
 
   const handleFileButtonClick = (e) => {
+    console.log("cleick");
+    console.log(preview);
     e.preventDefault();
     fileRef.current.click();
+  };
+
+  const searchHash = () => {
+    console.log("s");
   };
 
   return (
@@ -48,8 +57,8 @@ const BoardFormItem = ({ type, categoryId }) => {
             {categoryId == 1 && <div>잡은 물고기를 등록해 주세요</div>}
             {categoryId == 2 && <div>리뷰를 작성해 주세요.</div>}
           </div>
-          <div className="post-image-upload">{preview}</div>
-          <div className="upload-btn shadow" onClick={handleFileButtonClick}>
+          <div className="post-image-upload">
+            {preview}
             <input
               ref={fileRef}
               hidden={true}
@@ -57,13 +66,20 @@ const BoardFormItem = ({ type, categoryId }) => {
               type="file"
               onChange={handleFileOnChange}
             />
+            <div
+              className={`shadow bg-blue ${
+                file ? "reupload-btn" : "upload-btn"
+              }`}
+              onClick={handleFileButtonClick}
+            >
+              {!file && <AddOutlinedIcon />}
+              {file && "이미지 다시 선택하기"}
+            </div>
           </div>
         </div>
         <div className="post-item">
-          <div className="post-sub">시간/장소</div>
+          <div className="post-sub">장소</div>
           <div className="position">
-            <div>시간</div>
-            <div>장소</div>
             <div></div>
           </div>
         </div>
@@ -71,6 +87,27 @@ const BoardFormItem = ({ type, categoryId }) => {
           <div className="post-sub">
             {categoryId == 1 && <div>물고기종류</div>}
             {categoryId == 2 && <div>해시태그</div>}
+          </div>
+          <div className="hashtag-add">
+            <div className="hashtag-icon shadow bg-blue">
+              <TagOutlinedIcon />
+            </div>
+            {categoryId == 1 && (
+              <input
+                className="hashtag-search"
+                type="text"
+                onKeyUp={() => searchHash(categoryId)}
+                placeholder="물고기이름"
+              />
+            )}
+            {categoryId == 2 && (
+              <input
+                className="hashtag-search"
+                type="text"
+                onKeyUp={() => searchHash(categoryId)}
+                placeholder="최대 5개까지 입력할 수 있어요"
+              />
+            )}
           </div>
         </div>
         <div className="post-item">

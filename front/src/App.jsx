@@ -22,6 +22,7 @@ import BoardDetail from "./components/board/BoardDetail";
 import BoardCreate from "./components/board/BoardCreate";
 import AuthPage from "./pages/AuthPage";
 import MyPage from "./pages/MyPage";
+import TutorialPage from "./pages/TutorialPage";
 
 function App() {
   return (
@@ -45,7 +46,6 @@ function App() {
             {/* <Route path="create">
               <Route index element={<CreateRoom />}/>
             </Route> */}
-            <Route path=":id" element={<BoardDetail />} />
           </Route>
         </Route>
 
@@ -57,7 +57,12 @@ function App() {
         <Route path="board">
           <Route index element={<BoardPage />} />
           <Route path="create" element={<BoardCreate />} />
+          <Route path=":id" element={<BoardDetail />} />
         </Route>
+      </Route>
+
+      <Route path="/tutorial">
+        <Route index element={<TutorialPage />} />
       </Route>
 
       <Route path="/fish">
