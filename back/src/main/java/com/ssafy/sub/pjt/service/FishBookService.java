@@ -1,13 +1,12 @@
 package com.ssafy.sub.pjt.service;
 
 import static com.ssafy.sub.pjt.common.CustomExceptionStatus.NOT_FOUND_FISH;
+import static com.ssafy.sub.pjt.dto.FishType.FRESH_WATER;
+import static com.ssafy.sub.pjt.dto.FishType.SEA;
 
 import com.ssafy.sub.pjt.domain.FishBook;
 import com.ssafy.sub.pjt.domain.repository.FishBookRepository;
-import com.ssafy.sub.pjt.dto.FishBookAutoCompleteResponse;
-import com.ssafy.sub.pjt.dto.FishBookDetailResponse;
-import com.ssafy.sub.pjt.dto.FishBookListResponse;
-import com.ssafy.sub.pjt.dto.FishBookResponse;
+import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.exception.BadRequestException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,6 +42,23 @@ public class FishBookService {
         return fishBookRepository
                 .findById(id)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_FISH));
+    }
+
+    public FishBookFilterListResponse getFIshBooksByFishType() {
+        List<FishBook> seaFishResponse = fishBookRepository.findByFishType(SEA);
+        List<FishBook> freshWaterFishResponse = fishBookRepository.findByFishType(FRESH_WATER);
+
+        final List<FishBookFilterResponse> seaFishListResponse =
+                seaFishResponse.stream()
+                        .map(seaFishes -> FishBookFilterResponse.of(seaFishes))
+                        .collect(Collectors.toList());
+
+        final List<FishBookFilterResponse> freshWaterFishListResponse =
+                seaFishResponse.stream()
+                        .map(freshFishes -> FishBookFilterResponse.of(freshFishes))
+                        .collect(Collectors.toList());
+
+        return new FishBookFilterListResponse(seaFishListResponse, freshWaterFishListResponse);
     }
 
     public List<FishBookAutoCompleteResponse> findAutoCompleteName(String searchWord) {
