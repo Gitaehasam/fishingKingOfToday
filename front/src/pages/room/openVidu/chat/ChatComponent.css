@@ -1,28 +1,15 @@
-#chatContainer {
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 40%;
-    bottom: 0;
-  }
+.chatContainer {
+  position: absolute;
+  bottom: 4em;
+  width: 100%;
+  height: calc(100% - 4em);
+  overflow-y: auto;
+}
   
   #closeButton {
     position: absolute;
     right: 0;
     top: -8px;
-  }
-  
-  #chatComponent {
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.4), transparent
-    );
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
   }
   
   .message-wrap {
@@ -36,7 +23,7 @@
     padding: 5px
   }
   .user-img {
-    position: absolute;
+    /* position: absolute; */
     border-radius: 45px;
     width: 40px;
     height: 40px;
@@ -109,11 +96,12 @@
   }
 
   #messageInput {
-    padding-top: 10px;
+    position: absolute;
+    bottom: 0; /* 화면 하단에 고정 */
+    width: 100%;
+    padding: 10px 0 10px;
     display: flex;
     justify-content: center;
-    position: absolute;
-    width: 100%;
     background-color: transparent;
   }
 

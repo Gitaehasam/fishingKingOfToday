@@ -1,17 +1,23 @@
 class OpenViduLayout {
   layoutContainer;
-  opts;
+  opts ;
 
+  // 주어진 너비를 사용하여 요소의 가로 세로 비율을 조정
   fixAspectRatio(elem, width) {
     const sub = elem.querySelector('.OT_root');
     if (sub) {
+      // If this is the parent of a subscriber or publisher then we need
+      // to force the mutation observer on the publisher or subscriber to
+      // trigger to get it to fix it's layout
       const oldWidth = sub.style.width;
       sub.style.width = width + 'px';
+      // sub.style.height = height + 'px';
       sub.style.width = oldWidth || '';
     }
   }
 
-  positionElement(elem, x, y, width, height, animate) {
+  // 주어진 위치와 크기에 요소를 배치
+ positionElement(elem, x, y, width, height, animate) {
     const targetPosition = {
       left: x + 'px',
       top: y + 'px',
@@ -21,14 +27,21 @@ class OpenViduLayout {
 
     this.fixAspectRatio(elem, width);
 
-    elem.style.left = targetPosition.left;
-    elem.style.top = targetPosition.top;
-    elem.style.width = targetPosition.width;
-    elem.style.height = targetPosition.height;
-
+    if (animate && $) {
+      $(elem).stop();
+      $(elem).animate(targetPosition, animate.duration || 200, animate.easing || 'swing', () => {
+        this.fixAspectRatio(elem, width);
+        if (animate.complete) {
+          animate.complete.call(this);
+        }
+      });
+    } else {
+      $(elem).css(targetPosition);
+    }
     this.fixAspectRatio(elem, width);
   }
 
+  // 비디오의 가로 세로 비율을 반환
   getVideoRatio(elem) {
     if (!elem) {
       return 3 / 4;
@@ -42,22 +55,24 @@ class OpenViduLayout {
     return 3 / 4;
   }
 
-  getCSSNumber(elem, prop) {
-    const cssStr = window.getComputedStyle(elem, null).getPropertyValue(prop);
+  // CSS 속성 값(숫자)을 반환
+   getCSSNumber(elem, prop) {
+    const cssStr = $(elem).css(prop);
     return cssStr ? parseInt(cssStr, 10) : 0;
   }
 
-  cheapUUID() {
+  // 랜덤한 UUID를 생성하여 반환
+   cheapUUID() {
     return (Math.random() * 100000000).toFixed(0);
   }
 
-  getHeight(elem) {
-    const heightStr = window.getComputedStyle(elem, null).getPropertyValue('height');
+   getHeight(elem) {
+    const heightStr = $(elem).css('height');
     return heightStr ? parseInt(heightStr, 10) : 0;
   }
 
-  getWidth(elem) {
-    const widthStr = window.getComputedStyle(elem, null).getPropertyValue('width');
+   getWidth(elem) {
+    const widthStr = $(elem).css('width');
     return widthStr ? parseInt(widthStr, 10) : 0;
   }
 
@@ -212,7 +227,7 @@ class OpenViduLayout {
           targetWidth = Math.floor(targetHeight / this.getVideoRatio(elem));
         }
         elem.style.position = 'absolute';
-
+        // $(elem).css('position', 'absolute');
         const actualWidth =
           targetWidth -
           this.getCSSNumber(elem, 'paddingLeft') -
@@ -384,7 +399,7 @@ class OpenViduLayout {
       bigMinRatio: opts.bigMinRatio != null ? opts.bigMinRatio : 9 / 16,
       bigFirst: opts.bigFirst != null ? opts.bigFirst : true,
     };
-    this.layoutContainer = typeof container === 'string' ? document.querySelector(container) : container;
+    this.layoutContainer = typeof container === 'string' ? $(container) : container;
   }
 
   setLayoutOptions(options) {
