@@ -16,6 +16,9 @@ function HomePage() {
             <IoBookOutline />
           </Link>
         </div>
+        <Link to="/tutorial">
+          <IoBookOutline />
+        </Link>
       </div>
     </>
   );
