@@ -93,6 +93,13 @@ public class BoardController {
         return ResponseEntity.ok().body(hashTagAutoCompleteResponses);
     }
 
+    @GetMapping("/filters")
+    public ResponseEntity<?> getFishType() {
+        final FishBookFilterListResponse fishBookFilterListResponse =
+                fishBookService.getFIshBooksByFishType();
+        return ResponseEntity.ok().body(fishBookFilterListResponse);
+    }
+
     @GetMapping("/search/fishBook")
     public ResponseEntity<?> getFishBookAutoCompleteSearch(@RequestParam final String searchWord) {
         final List<FishBookAutoCompleteResponse> fishBookAutoCompleteResponse =
