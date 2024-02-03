@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {useState, useEffect} from 'react';
 import './ToolbarComponent.css';
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -8,67 +8,54 @@ import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 
+const ToolbarComponent = ({ 
+  sessionId, 
+  user, 
+  isHost, 
+  micStatusChanged, 
+  camStatusChanged, 
+  switchCamera,
+  leaveSession, 
+}) => {
 
+  const [audioActive, setAudioActive] = useState(true);
+  const [videoActive, setVideoActive] = useState(true);
 
-export default class ToolbarComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.camStatusChanged = this.camStatusChanged.bind(this);
-    this.micStatusChanged = this.micStatusChanged.bind(this);
-    this.switchCamera = this.switchCamera.bind(this);
-    this.leaveSession = this.leaveSession.bind(this);
-    this.toggleChat = this.toggleChat.bind(this);
-  }
+  useEffect(() => {
+    setAudioActive(user.stream.audioActive)
+  }, [user.stream.audioActive])
 
+  useEffect(() => {
+    setVideoActive(user.stream.videoActive)
+  }, [user.stream.videoActive])
 
-  micStatusChanged() {
-      this.props.micStatusChanged();
-  }
+  return (
+    <>
+      <div className='option-btn'>
+        <span>{sessionId}</span>
+        <CloseOutlinedIcon onClick={leaveSession}/>
 
-  camStatusChanged() {
-      this.props.camStatusChanged();
-  }
+        {isHost && (
+          <>
+            {audioActive ? (
+              <MicNoneOutlinedIcon onClick={micStatusChanged}/> 
+            ) : (
+              <MicOffOutlinedIcon onClick={micStatusChanged}/>
+            )}
 
-  switchCamera() {
-      this.props.switchCamera();
-  }
+            {videoActive ? (
+              <VideocamOutlinedIcon onClick={camStatusChanged}/>
+            ) : (
+              <VideocamOffOutlinedIcon onClick={camStatusChanged}/>
+            )}
 
-  leaveSession() {
-      this.props.leaveSession();
-  }
-
-  toggleChat() {
-      this.props.toggleChat();
-  }
-
-  render() {
-    const mySessionId = this.props.sessionId;
-    const localUser = this.props.user;
-    return (
-      <>
-        {this.props.sessionId && 
-        <div>
-          <span>{mySessionId}</span>
-        </div>}
-
-        <div className='option-btn'>
-          <CloseOutlinedIcon onClick={this.leaveSession}/>
-
-          {localUser !== undefined && localUser.isAudioActive() ? (
-            <MicNoneOutlinedIcon onClick={this.micStatusChanged}/> 
-          ) : (
-          <MicOffOutlinedIcon onClick={this.micStatusChanged}/>
+            <LoopOutlinedIcon onClick={switchCamera}/>
+          </>
         )}
 
-          {localUser !== undefined && localUser.isVideoActive() ? (
-            <VideocamOutlinedIcon onClick={this.camStatusChanged}/>
-          ) : (
-            <VideocamOffOutlinedIcon onClick={this.camStatusChanged}/>
-          )}
-
-          <LoopOutlinedIcon onClick={this.switchCamera}/>
-        </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
 }
+
+export default ToolbarComponent;

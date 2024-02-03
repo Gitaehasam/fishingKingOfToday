@@ -12,6 +12,7 @@ function RoomList() {
   const [liveRoomList, setLiveRoomList] = useState([]);
   const [isFilterModal, setIsFilterModal] = useState(false);
   const [isSortBy, setIsSortBy] = useState(0);
+  const isHost = false;
   
   const OPENVIDU_SERVER_URL = "https://i10c203.p.ssafy.io"
   const OPENVIDU_SERVER_SECRET = "wearegitaehasam"
@@ -47,7 +48,7 @@ function RoomList() {
       })
       .then((res) => {
         console.log(res.data);
-        navigate(`/live/${roomInfo.sessionId}`, { token: res.data.token });
+        navigate(`/live/${roomInfo.sessionId}`, { state: { token: res.data.token, role: isHost } });
       })
       .catch((err) => {
         console.log(err);
@@ -77,6 +78,7 @@ function RoomList() {
           liveRoomList.content.map((room, idx) => (
             <div key={idx} className="roomList-info" onClick={() => enterLive(room)}>
               <p>{room.sessionId}</p>
+              <p>참여자 수 : {room.connections.numberOfElements}</p>
             </div>
           ))}
       </div>

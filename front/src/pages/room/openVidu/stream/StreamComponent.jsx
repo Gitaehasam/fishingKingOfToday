@@ -6,7 +6,8 @@ import OvVideoComponent from './OvVideo';
 export default class StreamComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { nickname: this.props.user.getNickname(), showForm: false, mutedSound: false, isFormValid: true };
+    console.log(props)
+    this.state = { showForm: false, mutedSound: false, isFormValid: true };
   }
 
     // 음소거 on/off
@@ -19,7 +20,7 @@ export default class StreamComponent extends Component {
         <div className="OT_widget-container">
           {this.props.user !== undefined && this.props.user.getStreamManager() !== undefined ? (
             <div className="streamComponent">
-              <OvVideoComponent user={this.props.user} mutedSound={this.state.mutedSound} />
+              <OvVideoComponent user={this.props.user} mutedSound={this.state.mutedSound} streamManager={this.props.streamManager}/>
               <div id="statusIcons">
                 {!this.props.user.isVideoActive() ? (
                   <div id="camIcon">
