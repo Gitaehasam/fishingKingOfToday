@@ -19,6 +19,7 @@ import BoardPage from "./pages/BoardPage";
 import BoardDetail from "./components/board/BoardDetail";
 import BoardCreate from "./components/board/BoardCreate";
 import AuthPage from "./pages/AuthPage";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -45,6 +46,8 @@ function App() {
             <Route path=":id" element={<BoardDetail />} />
           </Route>
         </Route>
+
+        <Route path="user/mypage" element={<MyPage />} />
       </Route>
 
       <Route path="media">

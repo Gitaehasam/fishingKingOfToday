@@ -4,9 +4,11 @@ import { FaRegUser } from "react-icons/fa6";
 import { FiMapPin } from "react-icons/fi";
 import NoneLogin from "./Login/NoneLogin";
 import "../assets/styles/Navbar.scss";
+import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const jwt = sessionStorage.getItem("jwt");
 
   const handleChangeFile = (e) => {
     const nextPreview = e.target.files[0];
@@ -96,10 +98,17 @@ const Navbar = () => {
           </svg>
           <span>RoomList</span>
         </NavLink>
-        <div className="nav-item">
-          <FaRegUser />
-          <NoneLogin />
-        </div>
+        {jwt ? (
+          <NavLink to={"/user/mypage"} className="nav-item">
+            <FaRegUser />
+            <span>마이</span>
+          </NavLink>
+        ) : (
+          <div className="nav-item">
+            <FaRegUser />
+            <NoneLogin />
+          </div>
+        )}
       </nav>
     </>
   );
