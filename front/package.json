@@ -8,7 +8,9 @@
     "preview": "vite preview",
     "dev": "dotenv -e ./ssafy_c203_env/.env.development vite",
     "test": "dotenv -e ./ssafy_c203_env/.env.test vite",
-    "build": "dotenv -e ./ssafy_c203_env/.env.production vite build"
+    "build": "dotenv -e ./ssafy_c203_env/.env.production vite build",
+    "build:dev": "dotenv -e ./ssafy_c203_env/.env.development vite build",
+    "build:local": "dotenv -e ./ssafy_c203_env/.env.test vite build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
