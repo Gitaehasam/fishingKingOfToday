@@ -1,20 +1,21 @@
 import { useMemo } from "react";
 import "@assets/styles/FishMap/FishMapItem.scss";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  activeMarkerAtom,
+  centerChangeAtom,
+  myCenterAtom,
+} from "../../stores/FishingMapStore";
 
-const FishMapItem = ({
-  item,
-  idx,
-  myCenter,
-  setOpenList,
-  mapRef,
-  setActiveMarker,
-  setCenterChange,
-  getDistance,
-}) => {
+const FishMapItem = ({ item, idx, mapRef, getDistance, setOpenList }) => {
+  const myCenter = useRecoilValue(myCenterAtom);
+  const setActiveMarker = useSetRecoilState(activeMarkerAtom);
+  const setCenterChange = useSetRecoilState(centerChangeAtom);
+
   const distance = useMemo(() => {
     return getDistance(
-      myCenter.lat,
-      myCenter.lng,
+      myCenter.center.lat,
+      myCenter.center.lng,
       item.latlng.lat,
       item.latlng.lng
     );

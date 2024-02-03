@@ -6,20 +6,18 @@ import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FishMapItem from "./FishMapItem";
 import "@assets/styles/FishMap/FishMapFooter.scss";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { filterModeAtom } from "../../stores/FishingMapStore";
 
 const FishMapFooter = ({
-  openList,
   addData,
-  setOpenList,
-  setActiveMarker,
-  setCenterChange,
   mapRef,
-  filterMode,
-  setFilterMode,
   getDistance,
-  myCenter,
+  openList,
+  setOpenList,
 }) => {
   const [openFilter, setOpenFilter] = useState(false);
+  const [filterMode, setFilterMode] = useRecoilState(filterModeAtom);
 
   const handleSubmit = (mode) => {
     setOpenFilter(false);
@@ -86,10 +84,7 @@ const FishMapFooter = ({
                 item={item}
                 idx={idx}
                 mapRef={mapRef}
-                myCenter={myCenter}
                 setOpenList={setOpenList}
-                setActiveMarker={setActiveMarker}
-                setCenterChange={setCenterChange}
                 getDistance={getDistance}
               />
             ))

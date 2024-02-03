@@ -3,6 +3,13 @@ import "../assets/styles/FishMap/FishMapPage.scss";
 import FishMapFooter from "../components/FishMap/FishMapFooter";
 import FishMapHeader from "../components/FishMap/FishMapHeader";
 import FishMapBody from "../components/FishMap/FishMapBody";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { activeMarkerAtom } from "@/stores/FishingMapStore.js";
+import {
+  centerChangeAtom,
+  mapCenterAtom,
+  myCenterAtom,
+} from "../stores/FishingMapStore";
 
 const dummyData = [
   {
@@ -81,23 +88,10 @@ const dummyData = [
 const hashTags = ["#사진맛집", "#노을맛집", "#월척"];
 
 const FishMapPage = () => {
-  const [activeMarker, setActiveMarker] = useState(null); // 활성화 마커 인덱스 저장
+  const [mapCenter, setMapCenter] = useRecoilState(mapCenterAtom);
+  const activeMarker = useRecoilValue(activeMarkerAtom); // 활성화 마커 인덱스 저장
+  const setMyCenter = useSetRecoilState(myCenterAtom);
   const [openList, setOpenList] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(""); // 검색어
-  const [centerChange, setCenterChange] = useState(false); // 지도 중심에서 움직임 파악
-  const [filterMode, setFilterMode] = useState("dist"); // 낚시터 리스트 필터 (거리순, 요금순)
-  const [mapCenter, setMapCenter] = useState({
-    lat: 33.450701,
-    lng: 126.570667,
-  }); // 지도 중심 좌표
-  const [myCenter, setMyCenter] = useState({
-    center: {
-      lat: 33.450701,
-      lng: 126.570667,
-    },
-    errMsg: null,
-    isLoading: false,
-  }); // 현재 내위치 좌표
 
   const mapRef = useRef(null);
 
@@ -137,45 +131,6 @@ const FishMapPage = () => {
         isLoading: false,
       }));
     }
-  };
-
-  const handleClick = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        const locPosition = new kakao.maps.LatLng(lat, lng);
-        mapRef.current.setCenter(locPosition);
-        setCenterChange(false);
-        setMyCenter((prev) => ({
-          ...prev,
-          center: {
-            lat: lat, // 위도
-            lng: lng, // 경도
-          },
-          isLoading: true,
-        }));
-      });
-    } else {
-      window.alert("이 브라우저에서는 Geolocation을 지원하지 않습니다.");
-    }
-  };
-
-  const getInfo = () => {
-    const map = mapRef.current;
-    if (!map) return;
-
-    const center = map.getCenter();
-
-    map.setCenter(center);
-    setCenterChange(false);
-    setActiveMarker(null);
-    setFilterMode("dist");
-
-    setMapCenter({
-      lat: center.getLat(),
-      lng: center.getLng(),
-    });
   };
 
   // 현재 내위치와 낚시터의 거리
@@ -219,37 +174,19 @@ const FishMapPage = () => {
 
   return (
     <div className="FishMap">
-      <FishMapHeader
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        handleChange={(e) => setSearchTerm(e.target.value)}
-        hashTags={hashTags}
-      />
+      <FishMapHeader hashTags={hashTags} />
       <FishMapBody
-        centerChange={centerChange}
-        mapRef={mapRef}
-        handleClickMarker={() => setActiveMarker(null)}
-        setCenterChange={setCenterChange}
-        addData={addData}
-        myCenter={myCenter}
         openList={openList}
-        activeMarker={activeMarker}
-        setActiveMarker={setActiveMarker}
-        handleClick={handleClick}
-        getInfo={getInfo}
+        mapRef={mapRef}
+        addData={addData}
         getDistance={getDistance}
       />
       {activeMarker === null && (
         <FishMapFooter
           openList={openList}
-          myCenter={myCenter.center}
-          addData={addData}
           setOpenList={setOpenList}
-          setActiveMarker={setActiveMarker}
-          setCenterChange={setCenterChange}
+          addData={addData}
           mapRef={mapRef}
-          filterMode={filterMode}
-          setFilterMode={setFilterMode}
           getDistance={getDistance}
         />
       )}

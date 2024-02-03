@@ -3,14 +3,12 @@ import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import "../../assets/styles/FishMap/FishMapHeader.scss";
+import { useRecoilState } from "recoil";
+import { searchTermAtom } from "../../stores/FishingMapStore";
 
-const FishMapHeader = ({
-  setSearchTerm,
-  searchTerm,
-  handleChange,
-  hashTags,
-}) => {
+const FishMapHeader = ({ hashTags }) => {
   const [mode, setMode] = useState(false);
+  const [searchTerm, setSearchTerm] = useRecoilState(searchTermAtom);
 
   const changeMode = () => {
     setMode((prev) => !prev);
@@ -27,7 +25,7 @@ const FishMapHeader = ({
           type="text"
           placeholder={mode ? "해시태그 검색" : "장소 검색"}
           value={searchTerm}
-          onChange={handleChange}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <div className="search">
           <SearchIcon />
@@ -46,7 +44,7 @@ const FishMapHeader = ({
                   name="radio"
                   checked={searchTerm === hashTag.substring(1)}
                   value={hashTag.substring(1)}
-                  onChange={handleChange}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <div className="radio-tile">
                   <label htmlFor={`${hashTag}`} className="radio-tile-label">
