@@ -5,6 +5,7 @@ import static com.ssafy.sub.pjt.common.CustomExceptionStatus.FAIL_TO_GENERATE_RA
 import com.ssafy.sub.pjt.domain.*;
 import com.ssafy.sub.pjt.domain.repository.UserRepository;
 import com.ssafy.sub.pjt.exception.AuthException;
+import com.ssafy.sub.pjt.util.RandomNicknameUtil;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,13 +53,13 @@ public class LoginService {
             final String imageUrl) {
         int tryCount = 0;
         while (tryCount < MAX_TRY_COUNT) {
-            final String nicknameWithRandomNumber = nickname + generateRandomFourDigitCode();
-            if (!userRepository.existsByNickName(nicknameWithRandomNumber)) {
+            final String nicknameWithRandom = RandomNicknameUtil.getRamdomNinkname();
+            if (!userRepository.existsByNickName(nicknameWithRandom)) {
                 return userRepository.save(
                         User.builder()
                                 .socialId(socialLoginId)
                                 .name(nickname)
-                                .nickName(nicknameWithRandomNumber)
+                                .nickName(nicknameWithRandom)
                                 .imageUrl(imageUrl)
                                 .platform(providerName)
                                 .build());
