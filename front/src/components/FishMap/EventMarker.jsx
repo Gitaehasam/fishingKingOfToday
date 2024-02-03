@@ -6,15 +6,12 @@ import MarkerOn from "../../assets/images/marker_place.png";
 import { FaShareSquare } from "react-icons/fa";
 import CallIcon from "@mui/icons-material/Call";
 import "../../assets/styles/FishMap/EventMarker.scss";
+import { useRecoilValue } from "recoil";
+import { myCenterAtom } from "../../stores/FishingMapStore";
 
-const EventMarker = ({
-  position,
-  content,
-  isActive,
-  onClick,
-  getDistance,
-  state,
-}) => {
+const EventMarker = ({ position, content, isActive, onClick, getDistance }) => {
+  const myCenter = useRecoilValue(myCenterAtom);
+
   const map = useMap();
   const navigate = useNavigate();
 
@@ -24,12 +21,13 @@ const EventMarker = ({
   };
 
   const distance = useMemo(() => {
-    return getDistance(state.lat, state.lng, position.lat, position.lng);
+    return getDistance(
+      myCenter.center.lat,
+      myCenter.center.lng,
+      position.lat,
+      position.lng
+    );
   }, []);
-
-  // map.addListener("click", () => {
-  //   setIsVisible(false);
-  // });
 
   return (
     <>

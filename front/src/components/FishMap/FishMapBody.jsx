@@ -3,21 +3,63 @@ import EventMarker from "./EventMarker";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import "../../assets/styles/FishMap/FishMapBody.scss";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  activeMarkerAtom,
+  centerChangeAtom,
+  filterModeAtom,
+  mapCenterAtom,
+  myCenterAtom,
+} from "../../stores/FishingMapStore";
 
-const FishMapBody = ({
-  centerChange,
-  mapRef,
-  handleClickMarker,
-  setCenterChange,
-  addData,
-  myCenter,
-  openList,
-  activeMarker,
-  setActiveMarker,
-  handleClick,
-  getInfo,
-  getDistance,
-}) => {
+const FishMapBody = ({ mapRef, addData, getDistance, openList }) => {
+  const [centerChange, setCenterChange] = useRecoilState(centerChangeAtom);
+  const [activeMarker, setActiveMarker] = useRecoilState(activeMarkerAtom);
+  const [myCenter, setMyCenter] = useRecoilState(myCenterAtom);
+  const [mapCenter, setMapCenter] = useRecoilState(mapCenterAtom);
+  const setFilterMode = useSetRecoilState(filterModeAtom);
+
+  const getInfo = () => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const center = map.getCenter();
+
+    map.setCenter(center);
+    setCenterChange(false);
+    setActiveMarker(null);
+    setFilterMode("dist");
+
+    setMapCenter({
+      lat: center.getLat(),
+      lng: center.getLng(),
+    });
+  };
+
+  console.log(mapCenter);
+
+  const handleClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const locPosition = new kakao.maps.LatLng(lat, lng);
+        mapRef.current.setCenter(locPosition);
+        setCenterChange(false);
+        setMyCenter((prev) => ({
+          ...prev,
+          center: {
+            lat: lat, // 위도
+            lng: lng, // 경도
+          },
+          isLoading: true,
+        }));
+      });
+    } else {
+      window.alert("이 브라우저에서는 Geolocation을 지원하지 않습니다.");
+    }
+  };
+
   return (
     <div className="FishMapBody">
       {centerChange && !openList && (
@@ -26,10 +68,10 @@ const FishMapBody = ({
         </div>
       )}
       <Map // 지도를 표시할 Container
-        center={myCenter.center}
+        center={mapCenter}
         ref={mapRef}
         level={9} // 지도의 확대 레벨
-        onClick={handleClickMarker}
+        onClick={() => setActiveMarker(null)}
         onCenterChanged={() => setCenterChange(true)}
       >
         <MarkerClusterer minLevel={12} averageCenter={true}>
@@ -40,7 +82,6 @@ const FishMapBody = ({
               content={value.content}
               isActive={activeMarker === index}
               onClick={() => setActiveMarker(index)}
-              state={myCenter.center}
               getDistance={getDistance}
             />
           ))}
