@@ -1,44 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import back from '../../assets/images/backSymbol.svg';
 import axios from 'axios';
+import "../../assets/styles/Room/createLive/createLive.scss"
+import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
+import defaultImg from "../../assets/images/login_img.png";
 
 function CreateRoom() {
   const navigate = useNavigate();
-  const [title, setTitle] = useState('')
-  const [attachment, setAttachment] = useState();
   const isHost = true;
-  const baseURL = "http://43.201.20.14:8080/gitaehasam"
+  const baseURL = import.meta.env.VITE_BASE_URL
+  const OPENVIDU_SERVER_URL = "https://i10c203.p.ssafy.io"
+  const OPENVIDU_SERVER_SECRET = "wearegitaehasam"
 
-  // const s3URL = "https://trend-gaza-bucket.s3.ap-northeast-2.amazonaws.com/board/original/0e4ee7cf-9d0a-4cf8-8def-d59d0731b5b1.png?x-amz-acl=public-read&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240201T133210Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=59&X-Amz-Credential=AKIA5MVYYSWKQW3APN76%2F20240201%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Signature=9ac6dbe1b1cac2eb758210422db7c08e8dba84605672fecd7f88d4fe3765d359"
+  const [title, setTitle] = useState('')
+  const [previewURL, setPreviewURL] = useState("");
+  const [preview, setPreview] = useState(null);
+  const [thumbnailURL, setThumbnailURL] = useState('')
+  const fileRef = useRef();
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value)
   }
 
-  const handleThumbNailChange = (e) => {
-    const {
-      target: {files},
-    } = e;
-    const theFile = files[0];
-    const reader = new FileReader();  
-    
-    reader.onload = (finishedEvent) => {
-      const {
-        currentTarget: {result},
-      } = finishedEvent;
-      setAttachment(result);
+  const handleFileButtonClick = (e) => {
+    e.preventDefault();
+    fileRef.current.click();
+  };
+
+  useEffect(() => {
+    if (previewURL) {
+      setPreview(<img className="room-create-upload-img" src={previewURL}></img>);
     }
-    reader.readAsDataURL(theFile);
-    createPresignedURL(e.target.files[0]);
-  }
+  }, [previewURL]);
+
+  const handleFileOnChange = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setPreviewURL(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+      createPresignedURL(file);
+    }
+  };
 
   // 로그인 하면 될거임~
   const createPresignedURL = (file) => {
     axios.post(baseURL + "/images/presigned", {filename: file.name})
       .then((res) => {
         console.log(res.data)
-        uploadImageToS3(res.data, file);
+        setThumbnailURL(res.data.imageUrl)
+        uploadImageToS3(res.data.preSignedUrl, file);
       })
     .catch((error) => console.error(error));
   }
@@ -62,26 +80,82 @@ function CreateRoom() {
         console.log(err)
       })
   }
+
+  const createSession = async (title) => {
+    const customSessionId = 'Gitaehasam' + Math.floor(Math.random() * 1000000);
+    
+    const res = await axios.post(
+      OPENVIDU_SERVER_URL + "/openvidu/api/sessions",
+      { 
+        customSessionId: customSessionId,
+      },
+      {
+        headers: {
+          Authorization: "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  
+    // await axios.post(
+    //   baseURL + "/lives",
+    //   {
+    //     sessionId: res.data.id,
+    //     name: title,
+    //     imageUrl: thumbnailURL || defaultImg,
+    //   },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    console.log(res.data)
+    return res.data.id;
+  };
+  
   
   return (
     <>
       <div className="roomList-header" onClick={() => navigate('/media/roomList')}>
         <img src={back} alt="" />
-        <span>라이브 대기방</span>
+        <span>라이브 생성</span>
       </div>
 
-      <form onSubmit={(event) => {
+      <form onSubmit={async (event) => {
         event.preventDefault();
-        navigate(`/live/${title}`, {
+        const sessionId = await createSession(title);
+        navigate(`/live/${sessionId}`, {
           state: {
-            title : title,
+            title: title,
             role: isHost,
+            },
+          });
+        }}
+        className='room-create-form'
+      >
+        <div className='room-create-header'>
+          <div className='room-create-thumbnail-title'>
+            특별한 사진으로 라이브를 표현해보세요
+          </div>
+          <div className="room-create-thumbnail">{preview}
+          {previewURL ? <div className="room-create-thumbnail-btn-bottom" onClick={handleFileButtonClick}><ChangeCircleOutlinedIcon /></div>
+          :
+            <div className="room-create-thumbnail-btn" onClick={handleFileButtonClick}><AddAPhotoOutlinedIcon /></div>
           }
-        });
-      }}>
-        <div>
-          <span>제목</span>
+          </div>
           <input 
+            ref={fileRef}
+            hidden={true}
+            type="file"
+            onChange={handleFileOnChange}
+          />
+        </div>
+
+        <div className='room-create-header'>
+          <div className='room-create-thumbnail-title'>제목</div>
+          <input 
+            className='room-create-title'
             type="text" 
             maxLength={15} 
             value={title} 
@@ -91,16 +165,7 @@ function CreateRoom() {
           />
         </div>
 
-        <div>
-          <span>특별한 사진 한 장으로 라이브를 표현해주세요.</span>
-          <input 
-            type="file"
-            onChange={handleThumbNailChange}
-            value={ attachment && <img src={ attachment }/> }
-          />
-        </div>
-
-        <div className="nav-item createLive-btn">
+        <div className="room-create-btn">
           <button type="submit">라이브 켜기</button>
         </div>
       </form>

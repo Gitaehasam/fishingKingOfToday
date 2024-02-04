@@ -24,7 +24,7 @@ const VideoRoomComponent = (props) => {
   const location = useLocation(); // 로케이션(이전 페이지에서 데이터를 받아옴)
   const size = useWindowSize();
 
-  const [mySessionId, setMySessionId] = useState('SessionA');
+  const [mySessionId, setMySessionId] = useState('SessionA'+ Math.floor(Math.random() * 100));
   const [myUserName, setMyUserName] = useState('Participant' + Math.floor(Math.random() * 100));
   const [session, setSession] = useState(undefined);
   const [mainStreamManager, setMainStreamManager] = useState(undefined); // 페이지의 메인 비디오 화면(퍼블리셔 또는 참가자의 화면 중 하나)
@@ -37,6 +37,8 @@ const VideoRoomComponent = (props) => {
   const [isCamera, setIsCamera] = useState(true)
   const [isAudio, setIsAudio] = useState(true)
   const [leaveModal, setLeaveModal] = useState(false)
+  const [hostNickname, setHostNickname] = useState('');
+  const [hostProfileImg, setHostProfileImg] = useState('');
 
   const roomId = (location.state !== null) ? location.state.id : null;
   const isHost = (location.state.role) ? true : false;
@@ -186,6 +188,24 @@ const VideoRoomComponent = (props) => {
         return [...prevMessageList, event.data]
       })
     });
+
+    axios.get(OPENVIDU_SERVER_URL + '/openvidu/api/sessions/' + mySessionId, {
+      headers: {
+        Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      const selectedRoom = response.data.publisher;
+      
+      if (selectedRoom) {
+        setHostNickname(selectedRoom.nickname);
+        setHostProfileImg(selectedRoom.thumbnail);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   const camStatusChanged = () => {
@@ -253,7 +273,7 @@ const VideoRoomComponent = (props) => {
     const mySession = session;
     if (mySession) {
       mySession.disconnect();
-      navigate('/') // 메인페이지로 이동
+      navigate('/media/roomList') // 메인페이지로 이동
     }
     // 속성을 초기화함(필요한 속성은 초기화하면 안 됨)
     OV = null;
@@ -264,11 +284,8 @@ const VideoRoomComponent = (props) => {
     setMainStreamManager(undefined)
     setPublisher(undefined)
     setMessageList([])
-    setToggleStart(false)
     setChatDisplay(true)
     setTotalUsers((prevTotalUsers) => { return 0 })
-    setItemIndex(0) // 0으로 바꿔줘야 방을 파고 다시 들어왔을 때 목록을 0부터 시작할 수 있음
-    setSeconds(0) // 시간 초를 0초로 초기화
     deleteRoomRequest(); // 방 삭제를 요청함
   }
 
@@ -313,16 +330,18 @@ const VideoRoomComponent = (props) => {
       <div className="bounds">
         {session !== undefined && mainStreamManager !== undefined ? (
           <div>
-            <ToolbarComponent
-              sessionId={mySessionId}
-              user={publisher}
-              isHost={isHost}
-              micStatusChanged={micStatusChanged}
-              camStatusChanged={camStatusChanged}
-              switchCamera={switchCamera}
-              leaveSession={leaveLive}
-            />
-            
+          <ToolbarComponent
+            sessionId={mySessionId}
+            user={publisher}
+            isHost={isHost}
+            micStatusChanged={micStatusChanged}
+            camStatusChanged={camStatusChanged}
+            switchCamera={switchCamera}
+            leaveSession={leaveSession}
+            hostNickname={hostNickname}
+            hostProfileImg={hostProfileImg}
+          />
+          
             {isHost && <UserVideoComponent streamManager={publisher}></UserVideoComponent>}
             {!isHost && <UserVideoComponent streamManager={subscribers}></UserVideoComponent>}
   

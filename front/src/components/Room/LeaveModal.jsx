@@ -1,4 +1,5 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
+import "../../assets/styles/Room/RoomList/LiveLeaveModal.scss"
 
 function LeaveModal ({state, leaveSession}) {
   const leaveModal = useRef()
@@ -33,15 +34,14 @@ function LeaveModal ({state, leaveSession}) {
 
   return (
     <>
-      <dialog ref={leaveModal} onClick={closeLeaveModal}>
-      <header>
-        <span>라이브를 나가시겠습니까?</span>
-        <span>나가기를 선택하면 라이브 시청을 종료하게 됩니다.</span>
+      <dialog ref={leaveModal} onClick={closeLeaveModal} className="leave-modal">
+      <header className="leave-modal-header">
+        <h3>라이브를 종료하시겠어요?</h3>
       </header>
 
-      <div>
-        <span onClick={closeModalClick}>취소</span>
-        <span onClick={leaveLive}>나가기</span>
+      <div className="leave-modal-body">
+        <div onClick={closeModalClick}>취소</div>
+        <div onClick={leaveLive}>나가기</div>
       </div>
 
       </dialog>

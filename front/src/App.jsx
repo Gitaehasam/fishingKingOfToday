@@ -13,9 +13,7 @@ import FishBookDetailPage from "./components/fishbook/FishBookDetailPage";
 import LoginPage from "./pages/LoginPage";
 import RoomList from "./pages/room/RoomList";
 import CreateRoom from "./pages/room/CreateRoom";
-// import VideoRoomComponent from "./pages/room/openVidu/VideoRoomComponent";
 import VideoRoomComponent from "./pages/room/openVidu/VideoRoomComponent copy";
-import LiveStream from "./pages/room/LiveStream";
 import MediaPage from "./pages/MediaPage";
 import BoardPage from "./pages/BoardPage";
 import BoardDetail from "./components/board/BoardDetail";
@@ -43,9 +41,8 @@ function App() {
           </Route>
           <Route path="board">
             <Route index element={<BoardPage />} />
-            {/* <Route path="create">
-              <Route index element={<CreateRoom />}/>
-            </Route> */}
+
+            <Route path=":id" element={<BoardDetail />} />
           </Route>
         </Route>
 
