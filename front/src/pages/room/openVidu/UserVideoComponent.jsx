@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import OvVideoComponent from './stream/OvVideo';
 
 export default class UserVideoComponent extends Component {
-
+    constructor(props) {
+        super(props);
+        console.log(props)
+    }
     render() {
         return (
             <div>

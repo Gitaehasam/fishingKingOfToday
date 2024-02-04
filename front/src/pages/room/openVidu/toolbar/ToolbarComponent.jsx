@@ -16,6 +16,8 @@ const ToolbarComponent = ({
   camStatusChanged, 
   switchCamera,
   leaveSession, 
+  hostNickname,
+  hostProfileImg
 }) => {
 
   const [audioActive, setAudioActive] = useState(true);
@@ -30,31 +32,32 @@ const ToolbarComponent = ({
   }, [user.stream.videoActive])
 
   return (
-    <>
-      <div className='option-btn'>
-        <span>{sessionId}</span>
-        <CloseOutlinedIcon onClick={leaveSession}/>
-
+    <div className='toolbar-container'>
+      <div className='toolbar-host-info'>
+        <img src={hostProfileImg} alt='toolbar-Host profile' />
+        <span>{hostNickname}반갑습니다.</span>
+      </div>
+      <div className='toolbar-option-btn'>
+        <CloseOutlinedIcon onClick={leaveSession} className='toolbar-option-icon'/>
         {isHost && (
           <>
             {audioActive ? (
-              <MicNoneOutlinedIcon onClick={micStatusChanged}/> 
+              <MicNoneOutlinedIcon onClick={micStatusChanged} className='toolbar-option-icon'/> 
             ) : (
-              <MicOffOutlinedIcon onClick={micStatusChanged}/>
+              <MicOffOutlinedIcon onClick={micStatusChanged} className='toolbar-option-icon'/>
             )}
 
             {videoActive ? (
-              <VideocamOutlinedIcon onClick={camStatusChanged}/>
+              <VideocamOutlinedIcon onClick={camStatusChanged} className='toolbar-option-icon'/>
             ) : (
-              <VideocamOffOutlinedIcon onClick={camStatusChanged}/>
+              <VideocamOffOutlinedIcon onClick={camStatusChanged} className='toolbar-option-icon'/>
             )}
 
-            <LoopOutlinedIcon onClick={switchCamera}/>
+            <LoopOutlinedIcon onClick={switchCamera} className='toolbar-option-icon'/>
           </>
         )}
-
-      </div>
-    </>
+      </div>  
+    </div>
   );
 }
 

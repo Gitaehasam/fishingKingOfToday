@@ -1,7 +1,48 @@
-.option-btn {
+.toolbar-container {
+  position: relative;
+  width: 100%;
+}
+
+.toolbar-host-info {
   position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}
+
+.toolbar-host-info > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.toolbar-host-info > span {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.toolbar-option-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   border: none;
   z-index: 2;
+  color: white;
+}
+
+.toolbar-option-icon {
+  margin: 10px;
+  color: white;
+  font-size: 2.2rem !important;
+}
+
+.toolbar-option-btn > span {
+  align-self: flex-start;
 }
