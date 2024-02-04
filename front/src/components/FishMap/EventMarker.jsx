@@ -5,7 +5,7 @@ import MarkerOff from "../../assets/images/marker_place_off.png";
 import MarkerOn from "../../assets/images/marker_place.png";
 import { FaShareSquare } from "react-icons/fa";
 import CallIcon from "@mui/icons-material/Call";
-import "../../assets/styles/FishMap/EventMarker.scss";
+import "../../assets/styles/fishmap/EventMarker.scss";
 import { useRecoilValue } from "recoil";
 import { myCenterAtom } from "../../stores/FishingMapStore";
 

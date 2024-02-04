@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SeaFish from "./SeaFish.json";
 import { Link } from "react-router-dom";
-import "../../assets/styles/fishbook/fishBookList.scss";
+import "../../assets/styles/fishbook/FishBookList.scss";
 
 function FishBookList() {
   return (

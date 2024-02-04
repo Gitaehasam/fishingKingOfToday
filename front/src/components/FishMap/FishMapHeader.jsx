@@ -2,7 +2,7 @@ import { useState } from "react";
 import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import "../../assets/styles/FishMap/FishMapHeader.scss";
+import "../../assets/styles/fishmap/FishMapHeader.scss";
 import { useRecoilState } from "recoil";
 import { searchTermAtom } from "../../stores/FishingMapStore";
 

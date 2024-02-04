@@ -1,10 +1,10 @@
 import back from "../assets/images/backSymbol.svg";
 import loginImg from "../assets/images/login_img.png";
 import { useNavigate } from "react-router-dom";
-import "../assets/styles/Login/LoginPage.scss";
-import SocialNaver from "../components/Login/SocialNaver";
-import SocialKakao from "../components/Login/SocialKakao";
-import SocialGoogle from "../components/Login/SocialGoogle";
+import "../assets/styles/login/LoginPage.scss";
+import SocialNaver from "../components/login/SocialNaver";
+import SocialKakao from "../components/login/SocialKakao";
+import SocialGoogle from "../components/login/SocialGoogle";
 import Header from "../components/Header";
 
 const LoginPage = () => {

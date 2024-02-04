@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../assets/styles/FishRecognition/Aspect.scss";
+import "../../assets/styles/fishrecognition/Aspect.scss";
 import { FaCheck } from "react-icons/fa";
 
 const Aspect = ({ cropperRef }) => {
