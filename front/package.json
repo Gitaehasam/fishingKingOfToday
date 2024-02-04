@@ -29,7 +29,8 @@
     "react-kakao-maps-sdk": "^1.1.26",
     "react-router-dom": "^6.21.3",
     "recoil": "^0.7.7",
-    "sass": "^1.70.0"
+    "sass": "^1.70.0",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

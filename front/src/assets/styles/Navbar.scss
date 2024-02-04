@@ -1,5 +1,5 @@
 .Navbar_body {
-  padding-bottom: 70px;
+  padding-bottom: 10vh;
 }
 
 nav {
@@ -11,27 +11,27 @@ nav {
   background: white;
   // border-radius: 1.5rem 1.5rem 0 0;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
-  padding: 0 20px;
+  // padding: 0 3vh;
   display: flex;
   align-items: start;
-  justify-content: space-between;
+  justify-content: space-around;
 
   .nav-item {
     color: gray;
     display: flex;
-    padding-top: 10px;
+    padding-top: 1.5vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     text-decoration: none;
-    width: 40px;
+    width: 10vh;
 
     &.btn {
       position: absolute;
-      top: -50%;
+      top: -1vh;
       left: 50%;
-      transform: translate(-50%, -20%);
+      transform: translate(-50%, -50%);
     }
 
     &.hidden {
@@ -45,13 +45,15 @@ nav {
     span,
     .login-btn {
       text-transform: uppercase;
-      font-size: 0.8rem;
+      // font-size: 0.8rem;
+      font-size: 1.4vh;
     }
 
     .custum-file-upload {
-      margin-top: 15px;
-      width: 70px;
-      height: 70px;
+      margin-top: 3vh;
+      // width: 70px;
+      width: 9.5vh;
+      height: 9.5vh;
       color: #fff;
       border-radius: 50%;
       display: flex;
