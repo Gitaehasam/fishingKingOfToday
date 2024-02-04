@@ -2,7 +2,6 @@ import "@assets/styles/Header.scss";
 import back from "@assets/images/backSymbol.svg";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useNavigate } from "react-router-dom";
-import { height } from "@mui/system";
 
 const Header = ({
   size = "8vh",
@@ -10,6 +9,8 @@ const Header = ({
   rightText,
   RightIcon,
   align = "start",
+  color = "black",
+  filter = "none",
 }) => {
   const navigate = useNavigate();
 
@@ -17,8 +18,13 @@ const Header = ({
     RightIcon === "InfoOutlinedIcon" ? InfoOutlinedIcon : InfoOutlinedIcon;
 
   return (
-    <header className="header" style={{ height: size }}>
-      <img src={back} alt="" onClick={() => navigate(-1)} />
+    <header className="header" style={{ height: size, color: color }}>
+      <img
+        src={back}
+        alt=""
+        style={{ filter: filter }}
+        onClick={() => navigate(-1)}
+      />
       <div className="center-text" style={{ justifyContent: align }}>
         {centerText}
       </div>

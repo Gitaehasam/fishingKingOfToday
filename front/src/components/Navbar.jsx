@@ -5,6 +5,12 @@ import { FiMapPin } from "react-icons/fi";
 import NoneLogin from "./login/NoneLogin";
 import "../assets/styles/Navbar.scss";
 import { useState } from "react";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import CameraIcon from "@mui/icons-material/Camera";
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -26,11 +32,11 @@ const Navbar = () => {
       </div>
       <nav className="nav">
         <NavLink to={"/"} className="nav-item">
-          <GoHome />
+          <HomeOutlinedIcon />
           <span>홈</span>
         </NavLink>
         <NavLink to={"/fish/map"} className="nav-item">
-          <FiMapPin />
+          <LocationOnOutlinedIcon />
           <span>피싱맵</span>
         </NavLink>
         <div className="nav-item hidden">
@@ -54,23 +60,7 @@ const Navbar = () => {
         </div>
         <div className="nav-item btn">
           <label className="custum-file-upload bg-blue" htmlFor="file">
-            <svg
-              className="icon"
-              stroke="currentColor"
-              fill="none"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
-            </svg>
+            <CameraIcon style={{ width: "6vh", height: "6vh" }} />
             <input
               type="file"
               id="file"
@@ -80,32 +70,17 @@ const Navbar = () => {
           </label>
         </div>
         <NavLink to={"/media"} className="nav-item">
-          <svg
-            className="icon"
-            stroke="currentColor"
-            fill="none"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
+          <DashboardOutlinedIcon />
           <span>RoomList</span>
         </NavLink>
         {jwt ? (
           <NavLink to={"/user/mypage"} className="nav-item">
-            <FaRegUser />
+            <PersonOutlineOutlinedIcon />
             <span>마이</span>
           </NavLink>
         ) : (
           <div className="nav-item">
-            <FaRegUser />
+            <PersonOutlineOutlinedIcon />
             <NoneLogin />
           </div>
         )}

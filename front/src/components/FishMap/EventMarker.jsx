@@ -72,7 +72,11 @@ const EventMarker = ({ position, content, isActive, onClick, getDistance }) => {
           <div className="info_footer">
             <hr />
             <div className="info_icons">
-              {content.tel && <CallIcon />}
+              {content.tel && (
+                <a href={`tel:${content.tel}`}>
+                  <CallIcon />
+                </a>
+              )}
               <FaShareSquare />
             </div>
           </div>
