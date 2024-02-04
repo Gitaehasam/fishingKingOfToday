@@ -1,6 +1,7 @@
 package com.ssafy.sub.pjt.service;
 
 import static com.ssafy.sub.pjt.common.CustomExceptionStatus.FAIL_TO_GENERATE_RANDOM_NICKNAME;
+import static com.ssafy.sub.pjt.common.CustomExceptionStatus.NOT_FOUND_MEMBER_ID;
 
 import com.ssafy.sub.pjt.domain.*;
 import com.ssafy.sub.pjt.domain.repository.UserRepository;
@@ -75,6 +76,8 @@ public class LoginService {
     }
 
     public User findBySocialId(String socialId) {
-        return userRepository.findBySocialId(socialId).orElseThrow();
+        return userRepository
+                .findBySocialId(socialId)
+                .orElseThrow(() -> new AuthException(NOT_FOUND_MEMBER_ID));
     }
 }
