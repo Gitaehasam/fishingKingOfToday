@@ -1,6 +1,5 @@
 package com.ssafy.sub.pjt.domain;
 
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,16 +14,16 @@ public class FishingSpotData {
     private Float latitude;
     private Float longitude;
     private String spotType;
-    private List<String> hashtags;
+    // private List<String> hashtags;
     private String spotPhone;
     private Integer charge;
     private String sido;
     private String streetAddress;
     private String localAddress;
 
-    public void setHashTags(List<String> hashtags) {
-        this.hashtags = hashtags;
-    }
+    //    public void setHashTags(List<String> hashtags) {
+    //        this.hashtags = hashtags;
+    //    }
 
     public FishingSpotData(
             Integer id,
