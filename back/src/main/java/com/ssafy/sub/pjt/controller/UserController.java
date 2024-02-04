@@ -28,7 +28,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteAccount(@PathVariable final Long userId) {
         userService.deleteAccount(AuthenticationUtil.getCurrentUserSocialId());
         return ResponseEntity.noContent().build();
