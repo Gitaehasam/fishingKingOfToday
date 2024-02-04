@@ -8,6 +8,7 @@ import com.ssafy.sub.pjt.dto.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -45,10 +46,14 @@ public class FishingSpotService {
                                 .longitude(longitude)
                                 .build(),
                         pageable);
-
         final List<FishingSpotResponse> fishingSpotResponses =
                 fishingSpotData.stream()
-                        .map(fishingSpot -> FishingSpotResponse.of(fishingSpot))
+                        .map(
+                                fishingSpot ->
+                                        FishingSpotResponse.of(
+                                                fishingSpot,
+                                                fishingSpotRepository.findHashtagsBySpotId(
+                                                        fishingSpot.getId(), PageRequest.of(0, 3))))
                         .collect(Collectors.toList());
         return new FishingSpotListResponse(fishingSpotResponses, fishingSpotData.hasNext());
     }

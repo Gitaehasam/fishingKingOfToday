@@ -51,7 +51,7 @@ public class FishingSpotQueryRepository {
     private long limimtByCondition(FishingSpotSearchCondition fishingSpotSearchCondition) {
         if (fishingSpotSearchCondition.getLongitude() != null
                 && fishingSpotSearchCondition.getLatitude() != null) return 50;
-        return 100;
+        return 50;
     }
 
     private static ConstructorExpression<FishingSpotData> makeProjections() {
