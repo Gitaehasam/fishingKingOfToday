@@ -5,6 +5,10 @@ import dotenv from "dotenv";
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 5173,
+    host: "0.0.0.0",
+  },
   resolve: {
     alias: [
       { find: "@", replacement: path.resolve(__dirname, "src") },

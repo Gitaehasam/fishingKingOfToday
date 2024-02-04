@@ -2,6 +2,7 @@ import "../assets/styles/HomePage.scss";
 import { IoBookOutline } from "react-icons/io5";
 import logo from "../assets/images/Logo.svg";
 import { Link } from "react-router-dom";
+import Slider from "../components/Slider";
 // import loadEnv from "../../loadEnv";
 
 function HomePage() {
@@ -15,10 +16,11 @@ function HomePage() {
           <Link to="/fishbook">
             <IoBookOutline />
           </Link>
+          <Link to="/tutorial">
+            <IoBookOutline />
+          </Link>
         </div>
-        <Link to="/tutorial">
-          <IoBookOutline />
-        </Link>
+        <Slider />
       </div>
     </>
   );
