@@ -4,7 +4,8 @@
 
 nav {
   position: fixed;
-  height: 70px;
+  // height: 70px;
+  height: 10vh;
   width: 100%;
   bottom: 0;
   background: white;
@@ -18,7 +19,7 @@ nav {
   .nav-item {
     color: gray;
     display: flex;
-    padding-top: 15px;
+    padding-top: 10px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -38,7 +39,7 @@ nav {
     }
 
     svg {
-      font-size: 1.3rem;
+      font-size: 3.5vh;
     }
 
     span,

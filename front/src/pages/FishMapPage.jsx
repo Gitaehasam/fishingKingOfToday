@@ -172,6 +172,8 @@ const FishMapPage = () => {
     myLocation();
   }, []);
 
+  console.log(location.pathname);
+
   return (
     <div className="FishMap">
       <FishMapHeader hashTags={hashTags} />

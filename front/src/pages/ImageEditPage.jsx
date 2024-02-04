@@ -6,6 +6,8 @@ import "cropperjs/dist/cropper.css";
 import Aspect from "../components/fishrecognition/Aspect";
 import { IoIosArrowBack } from "react-icons/io";
 import loginImg from "../assets/images/login_img.png";
+import back from "@assets/images/backSymbol.svg";
+import Header from "../components/Header";
 
 function ImageEditPage() {
   const location = useLocation();
@@ -16,6 +18,7 @@ function ImageEditPage() {
 
   const getCropData = () => {
     navigate("/fish/image/result", {
+      replace: true,
       state: {
         value: cropperRef.current?.cropper.getCroppedCanvas().toDataURL(),
       },
@@ -24,36 +27,29 @@ function ImageEditPage() {
 
   return (
     <div className="Demo">
-      <div className="Demo_header">
+      <Header filter="invert(1)" />
+      <div className="crop" onClick={getCropData}>
+        자르기
+      </div>
+      {/* <div className="Demo_header">
         <IoIosArrowBack onClick={() => navigate("/")} />
         <div onClick={getCropData}>자르기</div>
-      </div>
+      </div> */}
       <div className="Demo_body">
         <Cropper
           ref={cropperRef}
           style={{
-            // height: "90%",
-            width: "85%",
-            // margin: "30px",
-            // display: "flex",
-            // justifyContent: "center",
+            height: "100%",
+            width: "100%",
           }}
-          modal={true}
           dragMode="none"
           viewMode={1}
           highlight={false}
           background={false}
           autoCropArea={1}
-          // aspectRatio={aspect}
-          // rotatable={false}
-          // initialAspectRatio={1}
-          // modal={true}
-          // restore={false}
-          // responsive={false}
-          // zoomTo={0.5}
-          // rotateTo={10}
+          minCropBoxWidth={150}
+          minCropBoxHeight={150}
           src={number}
-          checkOrientation={true}
         />
       </div>
       <div className="Demo_footer">
