@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "@assets/styles/Login/Auth.scss";
+import "@assets/styles/login/Auth.scss";
 import axios from "axios";
 import Loading from "../components/Loading";
 // import useAuthStore from "../stores/authState";

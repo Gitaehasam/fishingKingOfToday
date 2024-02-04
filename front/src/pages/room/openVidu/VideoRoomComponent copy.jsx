@@ -8,8 +8,8 @@ import UserVideoComponent from "./UserVideoComponent";
 import ToolbarComponent from '../openVidu/toolbar/ToolbarComponent';
 import ChattingList from "../openVidu/chat/ChattingList"
 import ChattingForm from "../openVidu/chat/ChattingForm"
-import useWindowSize from "../../../components/Room/liveSize";
-import LeaveModal from "../../../components/Room/LeaveModal";
+import useWindowSize from "../../../components/room/liveSize";
+import LeaveModal from "../../../components/room/LeaveModal";
 
 import "./VideoRoomComponent.css";
 
@@ -127,8 +127,11 @@ const VideoRoomComponent = (props) => {
 
     let mySession = OV.initSession();
     setSession(mySession);
-
-    const token = await getToken(); 
+    try {
+      const token = await getToken(); 
+    } catch(error) {
+      console.log(error);
+    }
 
     const publisher = OV.initPublisher(undefined, {
       audioSource: undefined,

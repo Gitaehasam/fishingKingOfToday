@@ -106,7 +106,11 @@ class VideoRoomComponent extends Component {
       },
       async () => {
         this.subscribeToStreamCreated();        // 다른 사용자가 세션에 새로운 스트림을 발행할 때 발생
-        await this.connectToSession();          // 세션에 연결하는 과정을 시작
+        try {
+          await this.connectToSession();          // 세션에 연결하는 과정을 시작
+        } catch(error) {
+          console.log(error);
+        }
       },
     );
   }
@@ -151,8 +155,12 @@ class VideoRoomComponent extends Component {
   }
 
   async connectWebCam() {
-    await this.OV.getUserMedia({ audioSource: undefined, videoSource: undefined });     // 사용자의 오디오와 비디오 미디어 정보 가져오기
-    var devices = await this.OV.getDevices();                                           // 사용 가능한 미디어 장치 정보 가져오기
+    try {
+      await this.OV.getUserMedia({ audioSource: undefined, videoSource: undefined });     // 사용자의 오디오와 비디오 미디어 정보 가져오기
+      var devices = await this.OV.getDevices();                                           // 사용 가능한 미디어 장치 정보 가져오기
+    } catch(error) {
+        console.log(error);
+    }
     var videoDevices = devices.filter(device => device.kind === 'videoinput');          // 사용 가능한 미디어 장치 중 비디오 입력 장치를 필터링
 
     // 비디오 스트림을 게시할 퍼블리셔를 초기화
@@ -577,8 +585,12 @@ class VideoRoomComponent extends Component {
   }
 
   async getToken() {
-    const sessionId = await this.createSession(this.state.mySessionId);
-    return await this.createToken(sessionId);
+    try {
+      const sessionId = await this.createSession(this.state.mySessionId);
+      return await this.createToken(sessionId);
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   createSession(sessionId) {

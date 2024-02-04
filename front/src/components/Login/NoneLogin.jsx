@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import "../../assets/styles/Login/NoneLogin.scss";
+import "../../assets/styles/login/NoneLogin.scss";
 import { Link } from "react-router-dom";
 import Carousel from "./Carousel";
 

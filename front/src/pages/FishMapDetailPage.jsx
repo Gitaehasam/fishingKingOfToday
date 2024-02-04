@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import MapDetailWeather from "../components/FishMap/MapDetailWeather";
+import MapDetailWeather from "../components/fishmap/MapDetailWeather";
 import back from "../assets/images/backSymbol.svg";
-import "../assets/styles/FishMap/FishMapDetailPage.scss";
+import "../assets/styles/fishmap/FishMapDetailPage.scss";
 import axios from "axios";
 import Loading from "../components/Loading";
 import Header from "../components/Header";

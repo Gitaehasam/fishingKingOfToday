@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as tmImage from "@teachablemachine/image";
-import "../assets/styles/FishRecognition/ImageResultPage.scss";
+import "../assets/styles/fishrecognition/ImageResultPage.scss";
 import { IoIosArrowBack, IoIosInformationCircleOutline } from "react-icons/io";
 
 const URL = "./my_model/";

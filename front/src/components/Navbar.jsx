@@ -2,7 +2,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { GoHome } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6";
 import { FiMapPin } from "react-icons/fi";
-import NoneLogin from "./Login/NoneLogin";
+import NoneLogin from "./login/NoneLogin";
 import "../assets/styles/Navbar.scss";
 import { useState } from "react";
 

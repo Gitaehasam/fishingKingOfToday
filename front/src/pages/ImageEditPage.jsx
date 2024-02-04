@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
-import "../assets/styles/FishRecognition/ImageEditPage.scss";
+import "../assets/styles/fishrecognition/ImageEditPage.scss";
 import "cropperjs/dist/cropper.css";
-import Aspect from "../components/FishRecognition/Aspect";
+import Aspect from "../components/fishrecognition/Aspect";
 import { IoIosArrowBack } from "react-icons/io";
 import loginImg from "../assets/images/login_img.png";
 

@@ -1,4 +1,4 @@
-import "../../assets/styles/Login/Carousel.scss";
+import "../../assets/styles/login/Carousel.scss";
 import login from "../../assets/images/login_img.png";
 import { useState, useRef } from "react";
 

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import "@assets/styles/FishMap/FishMapItem.scss";
+import "@assets/styles/fishmap/FishMapItem.scss";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   activeMarkerAtom,
