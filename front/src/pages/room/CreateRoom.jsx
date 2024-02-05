@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import back from '../../assets/images/backSymbol.svg';
 import axios from 'axios';
-import "../../assets/styles/Room/createLive/createLive.scss"
+import "../../assets/styles/room/createLive/CreateLive.scss"
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
 import defaultImg from "../../assets/images/login_img.png";

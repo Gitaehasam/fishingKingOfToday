@@ -9,13 +9,10 @@ import com.ssafy.sub.pjt.exception.AuthException;
 import com.ssafy.sub.pjt.infrastructure.oauthuserinfo.NaverUserInfo;
 import com.ssafy.sub.pjt.util.RedisUtil;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -23,8 +20,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 @Component
 public class NaverOauthProvider implements OauthProvider {
 
-    @Autowired
-    private RedisUtil redisUtil;
+    @Autowired private RedisUtil redisUtil;
 
     private static final String PROPERTIES_PATH = "${oauth2.provider.naver.";
     private static final String PROVIDER_NAME = "naver";

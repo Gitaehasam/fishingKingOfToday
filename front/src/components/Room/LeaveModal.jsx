@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import "../../assets/styles/Room/RoomList/LiveLeaveModal.scss"
+import "../../assets/styles/room/roomList/LiveLeaveModal.scss"
 
 function LeaveModal ({state, leaveSession}) {
   const leaveModal = useRef()

@@ -63,6 +63,9 @@ public class GoogleOauthProvider implements OauthProvider {
         throw new AuthException(NOT_SUPPORTED_OAUTH_SERVICE);
     }
 
+    @Override
+    public void disconnectAccount(String socialId) {}
+
     private String requestAccessToken(final String code) {
         final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         final HttpHeaders httpHeaders = new HttpHeaders();

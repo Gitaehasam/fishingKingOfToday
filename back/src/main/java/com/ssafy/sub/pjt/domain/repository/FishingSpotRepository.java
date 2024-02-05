@@ -15,5 +15,4 @@ public interface FishingSpotRepository extends JpaRepository<FishingSpot, Intege
                             + "where b.fishingSpot.id = :id "
                             + "GROUP BY h.name ORDER BY count(h.name) DESC ")
     List<String> findHashtagsBySpotId(@Param("id") final Integer id, Pageable pageable);
-
 }
