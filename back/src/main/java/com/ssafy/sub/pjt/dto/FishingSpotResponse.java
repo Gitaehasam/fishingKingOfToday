@@ -2,6 +2,7 @@ package com.ssafy.sub.pjt.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.ssafy.sub.pjt.domain.FishingSpot;
 import com.ssafy.sub.pjt.domain.FishingSpotData;
 import java.util.List;
 import lombok.Getter;
@@ -36,5 +37,21 @@ public class FishingSpotResponse {
                 fishingSpotData.getSido(),
                 fishingSpotData.getStreetAddress(),
                 fishingSpotData.getLocalAddress());
+    }
+
+    public static FishingSpotResponse of(
+            final FishingSpot fishingSpot, final List<String> hashtags) {
+        return new FishingSpotResponse(
+                fishingSpot.getId(),
+                fishingSpot.getName(),
+                fishingSpot.getLatitude(),
+                fishingSpot.getLongitude(),
+                fishingSpot.getSpotType(),
+                hashtags,
+                fishingSpot.getSpotPhone(),
+                fishingSpot.getCharge(),
+                fishingSpot.getSido(),
+                fishingSpot.getStreetAddress(),
+                fishingSpot.getLocalAddress());
     }
 }

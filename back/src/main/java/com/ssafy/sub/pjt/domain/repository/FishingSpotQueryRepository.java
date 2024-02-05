@@ -1,6 +1,9 @@
 package com.ssafy.sub.pjt.domain.repository;
 
+import static com.ssafy.sub.pjt.domain.QBoard.board;
+import static com.ssafy.sub.pjt.domain.QBoardHashTag.boardHashTag;
 import static com.ssafy.sub.pjt.domain.QFishingSpot.fishingSpot;
+import static com.ssafy.sub.pjt.domain.QHashTag.hashTag;
 
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.OrderSpecifier;
@@ -48,6 +51,27 @@ public class FishingSpotQueryRepository {
                 hasNext(fishingSpots, pageable));
     }
 
+    public Slice<FishingSpotData> searchByHashTag(
+            final String requestHashtag, final Pageable pageable) {
+        final List<FishingSpotData> fishingSpots =
+                jpaQueryFactory
+                        .select(makeProjections())
+                        .from(fishingSpot)
+                        .leftJoin(fishingSpot.boards, board)
+                        .join(board.boardHashTags, boardHashTag)
+                        .join(boardHashTag.hashTag, hashTag)
+                        .where(hashTag.name.in(requestHashtag))
+                        .limit(20)
+                        .groupBy(fishingSpot)
+                        .orderBy(fishingSpot.count().desc())
+                        .fetch();
+
+        return new SliceImpl<FishingSpotData>(
+                getCurrentPageFishingSpots(fishingSpots, pageable),
+                pageable,
+                hasNext(fishingSpots, pageable));
+    }
+
     private long limimtByCondition(FishingSpotSearchCondition fishingSpotSearchCondition) {
         if (fishingSpotSearchCondition.getLongitude() != null
                 && fishingSpotSearchCondition.getLatitude() != null) return 50;
@@ -68,21 +92,6 @@ public class FishingSpotQueryRepository {
                 fishingSpot.streetAddress,
                 fishingSpot.localAddress);
     }
-
-    //    private Map<Integer, List<String>> findHashTagNameMap(List<Integer> fishingSpotIds) {
-    //        return jpaQueryFactory
-    //                .from(fishingSpot)
-    //                .leftJoin(fishingSpot.fishingSpotHashtags, fishingSpotHashtag)
-    //                .leftJoin(fishingSpotHashtag.hashTag, hashTag)
-    //                .where(fishingSpot.id.in(fishingSpotIds))
-    //                .transform(groupBy(fishingSpot.id).as(GroupBy.list(hashTag.name)));
-    //    }
-
-    //    private void setHashTagName(List<FishingSpotData> fetch) {
-    //        List<Integer> FishingSpotIds = toFishingSpotIds(fetch);
-    //        Map<Integer, List<String>> keywordNameMap = findHashTagNameMap(FishingSpotIds);
-    //        fetch.forEach(o -> o.setHashTags(keywordNameMap.get(o.getId())));
-    //    }
 
     //    private List<Integer> toFishingSpotIds(List<FishingSpotData> result) {
     //        return result.stream().map(FishingSpotData::getId).collect(Collectors.toList());

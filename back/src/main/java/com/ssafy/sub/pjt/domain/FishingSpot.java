@@ -47,4 +47,11 @@ public class FishingSpot {
             cascade = CascadeType.PERSIST,
             orphanRemoval = true)
     private List<FishingSpotFishBook> fishingSpotFishBooks;
+
+    @OneToMany(
+            mappedBy = "fishingSpot",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true)
+    private List<Board> boards;
 }
