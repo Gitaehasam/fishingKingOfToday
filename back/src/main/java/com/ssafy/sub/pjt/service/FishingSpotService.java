@@ -37,7 +37,6 @@ public class FishingSpotService {
                 fishingSpotQueryRepository.searchBy(
                         FishingSpotSearchCondition.builder()
                                 // .fishBookId(fishBookId)
-                                // .sortType(sortType)
                                 .sido(sido)
                                 .spotType(spotType)
                                 .keyword(keyword)
@@ -46,6 +45,23 @@ public class FishingSpotService {
                                 .longitude(longitude)
                                 .build(),
                         pageable);
+        final List<FishingSpotResponse> fishingSpotResponses =
+                fishingSpotData.stream()
+                        .map(
+                                fishingSpot ->
+                                        FishingSpotResponse.of(
+                                                fishingSpot,
+                                                fishingSpotRepository.findHashtagsBySpotId(
+                                                        fishingSpot.getId(), PageRequest.of(0, 3))))
+                        .collect(Collectors.toList());
+        return new FishingSpotListResponse(fishingSpotResponses, fishingSpotData.hasNext());
+    }
+
+    @Transactional(readOnly = true)
+    public FishingSpotListResponse getSpotsByHashTag(
+            final Pageable pageable, final String hashtag) {
+        final Slice<FishingSpotData> fishingSpotData =
+                fishingSpotQueryRepository.searchByHashTag(hashtag, pageable);
         final List<FishingSpotResponse> fishingSpotResponses =
                 fishingSpotData.stream()
                         .map(

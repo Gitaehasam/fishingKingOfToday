@@ -1,5 +1,6 @@
 package com.ssafy.sub.pjt.controller;
 
+import com.ssafy.sub.pjt.domain.repository.FishingSpotRepository;
 import com.ssafy.sub.pjt.dto.FishingSpotListResponse;
 import com.ssafy.sub.pjt.service.FishingSpotService;
 import com.ssafy.sub.pjt.service.HashTagService;
@@ -15,6 +16,7 @@ public class FishingSpotController {
 
     private final FishingSpotService fishingSpotService;
     private final HashTagService hashTagService;
+    private final FishingSpotRepository fishingSpotRepository;
 
     @GetMapping
     public ResponseEntity<?> getSpots(
@@ -28,7 +30,9 @@ public class FishingSpotController {
             @RequestParam(required = false, defaultValue = "") Integer hashTagId,
             final Pageable pageable) {
         if (!keyword.isEmpty() && keyword.charAt(0) == '#' && hashTagId == null) {
-            // hashTagId = hashTagService.findHashTagByName(keyword.substring(1));
+            final FishingSpotListResponse fishingSpotListResponse =
+                    fishingSpotService.getSpotsByHashTag(pageable, keyword);
+            return ResponseEntity.ok().body(fishingSpotListResponse);
         }
         final FishingSpotListResponse fishingSpotListResponse =
                 fishingSpotService.getSpotsByPage(
