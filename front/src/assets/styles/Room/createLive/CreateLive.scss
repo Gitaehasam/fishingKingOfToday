@@ -101,5 +101,6 @@
 
 .room-create-upload-img {
   height: 30vh;
-  z-index: 10;
+  object-fit: contain;
+  width: 100%;
 }

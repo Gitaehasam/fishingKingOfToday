@@ -22,6 +22,11 @@
     position: relative;
     padding: 5px
   }
+
+  .chat-box {
+    padding: 5px;
+  }
+
   .user-img {
     /* position: absolute; */
     border-radius: 45px;
@@ -33,6 +38,7 @@
   .msg-detail {
     width: calc(100% - 65px);
     display: inline-block;
+    padding-left: 10px;
   }
   
   .msg-detail p {
@@ -80,9 +86,10 @@
     padding-left: 50px;
   }
   
-  .message.left .user-img {
+  .message.left {
     border: 1px solid #f0f0f094;
   }
+
   
   .message.left .msg-detail .msg-content {
     background-color: transparent;
