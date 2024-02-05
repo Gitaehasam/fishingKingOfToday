@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Profile from "../../../../assets/images/room/profileImg.jpg"
 import './ChatComponent.css';
 
 const ChattingList = (props) => {
@@ -52,8 +53,8 @@ const ChattingList = (props) => {
       <div>
         {props.messageList.map((msg, i) => (
           <div key={i}>
-            <div>
-              <canvas id={'userImg-' + i} width="60" height="60" className="user-img" />
+            <div className="chat-box">
+              <img src={Profile} alt="" className="user-img"/>
               <div className="msg-detail">
                 <div className="msg-info">
                   <p>{msg.split(":")[0]}</p>

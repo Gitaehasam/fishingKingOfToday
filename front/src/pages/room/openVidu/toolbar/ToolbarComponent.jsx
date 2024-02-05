@@ -7,6 +7,7 @@ import MicOffOutlinedIcon from '@mui/icons-material/MicOffOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
+import Profile from "../../../../assets/images/room/profileImg.jpg"
 
 const ToolbarComponent = ({ 
   sessionId, 
@@ -17,7 +18,8 @@ const ToolbarComponent = ({
   switchCamera,
   leaveSession, 
   hostNickname,
-  hostProfileImg
+  hostProfileImg,
+  setLeaveModal,
 }) => {
 
   const [audioActive, setAudioActive] = useState(true);
@@ -34,11 +36,11 @@ const ToolbarComponent = ({
   return (
     <div className='toolbar-container'>
       <div className='toolbar-host-info'>
-        <img src={hostProfileImg} alt='toolbar-Host profile' />
-        <span>{hostNickname}반갑습니다.</span>
+        <img src={Profile} alt='toolbar-Host profile' />
+        <span>{hostNickname}yxwxwq</span>
       </div>
       <div className='toolbar-option-btn'>
-        <CloseOutlinedIcon onClick={leaveSession} className='toolbar-option-icon'/>
+        <CloseOutlinedIcon onClick={() => setLeaveModal(true)} className='toolbar-option-icon'/>
         {isHost && (
           <>
             {audioActive ? (

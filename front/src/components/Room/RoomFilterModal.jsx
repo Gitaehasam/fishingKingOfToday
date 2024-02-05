@@ -46,7 +46,7 @@ function RoomFilterModal ({state, sortBy}) {
       <div className="room-filter-body">
         <div onClick={sortByNumber}>
           <img src={group} alt="" />
-          <span>참여인원순</span>
+          <span>인원순</span>
         </div>
 
         <div onClick={sortByLatest}>

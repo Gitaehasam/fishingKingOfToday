@@ -34,6 +34,7 @@ const ChattingForm = (props) => {
           value={message}
           onChange={inputChangeHandler}
           onKeyPress={handlePressKey}
+          onpaste="return false;"
         />
       </div>
     </>

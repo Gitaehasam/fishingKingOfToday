@@ -1,3 +1,9 @@
+.room-list-container {
+  height: 100vh;
+  overflow: auto;
+  padding-bottom: 120px;
+}
+
 .roomList-header {
   display: flex;
   align-items: center;
@@ -23,9 +29,8 @@
   align-items: center;
 
   img {
-    width: 10%;
+    width: 8%;
     margin: 10px;
-    
   }
 
   span {
@@ -36,6 +41,11 @@
   &:active {
     color: gray;
   }
+}
+
+.room-list-reload-btn {
+  width: 8%;
+  margin: 10px;
 }
 
 .roomList-info {
@@ -62,10 +72,12 @@
 }
 
 .thumbnail {
-  width: 45%;
+  max-width: 45%;
+  min-width: 130px;
+  min-height: 130px;
   margin-right: 20px;
   border-radius: 10px;
-  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(138, 138, 138, 0.1);
 }
 
 .createLive-btn {
