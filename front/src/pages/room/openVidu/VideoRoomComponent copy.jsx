@@ -93,7 +93,7 @@ const VideoRoomComponent = (props) => {
             sessionId:response.data.sessionId,
           }, {
             headers: {
-              Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTAwNDUyLCJleHAiOjE3MDcxMDQwNTJ9.CZprPOqln6Nklo0V47aSQi7rHpBUgZ0mRe5hdV9VRUk",
+              Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE0NTAwLCJleHAiOjE3MDcxMTgxMDB9.ClIQoMJ6DmvwhEhZUsG9TJ4kwQg-QuE6YOR0qEyNqeg",
               'Content-Type': 'application/json',
             }
           })
@@ -253,6 +253,7 @@ const VideoRoomComponent = (props) => {
     })
     .catch((error) => {
       console.log(error);
+      
     });
   };
 
@@ -295,39 +296,39 @@ const VideoRoomComponent = (props) => {
     }
   }
 
-  const deleteRoomRequest = (mySession) => {
-    axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
-    {
-      headers: {
-        Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MDk0Mjg0LCJleHAiOjE3MDcwOTc4ODR9.035ZHHAH7mqFvmrLFUTIMIZm7QHjjiu7pAOzVQYg_G8",
-        'Content-Type': 'application/json',
-      }
-    }
-    )
-    .then((res) => {
-      if (mySession) {
-        mySession.disconnect();
-        navigate('/media/roomList') // 메인페이지로 이동
-      }
-    })
-    .catch('NOOOOO')
-  }
-
-  // 세선 떠나기 --- 7) disconnect함수를 호출하여 세션을 떠남
-  const leaveSession = () => {
+  const leaveSession = async () => {
     const mySession = session;
-    // 속성을 초기화함(필요한 속성은 초기화하면 안 됨)
-    OV = null;
-    setSession(undefined)
-    setSubscribers([])
-    setMySessionId('SessionA')
-    setMyUserName('Participant' + Math.floor(Math.random() * 100))
-    setMainStreamManager(undefined)
-    setPublisher(undefined)
-    setMessageList([])
-    setChatDisplay(true)
-    setTotalUsers((prevTotalUsers) => { return 0 })
-    deleteRoomRequest(mySession); // 방 삭제를 요청함
+    if (mySession) {
+      // 속성을 초기화함(필요한 속성은 초기화하면 안 됨)
+      OV = null;
+      setSession(undefined)
+      setSubscribers([])
+      setMySessionId('SessionA')
+      setMyUserName('Participant' + Math.floor(Math.random() * 100))
+      setMainStreamManager(undefined)
+      setPublisher(undefined)
+      setMessageList([])
+      setChatDisplay(true)
+      setTotalUsers((prevTotalUsers) => { return 0 })
+      await deleteRoomRequest(mySession);
+    }
+  }
+  
+  const deleteRoomRequest = async (mySession) => {
+    try {
+      await axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
+      {
+        headers: {
+          Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE0NTAwLCJleHAiOjE3MDcxMTgxMDB9.ClIQoMJ6DmvwhEhZUsG9TJ4kwQg-QuE6YOR0qEyNqeg",
+          'Content-Type': 'application/json',
+        }
+      })
+      mySession.disconnect();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      navigate('/media/roomList')
+    }
   }
 
   // 호스트(방 생성자) 여부에 따른 isHost를 토글링함(created()) + 호스트가 아닐 경우 유저의 이름을 바꿈
@@ -362,14 +363,12 @@ const VideoRoomComponent = (props) => {
     navigate('/media/roomList');
   };
 
-  // 메세지 보내기(Sender of the message (after 'session.connect'))
   const sendMsg = (msg, currentSession) => {
-    // this.state.session으로는 자식이 인식할 수 없으므로 currentSession을 자식에게 props로 넘겨주고 다시 받음
     currentSession
       .signal({
-        data: msg, // .signal의 data는 문자열만 넘겨야한다
-        to: [], // Array of Connection objects (optional. Broadcast to everyone if empty)
-        type: "chat", // The type of message (optional)
+        data: msg,
+        to: [],
+        type: "chat",
       })
       .then(() => {
         console.log("Message successfully sent");
@@ -398,6 +397,7 @@ const VideoRoomComponent = (props) => {
             setLeaveModal={setLeaveModal}
             hostNickname={hostNickname}
             hostProfileImg={hostProfileImg}
+            totalUsers={totalUsers}
           />
           
             {isHost && <UserVideoComponent streamManager={publisher}></UserVideoComponent>}
@@ -415,7 +415,7 @@ const VideoRoomComponent = (props) => {
             <InfoOutlinedIcon />
             <div>존재하지 않는 방송입니다.</div>
             <button onClick={() => navigate('/media/roomList')}>나가기</button>
-        </div>
+          </div>
         )}
         
       {leaveModal ? 
@@ -430,9 +430,6 @@ const VideoRoomComponent = (props) => {
 }
 
 export default VideoRoomComponent;
-
-
-
 
 
 // import axios from "axios";
@@ -469,6 +466,7 @@ export default VideoRoomComponent;
 //   const isHost = location.state.isHost;
 //   const imageUrl = (location.state.imageUrl ? location.state.imageUrl : null)
 //   const name = (location.state.name ? location.state.name : null)
+//   const subscriberSession = (location.state.subscriberSession ? location.state.subscriberSession : null)
 //   const [apiRoomId, setApiRoomId] = useState(null)
 
 //   const [mySessionId, setMySessionId] = useState('Gitaehasam');
@@ -499,12 +497,17 @@ export default VideoRoomComponent;
 
 //   // 토큰 받아오기(KMS로 직접 쏨)
 //   const getToken = useCallback(() => {
-//     return createSession(mySessionId)
-//       .then((sessionId) => createToken(sessionId))
-//   }, [mySessionId]);  
-
+//     if (isHost) {
+//       return createSession(mySessionId)
+//       .then((sessionId) => createToken(sessionId));
+//     } else {
+//       return createToken(subscriberSession);
+//     }
+//   }, [mySessionId, isHost]);
+  
 //   // 세션 생성(KMS로 직접 쏨)
 //   const createSession = (sessionId) => {
+//     if (isHost) {
 //     return new Promise((resolve, reject) => {
 //       console.log(roomId)
 //       let data = JSON.stringify({ customSessionId: sessionId });
@@ -524,7 +527,7 @@ export default VideoRoomComponent;
 //             sessionId:response.data.sessionId,
 //           }, {
 //             headers: {
-//               Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MDk0Mjg0LCJleHAiOjE3MDcwOTc4ODR9.035ZHHAH7mqFvmrLFUTIMIZm7QHjjiu7pAOzVQYg_G8",
+//               Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTA3Njk1LCJleHAiOjE3MDcxMTEyOTV9.8rA5OMjqEbvgvYsk8swh_0DC_osUvChoRJ9uCKdpKNU",
 //               'Content-Type': 'application/json',
 //             }
 //           })
@@ -547,14 +550,18 @@ export default VideoRoomComponent;
 //           }
 //         });
 //     });
+//   } else {
+//     return Promise.resolve(subscriberSession);
+//   }
 //   }
 
 //   // 토큰 생성(KMS로 직접 쏨)
 //   const createToken = (sessionId) => {
 //     let myRole = isHost ? "PUBLISHER" : "SUBSCRIBER";
+//     console.log(sessionId)
     
 //     return new Promise((resolve, reject) => {
-//       const data = { role: myRole }; // 여기에 인자를 뭐를 넣냐에 따라 오픈비두 서버에 요청하는 데이터가 달라짐
+//       const data = { role: myRole, sessionId: sessionId }; // 수정된 부분
 //       axios
 //         .post(OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
 //           headers: {
@@ -726,7 +733,7 @@ export default VideoRoomComponent;
 //     axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
 //     {
 //       headers: {
-//         Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MDk0Mjg0LCJleHAiOjE3MDcwOTc4ODR9.035ZHHAH7mqFvmrLFUTIMIZm7QHjjiu7pAOzVQYg_G8",
+//         Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTA3Njk1LCJleHAiOjE3MDcxMTEyOTV9.8rA5OMjqEbvgvYsk8swh_0DC_osUvChoRJ9uCKdpKNU",
 //         'Content-Type': 'application/json',
 //       }
 //     }
@@ -789,14 +796,12 @@ export default VideoRoomComponent;
 //     navigate('/media/roomList');
 //   };
 
-//   // 메세지 보내기(Sender of the message (after 'session.connect'))
 //   const sendMsg = (msg, currentSession) => {
-//     // this.state.session으로는 자식이 인식할 수 없으므로 currentSession을 자식에게 props로 넘겨주고 다시 받음
 //     currentSession
 //       .signal({
-//         data: msg, // .signal의 data는 문자열만 넘겨야한다
-//         to: [], // Array of Connection objects (optional. Broadcast to everyone if empty)
-//         type: "chat", // The type of message (optional)
+//         data: msg,
+//         to: [],
+//         type: "chat",
 //       })
 //       .then(() => {
 //         console.log("Message successfully sent");

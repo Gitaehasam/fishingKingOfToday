@@ -3,9 +3,26 @@
   width: 100%;
 }
 
+.toolbar-count-subscribers {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 70px;
+  font-size: 1.5rem;
+  color: white;
+  background-color: rgb(83, 83, 83);
+  border-radius: 20px;
+  top: 10px;
+  left: 70%;
+  
+  img{
+    width: 30%;
+  }
+}
+
 .toolbar-host-info {
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 0;
   display: flex;
   flex-direction: row;
