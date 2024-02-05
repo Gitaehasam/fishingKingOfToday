@@ -3,6 +3,7 @@ import { IoBookOutline } from "react-icons/io5";
 import logo from "../assets/images/Logo.svg";
 import { Link } from "react-router-dom";
 import Slider from "../components/Slider";
+import PhishingIcon from '@mui/icons-material/Phishing';
 // import loadEnv from "../../loadEnv";
 
 function HomePage() {
@@ -20,6 +21,11 @@ function HomePage() {
             <IoBookOutline />
           </Link>
         </div>
+          <div>
+            <Link to="/chatbot">
+              <PhishingIcon />
+            </Link>
+          </div>
         <Slider />
       </div>
     </>

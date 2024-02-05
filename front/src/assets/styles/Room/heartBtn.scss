@@ -1,0 +1,17 @@
+.heart-icon {
+  position: absolute;
+  font-size: 24px;
+  animation: move 2s linear forwards;
+  color: rgb(255, 115, 115);
+}
+
+@keyframes move {
+  0% {
+    bottom: 0;
+    opacity: 1;
+  }
+  100% {
+    bottom: 200px;
+    opacity: 0;
+  }
+}
