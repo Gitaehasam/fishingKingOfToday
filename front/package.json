@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "prod": "dotenv -e ./ssafy_c203_env/.env.production vite",
     "dev": "dotenv -e ./ssafy_c203_env/.env.development vite",
     "test": "dotenv -e ./ssafy_c203_env/.env.test vite",
     "build": "dotenv -e ./ssafy_c203_env/.env.production vite build",
