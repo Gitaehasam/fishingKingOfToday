@@ -11,8 +11,6 @@ function CreateRoom() {
   const navigate = useNavigate();
   const isHost = true;
   const baseURL = import.meta.env.VITE_BASE_URL
-  const OPENVIDU_SERVER_URL = "https://i10c203.p.ssafy.io"
-  const OPENVIDU_SERVER_SECRET = "wearegitaehasam"
 
   const [title, setTitle] = useState('')
   const [previewURL, setPreviewURL] = useState("");
@@ -87,38 +85,6 @@ function CreateRoom() {
     { 
       state: { isHost: isHost, roomId:roomId, imageUrl:thumbnailURL ? thumbnailURL : null, name:title } 
     });
-    // axios.post(OPENVIDU_SERVER_URL + '/openvidu/api/sessions',
-    // {customSessionId:customSessionId},
-    // {
-    // headers: {
-    //   Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
-    //   'Content-Type': 'application/json',
-    // }
-    // })
-    // .then((res) => {
-    //   console.log(res.data)
-    //   axios.post(baseURL + '/lives', {
-    //     imageUrl:thumbnailURL ? thumbnailURL : null,
-    //     name:title,
-    //     sessionId:res.data.sessionId,
-    //   }, {
-    //     headers: {
-    //       Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MDU5MTcwLCJleHAiOjE3MDcwNjI3NzB9.A7ejXMatWe56kGCXCnVIakZ8vyuBw2mdEYgYhfAjva0",
-    //       'Content-Type': 'application/json',
-    //     }
-    //   })
-    //   .then((res2)=> {
-    //     console.log("roomId: ", res2.data.id);
-    //     console.log("sessionId: ", res.data.sessionId);
-    //     console.log(res2.data);
-    //     const roomId = res2.data.id
-    //     const sessionId = res.data.sessionId
-    //     navigate(`/live/${customSessionId}`, { state: { role: isHost, roomId:roomId, sessionId: sessionId } }); 
-    //   })      
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
-    // })
   }
 
   return (

@@ -8,6 +8,7 @@ import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import Profile from "../../../../assets/images/room/profileImg.jpg"
+import group from "../../../../assets/images/Room/Group.svg"
 
 const ToolbarComponent = ({ 
   sessionId, 
@@ -20,6 +21,7 @@ const ToolbarComponent = ({
   hostNickname,
   hostProfileImg,
   setLeaveModal,
+  totalUsers,
 }) => {
 
   const [audioActive, setAudioActive] = useState(true);
@@ -38,6 +40,9 @@ const ToolbarComponent = ({
       <div className='toolbar-host-info'>
         <img src={Profile} alt='toolbar-Host profile' />
         <span>{hostNickname}yxwxwq</span>
+      </div>
+      <div className='toolbar-count-subscribers'>
+        <img src={group} alt="" />{totalUsers}
       </div>
       <div className='toolbar-option-btn'>
         <CloseOutlinedIcon onClick={() => setLeaveModal(true)} className='toolbar-option-icon'/>
