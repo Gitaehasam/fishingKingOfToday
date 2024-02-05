@@ -13,6 +13,7 @@ import LeaveModal from "../../../components/room/LeaveModal";
 import LiveEndModal from "../../../components/room/LiveEndModal";
 import Loading from "../../../components/Loading";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import HeartButton from "./HeartBtn";
 
 import "./VideoRoomComponent.css";
 
@@ -93,7 +94,7 @@ const VideoRoomComponent = (props) => {
             sessionId:response.data.sessionId,
           }, {
             headers: {
-              Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE0NTAwLCJleHAiOjE3MDcxMTgxMDB9.ClIQoMJ6DmvwhEhZUsG9TJ4kwQg-QuE6YOR0qEyNqeg",
+              Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",
               'Content-Type': 'application/json',
             }
           })
@@ -319,7 +320,7 @@ const VideoRoomComponent = (props) => {
       await axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
       {
         headers: {
-          Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE0NTAwLCJleHAiOjE3MDcxMTgxMDB9.ClIQoMJ6DmvwhEhZUsG9TJ4kwQg-QuE6YOR0qEyNqeg",
+          Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",
           'Content-Type': 'application/json',
         }
       })
@@ -409,6 +410,7 @@ const VideoRoomComponent = (props) => {
                 <ChattingForm myUserName={myUserName} onMessage={sendMsg} currentSession={session}></ChattingForm>
               </div>
             }
+          {/* <HeartButton /> */}
           </div>
         ) : (
           <div className="noneData">
@@ -447,6 +449,7 @@ export default VideoRoomComponent;
 // import LiveEndModal from "../../../components/room/LiveEndModal";
 // import Loading from "../../../components/Loading";
 // import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+// import HeartButton from "./HeartBtn";
 
 // import "./VideoRoomComponent.css";
 
@@ -527,7 +530,7 @@ export default VideoRoomComponent;
 //             sessionId:response.data.sessionId,
 //           }, {
 //             headers: {
-//               Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTA3Njk1LCJleHAiOjE3MDcxMTEyOTV9.8rA5OMjqEbvgvYsk8swh_0DC_osUvChoRJ9uCKdpKNU",
+//               Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",
 //               'Content-Type': 'application/json',
 //             }
 //           })
@@ -687,6 +690,7 @@ export default VideoRoomComponent;
 //     })
 //     .catch((error) => {
 //       console.log(error);
+      
 //     });
 //   };
 
@@ -729,39 +733,39 @@ export default VideoRoomComponent;
 //     }
 //   }
 
-//   const deleteRoomRequest = (mySession) => {
-//     axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
-//     {
-//       headers: {
-//         Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTA3Njk1LCJleHAiOjE3MDcxMTEyOTV9.8rA5OMjqEbvgvYsk8swh_0DC_osUvChoRJ9uCKdpKNU",
-//         'Content-Type': 'application/json',
-//       }
-//     }
-//     )
-//     .then((res) => {
-//       if (mySession) {
-//         mySession.disconnect();
-//         navigate('/media/roomList') // 메인페이지로 이동
-//       }
-//     })
-//     .catch('NOOOOO')
-//   }
-
-//   // 세선 떠나기 --- 7) disconnect함수를 호출하여 세션을 떠남
-//   const leaveSession = () => {
+//   const leaveSession = async () => {
 //     const mySession = session;
-//     // 속성을 초기화함(필요한 속성은 초기화하면 안 됨)
-//     OV = null;
-//     setSession(undefined)
-//     setSubscribers([])
-//     setMySessionId('SessionA')
-//     setMyUserName('Participant' + Math.floor(Math.random() * 100))
-//     setMainStreamManager(undefined)
-//     setPublisher(undefined)
-//     setMessageList([])
-//     setChatDisplay(true)
-//     setTotalUsers((prevTotalUsers) => { return 0 })
-//     deleteRoomRequest(mySession); // 방 삭제를 요청함
+//     if (mySession) {
+//       // 속성을 초기화함(필요한 속성은 초기화하면 안 됨)
+//       OV = null;
+//       setSession(undefined)
+//       setSubscribers([])
+//       setMySessionId('SessionA')
+//       setMyUserName('Participant' + Math.floor(Math.random() * 100))
+//       setMainStreamManager(undefined)
+//       setPublisher(undefined)
+//       setMessageList([])
+//       setChatDisplay(true)
+//       setTotalUsers((prevTotalUsers) => { return 0 })
+//       await deleteRoomRequest(mySession);
+//     }
+//   }
+  
+//   const deleteRoomRequest = async (mySession) => {
+//     try {
+//       await axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
+//       {
+//         headers: {
+//           Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",
+//           'Content-Type': 'application/json',
+//         }
+//       })
+//       mySession.disconnect();
+//     } catch (error) {
+//       console.error(error);
+//     } finally {
+//       navigate('/media/roomList')
+//     }
 //   }
 
 //   // 호스트(방 생성자) 여부에 따른 isHost를 토글링함(created()) + 호스트가 아닐 경우 유저의 이름을 바꿈
@@ -830,6 +834,7 @@ export default VideoRoomComponent;
 //             setLeaveModal={setLeaveModal}
 //             hostNickname={hostNickname}
 //             hostProfileImg={hostProfileImg}
+//             totalUsers={totalUsers}
 //           />
           
 //             {isHost && <UserVideoComponent streamManager={publisher}></UserVideoComponent>}
@@ -841,13 +846,14 @@ export default VideoRoomComponent;
 //                 <ChattingForm myUserName={myUserName} onMessage={sendMsg} currentSession={session}></ChattingForm>
 //               </div>
 //             }
+//           {/* <HeartButton /> */}
 //           </div>
 //         ) : (
 //           <div className="noneData">
 //             <InfoOutlinedIcon />
 //             <div>존재하지 않는 방송입니다.</div>
 //             <button onClick={() => navigate('/media/roomList')}>나가기</button>
-//         </div>
+//           </div>
 //         )}
         
 //       {leaveModal ? 

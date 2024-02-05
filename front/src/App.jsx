@@ -21,6 +21,7 @@ import BoardCreate from "./components/board/BoardCreate";
 import AuthPage from "./pages/AuthPage";
 import MyPage from "./pages/MyPage";
 import TutorialPage from "./pages/TutorialPage";
+import ChatBot from "./pages/ChatBot";
 
 function App() {
   return (
@@ -79,6 +80,10 @@ function App() {
       </Route>
 
       <Route path="/live/:id" element={<VideoRoomComponent />}></Route>
+      
+      <Route path="/chatBot">
+        <Route index element={<ChatBot/>}/>
+      </Route>
     </Routes>
   );
 }
