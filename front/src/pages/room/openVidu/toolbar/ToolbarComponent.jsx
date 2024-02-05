@@ -8,7 +8,7 @@ import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import Profile from "../../../../assets/images/room/profileImg.jpg"
-import group from "../../../../assets/images/Room/Group.svg"
+import group from "../../../../assets/images/room/Group.svg"
 
 const ToolbarComponent = ({ 
   sessionId, 
