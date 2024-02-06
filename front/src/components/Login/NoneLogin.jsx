@@ -17,7 +17,7 @@ const NoneLogin = () => {
 
   return (
     <>
-      <div onClick={handleOpen}>
+      <div onClick={handleOpen} className="NoneLogin_wrapper">
         <PersonOutlineOutlinedIcon />
         <div className="login-btn">마이</div>
       </div>
