@@ -7,6 +7,7 @@ import com.ssafy.sub.pjt.domain.*;
 import com.ssafy.sub.pjt.domain.repository.UserRepository;
 import com.ssafy.sub.pjt.exception.AuthException;
 import com.ssafy.sub.pjt.util.RandomNicknameUtil;
+import com.ssafy.sub.pjt.util.RedisUtil;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class LoginService {
     // private final RefreshTokenRepository refreshTokenRepository;
 
     private final OauthProviders oauthProviders;
-
     private final UserRepository userRepository;
+    private final RedisUtil redisUtil;
 
     public User login(final String providerName, final String code) {
         final OauthProvider provider = oauthProviders.mapping(providerName);
@@ -35,6 +36,10 @@ public class LoginService {
                         oauthUserInfo.getNickName(),
                         oauthUserInfo.getImageUrl());
         return user;
+    }
+
+    public void logout(String socialId) {
+        redisUtil.deleteData(socialId);
     }
 
     private User findOrCreateMember(
