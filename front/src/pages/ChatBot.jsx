@@ -7,27 +7,22 @@ import ChatBotChattingList from "../components/chatBot/ChatBotChattingList";
 import axios from "axios";
 
 function ChatBot () {
-  const [stompClient, setStompClient] = useState(null)
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   connect()
-  //   return () => disconnect()
-  // }, [])
-
   const sendChat = (chat) => {
-    axios.post("", {chat}, {
-      headers:{
-        Authorization: `Token {token}`,
-        'Content-Type': 'application/json',
-      }
-    })
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    console.log(chat)
+    // axios.post("", {chat}, {
+    //   headers:{
+    //     Authorization: `Token {token}`,
+    //     'Content-Type': 'application/json',
+    //   }
+    // })
+    // .then((res) => {
+    //   console.log(res.data)
+    // })
+    // .catch((err) => {
+    //   console.log(err)
+    // })
   }
 
   return (
