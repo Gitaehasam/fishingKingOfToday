@@ -194,7 +194,8 @@ const VideoRoomComponent = (props) => {
       videoSource: undefined,
       publishAudio: isAudio,
       publishVideo: isCamera,
-      resolution: `${size.width}x${size.height}`,
+      // resolution: `${size.width}x${size.height}`,
+      resolution: `640x480`,
       frameRate: 30,
       insertMode: 'APPEND',
       mirror: false
@@ -317,14 +318,16 @@ const VideoRoomComponent = (props) => {
   }
   
   const deleteRoomRequest = async (mySession) => {
+    console.log(mySession)
     try {
-      await axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
+      await axios.delete(baseURL + `/api/lives/${apiRoomId}`, 
       {
         headers: {
           Authorization: localStorage.getItem("jwt"),
           'Content-Type': 'application/json',
         }
       })
+      // axios.delete(OPENVIDU_SERVER_URL + `/openvidu/api/sessions/${}`)
       mySession.disconnect();
     } catch (error) {
       console.error(error);
