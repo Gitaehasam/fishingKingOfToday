@@ -22,6 +22,7 @@ import AuthPage from "./pages/AuthPage";
 import MyPage from "./pages/MyPage";
 import TutorialPage from "./pages/TutorialPage";
 import ChatBot from "./pages/ChatBot";
+import MyPageEdit from "./pages/MyPageEdit";
 
 function App() {
   return (
@@ -47,7 +48,10 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="user/mypage" element={<MyPage />} />
+        <Route path="user/mypage">
+          <Route index element={<MyPage />} />
+          <Route path="edit" element={<MyPageEdit />} />
+        </Route>
       </Route>
 
       <Route path="media">
@@ -80,9 +84,9 @@ function App() {
       </Route>
 
       <Route path="/live/:id" element={<VideoRoomComponent />}></Route>
-      
+
       <Route path="/chatBot">
-        <Route index element={<ChatBot/>}/>
+        <Route index element={<ChatBot />} />
       </Route>
     </Routes>
   );
