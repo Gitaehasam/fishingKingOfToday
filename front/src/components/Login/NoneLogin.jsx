@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import "../../assets/styles/login/NoneLogin.scss";
 import { Link } from "react-router-dom";
 import Carousel from "./Carousel";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
 const NoneLogin = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,8 +17,9 @@ const NoneLogin = () => {
 
   return (
     <>
-      <div className="login-btn" onClick={handleOpen}>
-        마이
+      <div onClick={handleOpen}>
+        <PersonOutlineOutlinedIcon />
+        <div className="login-btn">마이</div>
       </div>
       {isOpen && (
         <div className="NoneLogin_open">
