@@ -7,7 +7,7 @@ services:
         PROFILE: prod
     container_name: 'prod-spring-boot'
     ports:
-      - 8080:8080
+      - 8081:8081
     depends_on:
       - prod-redis
       - prod-mysql
