@@ -104,7 +104,7 @@ function RoomList() {
             onClick={fetchRoomList}
           />
 
-          {liveRoomList.content && liveRoomList.content.length > 0 ? (
+          {liveRoomList.liveRooms && liveRoomList.liveRooms.length > 0 ? (
             <div onClick={handleChangeModal} className="roomList-filter">
               {isSortBy === 1 ? <span>참여인원순</span> : <span>최신순</span>}
               <img src={filter} alt="" />
@@ -122,8 +122,8 @@ function RoomList() {
             </div>
           )}
 
-          {liveRoomList.content &&
-            liveRoomList.content.map((room, idx) => (
+          {liveRoomList.liveRooms &&
+            liveRoomList.liveRooms.map((room, idx) => (
               <div
                 key={idx}
                 className="roomList-info"
@@ -135,12 +135,12 @@ function RoomList() {
                   className="thumbnail"
                 />
                 <div className="roomList-info-header">
-                  <p>{room.title}</p>
+                  <p>{room.name}</p>
                   <div className="roomList-info-body">
-                    <span>{room.title}</span>
+                    <span>{room.nickName}</span>
                     <p>
                       <img className="subscriber" src={group} alt="group" />{" "}
-                      {room.connections.numberOfElements}
+                      {/* {room.connections.numberOfElements} */}
                     </p>
                   </div>
                 </div>
