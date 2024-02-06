@@ -25,7 +25,7 @@ public class LiveRoomResponse {
                 liveRoom.getImageUrl(),
                 liveRoom.getIsActive(),
                 liveRoom.getCreatedAt(),
-                liveRoom.getOwnerId().getNickName(),
+                liveRoom.getUser().getNickName(),
                 liveRoom.getSessionId());
     }
 }
