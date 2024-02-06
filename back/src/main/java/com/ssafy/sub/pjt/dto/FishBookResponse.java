@@ -16,6 +16,7 @@ public class FishBookResponse {
     private final LocalDate tabooStartAt;
     private final LocalDate tabooEndAt;
     private final Integer mininumSize;
+    private final FishType fishType;
     private final String imageUrl;
 
     public static FishBookResponse of(final FishBook fishBook) {
@@ -25,6 +26,7 @@ public class FishBookResponse {
                 fishBook.getTabooStartAt(),
                 fishBook.getTabooEndAt(),
                 fishBook.getMinimumSize(),
+                fishBook.getFishType(),
                 fishBook.getImageUrl());
     }
 }
