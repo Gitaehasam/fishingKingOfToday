@@ -31,11 +31,12 @@ const AuthPage = () => {
         }
       );
       const data = res.data.accessToken;
-      sessionStorage.setItem("jwt", data);
+      localStorage.setItem("jwt", data);
       navigate("/", { replace: true });
       console.log(data);
     } catch (err) {
       console.log(err);
+      // navigate("/login", { state: { path: "/" } }, { replace: true });
     }
   };
 

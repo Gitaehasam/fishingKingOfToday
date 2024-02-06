@@ -1,5 +1,10 @@
 import { atom } from "recoil";
 
+export const prevPathAtom = atom({
+  key: "prevPathAtom",
+  default: "",
+});
+
 // 활성화 마커 인덱스
 export const activeMarkerAtom = atom({
   key: "activeMarkerAtom",

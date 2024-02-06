@@ -6,6 +6,8 @@ import "../assets/styles/fishmap/FishMapDetailPage.scss";
 import axios from "axios";
 import Loading from "../components/Loading";
 import Header from "../components/Header";
+import { useSetRecoilState } from "recoil";
+import { prevPathAtom } from "../stores/FishingMapStore";
 
 const FishMapDetailPage = () => {
   const location = useLocation();
@@ -13,6 +15,9 @@ const FishMapDetailPage = () => {
   const { content, position } = location.state.data;
   const { lat, lng } = location.state.data.position;
   const openWeatherApiKey = "87246d75e1ce26e1392a087b3d1d88c5";
+  const setPrevPath = useSetRecoilState(prevPathAtom);
+
+  console.log(content, position);
 
   const [reviewData, setReviewDate] = useState([]);
   const [weatherData, setWeatherData] = useState([]);
@@ -29,6 +34,8 @@ const FishMapDetailPage = () => {
       setWeatherData(res.data.list);
     } catch (err) {
       console.log(err);
+    } finally {
+      setPrevPath(location.pathname);
     }
   };
 
@@ -44,7 +51,7 @@ const FishMapDetailPage = () => {
 
   return (
     <div className="FishMapDetailPage">
-      <Header />
+      <Header prevPath={"/fish/map"} />
       <div className="body">
         <div className="fishing-info">
           <div className="fishing-name">

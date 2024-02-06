@@ -7,9 +7,12 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { activeMarkerAtom } from "@/stores/FishingMapStore.js";
 import {
   centerChangeAtom,
+  filterModeAtom,
   mapCenterAtom,
   myCenterAtom,
+  searchTermAtom,
 } from "../stores/FishingMapStore";
+import { useLocation } from "react-router-dom";
 
 const dummyData = [
   {
@@ -68,6 +71,7 @@ const dummyData = [
       tel: "",
       hashTag: ["#노을맛집", "#월척"],
       expense: 10000,
+      fishes: ["가다랑어", "붉바리"],
     },
     latlng: { lat: 35.0616396163, lng: 126.3321694341 },
   },
@@ -85,14 +89,24 @@ const dummyData = [
   },
 ];
 
-const hashTags = ["#사진맛집", "#노을맛집", "#월척"];
+const hashTags = [
+  "#사진맛집",
+  "#노을맛집",
+  "#월척",
+  "#고기맛집",
+  "#산책하기좋은곳",
+];
 
 const FishMapPage = () => {
-  const [mapCenter, setMapCenter] = useRecoilState(mapCenterAtom);
-  const activeMarker = useRecoilValue(activeMarkerAtom); // 활성화 마커 인덱스 저장
+  const setSearchTerm = useSetRecoilState(searchTermAtom);
+  const setFilterModeAtom = useSetRecoilState(filterModeAtom);
+  const setCenterChange = useSetRecoilState(centerChangeAtom);
   const setMyCenter = useSetRecoilState(myCenterAtom);
+  const [mapCenter, setMapCenter] = useRecoilState(mapCenterAtom);
+  const [activeMarker, setActiveMarker] = useRecoilState(activeMarkerAtom); // 활성화 마커 인덱스 저장
   const [openList, setOpenList] = useState(false);
-
+  const location = useLocation();
+  console.log(location);
   const mapRef = useRef(null);
 
   // 내위치
@@ -110,10 +124,11 @@ const FishMapPage = () => {
             isLoading: true,
           }));
 
-          setMapCenter({
-            lat: latitude,
-            lng: longitude,
-          });
+          setCenterChange(false);
+
+          if ((!mapCenter.lat && !mapCenter.lng) || !location.state?.data) {
+            dataSetting(latitude, longitude);
+          }
         },
         (err) => {
           console.log(err);
@@ -131,6 +146,16 @@ const FishMapPage = () => {
         isLoading: false,
       }));
     }
+  };
+
+  const dataSetting = (lat, lng) => {
+    setMapCenter({
+      lat: lat,
+      lng: lng,
+    });
+    setActiveMarker(null);
+    setSearchTerm("");
+    setFilterModeAtom("dist");
   };
 
   // 현재 내위치와 낚시터의 거리
@@ -170,13 +195,12 @@ const FishMapPage = () => {
 
   useEffect(() => {
     myLocation();
+    // dataSetting();
   }, []);
-
-  console.log(location.pathname);
 
   return (
     <div className="FishMap">
-      <FishMapHeader hashTags={hashTags} />
+      <FishMapHeader hashTags={hashTags} mapRef={mapRef} />
       <FishMapBody
         openList={openList}
         mapRef={mapRef}

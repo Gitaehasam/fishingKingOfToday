@@ -14,7 +14,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const jwt = sessionStorage.getItem("jwt");
+  const jwt = localStorage.getItem("jwt");
 
   const handleChangeFile = (e) => {
     const nextPreview = e.target.files[0];
@@ -80,7 +80,7 @@ const Navbar = () => {
           </NavLink>
         ) : (
           <div className="nav-item">
-            <PersonOutlineOutlinedIcon />
+            {/* <PersonOutlineOutlinedIcon /> */}
             <NoneLogin />
           </div>
         )}

@@ -6,11 +6,12 @@ import MarkerOn from "../../assets/images/marker_place.png";
 import { FaShareSquare } from "react-icons/fa";
 import CallIcon from "@mui/icons-material/Call";
 import "../../assets/styles/fishmap/EventMarker.scss";
-import { useRecoilValue } from "recoil";
-import { myCenterAtom } from "../../stores/FishingMapStore";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { mapCenterAtom, myCenterAtom } from "../../stores/FishingMapStore";
 
 const EventMarker = ({ position, content, isActive, onClick, getDistance }) => {
   const myCenter = useRecoilValue(myCenterAtom);
+  const setMapCenter = useSetRecoilState(mapCenterAtom);
 
   const map = useMap();
   const navigate = useNavigate();
@@ -27,7 +28,18 @@ const EventMarker = ({ position, content, isActive, onClick, getDistance }) => {
       position.lat,
       position.lng
     );
-  }, []);
+  }, [myCenter, position]);
+
+  const goDetail = () => {
+    const get = map.getCenter();
+    setMapCenter({
+      lat: get.getLat(),
+      lng: get.getLng(),
+    });
+    navigate(`${position.lat}-${position.lng}`, {
+      state: { data: { content, position } },
+    });
+  };
 
   return (
     <>
@@ -49,14 +61,7 @@ const EventMarker = ({ position, content, isActive, onClick, getDistance }) => {
       {isActive && (
         <div className="info">
           <div className="info_header">
-            <div
-              className="info_name"
-              onClick={() =>
-                navigate(`${position.lat}-${position.lng}`, {
-                  state: { data: { content, position } },
-                })
-              }
-            >
+            <div className="info_name" onClick={goDetail}>
               {content.name}
             </div>
             <div className="info_type">{content.type}</div>
