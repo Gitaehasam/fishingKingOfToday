@@ -34,10 +34,7 @@ public class User extends BaseTime {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Board> boards;
 
-    @OneToMany(
-            mappedBy = "user",
-            fetch = FetchType.LAZY,
-            orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<LiveRoom> liveRooms;
 
     public boolean isNicknameChanged(final String inputNickname) {
