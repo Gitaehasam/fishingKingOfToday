@@ -1,5 +1,6 @@
 package com.ssafy.sub.pjt.controller;
 
+import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 import static org.springframework.http.HttpHeaders.SET_COOKIE;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -13,10 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,5 +43,11 @@ public class AuthController {
         response.addHeader(SET_COOKIE, cookie.toString());
         return ResponseEntity.status(CREATED)
                 .body(new AccessTokenResponse(memberTokens.getAccessToken()));
+    }
+
+    @DeleteMapping("/log-out")
+    public ResponseEntity<?> logout() {
+        loginService.logout(getCurrentUserSocialId());
+        return ResponseEntity.ok().build();
     }
 }
