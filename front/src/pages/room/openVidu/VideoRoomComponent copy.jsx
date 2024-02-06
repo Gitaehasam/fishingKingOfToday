@@ -95,7 +95,7 @@ const VideoRoomComponent = (props) => {
           }, {
             headers: {
               // Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",              
-              Authorization: sessionStorage.getItem("jwt"),
+              Authorization: localStorage.getItem("jwt"),
               'Content-Type': 'application/json',
             }
           })
@@ -321,7 +321,7 @@ const VideoRoomComponent = (props) => {
       await axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
       {
         headers: {
-          Authorization: sessionStorage.getItem("jwt"),
+          Authorization: localStorage.getItem("jwt"),
           'Content-Type': 'application/json',
         }
       })
