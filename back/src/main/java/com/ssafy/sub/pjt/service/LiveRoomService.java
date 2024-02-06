@@ -38,7 +38,7 @@ public class LiveRoomService {
 
         LiveRoom liveRoom =
                 LiveRoom.builder()
-                        .ownerId(
+                        .user(
                                 uerRepository
                                         .findBySocialId(AuthenticationUtil.getCurrentUserSocialId())
                                         .get())
@@ -75,7 +75,7 @@ public class LiveRoomService {
                         .id(roomId)
                         .name(liveRoomUpdateRequest.getName())
                         .isActive(liveRoomUpdateRequest.getIsActive())
-                        .ownerId(liveRoom.getOwnerId())
+                        .user(liveRoom.getUser())
                         // .joinAt(user.getJoinAt())
                         // .lastLoginAt(user.getLastLoginAt())
                         .imageUrl(liveRoomUpdateRequest.getImageUrl())
