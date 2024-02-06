@@ -37,12 +37,12 @@ out/
 .vscode/
 
 ### properties ###
+application-chatbot.properties
 application-oauth.properties
 application-aws.properties
 application-test.properties
 application-dev.properties
 application-prod.properties
-application-chatbot.properties
 
 ### docker env file ###
 .env
