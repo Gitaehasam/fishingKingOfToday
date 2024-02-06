@@ -317,8 +317,8 @@ const VideoRoomComponent = (props) => {
     }
   }
   
-  const deleteRoomRequest = async (mySession) => {
-    console.log(mySession)
+  const deleteRoomRequest = async (mySessionId) => {
+    console.log(mySessionId)
     try {
       await axios.delete(baseURL + `/api/lives/${apiRoomId}`, 
       {
@@ -327,8 +327,13 @@ const VideoRoomComponent = (props) => {
           'Content-Type': 'application/json',
         }
       })
-      // axios.delete(OPENVIDU_SERVER_URL + `/openvidu/api/sessions/${}`)
-      mySession.disconnect();
+      axios.delete(OPENVIDU_SERVER_URL + `/openvidu/api/sessions/${mySessionId}`, {
+        headers: {
+          Authorization: localStorage.getItem("jwt"),
+          'Content-Type': 'application/json',
+        }
+      })
+      mySessionId.disconnect();
     } catch (error) {
       console.error(error);
     } finally {
@@ -414,7 +419,7 @@ const VideoRoomComponent = (props) => {
                 <ChattingForm myUserName={myUserName} onMessage={sendMsg} currentSession={session}></ChattingForm>
               </div>
             }
-          {/* <HeartButton /> */}
+          <HeartButton />
           </div>
         ) : (
           <div className="noneData">
