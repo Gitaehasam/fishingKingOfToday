@@ -1,0 +1,40 @@
+.chatbot-Demo {
+  height: 100vh;
+}
+
+.chatbot-fishking {
+  width: 20%;
+}
+
+.chatbot-header {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 150%;
+  margin: 0 2vh;
+
+  img {
+    border-radius: 100%;
+    padding: 0.2vh;
+    border: 3px solid red;
+    width: 6vh;
+    height: inherit;
+  }
+
+  span {
+    padding-left: 1vh;
+  }
+}
+
+.chatbot-body {
+  margin: 3vh;
+}
+
+.chatbot-startChat {
+  background-color: gray;
+  border-radius: 0 20px 20px 10px;
+  width: 100%;
+  height: 30%;
+  font-size: 120%;
+  color: white;
+}

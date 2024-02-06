@@ -2,39 +2,92 @@ import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import fishKing from "../assets/images/fish_king.png"
 import Header from "../components/Header";
+import "@assets/styles/chatbot/ChatBot.scss"
 import ChatBotChattingForm from "../components/chatBot/ChatBotChattingForm";
 import ChatBotChattingList from "../components/chatBot/ChatBotChattingList";
 import axios from "axios";
 
+// [
+// 	['캐스팅', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
+// 	['미끼', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
+// 	['봉돌', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
+// 	['합사', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
+// 	['물고기 잘 잡히는 곳', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
+// ]
+
 function ChatBot () {
   const navigate = useNavigate()
+  const [chattingList, setChattingList] = useState([])
+  const [user, setUser] = useState('')
+  const [recommendList, setRecommendList] = useState([
+    '봉돌',
+    '합사',
+    '캐스팅',
+    '미끼',
+    '물고기 잘 잡히는 곳'
+  ])
 
   const sendChat = (chat) => {
-    console.log(chat)
     // axios.post("", {chat}, {
     //   headers:{
     //     Authorization: `Token {token}`,
     //     'Content-Type': 'application/json',
-    //   }
-    // })
-    // .then((res) => {
-    //   console.log(res.data)
+    //     }
+    //   })
+    //   .then((res) => {
+      setChattingList([...chattingList, {user: 'user', chat: chat, imgURL: null, move:null}])
+    //     setChattingList([...chattingList, {user: 'bot', chat: res.data, imgURL: imgURL, move:link}])
+    //     console.log(res.data)
     // })
     // .catch((err) => {
     //   console.log(err)
     // })
   }
 
+  const userRole = (user) => {
+    setUser(user)
+  }
+
+  const handleClickRecChat = (e) => {
+    sendChat(e.target.textContent);
+
+    const newRecommendList = recommendList.filter((recChat) => {
+      return recChat !== e.target.textContent;
+    });
+    setRecommendList(newRecommendList);
+  };
+
+
   return (
     <>
-      <div>
-        <div className="chatbot-toolbar" onClick={() => navigate("/")}>
-          <Header centerText={'낚시왕'}></Header>
+      <div className="chatbot-Demo">
+        <div onClick={() => navigate("/")}>
+          <Header />
         </div>
-      <hr />
+
+        <div className="chatbot-header">
+          <img src={fishKing} className="chatbot-fishking"/>
+          <span>낚시왕</span>
+        </div>
+
         <div>
-          <ChatBotChattingList />
-          <ChatBotChattingForm onChat={sendChat}/>
+          <div className="chat-list-container">
+            <div className="chatbot-startChat">
+              <p><span>따뜻한 갈치</span>님, 안녕하세요.</p>
+              <p>저는 낚시왕입니다.</p>
+              <p>어떤 사항이 궁금하신가요?</p>
+            </div>
+
+            <div>
+              자주 묻는 질문
+              {recommendList.map((recChat, idx) => (
+                <div key={idx} onClick={handleClickRecChat}>{recChat}</div>
+                ))}
+            </div>
+            <ChatBotChattingList chattingList={chattingList}/>
+          </div>
+
+          <ChatBotChattingForm onChat={sendChat} />
         </div>
       </div>
     </>
@@ -42,74 +95,3 @@ function ChatBot () {
 }
 
 export default ChatBot
-
-
-// import React, { useState, useEffect } from 'react'
-// import SockJS from 'sockjs-client'
-// import { over } from 'stompjs'
-
-// function ChatBot() {
-//   const [stompClient, setStompClient] = useState(null)
-//   const [messages, setMessages] = useState([])
-//   const [msg, setMsg] = useState('')
-
-//   useEffect(() => {
-//     connect()
-//     return () => disconnect()
-//   }, [])
-
-//   const connect = () => {
-//     const socket = new SockJS('/ws')
-//     const client = over(socket)
-//     client.connect({}, frame => {
-//       console.log('Connected: ' + frame)
-//       client.subscribe('/topic/public', message => {
-//         showMessage("받은 메시지: " + message.body)
-//       })
-//     })
-//     setStompClient(client)
-//   }
-
-//   const disconnect = () => {
-//     if (stompClient !== null) {
-//       stompClient.disconnect()
-//     }
-//     console.log("Disconnected")
-//   }
-
-//   const sendMessage = () => {
-//     let message = msg
-//     showMessage("보낸 메시지: " + message)
-//     stompClient.send("/app/sendMessage", {}, JSON.stringify(message))
-//     setMsg('')
-//   }
-
-//   const showMessage = (message) => {
-//     setMessages(messages => [...messages, message])
-//   }
-
-//   return (
-//     <div>
-//       <button onClick={connect} disabled={stompClient}>연결</button>
-//       <button onClick={disconnect} disabled={!stompClient}>해제</button>
-//       <input type="text" value={msg} onChange={e => setMsg(e.target.value)} placeholder="내용을 입력하세요...." />
-//       <button onClick={sendMessage} disabled={!stompClient}>보내기</button>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>메세지</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {messages.map((msg, index) => (
-//             <tr key={index}>
-//               <td>{msg}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   )
-// }
-
-// export default ChatBot

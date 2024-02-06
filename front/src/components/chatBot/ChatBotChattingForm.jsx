@@ -1,11 +1,19 @@
 import React, {useState, useEffect, useCallback, useRef} from "react";
 import SendIcon from "@mui/icons-material/Send";
+import you from "@assets/images/공유.jpg";
 
 function ChatBotChattingForm (props) {
   const [chat, setChat] = useState('')
 
   const handleChangeChat = (e) => {
     setChat(e.target.value)
+  }
+
+  const handlePressKey = (e) => {
+    if (e.key === "Enter" && e.target.value.trim() !== '') {
+      e.preventDefault();
+      sendChat(e);
+    }
   }
 
   const sendChat = (e) => {
@@ -17,13 +25,24 @@ function ChatBotChattingForm (props) {
   return (
     <>
       <div>
-        <input
-          placeholder="메세지 보내기..."
-          id="chatBotInput"
-          value={chat}
-          onChange={handleChangeChat}
-          type="text" />
-          {chat.trim() !== '' && <SendIcon onClick={sendChat}/>}
+        <div className="reply-add">
+          <div className="reply-line bg-blue"></div>
+          <img src={you} alt="" />
+          <div className="reply-add-area">
+            <input
+              className="chatbot-input"
+              value={chat}
+              type="text" 
+              placeholder="메세지 보내기..." 
+              onChange={handleChangeChat}
+              onKeyPress={handlePressKey}
+            />
+
+            {chat.trim() !== '' && <div className="send-reply bg-blue" onClick={sendChat}>
+              <SendIcon />
+            </div>}
+          </div>
+        </div>
       </div>
     </>
   )
