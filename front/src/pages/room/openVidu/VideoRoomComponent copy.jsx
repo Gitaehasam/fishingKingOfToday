@@ -71,7 +71,7 @@ const VideoRoomComponent = (props) => {
       return createToken(subscriberSession);
     }
   }, [mySessionId, isHost]);
-  
+
   // 세션 생성(KMS로 직접 쏨)
   const createSession = (sessionId) => {
     if (isHost) {
@@ -88,13 +88,14 @@ const VideoRoomComponent = (props) => {
         .then((response) => {
           console.log('CREATE SESION', response);
 
-          axios.post(OPENVIDU_SERVER_URL + '/api/lives', {
+          axios.post(baseURL + '/lives', {
             imageUrl:imageUrl,
             name:name,
             sessionId:response.data.sessionId,
           }, {
             headers: {
-              Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",
+              // Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",              
+              Authorization: sessionStorage.getItem("jwt"),
               'Content-Type': 'application/json',
             }
           })
@@ -320,7 +321,7 @@ const VideoRoomComponent = (props) => {
       await axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
       {
         headers: {
-          Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",
+          Authorization: sessionStorage.getItem("jwt"),
           'Content-Type': 'application/json',
         }
       })
