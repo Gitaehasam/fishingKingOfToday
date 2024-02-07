@@ -14,7 +14,6 @@
   // }
 
   .body {
-    // margin: 0 2vh;
     display: flex;
     flex-direction: column;
     gap: 5vh;
@@ -23,20 +22,20 @@
       display: flex;
       flex-direction: column;
       gap: 1vh;
-      margin: 0 2vh;
+      margin: 0 4vw;
 
       .fishing-name {
         display: flex;
         align-items: end;
 
         h2 {
-          font-size: 3vh;
+          font-size: 3.5vh;
         }
       }
 
       div:last-child {
         color: gray;
-        font-size: 1.9vh;
+        font-size: 2.2vh;
       }
     }
 
@@ -46,15 +45,17 @@
       gap: 1vh;
 
       .name {
-        margin: 0 2vh;
+        // margin: 0 1rem;
+        margin: 0 4vw;
         font-size: 2.7vh;
       }
 
       .wrapper {
         overflow: auto;
         display: flex;
-        gap: 20px;
-        padding: 0 2vh;
+        gap: 4vw;
+        // padding: 0 1em;
+        margin: 0 4vw;
 
         &::-webkit-scrollbar {
           display: none;
@@ -66,8 +67,8 @@
           align-items: center;
 
           img {
-            width: 9vh;
-            height: 9vh;
+            height: 9.5vh;
+            width: 9.5vh;
             border-radius: 50%;
             object-fit: cover;
             object-position: center;
@@ -82,21 +83,21 @@
     }
 
     .fishing-reviews {
-      margin: 0 2vh;
+      // margin: 0 2vh;
+      margin: 0 4vw;
       display: flex;
       flex-direction: column;
-      gap: 1vh;
+      // gap: 1vh;
+      gap: 0.5rem;
 
       .name {
         font-size: 2.7vh;
       }
 
-      .wrapper {
-      }
-
       .none-data {
         display: flex;
         height: 15vh;
+        // height: 7rem;
         justify-content: center;
         align-items: center;
       }

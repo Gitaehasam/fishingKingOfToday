@@ -2,15 +2,18 @@
   display: flex;
   flex-direction: column;
   gap: 0.2vh;
+  gap: 0.1rem;
 
   .item-head {
     display: flex;
     align-items: end;
-    gap: 1vh;
+    // gap: 1vh;
+    gap: 0.5rem;
 
     .fishing-name {
       color: #3496ff;
-      font-size: 2.5vh;
+      // font-size: 2.5vh;
+      font-size: 1.2rem;
       font-weight: bold;
     }
 
@@ -21,11 +24,13 @@
 
   .item-body {
     display: flex;
-    gap: 1vh;
+    // gap: 1vh;
+    gap: 0.5rem;
 
     .fishing-dist,
     .fishing-addr {
-      font-size: 1.9vh;
+      // font-size: 1.9vh;
+      font-size: 0.9rem;
     }
 
     .fishing-dist {
@@ -34,6 +39,7 @@
   }
 
   .fishing-exp {
-    font-size: 1.9vh;
+    // font-size: 1.9vh;
+    font-size: 0.9rem;
   }
 }

@@ -31,10 +31,6 @@ function ImageEditPage() {
       <div className="crop" onClick={getCropData}>
         자르기
       </div>
-      {/* <div className="Demo_header">
-        <IoIosArrowBack onClick={() => navigate("/")} />
-        <div onClick={getCropData}>자르기</div>
-      </div> */}
       <div className="Demo_body">
         <Cropper
           ref={cropperRef}

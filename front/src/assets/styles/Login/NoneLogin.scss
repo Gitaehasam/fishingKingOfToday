@@ -19,10 +19,11 @@
     display: flex;
     flex-direction: column;
     margin: 15% 5%;
+    margin: 3rem 1rem;
     font-weight: bold;
 
     span {
-      font-size: 17px;
+      font-size: 1.1rem;
       color: white;
     }
   }
@@ -47,7 +48,8 @@
       display: flex;
       justify-content: space-around;
       align-items: start;
-      height: 10vh;
+      // height: 10vh;
+      height: 4.5rem;
 
       button,
       a {
@@ -55,12 +57,15 @@
         border: none;
         font-weight: bold;
         font-size: 2vh;
-        padding: 2vh 6vh;
+        font-size: 0.9rem;
+        // padding: 2vh 6vh;
+        padding: 1rem 3rem;
       }
 
       div {
         // padding-top: 15px;
-        padding-top: 1.8vh;
+        // padding-top: 1.8vh;
+        padding-top: 0.9rem;
       }
 
       a {

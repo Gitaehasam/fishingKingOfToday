@@ -1,12 +1,14 @@
 .FishMapFooter {
-  height: 6vh;
-  margin: 0 3vh;
+  height: 3.5em;
+  margin: 0 1.5em;
   transition: height 0.5s;
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   &.expand {
-    height: 100%;
-    margin-top: 3vh;
+    height: 88%;
+    margin-top: 1.5em;
   }
 
   .filter {
@@ -14,8 +16,7 @@
     align-items: center;
     background: transparent;
     border: none;
-    font-size: 2vh;
-    // color: gray;
+    font-size: 0.9em;
     font-weight: bold;
 
     svg {
@@ -32,32 +33,31 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    gap: 1vh;
+    gap: 1em;
 
     svg {
-      height: 15vh;
-      width: 15vh;
+      height: 5em;
+      width: 5em;
       color: darkgray;
     }
   }
 
   .item {
-    padding: 3vh 0;
+    padding: 1.5em 0;
     border-bottom: 1px solid black;
   }
 
   .mode {
     position: absolute;
     bottom: 0;
-    height: 6vh;
+    height: 4em;
     display: flex;
     align-items: center;
-    gap: 5px;
-    // color: gray;
+    gap: 0.5em;
 
     svg {
-      height: 2vh;
-      width: 2vh;
+      height: 0.8em;
+      width: 0.8em;
     }
   }
 
@@ -68,25 +68,28 @@
     z-index: 1;
   }
 
-  .content {
+  .filter-content {
     z-index: 2;
     position: absolute;
+    // width: 16em;
+    padding: 1.5vh;
     width: 35vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    // display: flex;
-    // flex-direction: column;
-    border-radius: 10px;
+    border-radius: 1em;
 
     h2 {
-      padding: 2.5vh 2.5vh;
+      padding: 2vh;
+    }
+
+    > .filter-b {
+      border-bottom: 1px solid gray;
     }
 
     > div {
-      border-bottom: 1px solid gray;
-      padding: 2.5vh 2.5vh;
+      padding: 2vh;
 
       button {
         background: transparent;

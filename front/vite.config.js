@@ -15,6 +15,7 @@ export default defineConfig({
       manifest: {
         name: "오늘은 낚시왕",
         short_name: "오늘은 낚시왕",
+        theme_color: "#ff0000",
         start_url: "/",
         icons: [
           {
@@ -57,6 +58,17 @@ export default defineConfig({
             src: "./icons/apple-touch-icon-152x152.png",
             sizes: "152x152",
             type: "image/png",
+          },
+          {
+            src: "./icons/512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "./icons/512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
           },
         ],
       },

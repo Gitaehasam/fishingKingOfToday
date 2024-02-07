@@ -46,9 +46,9 @@ const FishMapFooter = ({
                 className="filterOpen"
                 onClick={() => setOpenFilter(false)}
               ></div>
-              <div className="content">
+              <div className="filter-content">
                 <h2>검색 설정</h2>
-                <div>
+                <div className="filter-b">
                   <button
                     className={`${filterMode === "dist" ? "pick" : ""}`}
                     onClick={() => handleSubmit("dist")}
@@ -57,7 +57,7 @@ const FishMapFooter = ({
                     <div>{filterMode === "dist" && <CheckOutlinedIcon />}</div>
                   </button>
                 </div>
-                <div>
+                <div className="filter-b">
                   <button
                     className={`${filterMode === "money" ? "pick" : ""}`}
                     onClick={() => handleSubmit("money")}
@@ -91,7 +91,7 @@ const FishMapFooter = ({
           ) : (
             <div className="noneData">
               <InfoOutlinedIcon />
-              <div>조건에 맞는 업체가 없습니다.</div>
+              <div>조건에 맞는 낚시터가 없습니다.</div>
             </div>
           )}
         </>

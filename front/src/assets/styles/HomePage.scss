@@ -1,19 +1,24 @@
 .Home_header {
   display: flex;
-  padding: 10px 0 0;
-  margin: 0 20px 10px;
-  height: 8vh;
+  width: 100%;
+  padding: 0.5em 1em;
+  height: 4em;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  // background: tra;
   // box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
 
+  a {
+    display: flex;
+    align-items: center;
+  }
+
   img {
-    height: 50px;
+    height: 3em;
   }
 
   svg {
-    width: 30px;
-    height: 30px;
+    height: 2em;
+    width: 2em;
   }
 }
