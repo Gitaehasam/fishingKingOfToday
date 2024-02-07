@@ -1,5 +1,17 @@
-.chatbot-Demo {
-  height: 100vh;
+.chatbot-container {
+  margin: 0 2vh;
+}
+
+.chatbot-toobar {
+  height: 100%;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.chatbot-sticky {
+  position: sticky;
+  top: -0.2vh;
+  background-color: white;
 }
 
 .chatbot-fishking {
@@ -15,8 +27,11 @@
 
   img {
     border-radius: 100%;
-    padding: 0.2vh;
-    border: 3px solid red;
+    border: 3px solid transparent;
+    background-image: linear-gradient(#fff, #fff), 
+    linear-gradient(to right, red 0%,  orange 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
     width: 6vh;
     height: inherit;
   }
@@ -26,15 +41,74 @@
   }
 }
 
-.chatbot-body {
-  margin: 3vh;
+.chatbot-recommend-div {
+  width: 80%;
+  border: 3px solid #b3f3f3;
+  border-radius: 0 30px 30px 30px;
+  padding: 0 1vh;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(138, 138, 138, 0.1);
+}
+
+.recomend-title {
+  font-size: 120%;
+  font-weight: bold;
+  padding: 1vh;
+
+  span {
+    background-color: #b3f3f3;
+  }
+}
+
+.recommend-ment {
+  font-size: 80%;
+  color: rgb(101, 101, 101);
+}
+
+.chatbot-recommend {
+  text-align: center;
+  justify-content: center;
+  margin: 1vh;
+  display: flex;
+  border: 1px solid gray;
+  border-radius: 5px;
+  
+  &:active {
+    background-color: #b3f3f3;
+  }
 }
 
 .chatbot-startChat {
-  background-color: gray;
-  border-radius: 0 20px 20px 10px;
-  width: 100%;
+  border: 3px solid #b3f3f3;
+  border-radius: 0 30px 30px 30px;
   height: 30%;
-  font-size: 120%;
-  color: white;
+  padding: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(138, 138, 138, 0.1);
+
+  p:nth-child(4) {
+    font-size: 80%;
+    color: rgb(101, 101, 101);
+  }
+}
+
+.chatbot-body {
+  margin: 2vh;
+}
+
+.chatbot-img {
+  padding: 0.2vh;
+
+  img {
+    width: 40px;
+    display: flex;
+    border-radius: 100%;
+  }
+}
+
+.chatbot-chat-container {
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 1vh 0;
 }

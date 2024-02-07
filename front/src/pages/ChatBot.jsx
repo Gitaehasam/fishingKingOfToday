@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import fishKing from "../assets/images/fish_king.png"
 import Header from "../components/Header";
-import "@assets/styles/chatbot/ChatBot.scss"
+import "@/assets/styles/chatbot/ChatBot.scss"
 import ChatBotChattingForm from "../components/chatBot/ChatBotChattingForm";
 import ChatBotChattingList from "../components/chatBot/ChatBotChattingList";
 import axios from "axios";
@@ -18,14 +18,11 @@ import axios from "axios";
 function ChatBot () {
   const navigate = useNavigate()
   const [chattingList, setChattingList] = useState([])
-  const [user, setUser] = useState('')
-  const [recommendList, setRecommendList] = useState([
-    '봉돌',
-    '합사',
-    '캐스팅',
-    '미끼',
-    '물고기 잘 잡히는 곳'
-  ])
+  const recommendList = [
+    '봉돌 알아보기',
+    '캐스팅은 어떻게 해요?',
+    '금어기는 언제에요?',
+  ]
 
   const sendChat = (chat) => {
     // axios.post("", {chat}, {
@@ -44,52 +41,50 @@ function ChatBot () {
     // })
   }
 
-  const userRole = (user) => {
-    setUser(user)
-  }
-
   const handleClickRecChat = (e) => {
     sendChat(e.target.textContent);
-
-    const newRecommendList = recommendList.filter((recChat) => {
-      return recChat !== e.target.textContent;
-    });
-    setRecommendList(newRecommendList);
   };
-
 
   return (
     <>
-      <div className="chatbot-Demo">
-        <div onClick={() => navigate("/")}>
-          <Header />
+    <div className="chatbot-sticky">
+      <Header onClick={() => navigate("/")}/>
+      
+      <div className="chatbot-header">
+        <img src={fishKing} className="chatbot-fishking"/>
+        <span>낚시왕</span>
+      </div>
+    </div>
+
+    <div className="chatbot-body">
+      <div className="chatbot-chat-container">
+        <div className="chatbot-img">
+          <img src={fishKing} alt=""/>
         </div>
 
-        <div className="chatbot-header">
-          <img src={fishKing} className="chatbot-fishking"/>
-          <span>낚시왕</span>
-        </div>
-
-        <div>
-          <div className="chat-list-container">
-            <div className="chatbot-startChat">
-              <p><span>따뜻한 갈치</span>님, 안녕하세요.</p>
-              <p>저는 낚시왕입니다.</p>
-              <p>어떤 사항이 궁금하신가요?</p>
-            </div>
-
-            <div>
-              자주 묻는 질문
-              {recommendList.map((recChat, idx) => (
-                <div key={idx} onClick={handleClickRecChat}>{recChat}</div>
-                ))}
-            </div>
-            <ChatBotChattingList chattingList={chattingList}/>
+        <div className="chatbot-start-ment">
+          <div className="chatbot-startChat">
+            <p><span>따뜻한 갈치</span>님, 안녕하세요.</p>
+            <p>낚시왕입니다.</p>
+            <br />
+            <p>어떤 사항이 궁금하신가요?</p>
           </div>
-
-          <ChatBotChattingForm onChat={sendChat} />
         </div>
       </div>
+
+      <div className="chatbot-chat-container">
+        <div className="chatbot-recommend-div">
+          <div className="recomend-title"><span>자주 묻는 질문</span></div>
+          <div className="recommend-ment">낚시왕 추천, 똑똑하게 낚시하자!</div>
+          {recommendList.map((recChat, idx) => (
+            <div className="chatbot-recommend" key={idx} onClick={handleClickRecChat}>{recChat}</div>
+            ))}
+        </div>
+      </div>
+    </div>
+
+    <ChatBotChattingList chattingList={chattingList}/>
+    <ChatBotChattingForm onChat={sendChat} />
     </>
   )
 }

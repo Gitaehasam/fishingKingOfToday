@@ -1,15 +1,16 @@
 import React, {useState, useEffect, useCallback, useRef} from "react";
 import "@/assets/styles/chatbot/ChatBotList.scss"
 import Loading from "../../components/Loading";
+import { useTheme } from "@emotion/react";
 
 function ChatBotChattingList (props) {
-  const chattingList = props.chattingList
   const scrollRef = useRef()
   const boxRef = useRef(null)
   const debounceTimeoutRef = useRef(null)
-
+  
   const [loading, setLoading] = useState(false);
   const [scrollState, setScrollState] = useState(true);
+  const chattingList = props.chattingList
 
   const scrollEvent = () => {
     if (debounceTimeoutRef.current) {
@@ -53,7 +54,7 @@ function ChatBotChattingList (props) {
     <>
       <div ref={boxRef} className="message-box">
         {chattingList.map((chat, idx) => (
-          <div key={idx} className={`message ${chat.user}`}>
+          <div key={idx}>
             <div>{chat.chat}</div>
           </div>
         ))}
