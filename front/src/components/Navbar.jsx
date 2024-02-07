@@ -74,21 +74,21 @@ const Navbar = () => {
             <DashboardOutlinedIcon />
             <span>RoomList</span>
           </NavLink>
-          <NavLink to={"/user/mypage"} className="nav-item">
+          {/* <NavLink to={"/user/mypage"} className="nav-item">
             <PersonOutlineOutlinedIcon />
             <span>마이</span>
-          </NavLink>
-          {/* {jwt ? (
+          </NavLink> */}
+          {jwt ? (
             <NavLink to={"/user/mypage"} className="nav-item">
               <PersonOutlineOutlinedIcon />
               <span>마이</span>
             </NavLink>
           ) : (
             <div className="nav-item">
-              <PersonOutlineOutlinedIcon />
+              {/* <PersonOutlineOutlinedIcon /> */}
               <NoneLogin />
             </div>
-          )} */}
+          )}
         </nav>
       </div>
     </>
