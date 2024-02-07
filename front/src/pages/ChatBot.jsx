@@ -18,6 +18,7 @@ import axios from "axios";
 function ChatBot () {
   const navigate = useNavigate()
   const [chattingList, setChattingList] = useState([])
+  const [loadingState, setLoadingState] = useState(false)
   const recommendList = [
     '봉돌 알아보기',
     '캐스팅은 어떻게 해요?',
@@ -25,21 +26,30 @@ function ChatBot () {
   ]
 
   const sendChat = (chat) => {
+    setChattingList(prevList => [...prevList, {user: 'user', chat: chat, imgURL: null, move:null}]);
+    setChattingList(prevList => [...prevList, {user: 'bot', chat: 'loading', imgURL: null, move:null}]);
+    setLoadingState(true)
+    
     // axios.post("", {chat}, {
     //   headers:{
-    //     Authorization: `Token {token}`,
+    //     Authorization: `${token}`,
     //     'Content-Type': 'application/json',
     //     }
     //   })
     //   .then((res) => {
-      setChattingList([...chattingList, {user: 'user', chat: chat, imgURL: null, move:null}])
-    //     setChattingList([...chattingList, {user: 'bot', chat: res.data, imgURL: imgURL, move:link}])
-    //     console.log(res.data)
+    //   setLoadingState(false)
+    //   setChattingList(prevList => {
+    //     let newList = [...prevList];
+    //     newList[newList.length - 1] = {user: 'bot', chat: res.data.value, imgURL: res.data.imgURL, move:res.data.move};
+    //     return newList;
+    //   });
+    //   console.log(res.data)
     // })
     // .catch((err) => {
     //   console.log(err)
     // })
   }
+  
 
   const handleClickRecChat = (e) => {
     sendChat(e.target.textContent);
@@ -58,9 +68,6 @@ function ChatBot () {
 
     <div className="chatbot-body">
       <div className="chatbot-chat-container">
-        <div className="chatbot-img">
-          <img src={fishKing} alt=""/>
-        </div>
 
         <div className="chatbot-start-ment">
           <div className="chatbot-startChat">
@@ -84,7 +91,7 @@ function ChatBot () {
     </div>
 
     <ChatBotChattingList chattingList={chattingList}/>
-    <ChatBotChattingForm onChat={sendChat} />
+    <ChatBotChattingForm onChat={sendChat} loadingState={loadingState} setLoadingState={setLoadingState}/>
     </>
   )
 }

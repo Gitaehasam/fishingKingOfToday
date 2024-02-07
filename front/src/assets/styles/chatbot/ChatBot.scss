@@ -12,6 +12,7 @@
   position: sticky;
   top: -0.2vh;
   background-color: white;
+  z-index: 2;
 }
 
 .chatbot-fishking {
@@ -27,7 +28,7 @@
 
   img {
     border-radius: 100%;
-    border: 3px solid transparent;
+    border: 2px solid transparent;
     background-image: linear-gradient(#fff, #fff), 
     linear-gradient(to right, red 0%,  orange 100%);
     background-origin: border-box;
