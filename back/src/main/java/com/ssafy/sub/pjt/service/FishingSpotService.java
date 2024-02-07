@@ -1,6 +1,7 @@
 package com.ssafy.sub.pjt.service;
 
 import com.ssafy.sub.pjt.domain.*;
+import com.ssafy.sub.pjt.domain.repository.BoardQueryRepository;
 import com.ssafy.sub.pjt.domain.repository.FishingSpotQueryRepository;
 import com.ssafy.sub.pjt.domain.repository.FishingSpotRepository;
 import com.ssafy.sub.pjt.domain.repository.UserRepository;
@@ -21,6 +22,7 @@ public class FishingSpotService {
     private final HashTagService hashTagService;
     private final UserRepository userRepository;
     private final FishingSpotQueryRepository fishingSpotQueryRepository;
+    private final BoardQueryRepository boardQueryRepository;
 
     @Transactional(readOnly = true)
     public FishingSpotListResponse getSpotsByPage(
@@ -72,5 +74,34 @@ public class FishingSpotService {
                                                         fishingSpot.getId(), PageRequest.of(0, 3))))
                         .collect(Collectors.toList());
         return new FishingSpotListResponse(fishingSpotResponses, fishingSpotData.hasNext());
+    }
+
+    @Transactional(readOnly = true)
+    public List<BoardResponse> getBoardsByFishingSpotIdPage(
+            final Pageable pageable, final Integer fishingSpotId, final Integer categoryId) {
+        final Slice<BoardData> boardData =
+                boardQueryRepository.searchBy(
+                        BoardSearchCondition.builder()
+                                .fishingSpotId(fishingSpotId)
+                                .categoryId(categoryId)
+                                .sortType("")
+                                .build(),
+                        pageable);
+
+        return boardData.stream()
+                .map(board -> BoardResponse.of(board, board.getCommentCnt(), board.getLikeCnt()))
+                .collect(Collectors.toList());
+    }
+
+    public FishingSpotDetailResponse searchById(
+            final Integer fishingSpotId, final Integer categoryId) {
+        final FishingSpot fishingSpot = fishingSpotRepository.findFishingSpotById(fishingSpotId);
+        if (fishingSpot != null)
+            return FishingSpotDetailResponse.of(
+                    fishingSpot,
+                    fishingSpotRepository.findHashtagsBySpotId(
+                            fishingSpot.getId(), PageRequest.of(0, 3)),
+                    getBoardsByFishingSpotIdPage(PageRequest.of(0, 3), fishingSpotId, categoryId));
+        return null;
     }
 }

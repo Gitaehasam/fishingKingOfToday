@@ -15,8 +15,14 @@ public class ConditionFilter {
         filterByCategory(booleanBuilder, condition.getCategoryId());
         filterByFishBook(booleanBuilder, condition.getFishBookId());
         filterByHashTag(booleanBuilder, condition.getHashTagId());
-
+        filterByFishingSpot(booleanBuilder, condition.getFishingSpotId());
         return booleanBuilder;
+    }
+
+    private void filterByFishingSpot(BooleanBuilder booleanBuilder, Integer fishingSpotId) {
+        if (fishingSpotId != null) {
+            booleanBuilder.and(board.fishingSpot.id.eq(fishingSpotId));
+        }
     }
 
     private void filterByFishBook(BooleanBuilder booleanBuilder, Integer fishBookId) {
