@@ -58,9 +58,6 @@ const FishMapHeader = ({ hashTags, mapRef }) => {
   return (
     <div className={`FishMapHeader ${mode && "expand"}`}>
       <div className={`wrapper ${mode && "expand"}`}>
-        {/* <div className="mode" onClick={changeMode}>
-          {mode ? <TagOutlinedIcon /> : <NearMeOutlinedIcon />}
-        </div> */}
         <button className="chmode" onClick={changeMode}>
           {mode ? <TagOutlinedIcon /> : <NearMeOutlinedIcon />}
         </button>

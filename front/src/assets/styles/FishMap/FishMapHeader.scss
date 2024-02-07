@@ -1,45 +1,29 @@
 .FishMapHeader {
   width: 100%;
-  // padding: 1.4vh;
-  border-radius: 0 0 2vh 2vh;
-  // background: darkgoldenrod;
+  border-radius: 0 0 1em 1em;
+  // background: lightgreen;
   box-shadow: -2px -7px 10px #f1f1f1, 4px 6px 10px #d4d7da;
   display: flex;
-  // flex-shrink: 0;
   flex-direction: column;
-  height: 8vh;
-  // justify-content: space-between;
-  // gap: 1vh;
+  height: 3.7rem;
 
   &.expand {
-    // height: 13.5vh;
-    height: 14vh;
+    height: 6.3em;
   }
 
   .wrapper {
     border: 1px solid gray;
     display: flex;
     align-items: center;
-    border-radius: 10px;
-    margin: 1.4vh;
-    // height: 100%;
-    height: 5.2vh;
-    // height: calc(20px);/
-    // flex-shrink: 0;
-
-    &.expand {
-      // height: calc(59% - 10px);
-      // height: 75%;
-    }
+    border-radius: 0.7em;
+    margin: 0.6em;
 
     .chmode {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
       outline: 0;
       border: none;
-      // border-right: 1px solid gray;
       cursor: pointer;
       will-change: box-shadow, transform;
       background: radial-gradient(
@@ -47,14 +31,11 @@
         #70dbf0 0%,
         #abc1f7 100%
       );
-      // box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%),
-      //   0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%),
-      //   inset 0px -0.01em 0px rgb(58 65 111 / 50%);
-      padding: 0 2.5vh;
-      border-radius: 10px 0 0 10px;
+      padding: 0 1em;
+      border-radius: 0.7rem 0 0 0.7rem;
       color: #fff;
-      height: 5vh;
-      width: 6vh;
+      height: 2.3rem;
+      width: 2.8rem;
       text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
       transition: box-shadow 0.15s ease, transform 0.15s ease;
 
@@ -62,13 +43,6 @@
         box-shadow: inset 0px 0.1em 0.6em #3c4ae0;
         transform: translateY(0em);
       }
-    }
-
-    .mode {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 6vh;
     }
 
     form {
@@ -80,8 +54,8 @@
       border: none;
       height: 100%;
       width: 100%;
-      padding: 0 1.5vh;
-      font-size: 2vh;
+      padding: 0 0.7em;
+      font-size: 1em;
       outline: none;
     }
 
@@ -89,15 +63,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 6vh;
+      width: 2.8rem;
     }
   }
 
   .hashTags {
-    margin: 0 1.4vh 1.4vh;
-    // animation: slideDown 1s;
-    // align-items: center;
-    gap: 1vh;
+    margin: 0 0.6em;
+    gap: 0.5em;
     display: flex;
     overflow: auto;
 
@@ -125,16 +97,14 @@
 
       .radio-tile {
         display: flex;
-        // align-items: center;
-        // justify-content: center;
+        align-items: center;
+        justify-content: center;
         border: 2px solid lightblue;
-        border-radius: 2.5vh;
-        // padding: 10px;
-        padding: 1vh;
+        border-radius: 1em;
+        padding: 0.5em;
 
         .radio-tile-label {
-          // font-size: 10px;
-          font-size: 1.5vh;
+          font-size: 0.7em;
           font-weight: bold;
           color: lightblue;
         }

@@ -7,7 +7,6 @@
 
   #__react-kakao-maps-sdk___Map {
     height: 100%;
-    // z-index: -1;
     flex-grow: 1;
   }
 
@@ -15,30 +14,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1vh;
+    gap: 0.5em;
     position: absolute;
-    z-index: 9999;
-    top: 3vh;
+    z-index: 2;
+    top: 1em;
     left: 50%;
     transform: translate(-50%);
-    padding: 1vh 2vh;
+    padding: 0.5em 1em;
     background: white;
-    border-radius: 30px;
+    border-radius: 1rem;
     box-shadow: -2px -2px 2px #f1f1f1, 2px 2px 2px #d4d7da;
 
     svg {
-      height: 20px;
-      width: 20px;
+      height: 1.1em;
+      width: 1.1em;
     }
   }
 
   .FishMap_btn {
     user-select: none;
     position: absolute;
-    right: 20px;
-    z-index: 9999;
-    width: 50px;
-    height: 50px;
+    right: 1.5em;
+    z-index: 1;
+    width: 4em;
+    height: 4em;
     transform: scale(1);
     border-style: none;
     outline: none;
@@ -70,8 +69,19 @@
     }
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: 1em;
+      height: 1em;
     }
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

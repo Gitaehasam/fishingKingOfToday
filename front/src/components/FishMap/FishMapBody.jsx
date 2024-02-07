@@ -99,7 +99,7 @@ const FishMapBody = ({ mapRef, addData, getDistance, openList }) => {
 
         {!openList && (
           <button
-            style={{ bottom: activeMarker !== null ? "180px" : "20px" }}
+            style={{ bottom: activeMarker !== null ? "10rem" : "1.5rem" }}
             className="FishMap_btn"
             onClick={handleClick}
           >

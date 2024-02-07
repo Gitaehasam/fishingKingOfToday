@@ -27,68 +27,70 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="Navbar_body">
-        <Outlet />
-      </div>
-      <nav className="nav">
-        <NavLink to={"/"} className="nav-item">
-          <HomeOutlinedIcon />
-          <span>홈</span>
-        </NavLink>
-        <NavLink to={"/fish/map"} className="nav-item">
-          <LocationOnOutlinedIcon />
-          <span>피싱맵</span>
-        </NavLink>
-        <div className="nav-item hidden">
-          <svg
-            className="icon"
-            stroke="currentColor"
-            fill="none"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          <span>Home</span>
+      <div className="container">
+        <div className="Navbar_body">
+          <Outlet />
         </div>
-        <div className="nav-item btn">
-          <label className="custum-file-upload bg-blue" htmlFor="file">
-            <CameraIcon style={{ width: "6vh", height: "6vh" }} />
-            <input
-              type="file"
-              id="file"
-              accept="image/*"
-              onChange={handleChangeFile}
-            />
-          </label>
-        </div>
-        <NavLink to={"/media"} className="nav-item">
-          <DashboardOutlinedIcon />
-          <span>RoomList</span>
-        </NavLink>
-        <NavLink to={"/user/mypage"} className="nav-item">
-          <PersonOutlineOutlinedIcon />
-          <span>마이</span>
-        </NavLink>
-        {/* {jwt ? (
+        <nav className="nav">
+          <NavLink to={"/"} className="nav-item">
+            <HomeOutlinedIcon />
+            <span>홈</span>
+          </NavLink>
+          <NavLink to={"/fish/map"} className="nav-item">
+            <LocationOnOutlinedIcon />
+            <span>피싱맵</span>
+          </NavLink>
+          <div className="nav-item hidden">
+            <svg
+              className="icon"
+              stroke="currentColor"
+              fill="none"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span>Home</span>
+          </div>
+          <div className="nav-item btn">
+            <label className="custum-file-upload bg-blue" htmlFor="file">
+              <CameraIcon style={{ width: "3rem", height: "3rem" }} />
+              <input
+                type="file"
+                id="file"
+                accept="image/*"
+                onChange={handleChangeFile}
+              />
+            </label>
+          </div>
+          <NavLink to={"/media"} className="nav-item">
+            <DashboardOutlinedIcon />
+            <span>RoomList</span>
+          </NavLink>
           <NavLink to={"/user/mypage"} className="nav-item">
             <PersonOutlineOutlinedIcon />
             <span>마이</span>
           </NavLink>
-        ) : (
-          <div className="nav-item">
-            <PersonOutlineOutlinedIcon />
-            <NoneLogin />
-          </div>
-        )} */}
-      </nav>
+          {/* {jwt ? (
+            <NavLink to={"/user/mypage"} className="nav-item">
+              <PersonOutlineOutlinedIcon />
+              <span>마이</span>
+            </NavLink>
+          ) : (
+            <div className="nav-item">
+              <PersonOutlineOutlinedIcon />
+              <NoneLogin />
+            </div>
+          )} */}
+        </nav>
+      </div>
     </>
   );
 };
