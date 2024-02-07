@@ -1,16 +1,18 @@
 import React, {useState, useEffect, useCallback, useRef} from "react";
-import "@/assets/styles/chatbot/ChatBotList.scss"
+import "@/assets/styles/chatbot/ChatBotList.scss";
+import ChatBotLoading from "./ChatBotLoading";
 import Loading from "../../components/Loading";
-import { useTheme } from "@emotion/react";
+import { useNavigate } from "react-router-dom";
 
 function ChatBotChattingList (props) {
-  const scrollRef = useRef()
-  const boxRef = useRef(null)
-  const debounceTimeoutRef = useRef(null)
-  
+  const navigate = useNavigate();
+  const scrollRef = useRef();
+  const boxRef = useRef(null);
+  const debounceTimeoutRef = useRef(null);
+
   const [loading, setLoading] = useState(false);
   const [scrollState, setScrollState] = useState(true);
-  const chattingList = props.chattingList
+  const chattingList = props.chattingList;
 
   const scrollEvent = () => {
     if (debounceTimeoutRef.current) {
@@ -28,7 +30,7 @@ function ChatBotChattingList (props) {
 
   const scroll = useCallback(() => {
     scrollEvent()
-  }, [])
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -39,25 +41,30 @@ function ChatBotChattingList (props) {
   }, [chattingList, scrollState]);
 
   useEffect(() => {
-    boxRef.current.addEventListener("scroll", scroll)
+    boxRef.current.addEventListener("scroll", scroll);
     return () => {
       if (debounceTimeoutRef.current) {
         clearTimeout(debounceTimeoutRef.current);
       }
       if (boxRef.current) {
-        boxRef.current.removeEventListener("scroll", scroll)
+        boxRef.current.removeEventListener("scroll", scroll);
       }
     }
-  }, [scroll])
+  }, [scroll]);
+
+  console.log(chattingList)
 
   return (
     <>
       <div ref={boxRef} className="message-box">
-        {chattingList.map((chat, idx) => (
-          <div key={idx}>
-            <div>{chat.chat}</div>
-          </div>
-        ))}
+      {chattingList.map((chat, idx) => (
+        <div key={idx} className={chat.user === 'bot' ? 'message-bot' : 'message-user'}>
+          {chat.chat === 'loading' ? <ChatBotLoading/> : <div>{chat.chat}</div>}
+          {/* {chat.chat === 'loading' ? <div>답변을 준비중이에요...</div>: <div>{chat.chat}</div>} */}
+          {chat.user === 'bot' && chat.imgURL && <img src={chat.imgURL} alt="" />}
+          {chat.user === 'bot' && chat.move && <div onClick={() => navigate(`${chat.move}`)}>{chat.move}(으)로 이동하기</div>}
+        </div>
+      ))}
         <div ref={scrollRef}></div>
         {loading && <Loading />}
       </div>

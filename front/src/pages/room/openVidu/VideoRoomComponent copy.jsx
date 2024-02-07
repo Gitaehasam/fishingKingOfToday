@@ -327,7 +327,7 @@ const VideoRoomComponent = (props) => {
           'Content-Type': 'application/json',
         }
       })
-      axios.delete(OPENVIDU_SERVER_URL + `/openvidu/api/sessions/${mySessionId}`, {
+      await axios.delete(OPENVIDU_SERVER_URL + `/openvidu/api/sessions/${mySessionId}`, {
         headers: {
           Authorization: localStorage.getItem("jwt"),
           'Content-Type': 'application/json',

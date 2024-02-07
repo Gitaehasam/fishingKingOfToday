@@ -2,9 +2,9 @@ import React, {useState, useEffect, useCallback, useRef} from "react";
 import SendIcon from "@mui/icons-material/Send";
 import you from "@assets/images/공유.jpg";
 
-function ChatBotChattingForm (props) {
+function ChatBotChattingForm ({onChat, loadingState, setLoadingState}) {
   const [chat, setChat] = useState('')
-
+  
   const handleChangeChat = (e) => {
     setChat(e.target.value)
   }
@@ -18,9 +18,18 @@ function ChatBotChattingForm (props) {
 
   const sendChat = (e) => {
     e.preventDefault()
-    props.onChat(chat)
+    onChat(chat)
     setChat('')
+    setLoadingState(!loadingState)
   }
+
+  useEffect(() => {
+    if (loadingState) {
+      setChat('답변을 준비중이에요')
+    } else {
+      setChat('')
+    }
+  }, [loadingState])
 
   return (
     <>
@@ -36,6 +45,7 @@ function ChatBotChattingForm (props) {
               placeholder="메세지 보내기..." 
               onChange={handleChangeChat}
               onKeyPress={handlePressKey}
+              readOnly={loadingState}
             />
 
             {chat.trim() !== '' && <div className="send-reply bg-blue" onClick={sendChat}>
