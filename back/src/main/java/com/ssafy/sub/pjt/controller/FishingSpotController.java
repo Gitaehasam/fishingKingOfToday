@@ -47,4 +47,10 @@ public class FishingSpotController {
                         longitude);
         return ResponseEntity.ok().body(fishingSpotListResponse);
     }
+
+    @GetMapping("/{fishingSpotId}")
+    public ResponseEntity<?> getFishingSpotById(@PathVariable final Integer fishingSpotId) {
+        final Integer categoryId = 1; // 카테고리 아이디가 현재 정해지지 않아서 이렇게 저장
+        return ResponseEntity.ok().body(fishingSpotService.searchById(fishingSpotId, categoryId));
+    }
 }

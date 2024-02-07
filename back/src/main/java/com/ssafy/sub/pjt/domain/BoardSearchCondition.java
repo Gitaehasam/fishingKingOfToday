@@ -12,4 +12,5 @@ public class BoardSearchCondition {
     private Integer fishBookId;
     private Integer hashTagId;
     private Integer categoryId;
+    private Integer fishingSpotId;
 }
