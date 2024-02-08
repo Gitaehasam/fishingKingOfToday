@@ -2,51 +2,6 @@
   display: flex;
   flex-direction: column;
 
-  > svg {
-    position: absolute;
-    top: 2.3vh;
-    right: 2vh;
-  }
-
-  .get-info {
-    position: fixed;
-    inset: 0;
-    background: rgba($color: black, $alpha: 0.3);
-    z-index: 1;
-  }
-
-  .result-modal {
-    z-index: 2;
-    position: absolute;
-    bottom: 0;
-    inset-inline: 0;
-    background: white;
-    // display: flex;
-    // flex-direction: column;
-    border-radius: 10px 10px 0 0;
-  }
-
-  // .result-header {
-  //   display: flex;
-  //   height: 8vh;
-  //   padding: 10px 0 0;
-  //   margin: 0 20px 10px;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   background: white;
-  //   // box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
-
-  //   svg {
-  //     width: 30px;
-  //     height: 30px;
-  //   }
-
-  //   div {
-  //     font-weight: bold;
-  //     font-size: 30px;
-  //   }
-  // }
-
   .result-body {
     display: flex;
     flex-direction: column;
@@ -70,7 +25,6 @@
     .result-content {
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 3vh;
 
       .result-fish {
@@ -79,8 +33,8 @@
         align-items: center;
         background: lightblue;
         padding: 2vh;
-        width: 80%;
-        border-radius: 10px;
+        margin: 0 4vw;
+        border-radius: 2vh;
         font-weight: bold;
         color: white;
 
@@ -89,19 +43,19 @@
         }
 
         .result-detail {
-          font-size: 1.7vh;
+          font-size: 2vh;
         }
       }
 
       .fish-reviews {
-        width: 80%;
-        margin: 0 2vh;
+        // width: 100%;
+        margin: 0 4vw;
         display: flex;
         flex-direction: column;
         gap: 1vh;
 
         .reviews-title {
-          font-size: 2.7vh;
+          font-size: 2.5vh;
         }
 
         .none-data {

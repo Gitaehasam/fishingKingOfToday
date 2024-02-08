@@ -25,13 +25,28 @@ const AuthPage = () => {
     // navigate("/", { replace: true });
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/login/${social}`,
+        `${import.meta.env.VITE_BASE_URL}/api/login/${social}`,
         {
           code: code,
         }
       );
       const data = res.data.accessToken;
+      const user = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/users`,
+        {
+          headers: {
+            Authorization: data,
+          },
+        }
+      );
       localStorage.setItem("jwt", data);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          imageUrl: user.data.imageUrl,
+          nickname: user.data.nickname,
+        })
+      );
       navigate("/", { replace: true });
       console.log(data);
     } catch (err) {

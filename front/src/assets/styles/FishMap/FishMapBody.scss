@@ -14,36 +14,35 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5em;
+    gap: 1vh;
     position: absolute;
     z-index: 2;
-    top: 1em;
+    top: 2vh;
     left: 50%;
     transform: translate(-50%);
-    padding: 0.5em 1em;
+    padding: 1vh 2vh;
     background: white;
-    border-radius: 1rem;
+    border-radius: 2vh;
     box-shadow: -2px -2px 2px #f1f1f1, 2px 2px 2px #d4d7da;
 
     svg {
-      height: 1.1em;
-      width: 1.1em;
+      height: 3vh;
+      width: 3vh;
     }
   }
 
   .FishMap_btn {
     user-select: none;
     position: absolute;
-    right: 1.5em;
+    right: 3vh;
     z-index: 1;
-    width: 4em;
-    height: 4em;
+    width: 6.5vh;
+    height: 6.5vh;
     transform: scale(1);
     border-style: none;
     outline: none;
     cursor: pointer;
     border-radius: 50%;
-    background: rgb(228, 232, 236);
     background: linear-gradient(
       45deg,
       rgb(228, 232, 236) 0%,
@@ -69,8 +68,8 @@
     }
 
     svg {
-      width: 1em;
-      height: 1em;
+      width: 3vh;
+      height: 3vh;
     }
   }
 }

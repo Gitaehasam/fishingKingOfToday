@@ -18,12 +18,11 @@
   .NoneLogin_header {
     display: flex;
     flex-direction: column;
-    margin: 15% 5%;
-    margin: 3rem 1rem;
+    margin: 6vh 4vw;
     font-weight: bold;
 
     span {
-      font-size: 1.1rem;
+      font-size: 2.3vh;
       color: white;
     }
   }
@@ -46,26 +45,21 @@
     .NoneLogin_footer_btn {
       background: white;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
       align-items: start;
-      // height: 10vh;
-      height: 4.5rem;
+      height: 9vh;
 
       button,
       a {
         background: transparent;
         border: none;
         font-weight: bold;
-        font-size: 2vh;
-        font-size: 0.9rem;
-        // padding: 2vh 6vh;
-        padding: 1rem 3rem;
+        font-size: 1.9vh;
+        padding: 2vh 6vh;
       }
 
       div {
-        // padding-top: 15px;
-        // padding-top: 1.8vh;
-        padding-top: 0.9rem;
+        padding-top: 1.8vh;
       }
 
       a {

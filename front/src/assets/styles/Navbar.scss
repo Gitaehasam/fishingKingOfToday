@@ -4,39 +4,40 @@
 }
 
 .Navbar_body {
-  padding-bottom: 5em;
+  padding-bottom: 9vh;
 }
 
 nav {
   position: fixed;
-  height: 5em;
+  // height: 5em;
+  height: 9vh;
   width: 100%;
   bottom: 0;
   background: white;
-  border-radius: 1.5rem 1.5rem 0 0;
+  // border: 1px solid red;
+  border-radius: 2vh 2vh 0 0;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
   // padding: 0 3vh;
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-around;
 
   .nav-item {
     color: gray;
-    color: black;
     display: flex;
-    padding-top: 0.7em;
+    // padding-top: 1.5vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     text-decoration: none;
-    width: 5em;
+    width: 20vw;
 
     &.btn {
       position: absolute;
-      top: -10%;
+      top: -3vh;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%);
     }
 
     &.hidden {
@@ -44,20 +45,17 @@ nav {
     }
 
     svg {
-      // font-size: 3.5vh;
-      // font-size: 145%;
+      font-size: 3.5vh;
     }
 
     span,
     .login-btn {
-      text-transform: uppercase;
-      font-size: 0.7em;
+      font-size: 1.3vh;
     }
 
     .custum-file-upload {
-      margin-top: 1.5em;
-      width: 4em;
-      height: 4em;
+      width: 9vh;
+      height: 9vh;
       color: #fff;
       border-radius: 50%;
       display: flex;
@@ -67,6 +65,11 @@ nav {
 
       input {
         display: none;
+      }
+
+      svg {
+        width: 6vh;
+        height: 6vh;
       }
     }
   }

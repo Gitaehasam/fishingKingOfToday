@@ -1,14 +1,14 @@
 .FishMapFooter {
-  height: 3.5em;
-  margin: 0 1.5em;
+  height: 6vh;
+  margin: 0 2vh;
   transition: height 0.5s;
   position: relative;
   display: flex;
   flex-direction: column;
 
   &.expand {
-    height: 88%;
-    margin-top: 1.5em;
+    height: 82vh;
+    margin-top: 2vh;
   }
 
   .filter {
@@ -16,7 +16,7 @@
     align-items: center;
     background: transparent;
     border: none;
-    font-size: 0.9em;
+    font-size: 2vh;
     font-weight: bold;
 
     svg {
@@ -33,31 +33,31 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    gap: 1em;
+    gap: 2vh;
 
     svg {
-      height: 5em;
-      width: 5em;
+      height: 15vh;
+      width: 15vh;
       color: darkgray;
     }
   }
 
   .item {
-    padding: 1.5em 0;
+    padding: 3vh 0;
     border-bottom: 1px solid black;
   }
 
   .mode {
     position: absolute;
     bottom: 0;
-    height: 4em;
+    height: 6vh;
     display: flex;
     align-items: center;
-    gap: 0.5em;
+    gap: 1vh;
 
     svg {
-      height: 0.8em;
-      width: 0.8em;
+      height: 2.5vh;
+      width: 2.5vh;
     }
   }
 
@@ -71,17 +71,17 @@
   .filter-content {
     z-index: 2;
     position: absolute;
-    // width: 16em;
     padding: 1.5vh;
-    width: 35vh;
+    width: 40vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    border-radius: 1em;
+    border-radius: 2vh;
 
     h2 {
       padding: 2vh;
+      font-size: 3vh;
     }
 
     > .filter-b {

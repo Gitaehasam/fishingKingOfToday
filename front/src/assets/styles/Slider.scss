@@ -1,21 +1,77 @@
-.swiper {
-  width: 100%;
-  height: calc(90vh - 5rem);
-  padding: 5em 0;
-  z-index: 0;
-  // margin: 0;
-  // overflow: visible;
+.slider {
+  .swiper {
+    width: 100%;
+    height: calc(90vh - 5rem);
+    padding: 5em 0;
+    z-index: 0;
+    // margin: 0;
+    // overflow: visible;
 
-  .swiper-slide {
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-    border-radius: 1em;
+    .swiper-slide {
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+      border-radius: 1em;
 
-    &.swiper-slide-prev,
-    &.swiper-slide-next {
-      // filter: blur(10px);
-      filter: brightness(30%);
+      &.swiper-slide-prev,
+      &.swiper-slide-next {
+        // filter: blur(10px);
+        filter: brightness(30%);
+      }
+
+      &:nth-child(1n) {
+        background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+          url("https://post-phinf.pstatic.net/MjAyMjA1MTJfMjYz/MDAxNjUyMjgyNDMxNTMx.eiksoWq4rbopryxGcA8kYLbbluZBGmlgAyIqk9IGt5Ig.I7z63dT0QXrlv2VPs1lgrGniY-mDD3T8_PwOwDcSyBEg.PNG/%ED%94%BC%EC%B9%B4%EC%B8%84.png?type=w800_q75")
+            no-repeat 50% 50% / cover;
+      }
+
+      &:nth-child(2n) {
+        background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+          url("https://kr.jugomobile.com/wp-content/uploads/2022/05/%ED%8F%AC%EC%BC%93%EB%AA%AC-%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4-%EB%8F%84%EC%9E%85-26%EB%85%84-%EB%A7%8C%EC%97%90-%EB%9D%BC%EC%9D%B4%EC%B8%84-%EB%B2%84%ED%94%84-%EC%A3%BC%EC%9E%A5.jpg")
+            no-repeat 50% 50% / cover;
+      }
+
+      &:nth-child(3n) {
+        background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+          url("https://mblogthumb-phinf.pstatic.net/20130923_49/kskang1972_1379915060840gprUf_PNG/3.png?type=w420")
+            no-repeat 50% 0% / cover;
+      }
+
+      &:nth-child(4n) {
+        background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+          url("https://t1.daumcdn.net/cfile/tistory/99D3583359E8C8511E")
+            no-repeat 50% 50% / cover;
+      }
     }
   }
+
+  // .swiper-slide:nth-child(5n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://i.namu.wiki/i/uG_3Cf26XWIE1tAXCCVF6_T0C2NQp0tGNyCIz6gRQBH5EhTmLk8w732OKgVfjqyw00CH6qxohwesc-SxQus8uA.webp")
+  //       no-repeat 50% 50% / cover;
+  // }
+
+  // .swiper-slide:nth-child(6n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://post-phinf.pstatic.net/MjAxNzA5MjdfNTcg/MDAxNTA2NDQ3ODgzNTk3.l71KQJfQXouQEIZLTRpBKDoxYA6dxMotQwmjpiiDQqkg.K56gtZ8-4As4XLcNyLeM21CBTFV4VcCo9UVMim3DjWMg.JPEG/maxresdefault_%281%29.jpg?type=w800_q75")
+  //       no-repeat 50% 50% / cover;
+  // }
+
+  // .swiper-slide:nth-child(7n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://image.fmkorea.com/files/attach/new3/20230324/486616/4048212806/5613586295/f3f0b12067c7e22bf91a3e6c20446919.jpg")
+  //       no-repeat 50% 50% / cover;
+  // }
+
+  // .swiper-slide:nth-child(8n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://pbs.twimg.com/media/FONiH2qakAIh2Zh.jpg:small") no-repeat 50%
+  //       0% / cover;
+  // }
+
+  // .swiper-slide:nth-child(9n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://i.ytimg.com/vi/i6gWBKzO6z4/maxresdefault.jpg") no-repeat 50%
+  //       50% / cover;
+  // }
 }
 
 // .swiper-slide span {
@@ -46,57 +102,3 @@
 //   line-height: 1.4;
 //   margin: 0 0 20px 20px;
 // }
-
-.swiper-slide:nth-child(1n) {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("https://post-phinf.pstatic.net/MjAyMjA1MTJfMjYz/MDAxNjUyMjgyNDMxNTMx.eiksoWq4rbopryxGcA8kYLbbluZBGmlgAyIqk9IGt5Ig.I7z63dT0QXrlv2VPs1lgrGniY-mDD3T8_PwOwDcSyBEg.PNG/%ED%94%BC%EC%B9%B4%EC%B8%84.png?type=w800_q75")
-      no-repeat 50% 50% / cover;
-}
-
-.swiper-slide:nth-child(2n) {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("https://kr.jugomobile.com/wp-content/uploads/2022/05/%ED%8F%AC%EC%BC%93%EB%AA%AC-%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4-%EB%8F%84%EC%9E%85-26%EB%85%84-%EB%A7%8C%EC%97%90-%EB%9D%BC%EC%9D%B4%EC%B8%84-%EB%B2%84%ED%94%84-%EC%A3%BC%EC%9E%A5.jpg")
-      no-repeat 50% 50% / cover;
-}
-
-.swiper-slide:nth-child(3n) {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("https://mblogthumb-phinf.pstatic.net/20130923_49/kskang1972_1379915060840gprUf_PNG/3.png?type=w420")
-      no-repeat 50% 0% / cover;
-}
-
-.swiper-slide:nth-child(4n) {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("https://t1.daumcdn.net/cfile/tistory/99D3583359E8C8511E") no-repeat 50%
-      50% / cover;
-}
-
-.swiper-slide:nth-child(5n) {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("https://i.namu.wiki/i/uG_3Cf26XWIE1tAXCCVF6_T0C2NQp0tGNyCIz6gRQBH5EhTmLk8w732OKgVfjqyw00CH6qxohwesc-SxQus8uA.webp")
-      no-repeat 50% 50% / cover;
-}
-
-.swiper-slide:nth-child(6n) {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("https://post-phinf.pstatic.net/MjAxNzA5MjdfNTcg/MDAxNTA2NDQ3ODgzNTk3.l71KQJfQXouQEIZLTRpBKDoxYA6dxMotQwmjpiiDQqkg.K56gtZ8-4As4XLcNyLeM21CBTFV4VcCo9UVMim3DjWMg.JPEG/maxresdefault_%281%29.jpg?type=w800_q75")
-      no-repeat 50% 50% / cover;
-}
-
-.swiper-slide:nth-child(7n) {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("https://image.fmkorea.com/files/attach/new3/20230324/486616/4048212806/5613586295/f3f0b12067c7e22bf91a3e6c20446919.jpg")
-      no-repeat 50% 50% / cover;
-}
-
-.swiper-slide:nth-child(8n) {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("https://pbs.twimg.com/media/FONiH2qakAIh2Zh.jpg:small") no-repeat 50%
-      0% / cover;
-}
-
-.swiper-slide:nth-child(9n) {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("https://i.ytimg.com/vi/i6gWBKzO6z4/maxresdefault.jpg") no-repeat 50%
-      50% / cover;
-}

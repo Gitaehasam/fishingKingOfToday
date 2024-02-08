@@ -1,8 +1,10 @@
 .Home_header {
   display: flex;
   width: 100%;
-  padding: 0.5em 1em;
-  height: 4em;
+  // padding: 0.5em 1em;
+  padding: 1vh 4vw;
+  // height: 4em;
+  height: 8vh;
   justify-content: space-between;
   align-items: center;
   // background: tra;
@@ -14,11 +16,11 @@
   }
 
   img {
-    height: 3em;
+    height: 6vh;
   }
 
   svg {
-    height: 2em;
-    width: 2em;
+    height: 4vh;
+    width: 4vh;
   }
 }

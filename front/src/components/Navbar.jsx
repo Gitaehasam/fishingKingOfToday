@@ -61,11 +61,12 @@ const Navbar = () => {
           </div>
           <div className="nav-item btn">
             <label className="custum-file-upload bg-blue" htmlFor="file">
-              <CameraIcon style={{ width: "3rem", height: "3rem" }} />
+              <CameraIcon />
               <input
                 type="file"
                 id="file"
                 accept="image/*"
+                capture="camera"
                 onChange={handleChangeFile}
               />
             </label>
@@ -85,7 +86,6 @@ const Navbar = () => {
             </NavLink>
           ) : (
             <div className="nav-item">
-              {/* <PersonOutlineOutlinedIcon /> */}
               <NoneLogin />
             </div>
           )}

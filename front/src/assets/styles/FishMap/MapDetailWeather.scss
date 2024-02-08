@@ -8,14 +8,14 @@
   margin: 0 4vw;
 
   .todays-date {
-    font-size: 2.7vh;
+    font-size: 2.5vh;
     // font-size: 1.2rem;
     font-weight: bold;
   }
 
   .sun-rs {
     color: gray;
-    font-size: 2.2vh;
+    font-size: 2vh;
     // font-size: 0.9rem;
     display: flex;
     gap: 1vh;
@@ -26,10 +26,10 @@
     overflow: auto;
     padding: 2vh;
     // padding: 1rem;
-    gap: 2.5vh;
+    gap: 3vh;
     // gap: 1.2rem;
     border: 1px solid darkgray;
-    border-radius: 1em;
+    border-radius: 2vh;
 
     &::-webkit-scrollbar {
       display: none;

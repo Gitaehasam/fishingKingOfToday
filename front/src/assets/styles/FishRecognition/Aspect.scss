@@ -3,20 +3,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20%;
+  gap: 2vh;
   background: #191919;
   width: 60%;
-  padding: 20px;
-  border-radius: 10px;
+  width: 30vh;
+  // padding: 20px;
+  border-radius: 2vh;
 
   .Aspect_header {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 2vh;
 
     .Aspect_length,
     .Aspect_width {
-      border-radius: 5px;
+      border-radius: 0.7vh;
       border: 2px solid white;
 
       svg {
@@ -38,22 +39,27 @@
     .Aspect_length {
       width: 20px;
       height: 30px;
+      width: 3vh;
+      height: 4.5vh;
     }
 
     .Aspect_width {
       width: 30px;
       height: 20px;
+      width: 4.5vh;
+      height: 3vh;
     }
   }
 
   .Aspect_body {
     display: flex;
-    gap: 20px;
+    gap: 3vh;
 
     button {
       border: none;
       background: transparent;
       color: white;
+      font-size: 1.7vh;
     }
   }
 }
