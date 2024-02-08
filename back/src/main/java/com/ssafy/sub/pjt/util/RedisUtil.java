@@ -12,6 +12,11 @@ public class RedisUtil {
 
     private final RedisTemplate redisTemplate;
 
+    public Object getFishBook(String key) {
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+        return valueOperations.get(key);
+    }
+
     public String getData(String key) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         return valueOperations.get(key);
@@ -20,6 +25,11 @@ public class RedisUtil {
     public void setData(String key, String value) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         valueOperations.set(key, value);
+    }
+
+    public void setFishBook(String key, Object object) {
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+        valueOperations.set(key, object);
     }
 
     public void setDataExpire(String key, String value, int duration) {
