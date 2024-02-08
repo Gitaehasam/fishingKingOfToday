@@ -104,4 +104,15 @@ public class FishingSpotService {
                     getBoardsByFishingSpotIdPage(PageRequest.of(0, 3), fishingSpotId, categoryId));
         return null;
     }
+
+    public List<FishingSpotAutoCompleteResponse> findAutoCompleteName(String searchWord) {
+        List<FishingSpot> fishingSpots =
+                fishingSpotRepository.findTop3ByNameStartsWithOrderByNameAsc(searchWord);
+
+        final List<FishingSpotAutoCompleteResponse> fishingSpotAutoCompleteResponses =
+                fishingSpots.stream()
+                        .map(fishingSpot -> FishingSpotAutoCompleteResponse.of(fishingSpot))
+                        .collect(Collectors.toList());
+        return fishingSpotAutoCompleteResponses;
+    }
 }

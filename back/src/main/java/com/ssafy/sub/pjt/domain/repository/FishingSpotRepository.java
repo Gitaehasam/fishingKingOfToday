@@ -17,4 +17,6 @@ public interface FishingSpotRepository extends JpaRepository<FishingSpot, Intege
     List<String> findHashtagsBySpotId(@Param("id") final Integer id, Pageable pageable);
 
     FishingSpot findFishingSpotById(@Param("id") final Integer fishingSpotId);
+
+    List<FishingSpot> findTop3ByNameStartsWithOrderByNameAsc(String name);
 }
