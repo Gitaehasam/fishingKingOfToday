@@ -28,11 +28,11 @@ public class FishingSpotService {
     public FishingSpotListResponse getSpotsByPage(
             final Pageable pageable,
             // final String sortType,
-            // final Integer fishBookId,
+            final Integer fishBookId,
             final String spotType,
             final String sido,
             final String keyword,
-            final Integer hashtagId,
+            // final Integer hashtagId,
             final Float latitude,
             final Float longitude) {
         final Slice<FishingSpotData> fishingSpotData =
@@ -40,9 +40,10 @@ public class FishingSpotService {
                         FishingSpotSearchCondition.builder()
                                 // .fishBookId(fishBookId)
                                 .sido(sido)
+                                .fishBookId(fishBookId)
                                 .spotType(spotType)
                                 .keyword(keyword)
-                                .hashtagId(hashtagId)
+                                // .hashtagId(hashtagId)
                                 .latitude(latitude)
                                 .longitude(longitude)
                                 .build(),
@@ -54,7 +55,9 @@ public class FishingSpotService {
                                         FishingSpotResponse.of(
                                                 fishingSpot,
                                                 fishingSpotRepository.findHashtagsBySpotId(
-                                                        fishingSpot.getId(), PageRequest.of(0, 3))))
+                                                        fishingSpot.getId(), PageRequest.of(0, 3)),
+                                                fishingSpotRepository.findFishListByFishingSpotId(
+                                                        fishingSpot.getId())))
                         .collect(Collectors.toList());
         return new FishingSpotListResponse(fishingSpotResponses, fishingSpotData.hasNext());
     }
@@ -71,7 +74,9 @@ public class FishingSpotService {
                                         FishingSpotResponse.of(
                                                 fishingSpot,
                                                 fishingSpotRepository.findHashtagsBySpotId(
-                                                        fishingSpot.getId(), PageRequest.of(0, 3))))
+                                                        fishingSpot.getId(), PageRequest.of(0, 3)),
+                                                fishingSpotRepository.findFishListByFishingSpotId(
+                                                        fishingSpot.getId())))
                         .collect(Collectors.toList());
         return new FishingSpotListResponse(fishingSpotResponses, fishingSpotData.hasNext());
     }
@@ -101,6 +106,7 @@ public class FishingSpotService {
                     fishingSpot,
                     fishingSpotRepository.findHashtagsBySpotId(
                             fishingSpot.getId(), PageRequest.of(0, 3)),
+                    fishingSpotRepository.findFishListByFishingSpotId(fishingSpotId),
                     getBoardsByFishingSpotIdPage(PageRequest.of(0, 3), fishingSpotId, categoryId));
         return null;
     }
