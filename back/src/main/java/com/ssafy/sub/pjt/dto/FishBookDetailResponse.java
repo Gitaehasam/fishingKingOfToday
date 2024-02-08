@@ -1,13 +1,14 @@
 package com.ssafy.sub.pjt.dto;
 
 import com.ssafy.sub.pjt.domain.FishBook;
+import java.io.Serializable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class FishBookDetailResponse {
+public class FishBookDetailResponse implements Serializable {
 
     private final Integer fishBookId;
     private final String name;
