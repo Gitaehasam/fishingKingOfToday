@@ -5,8 +5,6 @@ import static lombok.AccessLevel.PRIVATE;
 import com.ssafy.sub.pjt.domain.BoardData;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +18,6 @@ public class BoardResponse {
     private final String boardImageUrl;
     private final String fishName;
     private final List<String> hashtags;
-    private final String fishName;
     private final String content;
     private final LocalDateTime createdAt;
     private final Integer commentCnt;
@@ -35,7 +32,6 @@ public class BoardResponse {
                 boardData.getBoardImageUrl().getUrl(),
                 boardData.getFishName(),
                 boardData.getHashtags(),
-                boardData.getFishName(),
                 boardData.getContent(),
                 boardData.getCreatedAt(),
                 commentCnt,
