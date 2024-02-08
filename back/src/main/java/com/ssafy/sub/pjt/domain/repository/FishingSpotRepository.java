@@ -19,4 +19,11 @@ public interface FishingSpotRepository extends JpaRepository<FishingSpot, Intege
     FishingSpot findFishingSpotById(@Param("id") final Integer fishingSpotId);
 
     List<FishingSpot> findTop3ByNameStartsWithOrderByNameAsc(String name);
+
+    @Query(
+            value =
+                    "SELECT b.name FROM FishingSpotFishBook sb "
+                            + "JOIN sb.fishBook b "
+                            + "where sb.fishingSpot.id = :id ")
+    List<String> findFishListByFishingSpotId(@Param("id") final Integer fishingSpotId);
 }

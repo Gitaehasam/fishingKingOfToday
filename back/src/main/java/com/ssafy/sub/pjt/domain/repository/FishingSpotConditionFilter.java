@@ -16,7 +16,7 @@ public class FishingSpotConditionFilter {
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        // filterByFishBook(booleanBuilder, condition.getFishBookId());
+        filterByFishBook(booleanBuilder, condition.getFishBookId());
         // filterByHashTag(booleanBuilder, condition.getHashtagId());
         searchByKeyword(booleanBuilder, condition.getKeyword());
 
