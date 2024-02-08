@@ -43,7 +43,16 @@ public class FishBookService {
     }
 
     public FishBookDetailResponse searchById(Integer fishBookId) {
+
+        if (redisUtil.getFishBook("fish_book_" + fishBookId.toString()) != null) {
+            return (FishBookDetailResponse)
+                    redisUtil.getFishBook("fish_book_" + fishBookId.toString());
+        }
+
         final FishBook fishBook = findByFishBookById(fishBookId);
+        redisUtil.setFishBook(
+                "fish_book_" + fishBookId.toString(), FishBookDetailResponse.of(fishBook));
+
         return FishBookDetailResponse.of(fishBook);
     }
 
