@@ -12,7 +12,9 @@ public class BoardData {
     private String profileImageUrl;
     private Integer boardId;
     private Image boardImageUrl;
+    private String fishName;
     private List<String> hashtags;
+    private String fishName;
     private String content;
     private LocalDateTime createdAt;
     private Integer commentCnt;
@@ -22,11 +24,16 @@ public class BoardData {
         this.hashtags = hashtags;
     }
 
+    public void setFishName(String fishName) {
+        this.fishName = fishName;
+    }
+
     public BoardData(
             String nickName,
             String profileImageUrl,
             Integer boardId,
             Image boardImageUrl,
+            String fishName,
             String content,
             LocalDateTime createdAt,
             Integer commentCnt,
@@ -35,6 +42,7 @@ public class BoardData {
         this.profileImageUrl = profileImageUrl;
         this.boardId = boardId;
         this.boardImageUrl = boardImageUrl;
+        this.fishName = fishName;
         this.content = content;
         this.createdAt = createdAt;
         this.commentCnt = commentCnt;
