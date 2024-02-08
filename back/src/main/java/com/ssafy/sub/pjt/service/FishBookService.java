@@ -8,6 +8,7 @@ import com.ssafy.sub.pjt.domain.FishBook;
 import com.ssafy.sub.pjt.domain.repository.FishBookRepository;
 import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.exception.BadRequestException;
+import com.ssafy.sub.pjt.util.RedisUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -19,17 +20,25 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class FishBookService {
-
+    private final RedisUtil redisUtil;
     private final FishBookRepository fishBookRepository;
 
     @Transactional(readOnly = true)
     public FishBookListResponse getFishBooksByPage(final Pageable pageable) {
+
+        if (redisUtil.getFishBook("fishBook") != null) {
+            return (FishBookListResponse) redisUtil.getFishBook("fishBook");
+        }
+
         final Slice<FishBook> fishBooks =
                 fishBookRepository.findSliceBy(pageable.previousOrFirst());
         final List<FishBookResponse> fishBookResponse =
                 fishBooks.stream()
                         .map(fishBook -> FishBookResponse.of(fishBook))
                         .collect(Collectors.toList());
+        redisUtil.setFishBook(
+                "fishBook", new FishBookListResponse(fishBookResponse, fishBooks.hasNext()));
+
         return new FishBookListResponse(fishBookResponse, fishBooks.hasNext());
     }
 

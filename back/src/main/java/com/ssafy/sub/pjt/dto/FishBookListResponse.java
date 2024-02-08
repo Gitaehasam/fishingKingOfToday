@@ -1,12 +1,17 @@
 package com.ssafy.sub.pjt.dto;
 
+import java.io.Serializable;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
-public class FishBookListResponse {
-    private final List<FishBookResponse> fishBooks;
-    private final Boolean hasNext;
+@NoArgsConstructor
+@AllArgsConstructor
+public class FishBookListResponse implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private List<FishBookResponse> fishBooks;
+    private Boolean hasNext;
 }
