@@ -32,26 +32,29 @@ public class UserService {
         return MyPageResponse.from(user);
     }
 
-    public void updateMyPageInfo(final Integer userId, final MyPageRequest myPageRequest) {
+    public void updateMyPageInfo(final String socialId, final MyPageRequest myPageRequest) {
         final User user =
                 userRepository
-                        .findById(userId)
+                        .findBySocialId(socialId)
                         .orElseThrow(() -> new BadRequestException(ACCOUNT_NOT_FOUND));
 
-        final User updateUser =
-                User.builder()
-                        .id(userId)
-                        .name(user.getName())
-                        .socialId(user.getSocialId())
-                        .platform(user.getPlatform())
-                        .nickName(myPageRequest.getNickname())
-                        .imageUrl(myPageRequest.getImageUrl())
-                        // .joinAt(user.getJoinAt())
-                        // .lastLoginAt(user.getLastLoginAt())
-                        .build();
+        user.updateNickName(myPageRequest.getNickname());
+        user.updateImageUrl(myPageRequest.getImageUrl());
+
+        //        final User updateUser =
+        //                User.builder()
+        //                        .id(user.getId())
+        //                        .name(user.getName())
+        //                        .socialId(user.getSocialId())
+        //                        .platform(user.getPlatform())
+        //                        .nickName(myPageRequest.getNickname())
+        //                        .imageUrl(myPageRequest.getImageUrl())
+        //                        // .joinAt(user.getJoinAt())
+        //                        // .lastLoginAt(user.getLastLoginAt())
+        //                        .build();
 
         // deleteOriginalImage(member.getImageUrl(), updateMember.getImageUrl());
-        userRepository.save(updateUser);
+        // userRepository.save(updateUser);
     }
 
     @Transactional

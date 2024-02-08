@@ -1,5 +1,7 @@
 package com.ssafy.sub.pjt.controller;
 
+import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
+
 import com.ssafy.sub.pjt.dto.MyPageRequest;
 import com.ssafy.sub.pjt.dto.MyPageResponse;
 import com.ssafy.sub.pjt.service.UserService;
@@ -16,15 +18,13 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<MyPageResponse> getMyInfo() {
-        final MyPageResponse myPageResponse =
-                userService.getMyPageInfo(AuthenticationUtil.getCurrentUserSocialId());
+        final MyPageResponse myPageResponse = userService.getMyPageInfo(getCurrentUserSocialId());
         return ResponseEntity.ok().body(myPageResponse);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<?> getMyInfo(
-            @PathVariable final Integer userId, @RequestBody final MyPageRequest myPageRequest) {
-        userService.updateMyPageInfo(userId, myPageRequest);
+    @PutMapping
+    public ResponseEntity<?> updateMyInfo(@RequestBody final MyPageRequest myPageRequest) {
+        userService.updateMyPageInfo(getCurrentUserSocialId(), myPageRequest);
         return ResponseEntity.noContent().build();
     }
 
