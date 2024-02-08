@@ -29,7 +29,7 @@ public class UserServiceTest {
                 .thenReturn(Optional.ofNullable(UserFactory.mockUser()));
 
         // when
-        userService.updateMyPageInfo(anyInt(), UserFactory.mockMyPageRequest());
+        userService.updateMyPageInfo(anyString(), UserFactory.mockMyPageRequest());
 
         // then
         verify(userRepository, times(1)).save(any());

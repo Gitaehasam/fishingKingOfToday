@@ -48,4 +48,12 @@ public class User extends BaseTime {
 
         boards.remove(board);
     }
+
+    public void updateNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }
