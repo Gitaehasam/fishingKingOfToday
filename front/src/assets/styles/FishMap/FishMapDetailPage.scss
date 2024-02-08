@@ -29,13 +29,13 @@
         align-items: end;
 
         h2 {
-          font-size: 3.5vh;
+          font-size: 3vh;
         }
       }
 
       div:last-child {
         color: gray;
-        font-size: 2.2vh;
+        font-size: 2vh;
       }
     }
 
@@ -47,13 +47,13 @@
       .name {
         // margin: 0 1rem;
         margin: 0 4vw;
-        font-size: 2.7vh;
+        font-size: 2.5vh;
       }
 
       .wrapper {
         overflow: auto;
         display: flex;
-        gap: 4vw;
+        gap: 3vh;
         // padding: 0 1em;
         margin: 0 4vw;
 
@@ -65,10 +65,11 @@
           display: flex;
           flex-direction: column;
           align-items: center;
+          gap: 1vh;
 
           img {
-            height: 9.5vh;
-            width: 9.5vh;
+            height: 9vh;
+            width: 9vh;
             border-radius: 50%;
             object-fit: cover;
             object-position: center;
@@ -87,11 +88,10 @@
       margin: 0 4vw;
       display: flex;
       flex-direction: column;
-      // gap: 1vh;
-      gap: 0.5rem;
+      gap: 1vh;
 
       .name {
-        font-size: 2.7vh;
+        font-size: 2.5vh;
       }
 
       .none-data {

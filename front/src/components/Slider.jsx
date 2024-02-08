@@ -4,11 +4,12 @@ import {
   Pagination,
   Scrollbar,
   A11y,
-  EffectCards,
   EffectFade,
+  EffectCube,
   EffectFlip,
-  EffectCreative,
   EffectCoverflow,
+  EffectCards,
+  EffectCreative,
 } from "swiper/modules";
 
 // import "swiper/css";
@@ -20,11 +21,6 @@ const SHOWS = [
   { rating: 9.5, title: "Breaking Bad" },
   { rating: 8.1, title: "Wednesday" },
   { rating: 8.7, title: "Stranger Things" },
-  { rating: 8.6, title: "Anne with an E" },
-  { rating: 8.9, title: "Friends" },
-  { rating: 8.6, title: "The Crown" },
-  { rating: 8.7, title: "House M.D." },
-  { rating: 9.2, title: "Game of Thrones" },
 ];
 
 const Slider = () => {
@@ -64,27 +60,50 @@ const Slider = () => {
     //     ))}
     //   </Swiper>
     // </div>
-    <Swiper
-      modules={[EffectCoverflow]}
-      effect="coverflow"
-      slidesPerView={1.4}
-      centeredSlides={true}
-      mousewheel={{ invert: false }}
-      onSlideChange={() => console.log("slide change")}
-      spaceBetween={-100}
-      slideToClickedSlide={true}
-      coverflowEffect={{
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows: true,
-      }}
-    >
-      {SHOWS.map((show, idx) => {
-        return <SwiperSlide key={idx}></SwiperSlide>;
-      })}
-    </Swiper>
+    <div className="slider">
+      <Swiper
+        modules={[EffectCoverflow]}
+        effect="coverflow"
+        slidesPerView={1.4}
+        centeredSlides={true}
+        mousewheel={{ invert: false }}
+        onSlideChange={() => console.log("slide change")}
+        spaceBetween={-100}
+        slideToClickedSlide={true}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+      >
+        {SHOWS.map((show, idx) => {
+          return <SwiperSlide key={idx}></SwiperSlide>;
+        })}
+      </Swiper>
+    </div>
+    // <Swiper
+    //   modules={[EffectFade]}
+    //   effect="fade"
+    //   slidesPerView={1}
+    //   centeredSlides={true}
+    //   mousewheel={{ invert: false }}
+    //   onSlideChange={() => console.log("slide change")}
+    //   // spaceBetween={-100}
+    //   slideToClickedSlide={true}
+    //   coverflowEffect={{
+    //     rotate: 50,
+    //     stretch: 0,
+    //     depth: 100,
+    //     modifier: 1,
+    //     slideShadows: true,
+    //   }}
+    // >
+    //   {SHOWS.map((show, idx) => {
+    //     return <SwiperSlide key={idx}></SwiperSlide>;
+    //   })}
+    // </Swiper>
   );
 };
 

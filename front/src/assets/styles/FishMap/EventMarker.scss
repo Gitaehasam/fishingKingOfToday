@@ -3,63 +3,61 @@
 }
 
 .info {
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+  // box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
   // animation: slideUp 0.1s ease-in-out;
   // height: 200px;
   // border-radius: 20px 20px 0 0;
-  border-radius: 1em 1em 0 0;
+  border-radius: 2vh 2vh 0 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.3em;
-  padding: 1em 1.3em;
+  gap: 0.5vh;
+  padding: 2vh;
 
   .info_header {
     display: flex;
     align-items: end;
-    gap: 0.5em;
+    gap: 1vh;
 
     .info_name {
       color: #3496ff;
-      font-size: 1.3em;
+      font-size: 2.7vh;
       font-weight: bold;
     }
 
     .info_type {
       color: gray;
-      font-size: 0.9em;
+      font-size: 1.9vh;
     }
   }
 
   .info_body {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1vh;
 
     .info_distance {
-      font-size: 0.9rem;
+      font-size: 1.9vh;
       font-weight: bold;
     }
 
     .info_addr {
-      font-size: 0.9rem;
+      font-size: 1.9vh;
     }
   }
 
   .info_footer {
     hr {
-      margin: 0.5em 0;
+      margin: 1vh 0;
     }
 
     .info_icons {
       display: flex;
-      gap: 1em;
+      gap: 2vh;
 
       svg {
-        height: 1.3rem;
-        width: 1.3rem;
-        // height: 1em;
-        // width: 1em;
+        height: 2.5vh;
+        width: 2.5vh;
         color: gray;
       }
     }

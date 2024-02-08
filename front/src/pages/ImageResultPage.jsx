@@ -65,21 +65,8 @@ const ImageResultPage = () => {
     <>
       <div className="result" style={{ display: !name && "none" }}>
         <Header centerText={"분석완료"} align="center" />
-        {/* <InfoOutlinedIcon
-          style={{ width: "6vh", height: "3.5vh" }}
-          onClick={() => setGetInfo(true)}
-        />
-        {getInfo && (
-          <>
-            <div className="get-info" onClick={() => setGetInfo(false)}></div>
-            <div className="result-modal">1</div>
-          </>
-        )} */}
         <div className="result-body">
-          <div
-            className="result-img"
-            // style={{ display: name ? "flex" : "none" }}
-          >
+          <div className="result-img">
             <img className="ml-result" src={result} ref={imgRef} alt="" />
           </div>
           <div className="result-content">
@@ -87,7 +74,6 @@ const ImageResultPage = () => {
               <div className="result-name">{name}</div>
               <div className="result-detail">자세히 보기</div>
             </div>
-            {/* <div className="result-detail">도감보러가기</div> */}
             <div className="fish-reviews">
               <h3 className="reviews-title">{name}의 리뷰</h3>
               <div className="wrapper">

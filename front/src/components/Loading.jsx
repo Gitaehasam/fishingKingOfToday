@@ -1,16 +1,20 @@
 import "../assets/styles/Loading.scss";
+import Lottie from "react-lottie";
+import animationData from "../../public/lottie/Animation - 1707353148624.json";
 
 const Loading = ({ hidden }) => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   return (
     <div className="dot-spinner" style={{ display: hidden && "none" }}>
-      <div className="dot-spinner__dot"></div>
-      <div className="dot-spinner__dot"></div>
-      <div className="dot-spinner__dot"></div>
-      <div className="dot-spinner__dot"></div>
-      <div className="dot-spinner__dot"></div>
-      <div className="dot-spinner__dot"></div>
-      <div className="dot-spinner__dot"></div>
-      <div className="dot-spinner__dot"></div>
+      <Lottie options={defaultOptions} speed={1.5} />
     </div>
   );
 };
