@@ -40,24 +40,8 @@ public class UserService {
 
         user.updateNickName(myPageRequest.getNickname());
         user.updateImageUrl(myPageRequest.getImageUrl());
-
-        //        final User updateUser =
-        //                User.builder()
-        //                        .id(user.getId())
-        //                        .name(user.getName())
-        //                        .socialId(user.getSocialId())
-        //                        .platform(user.getPlatform())
-        //                        .nickName(myPageRequest.getNickname())
-        //                        .imageUrl(myPageRequest.getImageUrl())
-        //                        // .joinAt(user.getJoinAt())
-        //                        // .lastLoginAt(user.getLastLoginAt())
-        //                        .build();
-
-        // deleteOriginalImage(member.getImageUrl(), updateMember.getImageUrl());
-        // userRepository.save(updateUser);
     }
 
-    @Transactional
     public void deleteAccount(final String socialId) {
         // final List<Long> tripIds = customTripRepository.findTripIdsByMemberId(memberId);
         // publishedTripRepository.deleteByTripIds(tripIds);

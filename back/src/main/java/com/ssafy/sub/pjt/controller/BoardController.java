@@ -111,7 +111,8 @@ public class BoardController {
     }
 
     @GetMapping("/search/fishingSpot")
-    public ResponseEntity<?> getFishingSpotAutoCompleteSearch(@RequestParam final String searchWord) {
+    public ResponseEntity<?> getFishingSpotAutoCompleteSearch(
+            @RequestParam final String searchWord) {
         final List<FishingSpotAutoCompleteResponse> fishBookAutoCompleteResponse =
                 fishingSpotService.findAutoCompleteName(searchWord.strip());
 
