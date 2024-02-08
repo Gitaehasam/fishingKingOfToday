@@ -12,7 +12,6 @@ public class BoardData {
     private String profileImageUrl;
     private Integer boardId;
     private Image boardImageUrl;
-    private String fishName;
     private List<String> hashtags;
     private String fishName;
     private String content;
