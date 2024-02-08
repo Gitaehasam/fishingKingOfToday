@@ -50,7 +50,7 @@ public class FishingSpotController {
 
     @GetMapping("/{fishingSpotId}")
     public ResponseEntity<?> getFishingSpotById(@PathVariable final Integer fishingSpotId) {
-        final Integer categoryId = 1; // 카테고리 아이디가 현재 정해지지 않아서 이렇게 저장
+        final Integer categoryId = 2; // 2번이 낚시터 카테고리
         return ResponseEntity.ok().body(fishingSpotService.searchById(fishingSpotId, categoryId));
     }
 }
