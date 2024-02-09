@@ -1,5 +1,6 @@
 package com.ssafy.sub.pjt.service;
 
+import com.ssafy.sub.pjt.dto.ChatbotResponse;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -25,9 +26,10 @@ public class ChatbotService {
     @Value("${chatbot.apiURL}")
     String apiURL = "";
 
-    public String chatbot(String inputMessage) {
+    public ChatbotResponse chatbot(String inputMessage) {
 
         String chatbotMessage = "";
+        ChatbotResponse chatbotResponse = ChatbotResponse.of(null, null, null);
         try {
             URL url = new URL(apiURL);
 
@@ -49,8 +51,6 @@ public class ChatbotService {
             BufferedReader br;
 
             if (responseCode == 200) {
-                System.out.println(con.getResponseMessage());
-
                 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 String decodedString;
                 while ((decodedString = in.readLine()) != null) {
@@ -58,14 +58,14 @@ public class ChatbotService {
                 }
 
                 in.close();
-                chatbotMessage = jsonToString(chatbotMessage);
+                chatbotResponse = jsonToChatbotResponse(chatbotMessage);
             } else {
-                chatbotMessage = con.getResponseMessage();
+                log.info(con.getResponseMessage());
             }
         } catch (Exception e) {
             log.info("챗봇 api와 연동하는데 문제가 생겼습니다.");
         }
-        return chatbotMessage;
+        return chatbotResponse;
     }
 
     public static String makeSignature(String message, String secretKey) {
@@ -125,19 +125,35 @@ public class ChatbotService {
         return requestBody;
     }
 
-    public String jsonToString(String jsonResultStr) throws JSONException {
+    public ChatbotResponse jsonToChatbotResponse(String jsonResultStr) throws JSONException {
         String resultText = "";
+        String resultUrl = "";
+        String resultImageUrl = "";
         JSONObject jsonObj = new JSONObject(jsonResultStr);
         JSONArray chatArray = (JSONArray) jsonObj.get("bubbles");
         if (chatArray != null) {
             JSONObject tempObj = (JSONObject) chatArray.get(0);
-            JSONObject dataObj = (JSONObject) tempObj.get("data");
-            if (dataObj != null) {
-                resultText += (String) dataObj.get("description");
+            // log.info(tempObj.getString("type"));
+            if (tempObj.getString("type").equals("text")) {
+                JSONObject dataObj = (JSONObject) tempObj.get("data");
+                if (dataObj != null) {
+                    resultText += (String) dataObj.get("description");
+                    if (dataObj.has("url"))
+                        resultUrl += ((String) dataObj.get("url")).substring(33);
+                }
+            } else {
+                JSONObject dataObj = (JSONObject) tempObj.get("data");
+                if (dataObj != null) {
+                    JSONObject coverObj = (JSONObject) dataObj.get("cover");
+                    JSONObject innerDataObj = (JSONObject) coverObj.get("data");
+                    resultImageUrl += (String) innerDataObj.get("imageUrl");
+                    resultText += (String) innerDataObj.get("description");
+                }
             }
+
         } else {
             log.info("내용이 없습니다.");
         }
-        return resultText;
+        return ChatbotResponse.of(resultText, resultImageUrl, resultUrl);
     }
 }
