@@ -17,12 +17,10 @@ public class FishingSpotConditionFilter {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         filterByFishBook(booleanBuilder, condition.getFishBookId());
-        // filterByHashTag(booleanBuilder, condition.getHashtagId());
+        filterBySpotType(booleanBuilder, condition.getSpotType());
         searchByKeyword(booleanBuilder, condition.getKeyword());
+        filterBySido(booleanBuilder, condition.getSido());
 
-        if (condition.getLongitude() == null || condition.getLatitude() == null) {
-            filterBySido(booleanBuilder, condition.getSido());
-        }
         return booleanBuilder;
     }
 
@@ -32,12 +30,11 @@ public class FishingSpotConditionFilter {
         }
     }
 
-    //    private void filterByHashTag(BooleanBuilder booleanBuilder, Integer hashTagId) {
-    //        if (hashTagId != null) {
-    //
-    // booleanBuilder.and(fishingSpot.fishingSpotHashtags.any().hashTag.id.eq(hashTagId));
-    //        }
-    //    }
+    private void filterBySpotType(BooleanBuilder booleanBuilder, String spotType) {
+        if (!spotType.isEmpty()) {
+            booleanBuilder.and(fishingSpot.spotType.eq(spotType));
+        }
+    }
 
     private void filterBySido(BooleanBuilder booleanBuilder, String sido) {
         if (!sido.isEmpty()) {

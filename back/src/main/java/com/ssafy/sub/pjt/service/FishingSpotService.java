@@ -4,7 +4,6 @@ import com.ssafy.sub.pjt.domain.*;
 import com.ssafy.sub.pjt.domain.repository.BoardQueryRepository;
 import com.ssafy.sub.pjt.domain.repository.FishingSpotQueryRepository;
 import com.ssafy.sub.pjt.domain.repository.FishingSpotRepository;
-import com.ssafy.sub.pjt.domain.repository.UserRepository;
 import com.ssafy.sub.pjt.dto.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,15 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class FishingSpotService {
     private final FishingSpotRepository fishingSpotRepository;
-    private final HashTagService hashTagService;
-    private final UserRepository userRepository;
     private final FishingSpotQueryRepository fishingSpotQueryRepository;
     private final BoardQueryRepository boardQueryRepository;
 
     @Transactional(readOnly = true)
     public FishingSpotListResponse getSpotsByPage(
             final Pageable pageable,
-            // final String sortType,
             final Integer fishBookId,
             final String spotType,
             final String sido,
@@ -38,12 +34,10 @@ public class FishingSpotService {
         final Slice<FishingSpotData> fishingSpotData =
                 fishingSpotQueryRepository.searchBy(
                         FishingSpotSearchCondition.builder()
-                                // .fishBookId(fishBookId)
                                 .sido(sido)
                                 .fishBookId(fishBookId)
                                 .spotType(spotType)
                                 .keyword(keyword)
-                                // .hashtagId(hashtagId)
                                 .latitude(latitude)
                                 .longitude(longitude)
                                 .build(),
