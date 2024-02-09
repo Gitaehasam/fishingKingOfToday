@@ -6,6 +6,7 @@ import com.ssafy.sub.pjt.dto.MyPageRequest;
 import com.ssafy.sub.pjt.dto.MyPageResponse;
 import com.ssafy.sub.pjt.service.UserService;
 import com.ssafy.sub.pjt.util.AuthenticationUtil;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<?> updateMyInfo(@RequestBody final MyPageRequest myPageRequest) {
+    public ResponseEntity<?> updateMyInfo(@RequestBody @Valid final MyPageRequest myPageRequest) {
         userService.updateMyPageInfo(getCurrentUserSocialId(), myPageRequest);
         return ResponseEntity.noContent().build();
     }

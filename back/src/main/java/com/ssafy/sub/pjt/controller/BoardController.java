@@ -10,6 +10,7 @@ import com.ssafy.sub.pjt.service.FishingSpotService;
 import com.ssafy.sub.pjt.service.HashTagService;
 import java.net.URI;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class BoardController {
     private final FishingSpotService fishingSpotService;
 
     @PostMapping
-    public ResponseEntity<Void> write(@RequestBody final BoardRequest request) {
+    public ResponseEntity<Void> write(@RequestBody @Valid final BoardRequest request) {
         final Integer postId = boardService.write(request, getCurrentUserSocialId());
         final String redirectUrl = String.format(REDIRECT_URL, postId);
 
@@ -55,7 +56,7 @@ public class BoardController {
     @PutMapping("/{boardId}")
     public ResponseEntity<?> update(
             @PathVariable final Integer boardId,
-            @RequestBody final BoardUpdateRequest boardUpdateRequest) {
+            @RequestBody @Valid final BoardUpdateRequest boardUpdateRequest) {
         boardService.validateBoardByUser(getCurrentUserSocialId(), boardId);
         boardService.update(boardId, boardUpdateRequest);
         return ResponseEntity.noContent().build();
