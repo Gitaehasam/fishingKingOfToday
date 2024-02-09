@@ -20,24 +20,31 @@ import "./VideoRoomComponent.css";
 
 var localUser = new UserModel();
 
-const OPENVIDU_SERVER_URL = "https://i10c203.p.ssafy.io"
+const baseURL = import.meta.env.VITE_BASE_URL
 const OPENVIDU_SERVER_SECRET = "wearegitaehasam"
 
 const VideoRoomComponent = (props) => {
-  const navigate = useNavigate(); // 네비게이터'
-  const location = useLocation(); // 로케이션(이전 페이지에서 데이터를 받아옴)
+  const navigate = useNavigate();
+  const location = useLocation();
   const size = useWindowSize();
 
-  const baseURL = import.meta.env.VITE_BASE_URL
   const roomId = location.state.roomId
   const isHost = location.state.isHost;
+
+  // 방을 생성하여 리스트에서 보여줄 방제목, 썸네일
   const imageUrl = (location.state.imageUrl ? location.state.imageUrl : null)
   const name = (location.state.name ? location.state.name : null)
+
+  // 라이브 방송 중 보여질 유저의 닉네임, 프로필사진
+  const nickName = location.state.nickName
+  const userImg = location.state.userImg
+
   const subscriberSession = (location.state.subscriberSession ? location.state.subscriberSession : null)
   const [apiRoomId, setApiRoomId] = useState(null)
 
   const [mySessionId, setMySessionId] = useState('Gitaehasam');
-  const [myUserName, setMyUserName] = useState('Participant' + Math.floor(Math.random() * 100));
+  const [myUserName, setMyUserName] = useState('');
+  const [myUserImg, setMyUserImg] = useState('');
   const [session, setSession] = useState(undefined);
   const [mainStreamManager, setMainStreamManager] = useState(undefined); // 페이지의 메인 비디오 화면(퍼블리셔 또는 참가자의 화면 중 하나)
   const [messageList, setMessageList] = useState([]); // 메세지 정보를 담을 배열
@@ -52,6 +59,11 @@ const VideoRoomComponent = (props) => {
   const [hostNickname, setHostNickname] = useState('');
   const [hostProfileImg, setHostProfileImg] = useState('');
   const [liveEndModalOpen, setLiveEndModalOpen] = useState(false);
+
+  const [videoDevices, setVideoDevices] = useState([]);
+  const [selectedCamera, setSelectedCamera] = useState(null);
+  const [isSwitchCameraModalOpen, setIsSwitchCameraModalOpen] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
 
   let OV = undefined;
@@ -79,7 +91,7 @@ const VideoRoomComponent = (props) => {
       console.log(roomId)
       let data = JSON.stringify({ customSessionId: sessionId });
       axios
-        .post(OPENVIDU_SERVER_URL + '/openvidu/api/sessions', data, {
+        .post(baseURL + '/openvidu/api/sessions', data, {
           headers: {
             Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
             'Content-Type': 'application/json',
@@ -88,13 +100,12 @@ const VideoRoomComponent = (props) => {
         .then((response) => {
           console.log('CREATE SESION', response);
 
-          axios.post(baseURL + '/lives', {
+          axios.post(baseURL + '/api/lives', {
             imageUrl:imageUrl,
             name:name,
             sessionId:response.data.sessionId,
           }, {
             headers: {
-              // Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",              
               Authorization: localStorage.getItem("jwt"),
               'Content-Type': 'application/json',
             }
@@ -126,12 +137,11 @@ const VideoRoomComponent = (props) => {
   // 토큰 생성(KMS로 직접 쏨)
   const createToken = (sessionId) => {
     let myRole = isHost ? "PUBLISHER" : "SUBSCRIBER";
-    console.log(sessionId)
     
     return new Promise((resolve, reject) => {
-      const data = { role: myRole, sessionId: sessionId }; // 수정된 부분
+      const data = { role: myRole, sessionId: sessionId };
       axios
-        .post(OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
+        .post(baseURL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
           headers: {
             Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
             'Content-Type': 'application/json',
@@ -149,6 +159,8 @@ const VideoRoomComponent = (props) => {
 
   useEffect(() => {
     setMySessionId(`Gitaehasam${roomId}`);
+    setHostNickname(nickName)
+    setHostProfileImg(userImg)
   }, [roomId]);
   
   useEffect(() => {
@@ -239,25 +251,6 @@ const VideoRoomComponent = (props) => {
         return [...prevMessageList, event.data]
       })
     });
-
-    axios.get(OPENVIDU_SERVER_URL + '/openvidu/api/sessions/' + mySessionId, {
-      headers: {
-        Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((response) => {
-      const selectedRoom = response.data.publisher;
-      
-      if (selectedRoom) {
-        setHostNickname(selectedRoom.nickname);
-        setHostProfileImg(selectedRoom.thumbnail);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      
-    });
   };
 
   const camStatusChanged = () => {
@@ -272,31 +265,56 @@ const VideoRoomComponent = (props) => {
     setPublisher(publisher);
   }
 
-  const switchCamera = async () => {
-    try {
-      const devices = await OV.getDevices();
-      const videoDevices = devices.filter(device => device.kind === 'videoinput');
+  // const switchCamera = async () => {
+  //   try {
+  //     const devices = await OV.getDevices();
+  //     const videoDevices = devices.filter(device => device.kind === 'videoinput');
+
+  //     if (videoDevices && videoDevices.length > 1) {
+  //       const newVideoDevice = videoDevices.find(device => device.deviceId !== publisher.stream.videoSource.deviceId);
+  //       if (newVideoDevice) {
+  //         const newPublisher = OV.initPublisher(undefined, {
+  //           audioSource: undefined,
+  //           videoSource: newVideoDevice.deviceId,
+  //           publishAudio: publisher.stream.audioActive,
+  //           publishVideo: publisher.stream.videoActive,
+  //           mirror: true,
+  //         });
+
+  //         await session.unpublish(publisher);
+  //         await session.publish(newPublisher);
   
-      if (videoDevices && videoDevices.length > 1) {
-        const newVideoDevice = videoDevices.find(device => device.deviceId !== publisher.stream.videoSource.deviceId);
-        if (newVideoDevice) {
-          const newPublisher = OV.initPublisher(undefined, {
-            audioSource: undefined,
-            videoSource: newVideoDevice.deviceId,
-            publishAudio: publisher.stream.audioActive,
-            publishVideo: publisher.stream.videoActive,
-            mirror: true,
-          });
-  
-          await session.unpublish(publisher);
-          await session.publish(newPublisher);
-  
-          setPublisher(newPublisher);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  //         setPublisher(newPublisher);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  const getDevices = async () => {
+    let devices = await OV.getDevices();
+    let videoDevices = devices.filter(device => device.kind === 'videoinput');
+    setVideoDevices(videoDevices);
+    setSelectedCamera(videoDevices[0]?.deviceId);
+  }
+
+  // 카메라를 전환하는 함수
+  const switchCamera = async (deviceId) => {
+      let properties = { videoSource: deviceId };
+      let mediaStream = await OV.getUserMedia(properties);
+      let myTrack = mediaStream.getVideoTracks()[0];
+      publisher.replaceTrack(myTrack);
+      setSelectedCamera(deviceId);
+  }
+
+  const openSwitchCameraModal = () => {
+      getDevices();
+      setIsSwitchCameraModalOpen(true);
+  }
+
+  const closeSwitchCameraModal = () => {
+      setIsSwitchCameraModalOpen(false);
   }
 
   const leaveSession = async () => {
@@ -318,7 +336,6 @@ const VideoRoomComponent = (props) => {
   }
   
   const deleteRoomRequest = async (mySessionId) => {
-    console.log(mySessionId)
     try {
       await axios.delete(baseURL + `/api/lives/${apiRoomId}`, 
       {
@@ -327,7 +344,7 @@ const VideoRoomComponent = (props) => {
           'Content-Type': 'application/json',
         }
       })
-      await axios.delete(OPENVIDU_SERVER_URL + `/openvidu/api/sessions/${mySessionId}`, {
+      await axios.delete(baseURL + `/openvidu/api/sessions/${mySessionId}`, {
         headers: {
           Authorization: localStorage.getItem("jwt"),
           'Content-Type': 'application/json',
@@ -343,7 +360,8 @@ const VideoRoomComponent = (props) => {
 
   // 호스트(방 생성자) 여부에 따른 isHost를 토글링함(created()) + 호스트가 아닐 경우 유저의 이름을 바꿈
   useEffect(() => {
-    setMyUserName('Participant' + Math.floor(Math.random() * 100));
+    setMyUserName(nickName);
+    setMyUserImg(userImg)
   }, []);
 
   useEffect(() => {
@@ -357,7 +375,7 @@ const VideoRoomComponent = (props) => {
   }, [leaveSession]);
 
   useEffect(() => {
-    if (session) {
+    if (session) {  
       const sessionDisconnectedHandler = () => {
         setLiveEndModalOpen(true);
       };
@@ -397,17 +415,16 @@ const VideoRoomComponent = (props) => {
         {session !== undefined && mainStreamManager !== undefined ? (
           <div>
           <ToolbarComponent
-            sessionId={mySessionId}
-            user={publisher}
-            isHost={isHost}
-            micStatusChanged={micStatusChanged}
-            camStatusChanged={camStatusChanged}
-            switchCamera={switchCamera}
-            leaveSession={leaveSession}
-            setLeaveModal={setLeaveModal}
-            hostNickname={hostNickname}
-            hostProfileImg={hostProfileImg}
-            totalUsers={totalUsers}
+              user={publisher}
+              isHost={isHost}
+              micStatusChanged={micStatusChanged}
+              camStatusChanged={camStatusChanged}
+              openSwitchCameraModal={openSwitchCameraModal}
+              setLeaveModal={setLeaveModal}
+              setSwitchCameraModal={setSwitchCameraModal}
+              hostNickname={hostNickname}
+              hostProfileImg={hostProfileImg}
+              totalUsers={totalUsers}
           />
           
             {isHost && <UserVideoComponent streamManager={publisher}></UserVideoComponent>}
@@ -416,7 +433,7 @@ const VideoRoomComponent = (props) => {
             {chatDisplay && 
               <div className="chatting">
                 <ChattingList messageList={messageList}></ChattingList>
-                <ChattingForm myUserName={myUserName} onMessage={sendMsg} currentSession={session}></ChattingForm>
+                <ChattingForm myUserName={myUserName} myUserImg={myUserImg} onMessage={sendMsg} currentSession={session}></ChattingForm>
               </div>
             }
           <HeartButton />
@@ -433,6 +450,20 @@ const VideoRoomComponent = (props) => {
         <LeaveModal state={setLeaveModal} leaveSession={leaveSession}/>
         : null  
       }
+      {isSwitchCameraModalOpen && (
+        <dialog open>
+          <h2>Select a camera</h2>
+          {videoDevices.map(device =>
+            <div key={device.deviceId}>
+              <input type="radio" id={device.deviceId} name="camera" value={device.deviceId}
+                checked={selectedCamera === device.deviceId}
+                onChange={() => switchCamera(device.deviceId)} />
+              <label htmlFor={device.deviceId}>{device.label}</label>
+            </div>
+          )}
+          <button onClick={closeSwitchCameraModal}>Close</button>
+        </dialog>
+      )}
       <LiveEndModal open={liveEndModalOpen} onClose={handleCloseLiveEndModal} />
       </div>
       )}
@@ -465,7 +496,7 @@ export default VideoRoomComponent;
 
 // var localUser = new UserModel();
 
-// const OPENVIDU_SERVER_URL = "https://i10c203.p.ssafy.io"
+// const baseURL = import.meta.env.VITE_BASE_URL
 // const OPENVIDU_SERVER_SECRET = "wearegitaehasam"
 
 // const VideoRoomComponent = (props) => {
@@ -473,16 +504,22 @@ export default VideoRoomComponent;
 //   const location = useLocation(); // 로케이션(이전 페이지에서 데이터를 받아옴)
 //   const size = useWindowSize();
 
-//   const baseURL = import.meta.env.VITE_BASE_URL
 //   const roomId = location.state.roomId
 //   const isHost = location.state.isHost;
+
+//   // 방을 생성하여 리스트에서 보여줄 방제목, 썸네일
 //   const imageUrl = (location.state.imageUrl ? location.state.imageUrl : null)
 //   const name = (location.state.name ? location.state.name : null)
+
+//   // 라이브 방송 중 보여질 유저의 닉네임, 프로필사진
+//   const nickName = location.state.nickName
+//   const userImg = location.state.userImg
+
 //   const subscriberSession = (location.state.subscriberSession ? location.state.subscriberSession : null)
 //   const [apiRoomId, setApiRoomId] = useState(null)
 
 //   const [mySessionId, setMySessionId] = useState('Gitaehasam');
-//   const [myUserName, setMyUserName] = useState('Participant' + Math.floor(Math.random() * 100));
+//   const [myUserName, setMyUserName] = useState('');
 //   const [session, setSession] = useState(undefined);
 //   const [mainStreamManager, setMainStreamManager] = useState(undefined); // 페이지의 메인 비디오 화면(퍼블리셔 또는 참가자의 화면 중 하나)
 //   const [messageList, setMessageList] = useState([]); // 메세지 정보를 담을 배열
@@ -516,7 +553,7 @@ export default VideoRoomComponent;
 //       return createToken(subscriberSession);
 //     }
 //   }, [mySessionId, isHost]);
-  
+
 //   // 세션 생성(KMS로 직접 쏨)
 //   const createSession = (sessionId) => {
 //     if (isHost) {
@@ -524,7 +561,7 @@ export default VideoRoomComponent;
 //       console.log(roomId)
 //       let data = JSON.stringify({ customSessionId: sessionId });
 //       axios
-//         .post(OPENVIDU_SERVER_URL + '/openvidu/api/sessions', data, {
+//         .post(baseURL + '/openvidu/api/sessions', data, {
 //           headers: {
 //             Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
 //             'Content-Type': 'application/json',
@@ -533,13 +570,13 @@ export default VideoRoomComponent;
 //         .then((response) => {
 //           console.log('CREATE SESION', response);
 
-//           axios.post(OPENVIDU_SERVER_URL + '/api/lives', {
+//           axios.post(baseURL + '/api/lives', {
 //             imageUrl:imageUrl,
 //             name:name,
 //             sessionId:response.data.sessionId,
 //           }, {
 //             headers: {
-//               Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",
+//               Authorization: localStorage.getItem("jwt"),
 //               'Content-Type': 'application/json',
 //             }
 //           })
@@ -575,7 +612,7 @@ export default VideoRoomComponent;
 //     return new Promise((resolve, reject) => {
 //       const data = { role: myRole, sessionId: sessionId }; // 수정된 부분
 //       axios
-//         .post(OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
+//         .post(baseURL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
 //           headers: {
 //             Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
 //             'Content-Type': 'application/json',
@@ -638,7 +675,8 @@ export default VideoRoomComponent;
 //       videoSource: undefined,
 //       publishAudio: isAudio,
 //       publishVideo: isCamera,
-//       resolution: `${size.width}x${size.height}`,
+//       // resolution: `${size.width}x${size.height}`,
+//       resolution: `640x480`,
 //       frameRate: 30,
 //       insertMode: 'APPEND',
 //       mirror: false
@@ -683,7 +721,7 @@ export default VideoRoomComponent;
 //       })
 //     });
 
-//     axios.get(OPENVIDU_SERVER_URL + '/openvidu/api/sessions/' + mySessionId, {
+//     axios.get(baseURL + '/openvidu/api/sessions/' + mySessionId, {
 //       headers: {
 //         Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
 //         'Content-Type': 'application/json',
@@ -760,16 +798,23 @@ export default VideoRoomComponent;
 //     }
 //   }
   
-//   const deleteRoomRequest = async (mySession) => {
+//   const deleteRoomRequest = async (mySessionId) => {
+//     console.log(mySessionId)
 //     try {
-//       await axios.delete(OPENVIDU_SERVER_URL + `/api/lives/${apiRoomId}`, 
+//       await axios.delete(baseURL + `/api/lives/${apiRoomId}`, 
 //       {
 //         headers: {
-//           Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3MTE5Mjg1LCJleHAiOjE3MDcxMjI4ODV9.0j6gIZaHdVzQWmg_HJ1ZtACGKTnk7j1Rr1MGicKxGco",
+//           Authorization: localStorage.getItem("jwt"),
 //           'Content-Type': 'application/json',
 //         }
 //       })
-//       mySession.disconnect();
+//       await axios.delete(baseURL + `/openvidu/api/sessions/${mySessionId}`, {
+//         headers: {
+//           Authorization: localStorage.getItem("jwt"),
+//           'Content-Type': 'application/json',
+//         }
+//       })
+//       mySessionId.disconnect();
 //     } catch (error) {
 //       console.error(error);
 //     } finally {
@@ -779,7 +824,7 @@ export default VideoRoomComponent;
 
 //   // 호스트(방 생성자) 여부에 따른 isHost를 토글링함(created()) + 호스트가 아닐 경우 유저의 이름을 바꿈
 //   useEffect(() => {
-//     setMyUserName('Participant' + Math.floor(Math.random() * 100));
+//     setMyUserName(nickName);
 //   }, []);
 
 //   useEffect(() => {
@@ -841,7 +886,7 @@ export default VideoRoomComponent;
 //             switchCamera={switchCamera}
 //             leaveSession={leaveSession}
 //             setLeaveModal={setLeaveModal}
-//             hostNickname={hostNickname}
+//             hostNickname={myUserName}
 //             hostProfileImg={hostProfileImg}
 //             totalUsers={totalUsers}
 //           />
@@ -855,7 +900,7 @@ export default VideoRoomComponent;
 //                 <ChattingForm myUserName={myUserName} onMessage={sendMsg} currentSession={session}></ChattingForm>
 //               </div>
 //             }
-//           {/* <HeartButton /> */}
+//           <HeartButton />
 //           </div>
 //         ) : (
 //           <div className="noneData">

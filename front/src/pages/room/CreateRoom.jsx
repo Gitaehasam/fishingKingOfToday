@@ -11,6 +11,7 @@ function CreateRoom() {
   const navigate = useNavigate();
   const isHost = true;
   const baseURL = import.meta.env.VITE_BASE_URL
+  const userInfo = localStorage.getItem("user")
 
   const [title, setTitle] = useState('')
   const [previewURL, setPreviewURL] = useState("");
@@ -50,7 +51,7 @@ function CreateRoom() {
 
   // 로그인 하면 될거임~
   const createPresignedURL = (file) => {
-    axios.post(baseURL + "/images/presigned", {filename: file.name})
+    axios.post(baseURL + "/api/images/presigned", {filename: file.name})
       .then((res) => {
         console.log(res.data)
         setThumbnailURL(res.data.imageUrl)
@@ -83,7 +84,7 @@ function CreateRoom() {
 
     navigate(`/live/Gitaehasam${roomId}`, 
     { 
-      state: { isHost: isHost, roomId:roomId, imageUrl:thumbnailURL ? thumbnailURL : null, name:title } 
+      state: { isHost: isHost, roomId:roomId, imageUrl:thumbnailURL ? thumbnailURL : null, name:title, nickname:userInfo.nickname, userImg:userInfo.imageUrl } 
     });
   }
 

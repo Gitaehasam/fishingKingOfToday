@@ -51,23 +51,23 @@ const ChattingList = (props) => {
   return (
     <div className="chatContainer" ref={boxRef}>
       <div>
-        {props.messageList.map((msg, i) => (
-          <div key={i}>
-            <div className="chat-box">
-              <img src={Profile} alt="" className="user-img"/>
-              <div className="msg-detail">
-                <div className="msg-info">
-                  <p>{msg.split(":")[0]}</p>
-                </div>
+      {props.messageList.map((msg, i) => (
+        <div key={i}>
+          <div className="chat-box">
+            <img src={msg.split("|")[1]} alt="" className="user-img"/>
+            <div className="msg-detail">
+              <div className="msg-info">
+                <p>{msg.split("|")[0]}</p>
+              </div>
 
-                <div className="msg-content">
-                  <span className="triangle" />
-                  <p className="text">{msg.split(":")[1]}</p>
-              </div>
-              </div>
+              <div className="msg-content">
+                <span className="triangle" />
+                <p className="text">{msg.split("|")[2]}</p>
+            </div>
             </div>
           </div>
-        ))}
+        </div>
+      ))}
       </div>
       <div ref={scrollRef}></div>
     </div>
