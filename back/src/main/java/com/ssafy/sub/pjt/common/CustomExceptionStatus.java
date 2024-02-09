@@ -2,6 +2,7 @@ package com.ssafy.sub.pjt.common;
 
 public enum CustomExceptionStatus {
     SUCCESS(1000, "요청에 성공하였습니다."),
+    INVALID_REQUEST(1001, "올바르지 않은 요청입니다."),
 
     REQUEST_ERROR(1100, "입력 값을 확인해 주세요."),
     EMPTY_JWT(1101, "토큰이 없습니다."),
@@ -33,7 +34,18 @@ public enum CustomExceptionStatus {
 
     NOT_FOUND_LIVEROOM(4000, "존재하지 않는 라이브 방 입니다."),
 
-    NOT_FOUND_FISHING_SPOT(5000, "존재하지 않는 낚시터입니다.");
+    NOT_FOUND_FISHING_SPOT(5000, "존재하지 않는 낚시터입니다."),
+
+    EXCEED_IMAGE_CAPACITY(6000, "업로드 가능한 이미지 용량을 초과했습니다."),
+    NULL_IMAGE(6001, "업로드한 이미지 파일이 NULL입니다."),
+    EMPTY_IMAGE_LIST(6002, "최소 한 장 이상의 이미지를 업로드해야합니다."),
+    EXCEED_IMAGE_LIST_SIZE(6003, "업로드 가능한 이미지 개수를 초과했습니다."),
+    INVALID_IMAGE_URL(6004, "요청한 이미지 URL의 형식이 잘못되었습니다."),
+    INVALID_IMAGE_PATH(6005, "이미지를 저장할 경로가 올바르지 않습니다."),
+    FAIL_IMAGE_NAME_HASH(6006, "이미지 이름을 해싱하는 데 실패했습니다."),
+    INVALID_IMAGE(6107, "올바르지 않은 이미지 파일입니다."),
+
+    INTERNAL_SEVER_ERROR(9999, "서버 에러가 발생하였습니다. 관리자에게 문의해 주세요.");
 
     private final int code;
     private final String message;
