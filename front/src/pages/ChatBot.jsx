@@ -10,6 +10,7 @@ import postSendChat from "../api/chatbot";
 import axios from "axios";
 
 function ChatBot () {
+  const baseURL = import.meta.env.VITE_BASE_URL
   const navigate = useNavigate()
   const [chattingList, setChattingList] = useState([])
   const [loadingState, setLoadingState] = useState(false)
@@ -24,13 +25,14 @@ function ChatBot () {
     setChattingList(prevList => [...prevList, {user: 'bot', chat: 'loading', imgURL: null, move:null}]);
     setLoadingState(true)
     
-    await postSendChat(chat).then((res) => {
-      setLoadingState(false)
-      setChattingList(prevList => {
-        let newList = [...prevList]
-        newList[newList.length - 1] = {user: 'bot', chat: res.data.text, imgURL: res.data.imageUrl, move: res.data.move};
-      })
-    })
+    // await postSendChat(chat).then((res) => {
+    //   console.log(res.data)
+    //   setLoadingState(false)
+    //   setChattingList(prevList => {
+    //     let newList = [...prevList]
+    //     newList[newList.length - 1] = {user: 'bot', chat: res.data.text, imgURL: res.data.imageUrl, move: res.data.move};
+    //   })
+    // })
 
     // try {
     //   const {data} = await axiosApi.post('', chat)
@@ -46,24 +48,23 @@ function ChatBot () {
 
     ///////////////////////////
     
-    // axios.post("", {chat}, {
-    //   headers:{
-    //     Authorization: `${token}`,
-    //     'Content-Type': 'application/json',
-    //     }
-    //   })
-    //   .then((res) => {
-    //   setLoadingState(false)
-    //   setChattingList(prevList => {
-    //     let newList = [...prevList];
-    //     newList[newList.length - 1] = {user: 'bot', chat: res.data.value, imgURL: res.data.imgURL, move:res.data.move};
-    //     return newList;
-    //   });
-    //   console.log(res.data)
-    // })
-    // .catch((err) => {
-    //   console.log(err)
-    // })
+    await axios.post(`${baseURL}/api/chatbot`, {inputText:chat}, {
+      headers:{
+        Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3NDc3NjQ5LCJleHAiOjE3MTAwNjk2NDl9.dKbZBVArBhh9Yqre0LFdi9rKmPYrdzz4DsDiCVolA28",
+        'Content-Type': 'application/json',
+        }
+      })
+      .then((res) => {
+      setLoadingState(false)
+      setChattingList(prevList => {
+        let newList = [...prevList];
+        newList[newList.length - 1] = {user: 'bot', chat: res.data.text, imgURL: res.data.imageUrl, move:res.data.move};
+        return newList;
+      });
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
   
 

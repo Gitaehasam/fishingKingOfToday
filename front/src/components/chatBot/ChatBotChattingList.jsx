@@ -62,7 +62,7 @@ function ChatBotChattingList (props) {
           {chat.chat === 'loading' ? <ChatBotLoading/> : <div>{chat.chat}</div>}
           {/* {chat.chat === 'loading' ? <div>답변을 준비중이에요...</div>: <div>{chat.chat}</div>} */}
           {chat.user === 'bot' && chat.imgURL && <img src={chat.imgURL} alt="" />}
-          {chat.user === 'bot' && chat.move && <div onClick={() => navigate(`${chat.move}`)}>{chat.move}(으)로 이동하기</div>}
+          {chat.user === 'bot' && chat.move && <div onClick={() => navigate(`/${chat.move}`)}> <span>{chat.move} 이동하기</span></div>}
         </div>
       ))}
         <div ref={scrollRef}></div>
