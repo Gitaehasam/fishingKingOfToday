@@ -24,7 +24,7 @@ function RoomList() {
   const isHost = false;
 
   const baseURL = import.meta.env.VITE_BASE_URL;
-  const OPENVIDU_SERVER_URL = "https://i10c203.p.ssafy.io";
+  const userInfo = localStorage.getItem("user")
   const OPENVIDU_SERVER_SECRET = "wearegitaehasam";
 
   useEffect(() => {
@@ -50,10 +50,10 @@ function RoomList() {
   const fetchRoomList = () => {
     setIsLoading(true);
     axios
-      .get(OPENVIDU_SERVER_URL + "/api/lives")
+      .get(baseURL + "/api/lives")
       .then((res) => {
         axios
-          .get(OPENVIDU_SERVER_URL + "/openvidu/api/sessions", {
+          .get(baseURL + "/openvidu/api/sessions", {
             headers: {
               Authorization:
                 "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
@@ -79,7 +79,7 @@ function RoomList() {
     const sessionId = roomInfo.sessionId;
 
     navigate(`/live/${roomInfo.sessionId}`, {
-      state: { isHost: isHost, roomId: roomId, subscriberSession: sessionId },
+      state: { isHost: isHost, roomId: roomId, subscriberSession: sessionId, nickname:userInfo.nickname, userImg:userInfo.imageUrl },
     });
   };
 
@@ -93,10 +93,6 @@ function RoomList() {
       ) : (
         <div>
           <Header centerText={"낚시 라이브"} />
-          {/* <div className="roomList-header" onClick={() => navigate("/")}>
-            <img src={back} alt="" />
-            <span>낚시 라이브</span>
-          </div> */}
 
           {/* 내가 불편해서 만듬 ㅠㅠ  새로고침 오래걸려유 ㅠ */}
           <CachedIcon

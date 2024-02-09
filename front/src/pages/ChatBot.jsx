@@ -5,15 +5,9 @@ import Header from "../components/Header";
 import "@/assets/styles/chatbot/ChatBot.scss"
 import ChatBotChattingForm from "../components/chatBot/ChatBotChattingForm";
 import ChatBotChattingList from "../components/chatBot/ChatBotChattingList";
+import { axiosApi } from "../util/commons";
+import postSendChat from "../api/chatbot";
 import axios from "axios";
-
-// [
-// 	['캐스팅', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
-// 	['미끼', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
-// 	['봉돌', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
-// 	['합사', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
-// 	['물고기 잘 잡히는 곳', [{value: '~~'}, {imgURL: null}, {move: 'myPage'}]],
-// ]
 
 function ChatBot () {
   const navigate = useNavigate()
@@ -25,10 +19,32 @@ function ChatBot () {
     '금어기는 언제에요?',
   ]
 
-  const sendChat = (chat) => {
+  const sendChat = async (chat) => {
     setChattingList(prevList => [...prevList, {user: 'user', chat: chat, imgURL: null, move:null}]);
     setChattingList(prevList => [...prevList, {user: 'bot', chat: 'loading', imgURL: null, move:null}]);
     setLoadingState(true)
+    
+    await postSendChat(chat).then((res) => {
+      setLoadingState(false)
+      setChattingList(prevList => {
+        let newList = [...prevList]
+        newList[newList.length - 1] = {user: 'bot', chat: res.data.text, imgURL: res.data.imageUrl, move: res.data.move};
+      })
+    })
+
+    // try {
+    //   const {data} = await axiosApi.post('', chat)
+    //   return data
+    // } catch (err) {
+    //   console.log(err)
+    // }
+    // setLoadingState(false)
+    // setChattingList(prevList => {
+    //   let newList = [...prevList]
+    //   newList[newList.length - 1] = {user: 'bot', chat: data.value, imgURL: data.imgURL, move:data.move};
+    // })
+
+    ///////////////////////////
     
     // axios.post("", {chat}, {
     //   headers:{
