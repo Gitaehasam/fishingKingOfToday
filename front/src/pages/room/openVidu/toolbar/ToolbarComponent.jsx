@@ -15,7 +15,7 @@ import group from "../../../../assets/images/room/Group.svg"
     isHost, 
     micStatusChanged, 
     camStatusChanged, 
-    openSwitchCameraModal, 
+    setIsSwitchCameraModal, 
     hostNickname,
     hostProfileImg,
     setLeaveModal,
@@ -58,7 +58,7 @@ import group from "../../../../assets/images/room/Group.svg"
               <VideocamOffOutlinedIcon onClick={camStatusChanged} className='toolbar-option-icon'/>
             )}
 
-            <LoopOutlinedIcon onClick={openSwitchCameraModal} className='toolbar-option-icon'/>
+            <LoopOutlinedIcon onClick={() => setIsSwitchCameraModal(true)} className='toolbar-option-icon'/>
           </>
         )}
       </div>  

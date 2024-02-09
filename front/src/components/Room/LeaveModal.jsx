@@ -35,14 +35,14 @@ function LeaveModal ({state, leaveSession}) {
   return (
     <>
       <dialog ref={leaveModal} onClick={closeLeaveModal} className="leave-modal">
-      <header className="leave-modal-header">
-        <h3>라이브를 종료하시겠어요?</h3>
-      </header>
+        <header className="leave-modal-header">
+          <h3>라이브를 종료하시겠어요?</h3>
+        </header>
 
-      <div className="leave-modal-body">
-        <div onClick={closeModalClick}>취소</div>
-        <div onClick={leaveLive}>나가기</div>
-      </div>
+        <div className="leave-modal-body">
+          <div onClick={closeModalClick}>취소</div>
+          <div onClick={leaveLive}>나가기</div>
+        </div>
 
       </dialog>
     </>

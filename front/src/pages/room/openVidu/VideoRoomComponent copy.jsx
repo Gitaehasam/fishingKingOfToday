@@ -11,6 +11,7 @@ import ChattingForm from "../openVidu/chat/ChattingForm"
 import useWindowSize from "../../../components/room/liveSize";
 import LeaveModal from "../../../components/room/LeaveModal";
 import LiveEndModal from "../../../components/room/LiveEndModal";
+import SwitchCameraModal from "../../../components/room/SwitchCameraModal";
 import Loading from "../../../components/Loading";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import HeartButton from "./HeartBtn";
@@ -53,8 +54,8 @@ const VideoRoomComponent = (props) => {
   const [totalUsers, setTotalUsers] = useState(0); // 총 유저수
   const [chatDisplay, setChatDisplay] = useState(true); // 채팅창 보이기(초깃값: true) 
   const [profileImg, setProfileImg] = useState(null);
-  const [isCamera, setIsCamera] = useState(true)
-  const [isAudio, setIsAudio] = useState(true)
+  const [isCamera, setIsCamera] = useState(false)
+  const [isAudio, setIsAudio] = useState(false)
   const [leaveModal, setLeaveModal] = useState(false)
   const [hostNickname, setHostNickname] = useState('');
   const [hostProfileImg, setHostProfileImg] = useState('');
@@ -62,7 +63,7 @@ const VideoRoomComponent = (props) => {
 
   const [videoDevices, setVideoDevices] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(null);
-  const [isSwitchCameraModalOpen, setIsSwitchCameraModalOpen] = useState(false);
+  const [isSwitchCameraModal, setIsSwitchCameraModal] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -292,29 +293,12 @@ const VideoRoomComponent = (props) => {
   //   }
   // }
 
-  const getDevices = async () => {
-    let devices = await OV.getDevices();
-    let videoDevices = devices.filter(device => device.kind === 'videoinput');
-    setVideoDevices(videoDevices);
-    setSelectedCamera(videoDevices[0]?.deviceId);
-  }
-
   // 카메라를 전환하는 함수
   const switchCamera = async (deviceId) => {
       let properties = { videoSource: deviceId };
       let mediaStream = await OV.getUserMedia(properties);
       let myTrack = mediaStream.getVideoTracks()[0];
       publisher.replaceTrack(myTrack);
-      setSelectedCamera(deviceId);
-  }
-
-  const openSwitchCameraModal = () => {
-      getDevices();
-      setIsSwitchCameraModalOpen(true);
-  }
-
-  const closeSwitchCameraModal = () => {
-      setIsSwitchCameraModalOpen(false);
   }
 
   const leaveSession = async () => {
@@ -419,12 +403,12 @@ const VideoRoomComponent = (props) => {
               isHost={isHost}
               micStatusChanged={micStatusChanged}
               camStatusChanged={camStatusChanged}
-              openSwitchCameraModal={openSwitchCameraModal}
               setLeaveModal={setLeaveModal}
-              setSwitchCameraModal={setSwitchCameraModal}
               hostNickname={hostNickname}
               hostProfileImg={hostProfileImg}
               totalUsers={totalUsers}
+
+              setIsSwitchCameraModal={setIsSwitchCameraModal}
           />
           
             {isHost && <UserVideoComponent streamManager={publisher}></UserVideoComponent>}
@@ -450,20 +434,11 @@ const VideoRoomComponent = (props) => {
         <LeaveModal state={setLeaveModal} leaveSession={leaveSession}/>
         : null  
       }
-      {isSwitchCameraModalOpen && (
-        <dialog open>
-          <h2>Select a camera</h2>
-          {videoDevices.map(device =>
-            <div key={device.deviceId}>
-              <input type="radio" id={device.deviceId} name="camera" value={device.deviceId}
-                checked={selectedCamera === device.deviceId}
-                onChange={() => switchCamera(device.deviceId)} />
-              <label htmlFor={device.deviceId}>{device.label}</label>
-            </div>
-          )}
-          <button onClick={closeSwitchCameraModal}>Close</button>
-        </dialog>
-      )}
+
+      {isSwitchCameraModal ?
+        <SwitchCameraModal state={setIsSwitchCameraModal} onDevice={(deviceId) => switchCamera(deviceId)} />
+        :null
+      }
       <LiveEndModal open={liveEndModalOpen} onClose={handleCloseLiveEndModal} />
       </div>
       )}
