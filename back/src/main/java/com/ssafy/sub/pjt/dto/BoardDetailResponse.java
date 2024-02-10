@@ -25,10 +25,11 @@ public class BoardDetailResponse {
     private final Integer commentCnt;
     private final List<CommentResponse> comments;
     private final Integer likeCnt;
+    private final Boolean isLiked;
     private final Float longitude;
     private final Float latitude;
 
-    public static BoardDetailResponse of(Board board) {
+    public static BoardDetailResponse of(Board board, String socialId) {
         return new BoardDetailResponse(
                 board.getUser().getNickName(),
                 board.getUser().getSocialId(),
@@ -46,6 +47,7 @@ public class BoardDetailResponse {
                         .map(comment -> CommentResponse.of(comment, comment.getUser()))
                         .collect(Collectors.toList()),
                 board.getLikeCounts(),
+                board.isLiked(socialId),
                 board.getFishingSpot().getLongitude(),
                 board.getFishingSpot().getLatitude());
     }

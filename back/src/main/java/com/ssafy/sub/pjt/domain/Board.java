@@ -129,6 +129,15 @@ public class Board extends BaseTime {
         likes.remove(like);
     }
 
+    public Boolean isLiked(String socialId) {
+        for (Like like : likes) {
+            if (like.getUser().getSocialId().equals(socialId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getLikeCounts() {
         return likes.size();
     }
