@@ -14,6 +14,7 @@ public class CommentResponse {
 
     private final Integer id;
     private final String profileImageUrl;
+    private final String socialId;
     private final String nickName;
     private final String content;
     private final LocalDateTime createdAt;
@@ -22,6 +23,7 @@ public class CommentResponse {
         return new CommentResponse(
                 comment.getId(),
                 user.getImageUrl(),
+                user.getSocialId(),
                 user.getNickName(),
                 comment.getContent(),
                 comment.getCreatedAt());
