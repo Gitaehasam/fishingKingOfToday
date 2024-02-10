@@ -25,14 +25,15 @@ function ChatBot () {
     setChattingList(prevList => [...prevList, {user: 'bot', chat: 'loading', imgURL: null, move:null}]);
     setLoadingState(true)
     
-    // await postSendChat(chat).then((res) => {
-    //   console.log(res.data)
-    //   setLoadingState(false)
-    //   setChattingList(prevList => {
-    //     let newList = [...prevList]
-    //     newList[newList.length - 1] = {user: 'bot', chat: res.data.text, imgURL: res.data.imageUrl, move: res.data.move};
-    //   })
-    // })
+    await postSendChat(chat).then((res) => {
+      console.log(res)
+      setLoadingState(false)
+      setChattingList(prevList => {
+        let newList = [...prevList]
+        newList[newList.length - 1] = {user: 'bot', chat: res.text, imgURL: res.imageUrl, move: res.move};
+        return newList
+      })
+    })
 
     // try {
     //   const {data} = await axiosApi.post('', chat)
@@ -48,23 +49,23 @@ function ChatBot () {
 
     ///////////////////////////
     
-    await axios.post(`${baseURL}/api/chatbot`, {inputText:chat}, {
-      headers:{
-        Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3NDc3NjQ5LCJleHAiOjE3MTAwNjk2NDl9.dKbZBVArBhh9Yqre0LFdi9rKmPYrdzz4DsDiCVolA28",
-        'Content-Type': 'application/json',
-        }
-      })
-      .then((res) => {
-      setLoadingState(false)
-      setChattingList(prevList => {
-        let newList = [...prevList];
-        newList[newList.length - 1] = {user: 'bot', chat: res.data.text, imgURL: res.data.imageUrl, move:res.data.move};
-        return newList;
-      });
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    // await axios.post(`${baseURL}/api/chatbot`, {inputText:chat}, {
+    //   headers:{
+    //     Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3NDc3NjQ5LCJleHAiOjE3MTAwNjk2NDl9.dKbZBVArBhh9Yqre0LFdi9rKmPYrdzz4DsDiCVolA28",
+    //     'Content-Type': 'application/json',
+    //     }
+    //   })
+    //   .then((res) => {
+    //   setLoadingState(false)
+    //   setChattingList(prevList => {
+    //     let newList = [...prevList];
+    //     newList[newList.length - 1] = {user: 'bot', chat: res.data.text, imgURL: res.data.imageUrl, move:res.data.move};
+    //     return newList;
+    //   });
+    // })
+    // .catch((err) => {
+    //   console.log(err)
+    // })
   }
   
 

@@ -11,7 +11,7 @@ function CreateRoom() {
   const navigate = useNavigate();
   const isHost = true;
   const baseURL = import.meta.env.VITE_BASE_URL
-  const userInfo = localStorage.getItem("user")
+  const userInfo = JSON.parse(localStorage.getItem("user"))
 
   const [title, setTitle] = useState('')
   const [previewURL, setPreviewURL] = useState("");

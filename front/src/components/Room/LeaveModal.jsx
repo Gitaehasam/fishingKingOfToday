@@ -36,7 +36,7 @@ function LeaveModal ({state, leaveSession}) {
     <>
       <dialog ref={leaveModal} onClick={closeLeaveModal} className="leave-modal">
         <header className="leave-modal-header">
-          <h3>라이브를 종료하시겠어요?</h3>
+          <h3>라이브를 종료하시겠어요?</h3> 
         </header>
 
         <div className="leave-modal-body">
