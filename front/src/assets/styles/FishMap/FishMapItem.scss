@@ -1,7 +1,7 @@
 .item {
   display: flex;
   flex-direction: column;
-  gap: 0.3vh;
+  gap: 0.5vh;
 
   .item-head {
     display: flex;
@@ -16,7 +16,7 @@
 
     .fishing-type {
       color: gray;
-      font-size: 1.7vh;
+      font-size: 1.8vh;
     }
   }
 
@@ -26,7 +26,7 @@
 
     .fishing-dist,
     .fishing-addr {
-      font-size: 1.7vh;
+      font-size: 1.8vh;
     }
 
     .fishing-dist {
@@ -35,6 +35,6 @@
   }
 
   .fishing-exp {
-    font-size: 1.7vh;
+    font-size: 1.8vh;
   }
 }

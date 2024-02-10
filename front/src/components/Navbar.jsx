@@ -66,7 +66,7 @@ const Navbar = () => {
                 type="file"
                 id="file"
                 accept="image/*"
-                capture="camera"
+                // capture="camera"
                 onChange={handleChangeFile}
               />
             </label>

@@ -1,6 +1,6 @@
 .Carousel {
   position: relative;
-  height: 41vh;
+  height: 42vh;
   border-radius: 2vh 2vh 0 0;
 
   // .slides {
@@ -51,14 +51,14 @@
     right: 2vh;
     background: rgba($color: black, $alpha: 0.6);
     color: white;
-    padding: 0.8vh 2vh;
+    padding: 0.5vh 1vh;
     border-radius: 2vh;
-    font-size: 2vh;
+    font-size: 1.8vh;
     z-index: 1;
 
     span {
       color: darkgray;
-      font-size: 2vh;
+      font-size: 1.8vh;
     }
   }
 

@@ -21,13 +21,13 @@
 
     .info_name {
       color: #3496ff;
-      font-size: 2.7vh;
+      font-size: 2.5vh;
       font-weight: bold;
     }
 
     .info_type {
       color: gray;
-      font-size: 1.9vh;
+      font-size: 1.8vh;
     }
   }
 
@@ -35,14 +35,11 @@
     display: flex;
     align-items: center;
     gap: 1vh;
+    font-size: 1.8vh;
 
     .info_distance {
-      font-size: 1.9vh;
+      // font-size: 1.8vh;
       font-weight: bold;
-    }
-
-    .info_addr {
-      font-size: 1.9vh;
     }
   }
 
@@ -56,8 +53,7 @@
       gap: 2vh;
 
       svg {
-        height: 2.5vh;
-        width: 2.5vh;
+        font-size: 2.3vh;
         color: gray;
       }
     }

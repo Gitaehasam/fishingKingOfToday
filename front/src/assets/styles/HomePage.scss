@@ -1,26 +1,27 @@
 .Home_header {
   display: flex;
   width: 100%;
-  // padding: 0.5em 1em;
-  padding: 1vh 4vw;
-  // height: 4em;
-  height: 8vh;
+  padding: 0 2vh;
+  height: 7vh;
   justify-content: space-between;
   align-items: center;
-  // background: tra;
+  background: transparent;
+  // border: 1px solid red;
   // box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
 
   a {
     display: flex;
+    justify-content: center;
     align-items: center;
+    width: 25vw;
   }
 
   img {
-    height: 6vh;
+    height: 5vh;
+    width: 25vw;
   }
 
   svg {
-    height: 4vh;
-    width: 4vh;
+    font-size: 2.5vh;
   }
 }

@@ -2,41 +2,69 @@ import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import EventMarker from "./EventMarker";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
-import "../../assets/styles/fishmap/FishMapBody.scss";
+import "@assets/styles/fishmap/FishMapBody.scss";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   activeMarkerAtom,
   centerChangeAtom,
   filterModeAtom,
+  fishSpotListAtom,
   mapCenterAtom,
+  mapLevelAtom,
   myCenterAtom,
 } from "../../stores/FishingMapStore";
+import axios from "axios";
 
-const FishMapBody = ({ mapRef, addData, getDistance, openList }) => {
+const FishMapBody = ({ mapRef, getDistance, openList }) => {
   const [centerChange, setCenterChange] = useRecoilState(centerChangeAtom);
   const [activeMarker, setActiveMarker] = useRecoilState(activeMarkerAtom);
   const [myCenter, setMyCenter] = useRecoilState(myCenterAtom);
   const [mapCenter, setMapCenter] = useRecoilState(mapCenterAtom);
+  const [fishSpotList, setFishSpotList] = useRecoilState(fishSpotListAtom);
+  const mapLevel = useRecoilValue(mapLevelAtom);
   const setFilterMode = useSetRecoilState(filterModeAtom);
 
-  const getInfo = () => {
+  // 지도 중심
+  const getInfo = async () => {
     const map = mapRef.current;
     if (!map) return;
 
     const center = map.getCenter();
 
-    map.setCenter(center);
-    setCenterChange(false);
-    setActiveMarker(null);
-    setFilterMode("dist");
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/spots`,
+        {
+          params: { latitude: center.getLat(), longitude: center.getLng() },
+        }
+      );
 
-    setMapCenter({
-      lat: center.getLat(),
-      lng: center.getLng(),
-    });
+      const data = res.data.spots
+        .map((item) => {
+          const dist = getDistance(
+            center.getLat(),
+            center.getLng(),
+            item?.latitude,
+            item?.longitude
+          );
+          return dist <= 20 ? { ...item, dist: dist } : null;
+        })
+        .filter(Boolean);
+
+      setFishSpotList(data);
+
+      map.setCenter(center);
+      setCenterChange(false);
+      setActiveMarker(null);
+      setFilterMode("dist");
+      setMapCenter({
+        lat: center.getLat(),
+        lng: center.getLng(),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  console.log(mapCenter);
 
   const handleClick = () => {
     if (navigator.geolocation) {
@@ -70,16 +98,15 @@ const FishMapBody = ({ mapRef, addData, getDistance, openList }) => {
       <Map // 지도를 표시할 Container
         center={mapCenter}
         ref={mapRef}
-        level={9} // 지도의 확대 레벨
+        level={mapLevel} // 지도의 확대 레벨
         onClick={() => setActiveMarker(null)}
         onCenterChanged={() => setCenterChange(true)}
       >
-        <MarkerClusterer minLevel={12} averageCenter={true}>
-          {addData.map((value, index) => (
+        <MarkerClusterer minLevel={11} averageCenter={true}>
+          {fishSpotList.map((value, index) => (
             <EventMarker
-              key={`EventMarkerContainer-${value.latlng.lat}-${value.latlng.lng}`}
-              position={value.latlng}
-              content={value.content}
+              key={`EventMarkerContainer-${value.spotId}`}
+              value={value}
               isActive={activeMarker === index}
               onClick={() => setActiveMarker(index)}
               getDistance={getDistance}

@@ -1,5 +1,11 @@
 import { atom } from "recoil";
 
+// 낚시터 장소
+export const fishSpotListAtom = atom({
+  key: "fishSpotListAtom",
+  default: [],
+});
+
 export const prevPathAtom = atom({
   key: "prevPathAtom",
   default: "",
@@ -23,10 +29,20 @@ export const centerChangeAtom = atom({
   default: false,
 });
 
+export const searchModeAtom = atom({
+  key: "searchModeAtom",
+  default: "location",
+});
+
 // 낚시터 리스트 필터 (거리순, 요금순)
 export const filterModeAtom = atom({
   key: "filterModeAtom",
   default: "dist",
+});
+
+export const mapLevelAtom = atom({
+  key: "mapLevelAtom",
+  default: 9,
 });
 
 // 지도 중심 좌표

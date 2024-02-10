@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import "@assets/styles/fishmap/FishMapItem.scss";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   activeMarkerAtom,
   centerChangeAtom,
   myCenterAtom,
 } from "../../stores/FishingMapStore";
+import "@assets/styles/fishmap/FishMapItem.scss";
 
 const FishMapItem = ({ item, idx, mapRef, getDistance, setOpenList }) => {
   const myCenter = useRecoilValue(myCenterAtom);
@@ -16,37 +16,35 @@ const FishMapItem = ({ item, idx, mapRef, getDistance, setOpenList }) => {
     return getDistance(
       myCenter.center.lat,
       myCenter.center.lng,
-      item.latlng.lat,
-      item.latlng.lng
+      item.latitude,
+      item.longitude
     );
   }, []);
 
   const handleClick = () => {
     setOpenList(false);
     setActiveMarker(idx);
-    const locPosition = new kakao.maps.LatLng(item.latlng.lat, item.latlng.lng);
+    const locPosition = new kakao.maps.LatLng(item.latitude, item.longitude);
     mapRef.current.setLevel(4);
     mapRef.current.setCenter(locPosition);
     setCenterChange(false);
   };
 
-  console.log(item);
-
   return (
     <div className="item" onClick={handleClick}>
       <div className="item-head">
-        <div className="fishing-name">{item.content.name}</div>
-        <div className="fishing-type">{item.content.type}</div>
+        <div className="fishing-name">{item.name}</div>
+        <div className="fishing-type">{item.spotType}</div>
       </div>
       <div className="item-body">
         <div className="fishing-dist">
           {distance >= 1
             ? `${distance.toFixed(1)}km`
-            : `${(distance / 1000).toFixed()}`}
+            : `${(distance / 1000).toFixed()}m`}
         </div>
-        <div className="fishing-addr">{item.content.addr}</div>
+        <div className="fishing-addr">{item.streetAddress}</div>
       </div>
-      <div className="fishing-exp">{item.content.expense}원</div>
+      <div className="fishing-exp">{item.charge}원</div>
     </div>
   );
 };

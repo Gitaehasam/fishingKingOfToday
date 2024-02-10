@@ -5,7 +5,7 @@
   .result-body {
     display: flex;
     flex-direction: column;
-    gap: 3vh;
+    gap: 5vh;
 
     .result-img {
       display: flex;
@@ -25,15 +25,16 @@
     .result-content {
       display: flex;
       flex-direction: column;
-      gap: 3vh;
+      gap: 5vh;
 
       .result-fish {
         display: flex;
         flex-direction: column;
         align-items: center;
-        background: lightblue;
+        background: #a3b9f6;
+        gap: 1vh;
         padding: 2vh;
-        margin: 0 4vw;
+        margin: 0 2vh;
         border-radius: 2vh;
         font-weight: bold;
         color: white;
@@ -43,19 +44,18 @@
         }
 
         .result-detail {
-          font-size: 2vh;
+          font-size: 1.8vh;
         }
       }
 
       .fish-reviews {
-        // width: 100%;
-        margin: 0 4vw;
+        margin: 0 2vh;
         display: flex;
         flex-direction: column;
         gap: 1vh;
 
         .reviews-title {
-          font-size: 2.5vh;
+          font-size: 2.3vh;
         }
 
         .none-data {

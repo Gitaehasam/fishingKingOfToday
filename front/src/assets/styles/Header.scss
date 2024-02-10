@@ -3,8 +3,8 @@
   gap: 2vh;
   justify-content: space-between;
   align-items: center;
-  margin: 0 4vw;
-  height: 8vh;
+  margin: 0 2vh;
+  height: 7vh;
 
   img,
   .none,
@@ -14,12 +14,11 @@
   }
 
   .center-text {
-    font-size: 3.5vh;
+    font-size: 2.5vh;
     font-weight: bold;
     flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1vh;
   }
 }

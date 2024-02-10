@@ -22,7 +22,7 @@ const LoginPage = () => {
 
   return (
     <div className="LoginPage">
-      <Header centerText={"Login"} prevPath={prevPath} />
+      <Header prevPath={prevPath} />
       {/* <div className="LoginPage_header">
         <img src={back} alt="" onClick={() => navigate("/")} />
         <span>Login</span>

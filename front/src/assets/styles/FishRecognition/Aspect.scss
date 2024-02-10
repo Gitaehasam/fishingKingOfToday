@@ -5,9 +5,7 @@
   align-items: center;
   gap: 2vh;
   background: #191919;
-  width: 60%;
   width: 30vh;
-  // padding: 20px;
   border-radius: 2vh;
 
   .Aspect_header {
@@ -32,20 +30,17 @@
 
         svg {
           display: block;
+          font-size: 3vh;
         }
       }
     }
 
     .Aspect_length {
-      width: 20px;
-      height: 30px;
       width: 3vh;
       height: 4.5vh;
     }
 
     .Aspect_width {
-      width: 30px;
-      height: 20px;
       width: 4.5vh;
       height: 3vh;
     }
@@ -59,7 +54,7 @@
       border: none;
       background: transparent;
       color: white;
-      font-size: 1.7vh;
+      font-size: 1.8vh;
     }
   }
 }

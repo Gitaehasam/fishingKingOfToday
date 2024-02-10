@@ -4,8 +4,8 @@
 
   .crop {
     position: absolute;
-    top: 2.5vh;
-    right: 4vw;
+    top: 2vh;
+    right: 2vh;
     color: white;
     font-weight: bold;
   }
@@ -28,32 +28,26 @@
     .cropper-line {
       background: white;
       opacity: 0.7;
-      // width: 100px;
 
       &.line-e,
       &.line-w {
-        // width: 2px;
         width: 0.4vh;
 
         &:active {
-          // width: 3px;
           width: 0.7vh;
         }
       }
 
       &.line-n,
       &.line-s {
-        // height: 2px;
         height: 0.4vh;
 
         &:active {
-          // height: 3px;
           height: 0.7vh;
         }
       }
 
       &:active {
-        // background: white;
         opacity: 1;
       }
     }
@@ -64,20 +58,15 @@
       opacity: 1;
 
       &.point-ne,
-      // &.point-n,
       &.point-nw,
-      // &.point-w,
       &.point-sw,
-      // &.point-e,
-      // &.point-s ,
       &.point-se {
         width: 1.5vh;
         height: 1.5vh;
 
         &:active {
-          opacity: 1;
-          width: 2vh;
-          height: 2vh;
+          width: 3vh;
+          height: 3vh;
         }
       }
 
@@ -87,7 +76,6 @@
       }
 
       &.point-n {
-        // top: -6px;
         width: 0;
         height: 0;
       }
@@ -98,7 +86,6 @@
       }
 
       &.point-w {
-        // left: -6px;
         width: 0;
         height: 0;
       }
@@ -109,7 +96,6 @@
       }
 
       &.point-s {
-        // bottom: -6px;
         width: 0;
         height: 0;
       }
@@ -120,7 +106,6 @@
       }
 
       &.point-e {
-        // right: -6px;
         width: 0;
         height: 0;
       }
