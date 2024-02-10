@@ -107,7 +107,9 @@ public class BoardController {
     }
 
     @GetMapping("/search/fishBook")
-    public ResponseEntity<?> getFishBookAutoCompleteSearch(@RequestParam final String searchWord) {
+    public ResponseEntity<?> getFishBookAutoCompleteSearch(
+            @Pattern(regexp = "^([ㄱ-ㅎ|가-힣]*)$", message = "띄어쓰기 없이 한글로 물고기를 검색하세요.") @RequestParam
+                    final String searchWord) {
         final List<FishBookAutoCompleteResponse> fishBookAutoCompleteResponse =
                 fishBookService.findAutoCompleteName(searchWord.strip());
 
