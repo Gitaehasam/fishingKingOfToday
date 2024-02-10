@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import React, { useEffect } from 'react';
 import "../../../assets/styles/room/heartBtn.scss"
+import { LuFish } from "react-icons/lu";
 
-const HeartButton = ({ session, myUserName, myUserImg }) => {
-  const [favIcons, setFavIcons] = useState([]);
+let idCounter = 0;
+
+const HeartButton = ({ session, myUserName, myUserImg, favIcons, setFavIcons }) => {
+  const fishIcons = ['🦈','🐬','🐳','🐋','🐟','🐠','🐡','🦐','🦑','🐙','🦀','🦞','🐚','🎣','💖']
 
   const handleClick = () => {
-    setFavIcons((prev) => [...prev, { id: Date.now(), y: 100 }]);
-    
+    const randomIcon = fishIcons[Math.floor(Math.random() * fishIcons.length)];
+    setFavIcons((prev) => [...prev, { id: idCounter++, y: 100, icon: randomIcon }]);
     session.signal({
-      data: `${myUserName}|${myUserImg}|`,
+      data: `${myUserName}|${myUserImg}|${randomIcon}`,
       type: 'heart',
     })
     .then(() => console.log('Heart signal sent'))
@@ -27,16 +29,14 @@ const HeartButton = ({ session, myUserName, myUserImg }) => {
  
   return (
     <div>
-      <button onClick={handleClick}>
-        Heart
-      </button>
+      <LuFish onClick={handleClick}/>
       <div>
         {favIcons.map((icon) => (
           <div
             key={icon.id}
             className="heart-icon"
           >
-            <FavoriteIcon />
+            {icon.icon}
           </div>
         ))}
       </div>

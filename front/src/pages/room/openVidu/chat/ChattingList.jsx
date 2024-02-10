@@ -15,11 +15,10 @@ const ChattingList = (props) => {
     }
 
     debounceTimeoutRef.current = setTimeout(() => {
-      const scrollTop = boxRef.current.scrollTop; // 스크롤 위치
-      const clientHeight = boxRef.current.clientHeight; // 요소의 높이(메세지 박스 창의 높이)
-      const scrollHeight = boxRef.current.scrollHeight; // 스크롤의 높이
+      const scrollTop = boxRef.current.scrollTop;
+      const clientHeight = boxRef.current.clientHeight;
+      const scrollHeight = boxRef.current.scrollHeight;
 
-      // 스크롤이 맨 아래에 있을때
       setScrollState(scrollTop + clientHeight >= scrollHeight - 100 ? true : false);
     }, 100);
   };
