@@ -5,9 +5,10 @@
 }
 
 .board-detail-item {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 50px 30px;
+  padding: 20px 20px 50px;
 }
 
 .board-title {
@@ -58,7 +59,20 @@
     padding: 2px 5px;
     font-size: 14px;
     font-weight: bold;
-    color: #a19af6;
+  }
+}
+
+.btn-area {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  display: flex;
+  gap: 5px;
+  color: white;
+  font-weight: bold;
+  div {
+    padding: 5px;
+    border-radius: 10px;
   }
 }
 

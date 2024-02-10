@@ -7,18 +7,12 @@
   margin-top: 10px;
 }
 
-.post-btn {
-  position: absolute;
-  right: 3%;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
 .post-area {
   textarea {
     width: 100%;
-    height: 50vh;
+    min-height: 30vh;
+    padding: 20px;
+    font-size: 20px;
     background-color: var(--color-main-10);
     border: none;
   }
@@ -56,6 +50,7 @@
 .img_preview {
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 
 .upload-btn {
@@ -81,9 +76,8 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  padding: 10px;
+  padding: 5px;
   margin-top: 10px;
-  border-radius: 20px;
 }
 
 .hashtag-add {
@@ -112,6 +106,7 @@
     border: none;
     width: 100%;
     padding: 15px 15px 15px 60px;
+    font-size: 20px;
     background-color: var(--color-main-10);
     align-self: center;
     border-radius: 30px;
@@ -120,4 +115,32 @@
       border: none;
     }
   }
+}
+
+.hashtag-add-area {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  gap: 10px;
+  li {
+    color: #a19af6;
+    padding: 3px 5px;
+    &::before {
+      content: "#";
+    }
+  }
+}
+
+.post-add-btn {
+  position: fixed;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  width: 90%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  border-radius: 50px;
 }

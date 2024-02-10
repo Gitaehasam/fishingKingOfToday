@@ -9,22 +9,27 @@ import { getBoardList } from "../../api/board";
 const BoardList = ({ category, viewType }) => {
   const [boardData, setBoardData] = useState([]);
 
+  const getList = async () => {
+    await getBoardList(category).then((res) => setBoardData(res));
+    console.log(boardData);
+  };
+
   useEffect(() => {
-    if (category == 1) {
-      // setBoardData(boardlist.boards);
-    } else if (category == 2) {
-      setBoardData(placelist.boards);
-    }
+    getList(category);
   }, [category]);
 
   return (
     <>
       <ul className={`${viewType == 0 ? "full-size" : "mini-size"}`}>
-        {boardData.map((data) => (
-          <Link to={`/media/board/${data.boardId}`} key={data.boardId}>
-            <BoardItem data={data} />
-          </Link>
-        ))}
+        {boardData.boards && (
+          <>
+            {boardData.boards.map((data) => (
+              <Link to={`/media/board/${data.boardId}`} key={data.boardId}>
+                <BoardItem data={data} />
+              </Link>
+            ))}
+          </>
+        )}
       </ul>
     </>
   );
