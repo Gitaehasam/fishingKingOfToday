@@ -14,6 +14,14 @@ function ChatBotChattingList (props) {
   const [scrollState, setScrollState] = useState(true);
   const chattingList = props.chattingList;
 
+  const naviUrl = [
+    {"tutorial": '튜토리얼'},
+    {'fish/map': '지도'},
+    {'fishbook': '도감'},
+    {'media/roomList': '라이브방송'},
+    {'media/board': '게시판'},
+  ]
+
   const scrollEvent = () => {
     if (debounceTimeoutRef.current) {
       clearTimeout(debounceTimeoutRef.current);
@@ -59,9 +67,12 @@ function ChatBotChattingList (props) {
       <div ref={boxRef} className="message-box">
       {chattingList.map((chat, idx) => (
         <div key={idx} className={chat.user === 'bot' ? 'message-bot' : 'message-user'}>
-          {chat.chat === 'loading' ? <ChatBotLoading/> : <div>{chat.chat}</div>}
-          {chat.user === 'bot' && chat.imgURL && <img src={chat.imgURL} alt="" />}
-          {chat.user === 'bot' && chat.move && <div onClick={() => navigate(`/${chat.move}`)}> <span>{chat.move} 이동하기</span></div>}
+          {chat.user === 'bot' && chat.imgURL && <div className="message-bot-content"><img className="message-bot-img" src={chat.imgURL} alt="" /></div>}
+          {chat.chat === 'loading' ? <ChatBotLoading/> : <div className="message-content">{chat.chat}</div>}
+          {chat.user === 'bot' && chat.move &&
+          <div onClick={() => navigate(`/${chat.move}`)} className="message-bot-move">
+            <span>{naviUrl.find(obj => obj[chat.move])[chat.move]}</span> 이동하기
+          </div>}
         </div>
       ))}
         <div ref={scrollRef}></div>

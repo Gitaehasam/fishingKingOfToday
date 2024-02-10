@@ -5,7 +5,6 @@ function SwitchCameraModal ({state, onDevice}) {
   const switchCameraModal = useRef()
   const [videoDevices, setVideoDevices] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(null);
-  const [device, setDevice] = useState(null)
 
   useEffect (() => {
     navigator.mediaDevices.enumerateDevices().then(devices => {
@@ -32,7 +31,6 @@ function SwitchCameraModal ({state, onDevice}) {
 
   const handleChangeCamera = (e) => {
     const newDevice = e.target.value;
-    setDevice(newDevice);
     onDevice(newDevice);
   }
   

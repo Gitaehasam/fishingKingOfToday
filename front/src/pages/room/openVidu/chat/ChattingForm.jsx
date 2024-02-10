@@ -12,7 +12,6 @@ const ChattingForm = (props) => {
     setMessage('')
   }
   
-  // 입력 데이터 변경
   const inputChangeHandler = (event) => {
     setMessage(event.target.value)
   }

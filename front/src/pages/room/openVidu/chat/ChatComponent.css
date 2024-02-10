@@ -104,8 +104,8 @@
 
   #messageInput {
     position: absolute;
-    bottom: 0; /* 화면 하단에 고정 */
-    width: 100%;
+    bottom: 0;
+    width: 85%;
     padding: 10px 0 10px;
     display: flex;
     justify-content: center;

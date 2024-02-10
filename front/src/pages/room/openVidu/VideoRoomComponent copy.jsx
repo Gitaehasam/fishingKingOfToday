@@ -31,28 +31,23 @@ const VideoRoomComponent = (props) => {
 
   const roomId = location.state.roomId
   const isHost = location.state.isHost;
-
-  // 방을 생성하여 리스트에서 보여줄 방제목, 썸네일
   const imageUrl = (location.state.imageUrl ? location.state.imageUrl : null)
   const name = (location.state.name ? location.state.name : null)
-
-  // 라이브 방송 중 보여질 유저의 닉네임, 프로필사진
   const nickName = location.state.nickname
   const userImg = location.state.userImg
-
   const subscriberSession = (location.state.subscriberSession ? location.state.subscriberSession : null)
-  const [apiRoomId, setApiRoomId] = useState(null)
 
+  const [apiRoomId, setApiRoomId] = useState(null)
   const [mySessionId, setMySessionId] = useState('Gitaehasam');
   const [myUserName, setMyUserName] = useState('');
   const [myUserImg, setMyUserImg] = useState('');
   const [session, setSession] = useState(undefined);
-  const [mainStreamManager, setMainStreamManager] = useState(undefined); // 페이지의 메인 비디오 화면(퍼블리셔 또는 참가자의 화면 중 하나)
-  const [messageList, setMessageList] = useState([]); // 메세지 정보를 담을 배열
-  const [publisher, setPublisher] = useState(undefined); // 자기 자신의 캠
-  const [subscribers, setSubscribers] = useState([]); // 다른 유저의 스트림 정보를 저장할 배열
-  const [totalUsers, setTotalUsers] = useState(0); // 총 유저수
-  const [chatDisplay, setChatDisplay] = useState(true); // 채팅창 보이기(초깃값: true) 
+  const [mainStreamManager, setMainStreamManager] = useState(undefined);
+  const [messageList, setMessageList] = useState([]);
+  const [publisher, setPublisher] = useState(undefined);
+  const [subscribers, setSubscribers] = useState([]);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [chatDisplay, setChatDisplay] = useState(true);
   const [profileImg, setProfileImg] = useState(null);
   const [isCamera, setIsCamera] = useState(true)
   const [isAudio, setIsAudio] = useState(true)
@@ -60,6 +55,7 @@ const VideoRoomComponent = (props) => {
   const [hostNickname, setHostNickname] = useState('');
   const [hostProfileImg, setHostProfileImg] = useState('');
   const [liveEndModalOpen, setLiveEndModalOpen] = useState(false);
+  const [favIcons, setFavIcons] = useState([]);
 
   const [isSwitchCameraModal, setIsSwitchCameraModal] = useState(false);
   const [isSessionCreated, setIsSessionCreated] = useState(false);
@@ -74,7 +70,6 @@ const VideoRoomComponent = (props) => {
     }
   }, [session, mainStreamManager]);
 
-  // 토큰 받아오기(KMS로 직접 쏨)
   const getToken = useCallback(() => {
     if (isHost) {
       return createSession(mySessionId)
@@ -84,7 +79,6 @@ const VideoRoomComponent = (props) => {
     }
   }, [mySessionId, isHost]);
 
-  // 세션 생성(KMS로 직접 쏨)
   const createSession = (sessionId) => {
     if (isHost) {
     return new Promise((resolve, reject) => {
@@ -206,7 +200,7 @@ const VideoRoomComponent = (props) => {
       token = await getToken(); 
     } catch(error) {
       console.log(error);
-      return; // 에러가 발생하면 함수를 종료합니다.
+      return;
     }
 
     const publisher = OV.initPublisher(undefined, {
@@ -229,32 +223,37 @@ const VideoRoomComponent = (props) => {
             localUser.setConnectionId(mySession.connection.connectionId);
             localUser.setStreamManager(publisher);
           })
-        setPublisher(publisher) // 퍼블리셔(스트림 객체)를 담음
-        setMainStreamManager(publisher) // 퍼블리셔(스트림 객체)를 담음
+        setPublisher(publisher)
+        setMainStreamManager(publisher)
       });
 
-    mySession.on('streamCreated', (event) => { // 스트림이 생길 때마다
-      const subscriber = mySession.subscribe(event.stream, 'publisher'); // 퍼블리셔를 구독자로 넣어줌
+    mySession.on('streamCreated', (event) => {
+      const subscriber = mySession.subscribe(event.stream, 'publisher');
       setSubscribers(subscriber)
     });
 
-    mySession.on('exception', (exception) => { // 예외 처리
+    mySession.on('exception', (exception) => {
       console.warn(exception);
     });
 
-    mySession.on('connectionCreated', (({ stream }) => { // 유저가 접속할 때마다 인원수를 += 1
+    mySession.on('connectionCreated', (({ stream }) => {
       setTotalUsers((prevTotalUsers) => {
         return prevTotalUsers + 1
       })
     }));
 
-    mySession.on('connectionDestroyed', (({ stream }) => { // 유저가 접속을 끊을 때마다 -= 1
+    mySession.on('connectionDestroyed', (({ stream }) => {
       setTotalUsers((prevTotalUsers) => {
         return prevTotalUsers - 1
       })
     }));
 
-    mySession.on("signal:chat", (event) => { // 채팅 신호 수신하여 메세지 리스트 업데이트
+    mySession.on("signal:heart", (event) => {
+      const [, , icon] = event.data.split('|');
+      setFavIcons((prev) => [...prev, { id: Date.now(), y: 100, icon: icon }]);
+    });
+
+    mySession.on("signal:chat", (event) => {
       setMessageList((prevMessageList) => { 
         return [...prevMessageList, event.data]
       })
@@ -273,7 +272,7 @@ const VideoRoomComponent = (props) => {
     setPublisher(publisher);
   }
 
-  // 카메라를 전환하는 함수
+
   const switchCamera = async (deviceId) => {
       let properties = { videoSource: deviceId };
       let mediaStream = await OV.getUserMedia(properties);
@@ -289,7 +288,7 @@ const VideoRoomComponent = (props) => {
       }
       else {
         mySession.disconnect();
-        navigate('/media/roomList')
+        navigate('/media/roomList', {replace:true})
       }
     }
   }
@@ -312,11 +311,10 @@ const VideoRoomComponent = (props) => {
     } catch (error) {
       console.error(error);
     } finally {
-      navigate('/media/roomList')
+      navigate('/media/roomList', {replace:true})
     }
   }  
 
-  // 호스트(방 생성자) 여부에 따른 isHost를 토글링함(created()) + 호스트가 아닐 경우 유저의 이름을 바꿈
   useEffect(() => {
     setMyUserName(nickName);
     setMyUserImg(userImg)
@@ -384,15 +382,19 @@ const VideoRoomComponent = (props) => {
 
               setIsSwitchCameraModal={setIsSwitchCameraModal}
           />
-          
-            {/* <HeartButton /> */}
+
             {isHost && <UserVideoComponent streamManager={publisher}></UserVideoComponent>}
             {!isHost && <UserVideoComponent streamManager={subscribers}></UserVideoComponent>}
   
             {chatDisplay && 
               <div className="chatting">
                 <ChattingList messageList={messageList}></ChattingList>
-                <ChattingForm myUserName={myUserName} myUserImg={myUserImg} onMessage={sendMsg} currentSession={session}></ChattingForm>
+                <div className="chat-input-area">
+                  <ChattingForm myUserName={myUserName} myUserImg={myUserImg} onMessage={sendMsg} currentSession={session}></ChattingForm>
+                  <div className="heart-button-wrapper">
+                    <HeartButton session={session} myUserName={myUserName} myUserImg={myUserImg} favIcons={favIcons} setFavIcons={setFavIcons} />
+                  </div>
+                </div>
               </div>
             }
           </div>
