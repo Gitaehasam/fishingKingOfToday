@@ -21,6 +21,7 @@ public class BoardResponse {
     private final String content;
     private final LocalDateTime createdAt;
     private final Integer commentCnt;
+    private final Boolean isLiked;
     private final Integer likeCnt;
 
     public static BoardResponse of(
@@ -35,6 +36,7 @@ public class BoardResponse {
                 boardData.getContent(),
                 boardData.getCreatedAt(),
                 commentCnt,
+                boardData.getIsLiked(),
                 likeCnt);
     }
 }

@@ -77,7 +77,10 @@ public class FishingSpotService {
 
     @Transactional(readOnly = true)
     public List<BoardResponse> getBoardsByFishingSpotIdPage(
-            final Pageable pageable, final Integer fishingSpotId, final Integer categoryId) {
+            final Pageable pageable,
+            final Integer fishingSpotId,
+            final Integer categoryId,
+            String socialId) {
         final Slice<BoardData> boardData =
                 boardQueryRepository.searchBy(
                         BoardSearchCondition.builder()
@@ -85,7 +88,8 @@ public class FishingSpotService {
                                 .categoryId(categoryId)
                                 .sortType("")
                                 .build(),
-                        pageable);
+                        pageable,
+                        socialId);
 
         return boardData.stream()
                 .map(board -> BoardResponse.of(board, board.getCommentCnt(), board.getLikeCnt()))
@@ -93,7 +97,7 @@ public class FishingSpotService {
     }
 
     public FishingSpotDetailResponse searchById(
-            final Integer fishingSpotId, final Integer categoryId) {
+            final Integer fishingSpotId, final Integer categoryId, String socialId) {
         final FishingSpot fishingSpot = fishingSpotRepository.findFishingSpotById(fishingSpotId);
         if (fishingSpot != null)
             return FishingSpotDetailResponse.of(
@@ -101,7 +105,8 @@ public class FishingSpotService {
                     fishingSpotRepository.findHashtagsBySpotId(
                             fishingSpot.getId(), PageRequest.of(0, 3)),
                     fishingSpotRepository.findFishListByFishingSpotId(fishingSpotId),
-                    getBoardsByFishingSpotIdPage(PageRequest.of(0, 3), fishingSpotId, categoryId));
+                    getBoardsByFishingSpotIdPage(
+                            PageRequest.of(0, 3), fishingSpotId, categoryId, socialId));
         return null;
     }
 

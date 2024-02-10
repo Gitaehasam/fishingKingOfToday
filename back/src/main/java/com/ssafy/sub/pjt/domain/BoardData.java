@@ -18,6 +18,7 @@ public class BoardData {
     private LocalDateTime createdAt;
     private Integer commentCnt;
     private Integer likeCnt;
+    private Boolean isLiked;
 
     public void setHashTags(List<String> hashtags) {
         this.hashtags = hashtags;
@@ -25,6 +26,10 @@ public class BoardData {
 
     public void setFishName(String fishName) {
         this.fishName = fishName;
+    }
+
+    public void setIsLiked(Boolean isLiked) {
+        this.isLiked = isLiked;
     }
 
     public BoardData(

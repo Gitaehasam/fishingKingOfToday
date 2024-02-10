@@ -5,7 +5,6 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 import com.ssafy.sub.pjt.dto.IssuePreSignedUrlRequest;
 import com.ssafy.sub.pjt.service.IssuePreSignedUrlService;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

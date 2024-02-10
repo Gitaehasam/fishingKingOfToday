@@ -5,6 +5,7 @@ import static com.ssafy.sub.pjt.domain.QBoard.board;
 import static com.ssafy.sub.pjt.domain.QBoardHashTag.boardHashTag;
 import static com.ssafy.sub.pjt.domain.QFishBook.fishBook;
 import static com.ssafy.sub.pjt.domain.QHashTag.hashTag;
+import static com.ssafy.sub.pjt.domain.QLike.like;
 import static com.ssafy.sub.pjt.domain.QUser.user;
 
 import com.querydsl.core.group.GroupBy;
@@ -14,6 +15,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.sub.pjt.domain.BoardData;
 import com.ssafy.sub.pjt.domain.BoardSearchCondition;
+import com.ssafy.sub.pjt.domain.Like;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -32,13 +34,16 @@ public class BoardQueryRepository {
     private final ConditionFilter conditionFilter;
 
     public Slice<BoardData> searchBy(
-            final BoardSearchCondition boardSearchCondition, final Pageable pageable) {
+            final BoardSearchCondition boardSearchCondition,
+            final Pageable pageable,
+            final String socialId) {
         final List<BoardData> boards =
                 jpaQueryFactory
                         .select(makeProjections())
                         .from(board)
                         .where(conditionFilter.filterByCondition(boardSearchCondition))
                         .join(board.user, user)
+                        .leftJoin(board.fishBook, fishBook)
                         .distinct()
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize() + 1)
@@ -52,6 +57,8 @@ public class BoardQueryRepository {
         } else if (boardSearchCondition.getCategoryId() == 1) {
             setFishName(boards);
         }
+
+        setIsLiked(socialId, boards);
 
         return new SliceImpl<BoardData>(
                 getCurrentPageBoards(boards, pageable), pageable, hasNext(boards, pageable));
@@ -97,6 +104,28 @@ public class BoardQueryRepository {
     private void setFishName(List<BoardData> fetch) {
         Map<Integer, List<String>> fishNameMap = findFishNameMap(toBoardIds(fetch));
         fetch.forEach(o -> o.setFishName(fishNameMap.get(o.getBoardId()).get(0)));
+    }
+
+    private void setIsLiked(String socialId, List<BoardData> fetch) {
+        List<Integer> boardIds = toBoardIds(fetch);
+        List<Like> likes =
+                (List<Like>)
+                        jpaQueryFactory
+                                .from(like)
+                                .where(like.board.id.in(boardIds), like.user.socialId.eq(socialId))
+                                .fetch();
+
+        // 좋아요 정보를 Map으로 변환하여 효율적인 접근을 가능하게 합니다.
+        Map<Integer, Boolean> likedMap =
+                likes.stream()
+                        .collect(Collectors.toMap(like -> like.getBoard().getId(), like -> true));
+
+        // 각 BoardData에 대해 좋아요 여부를 설정합니다.
+        fetch.forEach(
+                o -> {
+                    boolean isLiked = likedMap.getOrDefault(o.getBoardId(), false);
+                    o.setIsLiked(isLiked);
+                });
     }
 
     private List<Integer> toBoardIds(List<BoardData> result) {
