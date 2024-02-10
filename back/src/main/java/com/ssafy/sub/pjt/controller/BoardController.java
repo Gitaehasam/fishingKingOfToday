@@ -11,11 +11,14 @@ import com.ssafy.sub.pjt.service.HashTagService;
 import java.net.URI;
 import java.util.List;
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/boards")
@@ -113,7 +116,8 @@ public class BoardController {
 
     @GetMapping("/search/fishingSpot")
     public ResponseEntity<?> getFishingSpotAutoCompleteSearch(
-            @RequestParam final String searchWord) {
+            @Pattern(regexp = "^([ㄱ-ㅎ|가-힣]*)$", message = "띄어쓰기 없이 한글로 낚시터를 검색하세요.") @RequestParam
+                    final String searchWord) {
         final List<FishingSpotAutoCompleteResponse> fishBookAutoCompleteResponse =
                 fishingSpotService.findAutoCompleteName(searchWord.strip());
 

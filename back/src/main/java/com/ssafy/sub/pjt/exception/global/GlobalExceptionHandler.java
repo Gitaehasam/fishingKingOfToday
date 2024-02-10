@@ -5,6 +5,7 @@ import static com.ssafy.sub.pjt.common.CustomExceptionStatus.*;
 import com.ssafy.sub.pjt.exception.AuthException;
 import com.ssafy.sub.pjt.exception.BadRequestException;
 import java.util.Objects;
+import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.impl.SizeException;
 import org.springframework.http.HttpHeaders;
@@ -63,6 +64,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.warn(e.getMessage(), e);
 
         return ResponseEntity.badRequest().body(new ExceptionResponse(e.getCode(), e.getMessage()));
+    }
+
+    @ExceptionHandler(value = {ConstraintViolationException.class})
+    public ResponseEntity<Object> handleConstraintViolation(
+            ConstraintViolationException e, WebRequest request) {
+        log.warn(e.getMessage(), e);
+
+        return ResponseEntity.badRequest()
+                .body(new ExceptionResponse(INVALID_REQUEST.getCode(), e.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
