@@ -42,7 +42,7 @@ public class AuthController {
                         .build();
         response.addHeader(SET_COOKIE, cookie.toString());
         return ResponseEntity.status(CREATED)
-                .body(new AccessTokenResponse(memberTokens.getAccessToken()));
+                .body(new AccessTokenResponse(memberTokens.getAccessToken(), user.getSocialId()));
     }
 
     @DeleteMapping("/log-out")

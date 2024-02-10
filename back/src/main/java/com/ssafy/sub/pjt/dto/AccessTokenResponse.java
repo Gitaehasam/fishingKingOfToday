@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class AccessTokenResponse {
 
     private String accessToken;
+    private String socialId;
 }
