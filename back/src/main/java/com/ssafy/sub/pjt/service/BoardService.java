@@ -70,7 +70,8 @@ public class BoardService {
             final String sortType,
             final Integer fishBookId,
             final Integer hashTagId,
-            final Integer categoryId) {
+            final Integer categoryId,
+            final String socialId) {
         final Slice<BoardData> boardData =
                 boardQueryRepository.searchBy(
                         BoardSearchCondition.builder()
@@ -79,7 +80,8 @@ public class BoardService {
                                 .sortType(sortType)
                                 .categoryId(categoryId)
                                 .build(),
-                        pageable);
+                        pageable,
+                        socialId);
 
         final List<BoardResponse> boardResponses =
                 boardData.stream()

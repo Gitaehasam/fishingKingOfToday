@@ -1,5 +1,7 @@
 package com.ssafy.sub.pjt.controller;
 
+import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
+
 import com.ssafy.sub.pjt.domain.repository.FishingSpotRepository;
 import com.ssafy.sub.pjt.dto.FishingSpotListResponse;
 import com.ssafy.sub.pjt.service.FishingSpotService;
@@ -49,6 +51,9 @@ public class FishingSpotController {
     @GetMapping("/{fishingSpotId}")
     public ResponseEntity<?> getFishingSpotById(@PathVariable final Integer fishingSpotId) {
         final Integer categoryId = 2; // 2번이 낚시터 카테고리
-        return ResponseEntity.ok().body(fishingSpotService.searchById(fishingSpotId, categoryId));
+        return ResponseEntity.ok()
+                .body(
+                        fishingSpotService.searchById(
+                                fishingSpotId, categoryId, getCurrentUserSocialId()));
     }
 }

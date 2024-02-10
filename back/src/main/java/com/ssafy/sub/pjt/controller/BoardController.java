@@ -52,7 +52,13 @@ public class BoardController {
             @RequestParam final Integer categoryId,
             final Pageable pageable) {
         final BoardListResponse boardListResponse =
-                boardService.getBoardsByPage(pageable, sortType, fishBookId, hashTagId, categoryId);
+                boardService.getBoardsByPage(
+                        pageable,
+                        sortType,
+                        fishBookId,
+                        hashTagId,
+                        categoryId,
+                        getCurrentUserSocialId());
         return ResponseEntity.ok().body(boardListResponse);
     }
 
