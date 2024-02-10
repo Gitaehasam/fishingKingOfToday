@@ -59,9 +59,9 @@ public class BoardService {
                 .orElseThrow(() -> new AuthException(NOT_FOUND_MEMBER_ID));
     }
 
-    public BoardDetailResponse searchById(Integer boardId) {
+    public BoardDetailResponse searchById(Integer boardId, String socialId) {
         final Board board = findBoardById(boardId);
-        return BoardDetailResponse.of(board);
+        return BoardDetailResponse.of(board, socialId);
     }
 
     @Transactional(readOnly = true)

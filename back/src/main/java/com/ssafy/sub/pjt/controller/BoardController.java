@@ -41,7 +41,7 @@ public class BoardController {
 
     @GetMapping("/{boardId}")
     public ResponseEntity<?> getBoard(@PathVariable final Integer boardId) {
-        return ResponseEntity.ok().body(boardService.searchById(boardId));
+        return ResponseEntity.ok().body(boardService.searchById(boardId, getCurrentUserSocialId()));
     }
 
     @GetMapping
