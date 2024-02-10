@@ -43,8 +43,6 @@ function App() {
           </Route>
           <Route path="board">
             <Route index element={<BoardPage />} />
-
-            <Route path=":id" element={<BoardDetail />} />
           </Route>
         </Route>
 

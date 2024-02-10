@@ -1,7 +1,7 @@
 .full-size {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px 10px;
 
   li {
     width: 100%;
@@ -13,19 +13,23 @@
 .mini-size {
   display: flex;
   flex-wrap: wrap;
-  padding: 20px;
+  padding: 20px 10px;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
+
+  li {
+    border-radius: 5px;
+  }
 
   a {
-    width: 46%;
+    width: 48%;
   }
 
   .post-info {
     display: none;
   }
 
-  .hashtag-list{
+  .hashtag-list {
     display: flex;
     flex-wrap: wrap;
   }

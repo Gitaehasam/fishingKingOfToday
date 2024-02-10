@@ -32,14 +32,14 @@ const BoardItem = ({ data }) => {
       </div>
       <img className="main-img" src={data.boardImageUrl} alt="" />
       <div className="content">
+        <div className="post-text">{data.content}</div>
         <div className="hashtag-list">
           {data.hashtags.map((hashtag, index) => (
-            <div className="hashtag" key={index}>
+            <div className="hashtag blue-fc" key={index}>
               {hashtag}
             </div>
           ))}
         </div>
-        <div className="post-text">{data.content}</div>
         <div className="post-bottom">
           <div className="time">{elapsedTime(data.createdAt)}</div>
           <div className="post-info">

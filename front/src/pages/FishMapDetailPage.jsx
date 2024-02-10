@@ -26,9 +26,7 @@ const FishMapDetailPage = () => {
 
   const openWeather = async () => {
     try {
-      const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${openWeatherApiKey}&units=metric&lang=kr`
-      );
+      const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${openWeatherApiKey}&units=metric&lang=kr`);
       setSunrise(new Date(res.data.city.sunrise * 1000));
       setSunset(new Date(res.data.city.sunset * 1000));
       setWeatherData(res.data.list);
@@ -60,21 +58,14 @@ const FishMapDetailPage = () => {
           </div>
           <div>{content.addr}</div>
         </div>
-        <MapDetailWeather
-          weatherData={weatherData}
-          sunrise={sunrise}
-          sunset={sunset}
-        />
+        <MapDetailWeather weatherData={weatherData} sunrise={sunrise} sunset={sunset} />
         <div className="fish-species">
           <h3 className="name">{content.name}의 주요어종</h3>
           <div className="wrapper">
             {content.fishes.map((fish) => {
               return (
                 <div key={fish}>
-                  <img
-                    key={fish}
-                    src="https://img.freepik.com/premium-photo/a-colorful-fish-with-a-white-and-blue-tail_899894-16102.jpg"
-                  />
+                  <img key={fish} src="https://img.freepik.com/premium-photo/a-colorful-fish-with-a-white-and-blue-tail_899894-16102.jpg" />
                   <div>{fish}</div>
                 </div>
               );
@@ -88,10 +79,7 @@ const FishMapDetailPage = () => {
               reviewData.map((review) => {
                 return (
                   <div>
-                    <img
-                      key={review}
-                      src="https://cdn.iconsumer.or.kr/news/photo/201806/7349_8772_1719.jpg"
-                    />
+                    <img key={review} src="https://cdn.iconsumer.or.kr/news/photo/201806/7349_8772_1719.jpg" />
                     <div>{review}</div>
                   </div>
                 );

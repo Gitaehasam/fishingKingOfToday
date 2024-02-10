@@ -1,0 +1,36 @@
+.board-filter-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .reset {
+    padding: 10px;
+    align-self: flex-end;
+  }
+
+  .filter-sub {
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+    background-color: var(--color-main-10);
+  }
+
+  .filter-button {
+    padding: 10px;
+    width: 90%;
+    color: white;
+    border-radius: 50px;
+  }
+
+  .sort-type {
+    display: none;
+  }
+
+  .sort-area {
+    padding: 20px;
+  }
+
+  .sort-label {
+    padding: 15px;
+  }
+}

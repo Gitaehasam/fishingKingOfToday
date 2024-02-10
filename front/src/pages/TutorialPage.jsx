@@ -124,11 +124,10 @@ const TutorialPage = () => {
 
   return (
     <>
-      {/* Your JSX structure for the carousel */}
+      <div className="carousel-body"></div>
       <div className="carousel">
         {yourCarouselItems.map((item, index) => (
           <div ref={(el) => (itemsRef.current[index] = el)} key={index} className="carousel-item">
-            {/* Your item content */}
             <div className="carousel-box">
               <div className="title">{item.title}</div>
               <div className="num">{item.num}</div>
@@ -137,8 +136,6 @@ const TutorialPage = () => {
           </div>
         ))}
       </div>
-
-      {/* Rest of your JSX structure */}
     </>
   );
 };

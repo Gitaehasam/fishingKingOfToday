@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "../../assets/styles/board/BoardFormItem.scss";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
+import { Alarm } from "@mui/icons-material";
 
 //type은 글쓰기인지(create) 수정하기(modify) 인지, categoryId는 물고기인지(1), 장소인지(2)
 
@@ -14,6 +15,10 @@ const BoardFormItem = ({ type, categoryId }) => {
   const [preview, setPreview] = useState(null);
   // fileRef는 불러오기 하는 file input울 숨기고 내가 원하는 버튼을 눌렀을 때 file input 클릭버튼을 발생
   const fileRef = useRef();
+  // hashtag input입력값
+  const [hashtext, setHashText] = useState("");
+  // 해시태그 저장
+  const [hashtag, setHashTag] = useState([]);
 
   //useEffect를 통해 previewURL변동시 preview에 URL을 가진 img태그 저장
   useEffect(() => {
@@ -49,6 +54,30 @@ const BoardFormItem = ({ type, categoryId }) => {
     console.log("s");
   };
 
+  const activeEnter = (e, categoryId) => {
+    // e.target.value = "";
+    if (e.key === "Enter" && categoryId == 1) {
+      const updatedArray = [hashtext];
+      setHashTag(updatedArray);
+      console.log(hashtag);
+    } else if (e.key === "Enter" && categoryId == 2) {
+      if (hashtag.length == 5) {
+        alert("5개까지 등록가능합니다.");
+        setHashText("");
+        return;
+      }
+      const updatedArray = [...hashtag, hashtext];
+      setHashTag(updatedArray);
+      setHashText("");
+    }
+  };
+
+  const deleteHash = (hash) => {
+    console.log(hash);
+    const updatedArray = hashtag.filter((item) => item !== hash);
+    setHashTag(updatedArray);
+  };
+
   return (
     <>
       <div className="post-area">
@@ -67,8 +96,8 @@ const BoardFormItem = ({ type, categoryId }) => {
               onChange={handleFileOnChange}
             />
             <div
-              className={`shadow bg-blue ${
-                file ? "reupload-btn" : "upload-btn"
+              className={`shadow ${
+                file ? "reupload-btn blue-bd" : "upload-btn bg-blue"
               }`}
               onClick={handleFileButtonClick}
             >
@@ -96,7 +125,10 @@ const BoardFormItem = ({ type, categoryId }) => {
               <input
                 className="hashtag-search"
                 type="text"
+                value={hashtext}
                 onKeyUp={() => searchHash(categoryId)}
+                onChange={(e) => setHashText(e.target.value)}
+                onKeyDown={(e) => activeEnter(e, categoryId)}
                 placeholder="물고기이름"
               />
             )}
@@ -104,15 +136,33 @@ const BoardFormItem = ({ type, categoryId }) => {
               <input
                 className="hashtag-search"
                 type="text"
+                value={hashtext}
                 onKeyUp={() => searchHash(categoryId)}
+                onChange={(e) => setHashText(e.target.value)}
+                onKeyDown={(e) => activeEnter(e, categoryId)}
                 placeholder="최대 5개까지 입력할 수 있어요"
               />
             )}
           </div>
+          <ul className="hashtag-add-area">
+            {hashtag.map((text, index) => (
+              <li
+                key={index}
+                className="blue-bd"
+                onClick={(e) => deleteHash(text)}
+              >
+                {text}
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="post-item">
           <div className="post-sub">하고싶은 말</div>
           <textarea></textarea>
+        </div>
+        <div className="post-add-btn bg-blue">
+          {type === "create" && <div>등록하기</div>}
+          {type === "modify" && <div>수정하기</div>}
         </div>
       </div>
     </>

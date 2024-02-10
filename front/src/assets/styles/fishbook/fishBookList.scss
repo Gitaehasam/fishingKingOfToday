@@ -3,10 +3,52 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
-}
+  padding-top: 60%;
 
-.fish-item{
-  width: 150px;
-  height: 150px;
-  background-color: pink;
+  .fish-item.view-two {
+    position: relative;
+    width: 150px;
+    height: 200px;
+    padding-top: 105px;
+    margin-bottom: 20px;
+  }
+
+  .fish-profile {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: aqua;
+  }
+
+  .fish-profile-type {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .fish-profile-name {
+    text-align: center;
+  }
+
+  .fish-profile-size {
+    font-size: 20px;
+  }
+
+  .fish-date {
+    z-index: 10;
+    display: flex;
+    color: red;
+
+    .bandate ~ div {
+      display: none;
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
