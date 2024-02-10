@@ -22,7 +22,7 @@ public class ImageController {
 
     @PostMapping("/presigned")
     public ResponseEntity<?> createPreSigned(
-            @RequestBody @Valid IssuePreSignedUrlRequest issuePreSignedUrlRequest) {
+            @RequestBody IssuePreSignedUrlRequest issuePreSignedUrlRequest) {
         return ResponseEntity.status(CREATED)
                 .body(
                         getPreSignedUrlService.execute(
