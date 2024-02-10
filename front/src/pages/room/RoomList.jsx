@@ -24,7 +24,7 @@ function RoomList() {
   const isHost = false;
 
   const baseURL = import.meta.env.VITE_BASE_URL;
-  const userInfo = localStorage.getItem("user")
+  const userInfo = JSON.parse(localStorage.getItem("user"))
   const OPENVIDU_SERVER_SECRET = "wearegitaehasam";
 
   useEffect(() => {

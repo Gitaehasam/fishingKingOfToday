@@ -37,7 +37,7 @@ const VideoRoomComponent = (props) => {
   const name = (location.state.name ? location.state.name : null)
 
   // 라이브 방송 중 보여질 유저의 닉네임, 프로필사진
-  const nickName = location.state.nickName
+  const nickName = location.state.nickname
   const userImg = location.state.userImg
 
   const subscriberSession = (location.state.subscriberSession ? location.state.subscriberSession : null)
@@ -54,16 +54,15 @@ const VideoRoomComponent = (props) => {
   const [totalUsers, setTotalUsers] = useState(0); // 총 유저수
   const [chatDisplay, setChatDisplay] = useState(true); // 채팅창 보이기(초깃값: true) 
   const [profileImg, setProfileImg] = useState(null);
-  const [isCamera, setIsCamera] = useState(false)
-  const [isAudio, setIsAudio] = useState(false)
+  const [isCamera, setIsCamera] = useState(true)
+  const [isAudio, setIsAudio] = useState(true)
   const [leaveModal, setLeaveModal] = useState(false)
   const [hostNickname, setHostNickname] = useState('');
   const [hostProfileImg, setHostProfileImg] = useState('');
   const [liveEndModalOpen, setLiveEndModalOpen] = useState(false);
 
-  const [videoDevices, setVideoDevices] = useState([]);
-  const [selectedCamera, setSelectedCamera] = useState(null);
   const [isSwitchCameraModal, setIsSwitchCameraModal] = useState(false);
+  const [isSessionCreated, setIsSessionCreated] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -135,7 +134,6 @@ const VideoRoomComponent = (props) => {
   }
   }
 
-  // 토큰 생성(KMS로 직접 쏨)
   const createToken = (sessionId) => {
     let myRole = isHost ? "PUBLISHER" : "SUBSCRIBER";
     
@@ -152,9 +150,18 @@ const VideoRoomComponent = (props) => {
           console.log('TOKEN', response);
           resolve(response.data.token);
         })
-        .catch((error) => reject(error));
+        .catch((error) => {
+          console.error(error);
+          if (error.response && error.response.status === 404) {
+            alert('종료된 라이브 입니다.');
+            navigate('/media/roomList');
+          } else {
+            reject(error);
+          }
+        });
     });
   }
+  
 
   let layout;
 
@@ -266,33 +273,6 @@ const VideoRoomComponent = (props) => {
     setPublisher(publisher);
   }
 
-  // const switchCamera = async () => {
-  //   try {
-  //     const devices = await OV.getDevices();
-  //     const videoDevices = devices.filter(device => device.kind === 'videoinput');
-
-  //     if (videoDevices && videoDevices.length > 1) {
-  //       const newVideoDevice = videoDevices.find(device => device.deviceId !== publisher.stream.videoSource.deviceId);
-  //       if (newVideoDevice) {
-  //         const newPublisher = OV.initPublisher(undefined, {
-  //           audioSource: undefined,
-  //           videoSource: newVideoDevice.deviceId,
-  //           publishAudio: publisher.stream.audioActive,
-  //           publishVideo: publisher.stream.videoActive,
-  //           mirror: true,
-  //         });
-
-  //         await session.unpublish(publisher);
-  //         await session.publish(newPublisher);
-  
-  //         setPublisher(newPublisher);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
   // 카메라를 전환하는 함수
   const switchCamera = async (deviceId) => {
       let properties = { videoSource: deviceId };
@@ -304,22 +284,17 @@ const VideoRoomComponent = (props) => {
   const leaveSession = async () => {
     const mySession = session;
     if (mySession) {
-      // 속성을 초기화함(필요한 속성은 초기화하면 안 됨)
-      OV = null;
-      setSession(undefined)
-      setSubscribers([])
-      setMySessionId('SessionA')
-      setMyUserName('Participant' + Math.floor(Math.random() * 100))
-      setMainStreamManager(undefined)
-      setPublisher(undefined)
-      setMessageList([])
-      setChatDisplay(true)
-      setTotalUsers((prevTotalUsers) => { return 0 })
-      await deleteRoomRequest(mySession);
+      if (isHost) {
+        await deleteRoomRequest();
+      }
+      else {
+        mySession.disconnect();
+        navigate('/media/roomList')
+      }
     }
   }
   
-  const deleteRoomRequest = async (mySessionId) => {
+  const deleteRoomRequest = async () => {
     try {
       await axios.delete(baseURL + `/api/lives/${apiRoomId}`, 
       {
@@ -334,13 +309,12 @@ const VideoRoomComponent = (props) => {
           'Content-Type': 'application/json',
         }
       })
-      mySessionId.disconnect();
     } catch (error) {
       console.error(error);
     } finally {
       navigate('/media/roomList')
     }
-  }
+  }  
 
   // 호스트(방 생성자) 여부에 따른 isHost를 토글링함(created()) + 호스트가 아닐 경우 유저의 이름을 바꿈
   useEffect(() => {
@@ -411,6 +385,7 @@ const VideoRoomComponent = (props) => {
               setIsSwitchCameraModal={setIsSwitchCameraModal}
           />
           
+            {/* <HeartButton /> */}
             {isHost && <UserVideoComponent streamManager={publisher}></UserVideoComponent>}
             {!isHost && <UserVideoComponent streamManager={subscribers}></UserVideoComponent>}
   
@@ -420,7 +395,6 @@ const VideoRoomComponent = (props) => {
                 <ChattingForm myUserName={myUserName} myUserImg={myUserImg} onMessage={sendMsg} currentSession={session}></ChattingForm>
               </div>
             }
-          <HeartButton />
           </div>
         ) : (
           <div className="noneData">

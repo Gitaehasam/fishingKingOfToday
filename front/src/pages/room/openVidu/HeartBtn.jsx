@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import "../../../assets/styles/room/heartBtn.scss"
 
-const HeartButton = () => {
+const HeartButton = ({ session, myUserName, myUserImg }) => {
   const [favIcons, setFavIcons] = useState([]);
 
   const handleClick = () => {
     setFavIcons((prev) => [...prev, { id: Date.now(), y: 100 }]);
+    
+    session.signal({
+      data: `${myUserName}|${myUserImg}|`,
+      type: 'heart',
+    })
+    .then(() => console.log('Heart signal sent'))
+    .catch(error => console.error('Error sending heart signal:', error));
   };
 
   useEffect(() => {
@@ -17,7 +24,7 @@ const HeartButton = () => {
     }, 2000);
     return () => clearInterval(timer);
   }, []);
-
+ 
   return (
     <div>
       <button onClick={handleClick}>
