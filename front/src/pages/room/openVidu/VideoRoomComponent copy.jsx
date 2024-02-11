@@ -193,6 +193,9 @@ const VideoRoomComponent = (props) => {
   const joinSession = async () => {
     OV = new OpenVidu(); 
 
+    const devices = await OV.getDevices();
+    const videoDevices = devices.filter((device) => device.kind === "videoinput");
+
     let mySession = OV.initSession();
     setSession(mySession);
     let token;
@@ -274,12 +277,29 @@ const VideoRoomComponent = (props) => {
 
 
   const switchCamera = async (deviceId) => {
-      let properties = { videoSource: deviceId };
-      let mediaStream = await OV.getUserMedia(properties);
-      let myTrack = mediaStream.getVideoTracks()[0];
-      publisher.replaceTrack(myTrack);
-  }
-
+    const devices = await OV.getDevices();
+    const videoDevices = devices.filter((device) => device.kind === "videoinput");
+    const newDeviceId = videoDevices.find(device => device.deviceId !== deviceId).deviceId;
+  
+    const newPublisher = OV.initPublisher(undefined, {
+      audioSource: undefined,
+      videoSource: newDeviceId,
+      publishAudio: publisher.stream.hasAudio,
+      publishVideo: publisher.stream.hasVideo,
+      resolution: `640x480`,
+      frameRate: 30,
+      insertMode: 'APPEND',
+      mirror: false
+    });
+  
+    await session.unpublish(publisher);
+    await session.publish(newPublisher);
+    setPublisher(newPublisher);
+    localUser.setStreamManager(newPublisher);
+    setMainStreamManager(newPublisher);
+  };
+  
+  
   const leaveSession = async () => {
     const mySession = session;
     if (mySession) {
@@ -412,7 +432,10 @@ const VideoRoomComponent = (props) => {
       }
 
       {isSwitchCameraModal ?
-        <SwitchCameraModal state={setIsSwitchCameraModal} onDevice={(deviceId) => switchCamera(deviceId)} />
+      <SwitchCameraModal 
+        state={setIsSwitchCameraModal} 
+        onDevice={switchCamera} 
+      />
         :null
       }
       <LiveEndModal open={liveEndModalOpen} onClose={handleCloseLiveEndModal} />
