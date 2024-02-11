@@ -202,4 +202,16 @@ public class BoardService {
                 .findById(id)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_BOARD_ID));
     }
+
+    public MyFishListResponse getMyFishByPage(final Pageable pageable, final String socialId) {
+        final User user = findUserBySocialId(socialId);
+        final Slice<FishBook> fishBooks =
+                fishBookRepository.findFishListByUserId(pageable, user.getId());
+        final List<MyFishResponse> myFishResponses =
+                fishBooks.stream()
+                        .map(fishBook -> MyFishResponse.of(fishBook))
+                        .collect(Collectors.toList());
+
+        return new MyFishListResponse(myFishResponses, fishBooks.hasNext());
+    }
 }
