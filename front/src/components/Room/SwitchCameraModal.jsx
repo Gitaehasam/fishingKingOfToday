@@ -6,14 +6,21 @@ function SwitchCameraModal ({state, onDevice}) {
   const [videoDevices, setVideoDevices] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(null);
 
-  useEffect (() => {
+  useEffect(() => {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        const track = stream.getVideoTracks()[0];
+        setSelectedCamera(track.getSettings().deviceId);
+      })
+      .catch(err => console.error(err));
+  
     navigator.mediaDevices.enumerateDevices().then(devices => {
       let videoDevices = devices.filter(device => device.kind === 'videoinput');
       setVideoDevices(videoDevices);
-      setSelectedCamera(videoDevices[0]?.deviceId);
       switchCameraModal.current.showModal()
     })
   }, [])
+  
   
   const closeSwitchCameraModal = (e) => {
     const target = e.target
@@ -32,6 +39,7 @@ function SwitchCameraModal ({state, onDevice}) {
   const handleChangeCamera = (e) => {
     const newDevice = e.target.value;
     onDevice(newDevice);
+    setSelectedCamera(newDevice);
   }
   
 

@@ -189,7 +189,7 @@ const VideoRoomComponent = (props) => {
       joinSession();
     }
   }, [mySessionId]);
-  
+
   const joinSession = async () => {
     OV = new OpenVidu(); 
 
@@ -276,6 +276,7 @@ const VideoRoomComponent = (props) => {
   }
 
   const switchCamera = async (newDeviceId) => {
+    OV = new OpenVidu(); 
     try {
       console.log(newDeviceId);
       const newPublisher = await OV.initPublisher(undefined, {
