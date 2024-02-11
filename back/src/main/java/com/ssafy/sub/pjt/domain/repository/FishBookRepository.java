@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface FishBookRepository extends JpaRepository<FishBook, Integer> {
     //    @Query("select * from fish_book")
@@ -14,4 +16,11 @@ public interface FishBookRepository extends JpaRepository<FishBook, Integer> {
     List<FishBook> findByFishType(FishType fishType);
 
     List<FishBook> findTop3ByNameStartsWithOrderByNameAsc(String name);
+
+    @Query(
+            value =
+                    "SELECT fb FROM FishBook fb "
+                            + "JOIN Board bd ON fb.id = bd.fishBook "
+                            + "WHERE bd.user.id= :id")
+    Slice<FishBook> findFishListByUserId(final Pageable pageable, @Param("id") final Integer id);
 }

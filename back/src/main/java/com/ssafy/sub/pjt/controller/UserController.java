@@ -2,12 +2,13 @@ package com.ssafy.sub.pjt.controller;
 
 import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 
-import com.ssafy.sub.pjt.dto.MyPageRequest;
-import com.ssafy.sub.pjt.dto.MyPageResponse;
+import com.ssafy.sub.pjt.dto.*;
+import com.ssafy.sub.pjt.service.BoardService;
 import com.ssafy.sub.pjt.service.UserService;
 import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final BoardService boardService;
 
     @GetMapping
     public ResponseEntity<MyPageResponse> getMyInfo() {
@@ -33,5 +35,12 @@ public class UserController {
     public ResponseEntity<?> deleteAccount() {
         userService.deleteAccount(AuthenticationUtil.getCurrentUserSocialId());
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/myfish")
+    public ResponseEntity<?> getMyFish(final Pageable pageable) {
+        final MyFishListResponse myFishListResponse =
+                boardService.getMyFishByPage(pageable, getCurrentUserSocialId());
+        return ResponseEntity.ok().body(myFishListResponse);
     }
 }
