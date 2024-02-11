@@ -1,4 +1,4 @@
-package com.ssafy.sub.pjt.dto;
+package com.ssafy.sub.pjt.dto.Image;
 
 import com.ssafy.sub.pjt.util.ApiImageUrlUtil;
 import lombok.Builder;
