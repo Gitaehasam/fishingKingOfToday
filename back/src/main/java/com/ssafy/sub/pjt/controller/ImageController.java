@@ -8,6 +8,7 @@ import com.ssafy.sub.pjt.dto.Image.ImagesResponse;
 import com.ssafy.sub.pjt.dto.Image.IssuePreSignedUrlRequest;
 import com.ssafy.sub.pjt.service.ImageService;
 import com.ssafy.sub.pjt.service.IssuePreSignedUrlService;
+import io.swagger.v3.oas.annotations.Operation;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class ImageController {
     }
 
     @PostMapping
+    @Operation(summary = "이미지 업로드 API", description = "type = BOARD | PROFILE | LIVEROOM")
     public ResponseEntity<ImagesResponse> uploadImage(
             @RequestPart final List<MultipartFile> images,
             @RequestParam
