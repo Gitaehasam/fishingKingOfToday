@@ -105,7 +105,7 @@ const FishMapBody = ({ mapRef, getDistance, openList }) => {
         <MarkerClusterer minLevel={11} averageCenter={true}>
           {fishSpotList.map((value, index) => (
             <EventMarker
-              key={`EventMarkerContainer-${value.spotId}`}
+              key={value.spotId}
               value={value}
               isActive={activeMarker === index}
               onClick={() => setActiveMarker(index)}

@@ -78,7 +78,7 @@ const FishMapFooter = ({ mapRef, getDistance, openList, setOpenList }) => {
           {fishSpotList.length ? (
             sortData.map((item, idx) => (
               <FishMapItem
-                key={idx}
+                key={item.spotId}
                 item={item}
                 idx={idx}
                 mapRef={mapRef}

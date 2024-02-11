@@ -24,6 +24,8 @@
     }
 
     .filter {
+      align-self: flex-start;
+      cursor: pointer;
       margin: 2vh 0 1vh;
       display: flex;
       align-items: center;
@@ -74,6 +76,8 @@
     gap: 1vh;
     font-size: 1.8vh;
     background: white;
+    cursor: pointer;
+
     svg {
       font-size: 2vh;
     }

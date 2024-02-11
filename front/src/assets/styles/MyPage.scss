@@ -1,9 +1,85 @@
 .mypage {
-  svg {
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+
+  .edit {
     position: absolute;
-    top: 2.1vh;
-    right: 2.3vh;
-    width: 5vh;
-    height: 4vh;
+    cursor: pointer;
+    top: 1.5vh;
+    right: 3vh;
+    font-size: 3.5vh;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+    // justify-content: center;
+
+    .profile {
+      width: 15vh;
+      height: 15vh;
+      border-radius: 50%;
+    }
+
+    .user-nick {
+      font-weight: bold;
+      font-size: 2.5vh;
+    }
+  }
+
+  .user-content {
+    margin: 0 2vh;
+    padding: 2vh;
+    height: 50vh;
+    border-radius: 2vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    background: white;
+    box-shadow: 0 0.1vh 1vh rgba(0, 0, 0, 0.2);
+    // border: 2px solid #a3b9f6;
+
+    button {
+      cursor: pointer;
+      border-radius: 2vh;
+      background: transparent;
+      border: 2px solid #a3b9f6;
+      padding: 2vh;
+      font-weight: bold;
+      font-size: 2vh;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      svg {
+        font-size: 2vh;
+      }
+
+      &.later {
+        // background: lightgray;
+        border: 2px solid darkgray;
+        // position: relative;
+        cursor: not-allowed;
+
+        .title,
+        svg {
+          filter: blur(1px);
+        }
+
+        .none {
+          // position: absolute;
+          // top: 50%;
+          // left: 50%;
+          // transform: translate(-50%, -50%);
+          background: #a3b9f6;
+          border-radius: 1vh;
+          padding: 0.4vh 1vh;
+          font-size: 1.5vh;
+        }
+      }
+    }
   }
 }
