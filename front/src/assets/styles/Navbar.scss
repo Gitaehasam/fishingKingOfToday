@@ -8,7 +8,7 @@
   min-height: 100vh;
   padding-bottom: 7vh;
   background: white;
-  z-index: 0;
+  // z-index: 0;
   position: relative;
 }
 
@@ -20,7 +20,8 @@ nav {
   background: white;
   // border: 1px solid red;
   border-radius: 2vh 2vh 0 0;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  // box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -0.1vh 0.5vh rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: start;
   justify-content: center;

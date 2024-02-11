@@ -23,6 +23,7 @@ const FishMapItem = ({ item, idx, mapRef, getDistance, setOpenList }) => {
 
   const handleClick = () => {
     setOpenList(false);
+    console.log(idx);
     setActiveMarker(idx);
     const locPosition = new kakao.maps.LatLng(item.latitude, item.longitude);
     mapRef.current.setLevel(4);
@@ -31,9 +32,11 @@ const FishMapItem = ({ item, idx, mapRef, getDistance, setOpenList }) => {
   };
 
   return (
-    <div className="item" onClick={handleClick}>
+    <div className="item">
       <div className="item-head">
-        <div className="fishing-name">{item.name}</div>
+        <div className="fishing-name" onClick={handleClick}>
+          {item.name}
+        </div>
         <div className="fishing-type">{item.spotType}</div>
       </div>
       <div className="item-body">
