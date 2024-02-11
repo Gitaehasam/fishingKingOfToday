@@ -92,7 +92,7 @@ function RoomList() {
         <Loading />
       ) : (
         <div>
-          <Header centerText={"낚시 라이브"} />
+          <Header centerText={"낚시 라이브"} prevPath={"/media"}/>
 
           {/* 내가 불편해서 만듬 ㅠㅠ  새로고침 오래걸려유 ㅠ */}
           <CachedIcon
@@ -126,7 +126,7 @@ function RoomList() {
                 onClick={() => enterLive(room)}
               >
                 <img
-                  src={room.thumbnailURL ? room.thumbnailURL : defaultImg}
+                  src={room.imageUrl ? room.imageUrl : defaultImg}
                   alt="room thumbnail"
                   className="thumbnail"
                 />

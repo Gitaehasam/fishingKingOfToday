@@ -275,30 +275,29 @@ const VideoRoomComponent = (props) => {
     setPublisher(publisher);
   }
 
-
-  const switchCamera = async (deviceId) => {
-    const devices = await OV.getDevices();
-    const videoDevices = devices.filter((device) => device.kind === "videoinput");
-    const newDeviceId = videoDevices.find(device => device.deviceId !== deviceId).deviceId;
+  const switchCamera = async (newDeviceId) => {
+    try {
+      console.log(newDeviceId);
+      const newPublisher = await OV.initPublisher(undefined, {
+        audioSource: publisher.stream.audioSource,
+        videoSource: newDeviceId,
+        publishAudio: publisher.stream.hasAudio,
+        publishVideo: publisher.stream.hasVideo,
+        resolution: "640x480",
+        frameRate: 30,
+        insertMode: "APPEND",
+        mirror: false,
+      });
   
-    const newPublisher = OV.initPublisher(undefined, {
-      audioSource: undefined,
-      videoSource: newDeviceId,
-      publishAudio: publisher.stream.hasAudio,
-      publishVideo: publisher.stream.hasVideo,
-      resolution: `640x480`,
-      frameRate: 30,
-      insertMode: 'APPEND',
-      mirror: false
-    });
-  
-    await session.unpublish(publisher);
-    await session.publish(newPublisher);
-    setPublisher(newPublisher);
-    localUser.setStreamManager(newPublisher);
-    setMainStreamManager(newPublisher);
-  };
-  
+      await session.unpublish(publisher);
+      await session.publish(newPublisher);
+      setPublisher(newPublisher);
+      localUser.setStreamManager(newPublisher);
+      setMainStreamManager(newPublisher);
+    } catch (error) {
+      console.error(error);
+    }
+  };  
   
   const leaveSession = async () => {
     const mySession = session;
