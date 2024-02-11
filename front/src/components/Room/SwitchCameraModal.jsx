@@ -50,8 +50,8 @@ function SwitchCameraModal ({state, onDevice}) {
                 onChange={handleChangeCamera} />
               <label htmlFor={device.deviceId}>{device.label}</label>
             </div>
-            )}
-          </div>
+          )}
+        </div>
       </dialog>
     </>
   )
