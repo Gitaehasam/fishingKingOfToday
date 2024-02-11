@@ -12,6 +12,7 @@ function CreateRoom() {
   const isHost = true;
   const baseURL = import.meta.env.VITE_BASE_URL
   const userInfo = JSON.parse(localStorage.getItem("user"))
+  const token = localStorage.getItem('jwt')
 
   const [title, setTitle] = useState('')
   const [previewURL, setPreviewURL] = useState("");
@@ -49,35 +50,25 @@ function CreateRoom() {
     }
   };
 
-  // 로그인 하면 될거임~
   const createPresignedURL = (file) => {
-    axios.post(baseURL + "/api/images/presigned", {filename: file.name})
-      .then((res) => {
-        console.log(res.data)
-        setThumbnailURL(res.data.imageUrl)
-        uploadImageToS3(res.data.preSignedUrl, file);
-      })
-    .catch((error) => console.error(error));
-  }
-
-  const uploadImageToS3 = (url, file) => {
-    axios.put(url, 
-      file,
-      {
-        headers: 
-        {
-          'Content-Type': file?.type,
-        }
-      },
-      )
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
+    const formData = new FormData();
+    formData.append('images', file); // "images" 파라미터로 파일을 전달
+    formData.append('type', 'LIVEROOM'); // "type" 파라미터 추가
   
+    axios.post(baseURL + "/api/images", formData, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'multipart/form-data', // multipart/form-data 형식으로 전송
+      }
+    })
+    .then((res) => {
+      console.log(res.data)
+      setThumbnailURL(res.data.imageNames[0])
+    })
+    .catch((error) => console.error(error));
+  } 
+  
+ 
 
   const createSession = (e) => {
     const roomId = Math.floor(Math.random() * 1000000);
