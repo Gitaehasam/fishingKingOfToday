@@ -96,6 +96,14 @@ jacocoTestReport {
 	}
 }
 
+task copyPrivate(type: Copy) {
+	copy {
+		from 'gitaehasam_back_submodule'
+		include "*.properties"
+		into 'src/main/resources'
+	}
+}
+
 test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
