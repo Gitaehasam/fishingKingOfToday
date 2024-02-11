@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             final MethodArgumentNotValidException e,
@@ -83,5 +84,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(
                         new ExceptionResponse(
                                 INTERNAL_SEVER_ERROR.getCode(), INTERNAL_SEVER_ERROR.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionResponse> illegalArgumentException(IllegalArgumentException e) {
+        logger.error(e.getMessage());
+        return ResponseEntity.badRequest()
+                .body(new ExceptionResponse(REQUEST_ERROR.getCode(), REQUEST_ERROR.getMessage()));
     }
 }

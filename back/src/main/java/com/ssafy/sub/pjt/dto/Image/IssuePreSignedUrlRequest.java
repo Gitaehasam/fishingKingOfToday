@@ -1,4 +1,4 @@
-package com.ssafy.sub.pjt.dto;
+package com.ssafy.sub.pjt.dto.Image;
 
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

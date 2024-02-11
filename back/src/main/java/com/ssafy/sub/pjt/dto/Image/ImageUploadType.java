@@ -1,4 +1,4 @@
-package com.ssafy.sub.pjt.dto;
+package com.ssafy.sub.pjt.dto.Image;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
