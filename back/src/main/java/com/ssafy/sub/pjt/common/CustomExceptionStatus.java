@@ -45,6 +45,8 @@ public enum CustomExceptionStatus {
     FAIL_IMAGE_NAME_HASH(6006, "이미지 이름을 해싱하는 데 실패했습니다."),
     INVALID_IMAGE(6107, "올바르지 않은 이미지 파일입니다."),
 
+    NOT_FOUND_TUTORIAL(7000, "튜토리얼을 찾을 수 없습니다."),
+
     INTERNAL_SEVER_ERROR(9999, "서버 에러가 발생하였습니다. 관리자에게 문의해 주세요.");
 
     private final int code;
