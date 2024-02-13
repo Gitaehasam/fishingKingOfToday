@@ -29,16 +29,6 @@ const Navbar = () => {
     ];
   };
 
-  const aaa = async (e) => {
-    // e.preventDefault();
-    // setIsOpen(false);
-    // setTimeout(() => {
-    //   setIsOpen(false);
-    // }, 0);
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    setIsOpen(false);
-  };
-
   return (
     <>
       <div className="container">
@@ -95,11 +85,11 @@ const Navbar = () => {
             <DashboardOutlinedIcon />
             <span>RoomList</span>
           </NavLink>
-          {/* <NavLink to={"/user/mypage"} className="nav-item">
+          <NavLink to={"/user/mypage"} className="nav-item">
             <PersonOutlineOutlinedIcon />
             <span>마이</span>
-          </NavLink> */}
-          {jwt ? (
+          </NavLink>
+          {/* {jwt ? (
             <NavLink to={"/user/mypage"} className="nav-item">
               <PersonOutlineOutlinedIcon />
               <span>마이</span>
@@ -108,7 +98,7 @@ const Navbar = () => {
             <div className="nav-item">
               <NoneLogin />
             </div>
-          )}
+          )} */}
         </nav>
         {isOpen && (
           <>

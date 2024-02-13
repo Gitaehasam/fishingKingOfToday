@@ -1,37 +1,53 @@
-import Header from "../components/Header";
-import "@assets/styles/MyPageEdit.scss";
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import profile from "@assets/images/default_profile.jpg";
+import Header from "@components/Header";
+import axios from "axios";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import profile from "@assets/images/default_profile.jpg";
+import "@assets/styles/MyPageEdit.scss";
 
 const MyPageEdit = () => {
-  const baseURL = import.meta.env.VITE_BASE_URL;
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const user = JSON.parse(localStorage.getItem("user"));
   const [nick, setNick] = useState(user?.nickname);
-  const navigate = useNavigate();
   const [openDelete, setOpenDelete] = useState(false);
   const [imgUrl, setImgUrl] = useState(user.imageUrl);
   const [preView, setPreView] = useState(user?.imageUrl);
+  const navigate = useNavigate();
 
-  const handleLogOut = () => {
-    axios
-      .delete(`${baseURL}/api/log-out`, {
+  const clearStorage = () => {
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("user");
+    navigate("/login", { replace: true });
+  };
+
+  // 로그아웃
+  const userLogOut = async () => {
+    try {
+      await axios.delete(`${BASE_URL}/api/log-out`, {
         headers: {
           Authorization: localStorage.getItem("jwt"),
           "Content-Type": "application/json",
         },
-      })
-      .then((res) => {
-        console.log(res);
-        localStorage.removeItem("jwt");
-        localStorage.removeItem("user");
-        navigate("/", { replace: true });
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      clearStorage();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 회원탈퇴
+  const userDelete = async () => {
+    try {
+      await axios.delete(`${BASE_URL}/api/users`, {
+        headers: {
+          Authorization: localStorage.getItem("jwt"),
+        },
+      });
+      clearStorage();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleChange = (e) => {
@@ -55,23 +71,19 @@ const MyPageEdit = () => {
 
   const changeUserInfo = async () => {
     try {
-      let res;
+      let res = imgUrl;
 
-      if (user.imageUrl === imgUrl) {
+      if (user.imageUrl !== imgUrl) {
         const formData = new FormData();
         formData.append("images", imgUrl);
         formData.append("type", "PROFILE");
 
-        res = await axios.post(
-          `${import.meta.env.VITE_BASE_URL}/api/images`,
-          formData,
-          {
-            headers: {
-              Authorization: localStorage.getItem("jwt"),
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        res = await axios.post(`${BASE_URL}/api/images`, formData, {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+            "Content-Type": "multipart/form-data",
+          },
+        });
       }
 
       // console.log(res.data.imageNames[0]);
@@ -79,7 +91,7 @@ const MyPageEdit = () => {
       // console.log(localStorage.getItem("jwt"));
 
       const res1 = await axios.put(
-        `${import.meta.env.VITE_BASE_URL}/api/users`,
+        `${BASE_URL}/api/users`,
         { imageUrl: imgUrl, nickname: nick },
         {
           headers: {
@@ -90,27 +102,8 @@ const MyPageEdit = () => {
       );
 
       console.log(res1);
-      // console.log(res.data.imageNames[0]);
-      // setImgUrl(res.data.imageNames[0]);
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  const userDelete = async () => {
-    try {
-      await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/users`, {
-        headers: {
-          Authorization: localStorage.getItem("jwt"),
-        },
-      });
-
-      localStorage.removeItem("jwt");
-      localStorage.removeItem("user");
-
-      navigate("/", { replace: true });
-    } catch (err) {
-      console.log(err);
     }
   };
 
@@ -144,7 +137,7 @@ const MyPageEdit = () => {
         />
       </div>
       <div className="user-change">
-        <button className="logout" onClick={handleLogOut}>
+        <button className="logout" onClick={userLogOut}>
           로그아웃
         </button>
         <button className="resign" onClick={openDeleteModal}>

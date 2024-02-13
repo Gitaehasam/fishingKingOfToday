@@ -1,19 +1,24 @@
-import "../assets/styles/HomePage.scss";
-import React, { useState } from "react";
-import { IoBookOutline } from "react-icons/io5";
-import logo from "../assets/images/Logo.svg";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Slider from "../components/Slider";
+import logo from "../assets/images/Logo.svg";
+import { IoBookOutline } from "react-icons/io5";
 import PhishingIcon from "@mui/icons-material/Phishing";
+import "../assets/styles/HomePage.scss";
 
 function HomePage() {
-  console.log(import.meta.env);
   const [idx, setIdx] = useState(0);
+  const navigate = useNavigate();
 
-  const setBack = (num) => {
-    console.log(num);
-    setIdx(num);
-  };
+  const setBack = (num) => setIdx(num);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+
+    if (!jwt) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <>
@@ -30,10 +35,6 @@ function HomePage() {
             <PhishingIcon />
           </Link>
         </div>
-
-        {/* <div>
-          
-        </div> */}
         <Slider setBack={setBack} />
       </div>
     </>

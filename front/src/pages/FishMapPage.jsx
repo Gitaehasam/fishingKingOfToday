@@ -37,7 +37,8 @@ const FishMapPage = () => {
   const [mapCenter, setMapCenter] = useRecoilState(mapCenterAtom);
   const [activeMarker, setActiveMarker] = useRecoilState(activeMarkerAtom); // 활성화 마커 인덱스 저장
   const [openList, setOpenList] = useState(false);
-
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const user = localStorage.getItem("jwt");
   const location = useLocation();
   const mapRef = useRef(null);
 
@@ -76,25 +77,38 @@ const FishMapPage = () => {
   };
 
   const callFishingSpot = async (latitude, longitude) => {
-    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/spots`, {
-      params: { latitude, longitude },
-    });
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/api/spots`,
+        {
+          params: { latitude, longitude },
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    const data = res.data.spots
-      .map((item) => {
-        const dist = getDistance(
-          latitude,
-          longitude,
-          item?.latitude,
-          item?.longitude
-        );
-        return dist <= 20 ? { ...item, dist: dist } : null;
-      })
-      .filter(Boolean);
+      const data = res.data.spots
+        .map((item) => {
+          const dist = getDistance(
+            latitude,
+            longitude,
+            item?.latitude,
+            item?.longitude
+          );
+          return dist <= 20 ? { ...item, dist: dist } : null;
+        })
+        .filter(Boolean);
 
-    console.log(data);
+      console.log(data);
 
-    setFishSpotList(data);
+      setFishSpotList(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // 내위치
