@@ -1,4 +1,5 @@
 import "../../assets/styles/fishmap/MapDetailWeather.scss";
+import NavigationIcon from "@mui/icons-material/Navigation";
 
 const WEATHER_DESC = {
   201: "가벼운 비를 동반한 천둥구름",
@@ -105,20 +106,37 @@ const FishSpot = ({ weatherData, sunrise, sunset }) => {
       </div>
 
       <div className="weather-data">
-        {weatherData.map((data, index) => (
-          <div key={index} className="weather-total">
-            <div className="weather-time">
-              {hourFormat(new Date(data.dt_txt).getHours())}
+        <div className="weather-info">
+          <div className="weather-time">시간</div>
+          <div className="weather">날씨</div>
+          <div className="temper">기온</div>
+          <div className="precipitation">강수확률</div>
+          <div className="wind-speed">풍속</div>
+          <div className="wind-direction">풍향</div>
+        </div>
+        <div className="weather-totals">
+          {weatherData.map((data, index) => (
+            <div key={index} className="weather-total">
+              <div className="weather-time">
+                {hourFormat(new Date(data.dt_txt).getHours())}
+              </div>
+              <img
+                className="weather-icon"
+                src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+                alt="날씨 아이콘"
+              />
+              <div>{data.main.temp.toFixed(0)}°</div>
+              <div>{`${(data.pop * 100).toFixed()}%`}</div>
+              <div>{data.wind.speed.toFixed(1)}m/s</div>
+              <div
+                className="navigation"
+                style={{ transform: `rotate(${data.wind.deg}deg)` }}
+              >
+                <NavigationIcon />
+              </div>
             </div>
-            <img
-              className="weather-icon"
-              src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-              alt="날씨 아이콘"
-            />
-            <div>{data.main.temp.toFixed(0)}°</div>
-            <div>{`${(data.pop * 100).toFixed()}%`}</div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

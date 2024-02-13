@@ -1,8 +1,8 @@
-// .container {
-//   min-height: 93vh;
-//   // position: relative;
-//   background: white;
-// }
+.container {
+  // min-height: 93vh;
+  position: relative;
+  background: white;
+}
 
 .Navbar_body {
   min-height: 100vh;
@@ -13,6 +13,7 @@
 }
 
 nav {
+  // z-index: 0;
   position: fixed;
   height: 7vh;
   width: 100%;
@@ -82,5 +83,52 @@ nav {
         font-size: 5.5vh;
       }
     }
+  }
+}
+
+.choice {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+
+  background: rgba(black, 0.5);
+  inset: 0;
+}
+
+.camera-content {
+  animation: slider 0.5s;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  background: rgba(#191919, 1);
+  inset-inline: 0;
+  border-radius: 2vh 2vh 0 0;
+  height: 20vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3vh;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    cursor: pointer;
+    font-size: 2vh;
+
+    input {
+      display: none;
+    }
+  }
+}
+
+@keyframes slider {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

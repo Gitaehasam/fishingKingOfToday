@@ -18,10 +18,37 @@
     display: flex;
     justify-content: center;
 
-    .profile-img {
-      width: 15vh;
-      height: 15vh;
-      border-radius: 50%;
+    label {
+      cursor: pointer;
+      position: relative;
+
+      .profile-img {
+        width: 15vh;
+        height: 15vh;
+        border-radius: 50%;
+      }
+
+      input {
+        display: none;
+      }
+
+      div {
+        position: absolute;
+        bottom: 2vh;
+        right: 0;
+        background: red;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4vh;
+        height: 4vh;
+
+        svg {
+          width: 3vh;
+          height: 3vh;
+        }
+      }
     }
   }
 
