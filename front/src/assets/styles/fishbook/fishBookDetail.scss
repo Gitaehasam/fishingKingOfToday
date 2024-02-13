@@ -7,6 +7,7 @@
   overflow: hidden;
 }
 
+.back-fish-lish,
 .size,
 .sub-one,
 .sub-two,
@@ -15,8 +16,16 @@
 .fish-name,
 .science-name,
 .fish-img,
-.habitat {
+.habitat,
+.arrow {
   position: absolute;
+}
+
+.back-fish-lish {
+  z-index: 40;
+  width: 30px;
+  top: 10px;
+  left: 20px;
 }
 
 .detail-title {
@@ -112,6 +121,29 @@
   font-family: "GmarketSansMedium";
   font-size: 0.8rem;
   font-weight: 300;
+}
+
+.arrow {
+  opacity: 0.3;
+  top: 55%;
+  right: -5px;
+  animation: arrowWiggle 1s ease-in-out infinite;
+  svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@keyframes arrowWiggle {
+  0% {
+    right: -5px;
+  }
+  50% {
+    right: -2px;
+  }
+  100% {
+    right: -5px;
+  }
 }
 
 .back {

@@ -24,7 +24,7 @@ const BoardList = ({ category, viewType }) => {
         {boardData.boards && (
           <>
             {boardData.boards.map((data) => (
-              <Link to={`/media/board/${data.boardId}`} key={data.boardId}>
+              <Link to={`/media/board/${data.boardId}`} key={data.boardId} state={{ categoryId: category }}>
                 <BoardItem data={data} />
               </Link>
             ))}

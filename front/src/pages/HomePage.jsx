@@ -1,4 +1,5 @@
 import "../assets/styles/HomePage.scss";
+import React, { useState } from "react";
 import { IoBookOutline } from "react-icons/io5";
 import logo from "../assets/images/Logo.svg";
 import { Link, useLocation } from "react-router-dom";
@@ -7,10 +8,16 @@ import PhishingIcon from "@mui/icons-material/Phishing";
 
 function HomePage() {
   console.log(import.meta.env);
+  const [idx, setIdx] = useState(0);
+
+  const setBack = (num) => {
+    console.log(num);
+    setIdx(num);
+  };
 
   return (
     <>
-      <div className="Home">
+      <div className={`home slider${idx}`}>
         <div className="Home_header">
           <img src={logo} alt="logo" />
           <Link to="/fishbook" aria-label="어종도감 이동">
@@ -27,7 +34,7 @@ function HomePage() {
         {/* <div>
           
         </div> */}
-        <Slider />
+        <Slider setBack={setBack} />
       </div>
     </>
   );

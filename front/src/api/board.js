@@ -29,11 +29,43 @@ async function getBoardDetail(id) {
 async function deleteBoardPost(id) {
   try {
     api.defaults.headers["Authorization"] =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIyNDYyMTcxODExIiwic3ViIjoiIiwiaWF0IjoxNzA3MzU5NTQwLCJleHAiOjE3MDczNjMxNDB9.42KQ9rlOFsFgaUK2tCT6Zely-yBNkQBENzLQ8WarElU";
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIyNDYyMTcxODExIiwic3ViIjoiIiwiaWF0IjoxNzA3NDY4Mzg4LCJleHAiOjE3MTAwNjAzODh9.0Q3FO80tYz39BTKhVNgTyVqExI7qhMxVrj9k0ezbRU8";
     await api.delete(`${url}/${id}`);
   } catch (error) {
     console.log(error);
   }
 }
 
-export { getBoardList, getBoardDetail, deleteBoardPost };
+async function modifyBoardPost(id) {
+  try {
+    api.defaults.headers["Authorization"] =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIyNDYyMTcxODExIiwic3ViIjoiIiwiaWF0IjoxNzA3NDY4Mzg4LCJleHAiOjE3MTAwNjAzODh9.0Q3FO80tYz39BTKhVNgTyVqExI7qhMxVrj9k0ezbRU8";
+    await api.put(`${url}/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function createPresinedURL(file) {}
+
+async function sendBoardReply(id, reply) {
+  try {
+    api.defaults.headers["Authorization"] =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIyNDYyMTcxODExIiwic3ViIjoiIiwiaWF0IjoxNzA3NDY4Mzg4LCJleHAiOjE3MTAwNjAzODh9.0Q3FO80tYz39BTKhVNgTyVqExI7qhMxVrj9k0ezbRU8";
+    await api.post(`${url}/${id}/comments`, { content: reply });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function deleteBoardReply(id, replyId) {
+  try {
+    api.defaults.headers["Authorization"] =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIyNDYyMTcxODExIiwic3ViIjoiIiwiaWF0IjoxNzA3NDY4Mzg4LCJleHAiOjE3MTAwNjAzODh9.0Q3FO80tYz39BTKhVNgTyVqExI7qhMxVrj9k0ezbRU8";
+    await api.delete(`${url}/${id}/comments/${replyId}`);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { getBoardList, getBoardDetail, deleteBoardPost, modifyBoardPost, sendBoardReply, deleteBoardReply };

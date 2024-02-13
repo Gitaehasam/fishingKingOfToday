@@ -41,8 +41,11 @@
 }
 
 .board-content-img {
+  min-height: 300px;
   margin-top: 20px;
   border-radius: 5px;
+  object-fit: contain;
+  background-color: aliceblue;
 }
 
 .board-text {
@@ -72,7 +75,7 @@
   font-weight: bold;
   div {
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 2px;
   }
 }
 
@@ -123,6 +126,12 @@
     & div:nth-child(4) {
       padding-top: 5px;
       font-size: 13px;
+    }
+
+    .delete-reply {
+      position: absolute;
+      top: 5px;
+      right: 10px;
     }
   }
 

@@ -10,8 +10,7 @@ const BoardCreate = () => {
 
   return (
     <>
-      <Header />
-      <div className="post-title">글쓰기</div>
+      <Header centerText="글쓰기" />
       <div>
         <BoardFormItem type={"create"} categoryId={categoryId} />
       </div>

@@ -23,9 +23,7 @@ const FishBookList = ({ fishdata, type }) => {
     if (type == 0) {
       setFilterData(fishdata);
     } else if (type == 1) {
-      const updateArray = fishdata.filter(
-        (item) => item.fishType === "FRESH_WATER"
-      );
+      const updateArray = fishdata.filter((item) => item.fishType === "FRESH_WATER");
       setFilterData(updateArray);
     } else if (type == 2) {
       const updateArray = fishdata.filter((item) => item.fishType === "SEA");
@@ -41,29 +39,28 @@ const FishBookList = ({ fishdata, type }) => {
     </div> */}
       <ul className="fish-list">
         {/* {fishdata.fishBooks} */}
-        {filterdata.map((fish) => (
-          <Link to={`/fishbook/${fish.id}`} key={fish.id}>
-            <li className="fish-item view-two blue-bd">
-              <div className="fish-profile"></div>
-              <div className="fish-profile-type blue-fc">{fish.fishType}</div>
-              <div className="fish-profile-name">{fish.name}</div>
-              <div className="fish-profile-size">{fish.minimumSize}</div>
-              {fish.tabooStartAt && (
-                <div className="fish-date">
-                  <img
-                    className={`${bandate ? "" : "bandate"}`}
-                    src={ban}
-                    alt=""
-                    onClick={() => setBanDate(!bandate)}
-                  />
-                  <div>
-                    {cutDate(fish.tabooStartAt)} ~ {cutDate(fish.tabooEndAt)}
-                  </div>
-                </div>
-              )}
-            </li>
-          </Link>
-        ))}
+        {filterdata && (
+          <>
+            {filterdata.map((fish, index) => (
+              <Link to={`/fishbook/${fish.id}`} key={index}>
+                <li className="fish-item view-two blue-bd shadow">
+                  <div className="fish-profile"></div>
+                  <div className="fish-profile-type blue-fc">{fish.fishType}</div>
+                  <div className="fish-profile-name">{fish.name}</div>
+                  <div className="fish-profile-size">{fish.minimumSize}</div>
+                  {fish.tabooStartAt && (
+                    <div className="fish-date">
+                      <div>
+                        {cutDate(fish.tabooStartAt)} ~ {cutDate(fish.tabooEndAt)}
+                      </div>
+                    </div>
+                  )}
+                  <div className="fish-detail-btn bg-blue">VIEW</div>
+                </li>
+              </Link>
+            ))}
+          </>
+        )}
       </ul>
     </>
   );

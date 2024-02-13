@@ -34,11 +34,16 @@ const BoardItem = ({ data }) => {
       <div className="content">
         <div className="post-text">{data.content}</div>
         <div className="hashtag-list">
-          {data.hashtags.map((hashtag, index) => (
-            <div className="hashtag blue-fc" key={index}>
-              {hashtag}
-            </div>
-          ))}
+          {data.fishName && <div className="hashtag blue-fc blue-bd">#{data.fishName}</div>}
+          {data.hashtag && (
+            <>
+              {data.hashtags.map((hashtag, index) => (
+                <div className="hashtag blue-fc blue-bd" key={index}>
+                  #{hashtag}
+                </div>
+              ))}
+            </>
+          )}
         </div>
         <div className="post-bottom">
           <div className="time">{elapsedTime(data.createdAt)}</div>

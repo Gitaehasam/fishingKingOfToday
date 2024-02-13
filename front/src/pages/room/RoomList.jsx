@@ -12,6 +12,7 @@ import group from "../../assets/images/room/Group.svg";
 import defaultImg from "../../assets/images/login_img.png";
 import Header from "../../components/Header";
 import CachedIcon from "@mui/icons-material/Cached";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 function RoomList() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function RoomList() {
   const isHost = false;
 
   const baseURL = import.meta.env.VITE_BASE_URL;
-  const userInfo = JSON.parse(localStorage.getItem("user"))
+  const userInfo = JSON.parse(localStorage.getItem("user"));
   const OPENVIDU_SERVER_SECRET = "wearegitaehasam";
 
   useEffect(() => {
@@ -79,7 +80,13 @@ function RoomList() {
     const sessionId = roomInfo.sessionId;
 
     navigate(`/live/${roomInfo.sessionId}`, {
-      state: { isHost: isHost, roomId: roomId, subscriberSession: sessionId, nickname:userInfo.nickname, userImg:userInfo.imageUrl },
+      state: {
+        isHost: isHost,
+        roomId: roomId,
+        subscriberSession: sessionId,
+        nickname: userInfo.nickname,
+        userImg: userInfo.imageUrl,
+      },
     });
   };
 
@@ -92,10 +99,10 @@ function RoomList() {
         <Loading />
       ) : (
         <div>
-          <Header centerText={"낚시 라이브"} prevPath={"/media"}/>
+          <Header centerText={"낚시 라이브"} prevPath={"/media"} />
 
           {/* 내가 불편해서 만듬 ㅠㅠ  새로고침 오래걸려유 ㅠ */}
-          <CachedIcon
+          <RefreshIcon
             className="room-list-reload-btn"
             onClick={fetchRoomList}
           />

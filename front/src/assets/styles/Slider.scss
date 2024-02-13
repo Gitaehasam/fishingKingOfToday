@@ -16,30 +16,10 @@
         // filter: blur(10px);
         filter: brightness(30%);
       }
+    }
 
-      &:nth-child(1n) {
-        background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-          url("https://post-phinf.pstatic.net/MjAyMjA1MTJfMjYz/MDAxNjUyMjgyNDMxNTMx.eiksoWq4rbopryxGcA8kYLbbluZBGmlgAyIqk9IGt5Ig.I7z63dT0QXrlv2VPs1lgrGniY-mDD3T8_PwOwDcSyBEg.PNG/%ED%94%BC%EC%B9%B4%EC%B8%84.png?type=w800_q75")
-            no-repeat 50% 50% / cover;
-      }
-
-      &:nth-child(2n) {
-        background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-          url("https://kr.jugomobile.com/wp-content/uploads/2022/05/%ED%8F%AC%EC%BC%93%EB%AA%AC-%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4-%EB%8F%84%EC%9E%85-26%EB%85%84-%EB%A7%8C%EC%97%90-%EB%9D%BC%EC%9D%B4%EC%B8%84-%EB%B2%84%ED%94%84-%EC%A3%BC%EC%9E%A5.jpg")
-            no-repeat 50% 50% / cover;
-      }
-
-      &:nth-child(3n) {
-        background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-          url("https://mblogthumb-phinf.pstatic.net/20130923_49/kskang1972_1379915060840gprUf_PNG/3.png?type=w420")
-            no-repeat 50% 0% / cover;
-      }
-
-      &:nth-child(4n) {
-        background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-          url("https://t1.daumcdn.net/cfile/tistory/99D3583359E8C8511E")
-            no-repeat 50% 50% / cover;
-      }
+    .slider0 {
+      position: relative;
     }
   }
 
@@ -102,3 +82,15 @@
 //   line-height: 1.4;
 //   margin: 0 0 20px 20px;
 // }
+
+.slider0 {
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400), url("../images/main/tutorial.png") no-repeat 50% 50% / cover;
+}
+
+.slider1 {
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400), url("../images/main/fishbook.png") no-repeat 50% 50% / cover;
+}
+
+.slider2 {
+  background: url("../images/main/aquarium.png") no-repeat 50% 0% / cover;
+}

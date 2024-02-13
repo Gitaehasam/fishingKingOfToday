@@ -1,29 +1,24 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  EffectFade,
-  EffectCube,
-  EffectFlip,
-  EffectCoverflow,
-  EffectCards,
-  EffectCreative,
-} from "swiper/modules";
+import { Navigation, Pagination, Scrollbar, A11y, EffectFade, EffectCube, EffectFlip, EffectCoverflow, EffectCards, EffectCreative } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
 
 // import "swiper/css";
 import "swiper/swiper-bundle.css";
 import "@assets/styles/Slider.scss";
 
 const SHOWS = [
-  { rating: 8.5, title: "The Queen's Gambit" },
-  { rating: 9.5, title: "Breaking Bad" },
-  { rating: 8.1, title: "Wednesday" },
-  { rating: 8.7, title: "Stranger Things" },
+  { page: 0, title: "Tutorial", url: "/tutorial" },
+  { page: 1, title: "너의이름은", url: "/fishbook" },
+  { page: 2, title: "수족관", url: "/chatbot" },
 ];
 
-const Slider = () => {
+const Slider = ({ setBack }) => {
+  const navigate = useNavigate();
+
+  const move = (url) => {
+    navigate(url);
+  };
+
   return (
     // <div className="container">
     //   <Swiper
@@ -67,7 +62,9 @@ const Slider = () => {
         slidesPerView={1.4}
         centeredSlides={true}
         mousewheel={{ invert: false }}
-        onSlideChange={() => console.log("slide change")}
+        onSlideChange={(e) => {
+          setBack(e.activeIndex);
+        }}
         spaceBetween={-100}
         slideToClickedSlide={true}
         coverflowEffect={{
@@ -79,7 +76,11 @@ const Slider = () => {
         }}
       >
         {SHOWS.map((show, idx) => {
-          return <SwiperSlide key={idx}></SwiperSlide>;
+          return (
+            <SwiperSlide className={`slider${show.page}`} onClick={() => move(show.url)}>
+              {show.title}
+            </SwiperSlide>
+          );
         })}
       </Swiper>
     </div>

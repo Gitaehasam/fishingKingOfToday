@@ -6,27 +6,36 @@ import { Alarm } from "@mui/icons-material";
 
 //type은 글쓰기인지(create) 수정하기(modify) 인지, categoryId는 물고기인지(1), 장소인지(2)
 
-const BoardFormItem = ({ type, categoryId }) => {
+const BoardFormItem = ({ type, categoryId, boardData }) => {
+  console.log(boardData);
   // 사용자가 불러온 파일 정보를 넣는 값
   const [file, setFile] = useState("");
   // 사용자가 불러온 파일의 URL
   const [previewURL, setPreviewURL] = useState("");
-  // img태그가 들어갈 곳
-  const [preview, setPreview] = useState(null);
   // fileRef는 불러오기 하는 file input울 숨기고 내가 원하는 버튼을 눌렀을 때 file input 클릭버튼을 발생
   const fileRef = useRef();
   // hashtag input입력값
   const [hashtext, setHashText] = useState("");
   // 해시태그 저장
-  const [hashtag, setHashTag] = useState([]);
+  const [hashtag, setHashTag] = useState("");
 
-  //useEffect를 통해 previewURL변동시 preview에 URL을 가진 img태그 저장
-  useEffect(() => {
-    if (file !== "")
-      //처음 파일 등록하지 않았을 때를 방지
-      setPreview(<img className="img_preview" src={previewURL}></img>);
-    return () => {};
-  }, [previewURL]);
+  // 게시글 내용
+  const [content, setContent] = useState("");
+
+  const formData =
+    //useEffect를 통해 previewURL변동시 preview에 URL을 가진 img태그 저장
+    useEffect(() => {
+      if (boardData) {
+        setContent(boardData.content);
+        setHashTag(boardData.hashtags);
+        setFile("0");
+        setPreviewURL(boardData.boardImageUrl);
+        console.log(content);
+        console.log(hashtag);
+        console.log(file);
+        console.log(previewURL);
+      }
+    }, []);
 
   const handleFileOnChange = (event) => {
     console.log("2w");
@@ -37,6 +46,7 @@ const BoardFormItem = ({ type, categoryId }) => {
 
     reader.onloadend = (e) => {
       setFile(file);
+      console.log(file);
       setPreviewURL(reader.result);
     };
 
@@ -45,7 +55,6 @@ const BoardFormItem = ({ type, categoryId }) => {
 
   const handleFileButtonClick = (e) => {
     console.log("cleick");
-    console.log(preview);
     e.preventDefault();
     fileRef.current.click();
   };
@@ -63,13 +72,12 @@ const BoardFormItem = ({ type, categoryId }) => {
     } else if (e.key === "Enter" && categoryId == 2) {
       if (hashtag.length == 5) {
         alert("5개까지 등록가능합니다.");
-        setHashText("");
         return;
       }
       const updatedArray = [...hashtag, hashtext];
       setHashTag(updatedArray);
-      setHashText("");
     }
+    setHashText("");
   };
 
   const deleteHash = (hash) => {
@@ -87,20 +95,10 @@ const BoardFormItem = ({ type, categoryId }) => {
             {categoryId == 2 && <div>리뷰를 작성해 주세요.</div>}
           </div>
           <div className="post-image-upload">
-            {preview}
-            <input
-              ref={fileRef}
-              hidden={true}
-              id="file"
-              type="file"
-              onChange={handleFileOnChange}
-            />
-            <div
-              className={`shadow ${
-                file ? "reupload-btn blue-bd" : "upload-btn bg-blue"
-              }`}
-              onClick={handleFileButtonClick}
-            >
+            {previewURL && <img className="img_preview" src={previewURL}></img>}
+
+            <input ref={fileRef} hidden={true} id="file" type="file" onChange={handleFileOnChange} />
+            <div className={`shadow ${file ? "reupload-btn blue-bd" : "upload-btn bg-blue"}`} onClick={handleFileButtonClick}>
               {!file && <AddOutlinedIcon />}
               {file && "이미지 다시 선택하기"}
             </div>
@@ -145,20 +143,20 @@ const BoardFormItem = ({ type, categoryId }) => {
             )}
           </div>
           <ul className="hashtag-add-area">
-            {hashtag.map((text, index) => (
-              <li
-                key={index}
-                className="blue-bd"
-                onClick={(e) => deleteHash(text)}
-              >
-                {text}
-              </li>
-            ))}
+            {hashtag && (
+              <>
+                {hashtag.map((text, index) => (
+                  <li key={index} className="blue-bd" onClick={(e) => deleteHash(text)}>
+                    {text}
+                  </li>
+                ))}
+              </>
+            )}
           </ul>
         </div>
         <div className="post-item">
           <div className="post-sub">하고싶은 말</div>
-          <textarea></textarea>
+          <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
         </div>
         <div className="post-add-btn bg-blue">
           {type === "create" && <div>등록하기</div>}
