@@ -22,7 +22,7 @@ const LoginPage = () => {
     //   JSON.stringify({ imageUrl: null, nickname: "훌륭한붕어" })
     // );
 
-    // const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem("jwt");
 
     if (jwt) {
       navigate("/");
