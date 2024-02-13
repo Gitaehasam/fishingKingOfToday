@@ -18,6 +18,7 @@ import MediaPage from "./pages/MediaPage";
 import BoardPage from "./pages/BoardPage";
 import BoardDetail from "./components/board/BoardDetail";
 import BoardCreate from "./components/board/BoardCreate";
+import BoardModify from "./components/board/BoardModify";
 import AuthPage from "./pages/AuthPage";
 import MyPage from "./pages/MyPage";
 import TutorialPage from "./pages/TutorialPage";
@@ -57,6 +58,7 @@ function App() {
         <Route path="board">
           <Route index element={<BoardPage />} />
           <Route path="create" element={<BoardCreate />} />
+          <Route path="modify/:id" element={<BoardModify />} />
           <Route path=":id" element={<BoardDetail />} />
         </Route>
       </Route>
