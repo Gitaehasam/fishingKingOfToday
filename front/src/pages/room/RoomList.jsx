@@ -32,21 +32,6 @@ function RoomList() {
     fetchRoomList();
   }, []);
 
-  // useEffect(() => {
-  //   let sortedList;
-  //   if (isSortBy === 1) {
-  //     sortedList = [...openViduList];
-  //     sortedList.sort((a, b) => b.connections.numberOfElements - a.connections.numberOfElements);
-  //   } else {
-  //     sortedList = [...liveRoomList];
-  //     sortedList.sort((a, b) => b.liveRoomId - a.liveRoomId);
-  //   }
-  //   setLiveRoomList(sortedList);
-  // }, [isSortBy]);
-
-  const handleChangeModal = () => {
-    setIsFilterModal(!isFilterModal);
-  };
 
   const fetchRoomList = () => {
     setIsLoading(true);
@@ -101,22 +86,12 @@ function RoomList() {
         <div>
           <Header centerText={"낚시 라이브"} prevPath={"/media"} />
 
-          {/* 내가 불편해서 만듬 ㅠㅠ  새로고침 오래걸려유 ㅠ */}
-          <RefreshIcon
-            className="room-list-reload-btn"
-            onClick={fetchRoomList}
-          />
-
           {liveRoomList.liveRooms && liveRoomList.liveRooms.length > 0 ? (
-            <div onClick={handleChangeModal} className="roomList-filter">
-              {isSortBy === 1 ? <span>참여인원순</span> : <span>최신순</span>}
-              <img src={filter} alt="" />
-              {isFilterModal && (
-                <RoomFilterModal
-                  state={setIsFilterModal}
-                  sortBy={setIsSortBy}
-                />
-              )}
+            <div className="roomList-filter">
+              <CachedIcon
+                className="room-list-reload-btn"
+                onClick={fetchRoomList}
+              />
             </div>
           ) : (
             <div className="no-live">
@@ -141,10 +116,6 @@ function RoomList() {
                   <p>{room.name}</p>
                   <div className="roomList-info-body">
                     <span>{room.nickName}</span>
-                    <p>
-                      <img className="subscriber" src={group} alt="group" />{" "}
-                      {/* {room.connections.numberOfElements} */}
-                    </p>
                   </div>
                 </div>
               </div>

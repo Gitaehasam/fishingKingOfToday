@@ -1,42 +1,68 @@
 import React, { useEffect, useRef, useState } from "react";
-import you from "../assets/images/공유.jpg";
-import "./TutorialPage.scss";
+import baiting from "../assets/images/tutorial/baiting.png";
+import fishing_casting from "../assets/images/tutorial/fishing_casting.png";
+import fishing_tools from "../assets/images/tutorial/fishing_tools.png";
+import good_day from "../assets/images/tutorial/good_day.png";
+import ipzil from "../assets/images/tutorial/ipzil.png";
+import needle_floor from "../assets/images/tutorial/needle_floor.png";
+import remove_needle from "../assets/images/tutorial/remove_needle.png";
+import tying_reel from "../assets/images/tutorial/tying_reel.png";
+import "@assets/styles/tutorial/TutorialPage.scss";
+import postTutorialInfo from "../api/tutorial";
+import Header from "@/components/Header";
+import { useNavigate } from "react-router-dom";
 
 const TutorialPage = () => {
   // Refs for DOM elements
   const itemsRef = useRef([]);
   const cursorsRef = useRef([]);
+  const navigate = useNavigate()
 
   // State for animation progress
-  const [progress, setProgress] = useState(50);
+  const [progress, setProgress] = useState(0);
   const [startX, setStartX] = useState(0);
   const [active, setActive] = useState(0);
   const [isDown, setIsDown] = useState(false);
   const [yourCarouselItems, setYourCarouselItems] = useState([
     {
-      title: "제목",
+      title: "낚시 가기 좋은 날",
       num: 1,
-      imageSrc: you,
+      imageSrc: good_day,
     },
     {
-      title: "제목",
+      title: "준비물",
       num: 2,
-      imageSrc: you,
+      imageSrc: fishing_tools,
     },
     {
-      title: "제목",
+      title: "원투 낚시",
       num: 3,
-      imageSrc: you,
+      imageSrc: fishing_casting,
     },
     {
-      title: "제목",
+      title: "낚싯대 세팅",
       num: 4,
-      imageSrc: you,
+      imageSrc: tying_reel,
     },
     {
-      title: "제목",
+      title: "미끼 끼우기",
       num: 5,
-      imageSrc: you,
+      imageSrc: baiting,
+    },
+    {
+      title: "낚시 캐스팅 & 입질",
+      num: 6,
+      imageSrc: ipzil,
+    },
+    {
+      title: "바늘 빼기",
+      num: 7,
+      imageSrc: remove_needle,
+    },
+    {
+      title: "바닥에 걸렸을 때",
+      num: 8,
+      imageSrc: needle_floor,
     },
   ]);
 
@@ -124,11 +150,12 @@ const TutorialPage = () => {
 
   return (
     <>
+      <Header centerText={"튜토리얼"} prevPath={"/"}/>
       <div className="carousel-body"></div>
       <div className="carousel">
         {yourCarouselItems.map((item, index) => (
           <div ref={(el) => (itemsRef.current[index] = el)} key={index} className="carousel-item">
-            <div className="carousel-box">
+            <div className="carousel-box" onClick={() => navigate(`/tutorial/${item.num}`, { state : { title: item.title } })}>
               <div className="title">{item.title}</div>
               <div className="num">{item.num}</div>
               <img src={item.imageSrc} alt={item.title} />

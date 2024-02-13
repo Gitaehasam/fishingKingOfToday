@@ -32,6 +32,10 @@ const VideoRoomComponent = (props) => {
   const roomId = location.state.roomId
   const isHost = location.state.isHost;
   const imageUrl = (location.state.imageUrl ? location.state.imageUrl : null)
+
+  console.log(imageUrl)
+  console.log(location.state.imageUrl)
+
   const name = (location.state.name ? location.state.name : null)
   const nickName = location.state.nickname
   const userImg = location.state.userImg

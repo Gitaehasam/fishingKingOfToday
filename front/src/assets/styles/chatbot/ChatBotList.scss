@@ -1,7 +1,7 @@
 .message-box {
   display: flex;
   flex-direction: column;
-  padding-bottom: 20%;
+
   overflow: auto;
 }
 
@@ -10,7 +10,7 @@
   padding: 10px;
   margin-bottom: 10px;
   border: 3px solid #e5ffff;
-  background-color: #e5ffff;
+  // background-color: #e5ffff;
   padding: 10px;
   margin: 10px;
   border-radius: 0 30px 30px 20px;
@@ -52,7 +52,7 @@
   border-radius: 5px;
   font-size: 120%;
   text-align: center;
-  background-color: white;
+  // background-color: white;
 
   span {
     color: blue;
