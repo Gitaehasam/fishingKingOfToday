@@ -5,12 +5,9 @@ import Header from "../components/Header";
 import "@/assets/styles/chatbot/ChatBot.scss"
 import ChatBotChattingForm from "../components/chatBot/ChatBotChattingForm";
 import ChatBotChattingList from "../components/chatBot/ChatBotChattingList";
-import { axiosApi } from "../util/commons";
 import postSendChat from "../api/chatbot";
-import axios from "axios";
 
 function ChatBot () {
-  const baseURL = import.meta.env.VITE_BASE_URL
   const navigate = useNavigate()
   const [chattingList, setChattingList] = useState([])
   const [loadingState, setLoadingState] = useState(false)
@@ -34,38 +31,6 @@ function ChatBot () {
         return newList
       })
     })
-
-    // try {
-    //   const {data} = await axiosApi.post('', chat)
-    //   return data
-    // } catch (err) {
-    //   console.log(err)
-    // }
-    // setLoadingState(false)
-    // setChattingList(prevList => {
-    //   let newList = [...prevList]
-    //   newList[newList.length - 1] = {user: 'bot', chat: data.value, imgURL: data.imgURL, move:data.move};
-    // })
-
-    ///////////////////////////
-    
-    // await axios.post(`${baseURL}/api/chatbot`, {inputText:chat}, {
-    //   headers:{
-    //     Authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMzIxMTU0MTUzIiwic3ViIjoiIiwiaWF0IjoxNzA3NDc3NjQ5LCJleHAiOjE3MTAwNjk2NDl9.dKbZBVArBhh9Yqre0LFdi9rKmPYrdzz4DsDiCVolA28",
-    //     'Content-Type': 'application/json',
-    //     }
-    //   })
-    //   .then((res) => {
-    //   setLoadingState(false)
-    //   setChattingList(prevList => {
-    //     let newList = [...prevList];
-    //     newList[newList.length - 1] = {user: 'bot', chat: res.data.text, imgURL: res.data.imageUrl, move:res.data.move};
-    //     return newList;
-    //   });
-    // })
-    // .catch((err) => {
-    //   console.log(err)
-    // })
   }
   
 
@@ -86,7 +51,6 @@ function ChatBot () {
 
     <div className="chatbot-body">
       <div className="chatbot-chat-container">
-
         <div className="chatbot-start-ment">
           <div className="chatbot-startChat">
             <p><span>따뜻한 갈치</span>님, 안녕하세요.</p>
@@ -106,9 +70,9 @@ function ChatBot () {
             ))}
         </div>
       </div>
+    <ChatBotChattingList chattingList={chattingList}/>
     </div>
 
-    <ChatBotChattingList chattingList={chattingList}/>
     <ChatBotChattingForm onChat={sendChat} loadingState={loadingState} setLoadingState={setLoadingState}/>
     </>
   )

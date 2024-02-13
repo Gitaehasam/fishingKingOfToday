@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SendIcon from "@mui/icons-material/Send";
 import './ChatComponent.css';
 
 const ChattingForm = (props) => {
@@ -34,6 +35,9 @@ const ChattingForm = (props) => {
           onKeyPress={handlePressKey}
           onpaste="return false;"
         />
+        {message.trim() !== '' && <div className="send-reply" onClick={sendMessage}>
+          <SendIcon />
+        </div>}
       </div>
     </>
   )

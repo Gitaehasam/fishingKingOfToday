@@ -24,6 +24,7 @@ import MyPage from "./pages/MyPage";
 import TutorialPage from "./pages/TutorialPage";
 import ChatBot from "./pages/ChatBot";
 import MyPageEdit from "./pages/MyPageEdit";
+import TutorialDeatilPage from "./components/tutorial/TutorialDetailPage"
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
 
       <Route path="/tutorial">
         <Route index element={<TutorialPage />} />
+        <Route path=":id" element={<TutorialDeatilPage />}/>
       </Route>
 
       <Route path="/fish">

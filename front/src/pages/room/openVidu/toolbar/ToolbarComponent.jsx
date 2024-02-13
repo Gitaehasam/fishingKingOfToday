@@ -57,8 +57,6 @@ import group from "../../../../assets/images/room/Group.svg"
             ) : (
               <VideocamOffOutlinedIcon onClick={camStatusChanged} className='toolbar-option-icon'/>
             )}
-
-            <LoopOutlinedIcon onClick={() => setIsSwitchCameraModal(true)} className='toolbar-option-icon'/>
           </>
         )}
       </div>  
