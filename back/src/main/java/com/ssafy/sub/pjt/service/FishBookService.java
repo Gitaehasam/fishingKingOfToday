@@ -12,8 +12,6 @@ import com.ssafy.sub.pjt.util.RedisUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,22 +22,20 @@ public class FishBookService {
     private final FishBookRepository fishBookRepository;
 
     @Transactional(readOnly = true)
-    public FishBookListResponse getFishBooksByPage(final Pageable pageable) {
+    public List<FishBookResponse> getFish() {
 
         if (redisUtil.getObject("fishBook") != null) {
-            return (FishBookListResponse) redisUtil.getObject("fishBook");
+            return (List<FishBookResponse>) redisUtil.getObject("fishBook");
         }
 
-        final Slice<FishBook> fishBooks =
-                fishBookRepository.findSliceBy(pageable.previousOrFirst());
+        final List<FishBook> fishBooks = fishBookRepository.findAll();
         final List<FishBookResponse> fishBookResponse =
                 fishBooks.stream()
                         .map(fishBook -> FishBookResponse.of(fishBook))
                         .collect(Collectors.toList());
-        redisUtil.setObject(
-                "fishBook", new FishBookListResponse(fishBookResponse, fishBooks.hasNext()));
+        redisUtil.setObject("fishBook", fishBookResponse);
 
-        return new FishBookListResponse(fishBookResponse, fishBooks.hasNext());
+        return fishBookResponse;
     }
 
     public FishBookDetailResponse searchById(Integer fishBookId) {
