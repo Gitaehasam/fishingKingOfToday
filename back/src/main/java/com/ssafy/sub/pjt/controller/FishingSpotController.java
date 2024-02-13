@@ -5,6 +5,7 @@ import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 import com.ssafy.sub.pjt.dto.FishingSpotListResponse;
 import com.ssafy.sub.pjt.service.FishingSpotService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,15 +24,16 @@ public class FishingSpotController {
             @RequestParam(required = false, defaultValue = "") final String sido,
             @RequestParam(required = false, defaultValue = "") final String keyword,
             @RequestParam(required = false, defaultValue = "") final Float latitude,
-            @RequestParam(required = false, defaultValue = "") final Float longitude) {
+            @RequestParam(required = false, defaultValue = "") final Float longitude,
+            final Pageable pageable) {
         if (!keyword.isEmpty() && keyword.charAt(0) == '#') {
             final FishingSpotListResponse fishingSpotListResponse =
-                    fishingSpotService.getSpotsByHashTag(null, keyword);
+                    fishingSpotService.getSpotsByHashTag(pageable, keyword);
             return ResponseEntity.ok().body(fishingSpotListResponse);
         }
         final FishingSpotListResponse fishingSpotListResponse =
                 fishingSpotService.getSpotsByPage(
-                        null,
+                        pageable,
                         // sortType,
                         null,
                         spotType,
