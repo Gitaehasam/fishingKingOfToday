@@ -12,6 +12,8 @@ const MyPageEdit = () => {
   const [nick, setNick] = useState(user?.nickname);
   const navigate = useNavigate();
   const [openDelete, setOpenDelete] = useState(false);
+  const [imgUrl, setImgUrl] = useState(user.imageUrl);
+  const [preView, setPreView] = useState(user?.imageUrl);
 
   const handleLogOut = () => {
     axios
@@ -40,6 +42,61 @@ const MyPageEdit = () => {
     setOpenDelete(true);
   };
 
+  const handleChangeFile = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreView(reader.result);
+      setImgUrl(file);
+    };
+  };
+
+  const changeUserInfo = async () => {
+    try {
+      let res;
+
+      if (user.imageUrl === imgUrl) {
+        const formData = new FormData();
+        formData.append("images", imgUrl);
+        formData.append("type", "PROFILE");
+
+        res = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/api/images`,
+          formData,
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwt"),
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      }
+
+      // console.log(res.data.imageNames[0]);
+      // console.log(nick);
+      // console.log(localStorage.getItem("jwt"));
+
+      const res1 = await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/api/users`,
+        { imageUrl: imgUrl, nickname: nick },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(res1);
+      // console.log(res.data.imageNames[0]);
+      // setImgUrl(res.data.imageNames[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const userDelete = async () => {
     try {
       await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/users`, {
@@ -60,11 +117,18 @@ const MyPageEdit = () => {
   return (
     <div className="mypage-edit">
       <Header centerText="My 정보수정" align="center" />
-      <div className="complete">완료</div>
+      <div className="complete" onClick={changeUserInfo}>
+        완료
+      </div>
       <div className="profile">
         <label htmlFor="profile-img">
-          <img src={user?.imageUrl || profile} alt="" className="profile-img" />
-          <input type="file" accept="image/*" id="profile-img" />
+          <img src={preView || profile} alt="" className="profile-img" />
+          <input
+            type="file"
+            accept="image/*"
+            id="profile-img"
+            onChange={handleChangeFile}
+          />
           <div>
             <CameraAltIcon />
           </div>
