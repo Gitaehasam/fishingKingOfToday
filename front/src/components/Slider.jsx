@@ -1,5 +1,16 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y, EffectFade, EffectCube, EffectFlip, EffectCoverflow, EffectCards, EffectCreative } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  EffectFade,
+  EffectCube,
+  EffectFlip,
+  EffectCoverflow,
+  EffectCards,
+  EffectCreative,
+} from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 
 // import "swiper/css";
@@ -77,7 +88,11 @@ const Slider = ({ setBack }) => {
       >
         {SHOWS.map((show, idx) => {
           return (
-            <SwiperSlide className={`slider${show.page}`} onClick={() => move(show.url)}>
+            <SwiperSlide
+              key={idx}
+              className={`slider${show.page}`}
+              onClick={() => move(show.url)}
+            >
               {show.title}
             </SwiperSlide>
           );

@@ -14,16 +14,16 @@ const MyPage = () => {
     navigate("edit");
   };
 
-  // useEffect(() => {
-  //   localStorage.setItem(
-  //     "jwt",
-  //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMjgxMDc5MDMwIiwic3ViIjoiIiwiaWF0IjoxNzA3NTU3Njg5LCJleHAiOjE3MTAxNDk2ODl9.zK9t1h9Qxu0o9X-W6NUoREchnkd1-hN_420l-EcvIY0"
-  //   );
-  //   localStorage.setItem(
-  //     "user",
-  //     JSON.stringify({ imageUrl: null, nickname: "독특한누치" })
-  //   );
-  // }, []);
+  useEffect(() => {
+    localStorage.setItem(
+      "jwt",
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMjgxMDc5MDMwIiwic3ViIjoiIiwiaWF0IjoxNzA3ODA2OTc1LCJleHAiOjE3MTAzOTg5NzV9.3BOOLQa5SH8Bc_XMurtaeQJOPkJZTKYcW4zSSDZxcDg"
+    );
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ imageUrl: null, nickname: "훌륭한붕어" })
+    );
+  }, []);
 
   if (!user) {
     navigate("/", { replace: true });
