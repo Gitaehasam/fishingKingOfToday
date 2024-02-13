@@ -20,13 +20,13 @@ public class FishingSpotDetailResponse {
     private final String sido;
     private final String streetAddress;
     private final String localAddress;
-    private final List<String> fishes;
+    private final List<FishingSpotFishProjection> fishes;
     private final List<BoardResponse> boards;
 
     public static FishingSpotDetailResponse of(
             final FishingSpot fishingSpot,
             final List<String> hashtags,
-            final List<String> fishes,
+            final List<FishingSpotFishProjection> fishes,
             final List<BoardResponse> boards) {
         return new FishingSpotDetailResponse(
                 fishingSpot.getId(),

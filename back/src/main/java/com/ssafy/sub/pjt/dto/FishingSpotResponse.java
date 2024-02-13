@@ -22,12 +22,12 @@ public class FishingSpotResponse {
     private final String sido;
     private final String streetAddress;
     private final String localAddress;
-    private final List<String> fishNames;
+    private final List<FishingSpotFishProjection> fishes;
 
     public static FishingSpotResponse of(
             final FishingSpotData fishingSpotData,
             final List<String> hashtags,
-            final List<String> fishNames) {
+            final List<FishingSpotFishProjection> fishes) {
         return new FishingSpotResponse(
                 fishingSpotData.getId(),
                 fishingSpotData.getName(),
@@ -40,13 +40,13 @@ public class FishingSpotResponse {
                 fishingSpotData.getSido(),
                 fishingSpotData.getStreetAddress(),
                 fishingSpotData.getLocalAddress(),
-                fishNames);
+                fishes);
     }
 
     public static FishingSpotResponse of(
             final FishingSpot fishingSpot,
             final List<String> hashtags,
-            final List<String> fishNames) {
+            final List<FishingSpotFishProjection> fishes) {
         return new FishingSpotResponse(
                 fishingSpot.getId(),
                 fishingSpot.getName(),
@@ -59,6 +59,6 @@ public class FishingSpotResponse {
                 fishingSpot.getSido(),
                 fishingSpot.getStreetAddress(),
                 fishingSpot.getLocalAddress(),
-                fishNames);
+                fishes);
     }
 }

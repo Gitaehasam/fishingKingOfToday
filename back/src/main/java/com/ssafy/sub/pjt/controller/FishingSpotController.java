@@ -2,11 +2,9 @@ package com.ssafy.sub.pjt.controller;
 
 import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 
-import com.ssafy.sub.pjt.domain.repository.FishingSpotRepository;
 import com.ssafy.sub.pjt.dto.FishingSpotListResponse;
 import com.ssafy.sub.pjt.service.FishingSpotService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,29 +14,26 @@ import org.springframework.web.bind.annotation.*;
 public class FishingSpotController {
 
     private final FishingSpotService fishingSpotService;
-    private final FishingSpotRepository fishingSpotRepository;
 
     @GetMapping
     public ResponseEntity<?> getSpots(
             // @RequestParam(required = false, defaultValue = "") final String sortType,
-            @RequestParam(required = false, defaultValue = "") final Integer fishBookId,
+            // @RequestParam(required = false, defaultValue = "") final Integer fishBookId,
             @RequestParam(required = false, defaultValue = "") final String spotType,
             @RequestParam(required = false, defaultValue = "") final String sido,
             @RequestParam(required = false, defaultValue = "") final String keyword,
             @RequestParam(required = false, defaultValue = "") final Float latitude,
-            @RequestParam(required = false, defaultValue = "") final Float longitude,
-            // @RequestParam(required = false, defaultValue = "") Integer hashTagId,
-            final Pageable pageable) {
+            @RequestParam(required = false, defaultValue = "") final Float longitude) {
         if (!keyword.isEmpty() && keyword.charAt(0) == '#') {
             final FishingSpotListResponse fishingSpotListResponse =
-                    fishingSpotService.getSpotsByHashTag(pageable, keyword);
+                    fishingSpotService.getSpotsByHashTag(null, keyword);
             return ResponseEntity.ok().body(fishingSpotListResponse);
         }
         final FishingSpotListResponse fishingSpotListResponse =
                 fishingSpotService.getSpotsByPage(
-                        pageable,
+                        null,
                         // sortType,
-                        fishBookId,
+                        null,
                         spotType,
                         sido,
                         keyword,
