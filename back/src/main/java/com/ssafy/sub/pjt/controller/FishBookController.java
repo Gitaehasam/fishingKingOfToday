@@ -1,10 +1,10 @@
 package com.ssafy.sub.pjt.controller;
 
-import com.ssafy.sub.pjt.dto.FishBookListResponse;
+import com.ssafy.sub.pjt.dto.FishBookResponse;
 import com.ssafy.sub.pjt.service.FishBookService;
+import java.util.List;
 import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +23,8 @@ public class FishBookController {
     private final FishBookService fishBookService;
 
     @GetMapping
-    public ResponseEntity<?> getFishBooks(final Pageable pageable) {
-        final FishBookListResponse fishBookListResponse =
-                fishBookService.getFishBooksByPage(pageable);
+    public ResponseEntity<?> getFishBooks() {
+        final List<FishBookResponse> fishBookListResponse = fishBookService.getFish();
         return ResponseEntity.ok().body(fishBookListResponse);
     }
 

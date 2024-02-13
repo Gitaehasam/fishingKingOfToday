@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface FishBookRepository extends JpaRepository<FishBook, Integer> {
     //    @Query("select * from fish_book")
-    Slice<FishBook> findSliceBy(final Pageable pageable);
+    List<FishBook> findAll();
 
     List<FishBook> findByFishType(FishType fishType);
 
