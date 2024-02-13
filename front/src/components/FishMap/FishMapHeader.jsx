@@ -13,6 +13,7 @@ import {
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import "@assets/styles/fishmap/FishMapHeader.scss";
+import { fetchRegion } from "../../api/fishingMap";
 
 const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
   const [regionList, setRegionList] = useState([]);
@@ -39,7 +40,6 @@ const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
 
   // 낚시터 데이터 호출
   const fetchSpots = async (params) => {
-    console.log(params);
     try {
       const res = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/api/spots`,
@@ -93,14 +93,12 @@ const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
 
   // 대한민국의 모든 특별/광역시, 도 반환
   const callRegion = async () => {
-    const res = await axios.get(
-      "https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000"
-    );
-
-    const data = res.data.regcodes.filter(
-      (item) => item.name !== "제주특별자치도"
-    );
-    setRegionList(data);
+    try {
+      const data = await fetchRegion();
+      setRegionList(data);
+    } catch (error) {
+      console.log(err);
+    }
   };
 
   const hashTagsElements = useMemo(
@@ -115,8 +113,8 @@ const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
             checked={searchTerm === hashTag.substring(1)}
             value={hashTag.substring(1)}
             onChange={(e) => {
-              handleSubmit(e);
               setSearchTerm(e.target.value);
+              handleSubmit(e);
             }}
           />
           <div className="radio-tile">
@@ -126,7 +124,7 @@ const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
           </div>
         </div>
       )),
-    [hashTags, handleClick, searchTerm]
+    [hashTags, searchTerm]
   );
 
   useEffect(() => {

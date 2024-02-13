@@ -7,18 +7,19 @@
   display: flex;
   flex-direction: column;
   position: sticky;
-  z-index: 1;
+  z-index: 0;
   top: 0;
   height: 7vh;
   padding: 1.2vh 2vh;
   gap: 1.2vh;
+  z-index: 1;
 
   &.expand {
     height: 12.6vh;
   }
 
   .wrapper1 {
-    z-index: 1;
+    // z-index: 1;
 
     .circle {
       position: relative;

@@ -29,6 +29,8 @@ const FishMapDetailPage = () => {
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${value.latitude}&lon=${value.longitude}&appid=${openWeatherApiKey}&units=metric&lang=kr`
       );
+
+      console.log(res.data);
       setSunrise(new Date(res.data.city.sunrise * 1000));
       setSunset(new Date(res.data.city.sunset * 1000));
       setWeatherData(res.data.list);

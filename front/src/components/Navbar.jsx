@@ -11,10 +11,14 @@ import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
+import PhotoLibraryOutlinedIcon from "@mui/icons-material/PhotoLibraryOutlined";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
+  const [isOpen, setIsOpen] = useState(false);
+  // const inputRef = useRef(null);
 
   const handleChangeFile = (e) => {
     const nextPreview = e.target.files[0];
@@ -23,6 +27,16 @@ const Navbar = () => {
     reader.onloadend = () => [
       navigate("/fish/image/edit", { state: { value: reader.result } }),
     ];
+  };
+
+  const aaa = async (e) => {
+    // e.preventDefault();
+    // setIsOpen(false);
+    // setTimeout(() => {
+    //   setIsOpen(false);
+    // }, 0);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    setIsOpen(false);
   };
 
   return (
@@ -60,26 +74,32 @@ const Navbar = () => {
             <span>Home</span>
           </div>
           <div className="nav-item btn">
-            <label className="custum-file-upload bg-blue" htmlFor="file">
+            <div
+              className="custum-file-upload bg-blue"
+              onClick={() => setIsOpen(true)}
+            >
               <CameraIcon />
+            </div>
+            {/* <label className="custum-file-upload bg-blue" htmlFor="file">
               <input
                 type="file"
                 id="file"
                 accept="image/*"
                 // capture="camera"
+                capture="false"
                 onChange={handleChangeFile}
               />
-            </label>
+            </label> */}
           </div>
           <NavLink to={"/media"} className="nav-item">
             <DashboardOutlinedIcon />
             <span>RoomList</span>
           </NavLink>
-          {/* <NavLink to={"/user/mypage"} className="nav-item">
+          <NavLink to={"/user/mypage"} className="nav-item">
             <PersonOutlineOutlinedIcon />
             <span>마이</span>
-          </NavLink> */}
-          {jwt ? (
+          </NavLink>
+          {/* {jwt ? (
             <NavLink to={"/user/mypage"} className="nav-item">
               <PersonOutlineOutlinedIcon />
               <span>마이</span>
@@ -88,8 +108,38 @@ const Navbar = () => {
             <div className="nav-item">
               <NoneLogin />
             </div>
-          )}
+          )} */}
         </nav>
+        {isOpen && (
+          <>
+            <div className="choice" onClick={() => setIsOpen(false)}></div>
+            <div className="camera-content">
+              <label htmlFor="file1">
+                <CameraAltOutlinedIcon />
+                카메라로 촬영
+                <input
+                  // ref={inputRef}
+                  type="file"
+                  id="file1"
+                  accept="image/*"
+                  capture="camera"
+                  onChange={handleChangeFile}
+                />
+              </label>
+              <label htmlFor="file2">
+                <PhotoLibraryOutlinedIcon />
+                앨범에서 선택
+                <input
+                  // ref={inputRef}
+                  type="file"
+                  id="file2"
+                  accept="image/*"
+                  onChange={handleChangeFile}
+                />
+              </label>
+            </div>
+          </>
+        )}
       </div>
     </>
   );

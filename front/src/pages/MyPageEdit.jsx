@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import profile from "@assets/images/default_profile.jpg";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 const MyPageEdit = () => {
   const baseURL = import.meta.env.VITE_BASE_URL;
@@ -61,7 +62,13 @@ const MyPageEdit = () => {
       <Header centerText="My 정보수정" align="center" />
       <div className="complete">완료</div>
       <div className="profile">
-        <img src={user?.imageUrl || profile} alt="" className="profile-img" />
+        <label htmlFor="profile-img">
+          <img src={user?.imageUrl || profile} alt="" className="profile-img" />
+          <input type="file" accept="image/*" id="profile-img" />
+          <div>
+            <CameraAltIcon />
+          </div>
+        </label>
       </div>
       <div className="user-info">
         <div className="info-title">닉네임</div>
