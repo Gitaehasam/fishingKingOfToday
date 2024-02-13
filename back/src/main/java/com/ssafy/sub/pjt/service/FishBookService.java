@@ -26,8 +26,8 @@ public class FishBookService {
     @Transactional(readOnly = true)
     public FishBookListResponse getFishBooksByPage(final Pageable pageable) {
 
-        if (redisUtil.getFishBook("fishBook") != null) {
-            return (FishBookListResponse) redisUtil.getFishBook("fishBook");
+        if (redisUtil.getObject("fishBook") != null) {
+            return (FishBookListResponse) redisUtil.getObject("fishBook");
         }
 
         final Slice<FishBook> fishBooks =
@@ -36,7 +36,7 @@ public class FishBookService {
                 fishBooks.stream()
                         .map(fishBook -> FishBookResponse.of(fishBook))
                         .collect(Collectors.toList());
-        redisUtil.setFishBook(
+        redisUtil.setObject(
                 "fishBook", new FishBookListResponse(fishBookResponse, fishBooks.hasNext()));
 
         return new FishBookListResponse(fishBookResponse, fishBooks.hasNext());
@@ -44,13 +44,13 @@ public class FishBookService {
 
     public FishBookDetailResponse searchById(Integer fishBookId) {
 
-        if (redisUtil.getFishBook("fish_book_" + fishBookId.toString()) != null) {
+        if (redisUtil.getObject("fish_book_" + fishBookId.toString()) != null) {
             return (FishBookDetailResponse)
-                    redisUtil.getFishBook("fish_book_" + fishBookId.toString());
+                    redisUtil.getObject("fish_book_" + fishBookId.toString());
         }
 
         final FishBook fishBook = findByFishBookById(fishBookId);
-        redisUtil.setFishBook(
+        redisUtil.setObject(
                 "fish_book_" + fishBookId.toString(), FishBookDetailResponse.of(fishBook));
 
         return FishBookDetailResponse.of(fishBook);
