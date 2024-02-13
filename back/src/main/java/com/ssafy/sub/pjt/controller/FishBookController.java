@@ -1,8 +1,7 @@
 package com.ssafy.sub.pjt.controller;
 
-import com.ssafy.sub.pjt.dto.FishBookResponse;
+import com.ssafy.sub.pjt.dto.FishBookListResponse;
 import com.ssafy.sub.pjt.service.FishBookService;
-import java.util.List;
 import javax.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class FishBookController {
 
     @GetMapping
     public ResponseEntity<?> getFishBooks() {
-        final List<FishBookResponse> fishBookListResponse = fishBookService.getFish();
+        final FishBookListResponse fishBookListResponse = fishBookService.getFish();
         return ResponseEntity.ok().body(fishBookListResponse);
     }
 

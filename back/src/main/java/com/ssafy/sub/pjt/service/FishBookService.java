@@ -22,10 +22,10 @@ public class FishBookService {
     private final FishBookRepository fishBookRepository;
 
     @Transactional(readOnly = true)
-    public List<FishBookResponse> getFish() {
+    public FishBookListResponse getFish() {
 
         if (redisUtil.getObject("fishBook") != null) {
-            return (List<FishBookResponse>) redisUtil.getObject("fishBook");
+            return (FishBookListResponse) redisUtil.getObject("fishBook");
         }
 
         final List<FishBook> fishBooks = fishBookRepository.findAll();
@@ -33,9 +33,10 @@ public class FishBookService {
                 fishBooks.stream()
                         .map(fishBook -> FishBookResponse.of(fishBook))
                         .collect(Collectors.toList());
-        redisUtil.setObject("fishBook", fishBookResponse);
 
-        return fishBookResponse;
+        redisUtil.setObject("fishBook", new FishBookListResponse(fishBookResponse));
+
+        return new FishBookListResponse(fishBookResponse);
     }
 
     public FishBookDetailResponse searchById(Integer fishBookId) {
