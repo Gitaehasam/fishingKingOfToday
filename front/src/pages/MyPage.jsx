@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import Header from "../components/Header";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import "@assets/styles/MyPage.scss";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 import profile from "@assets/images/default_profile.jpg";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import "@assets/styles/MyPage.scss";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -15,19 +15,10 @@ const MyPage = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem(
-      "jwt",
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMjgxMDc5MDMwIiwic3ViIjoiIiwiaWF0IjoxNzA3ODA2OTc1LCJleHAiOjE3MTAzOTg5NzV9.3BOOLQa5SH8Bc_XMurtaeQJOPkJZTKYcW4zSSDZxcDg"
-    );
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ imageUrl: null, nickname: "훌륭한붕어" })
-    );
-  }, []);
-
-  if (!user) {
-    navigate("/", { replace: true });
-  }
+    if (!user) {
+      navigate("/login", { replace: true });
+    }
+  });
 
   return (
     <div className="mypage">

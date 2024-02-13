@@ -1,73 +1,67 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as tmImage from "@teachablemachine/image";
-import "../assets/styles/fishrecognition/ImageResultPage.scss";
-import { IoIosArrowBack, IoIosInformationCircleOutline } from "react-icons/io";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import "@assets/styles/fishrecognition/ImageResultPage.scss";
 
 const URL = "/my_model/";
 
 const ImageResultPage = () => {
   const location = useLocation();
-  const result = location.state.value;
-  const imgRef = useRef(null);
+  const result = location.state?.value;
   const modelRef = useRef(null);
+  const navigate = useNavigate();
   const [name, setName] = useState(null);
-  const [fishDatas, setFishDatats] = useState([]);
+  const [fishDatas, setFishDatas] = useState([]);
   const [getInfo, setGetInfo] = useState(false);
 
   const predict = async () => {
-    console.log(modelRef.current);
-    console.log(imgRef.current);
-    if (modelRef.current && imgRef.current) {
-      try {
-        let image = imgRef.current;
-        const prediction = await modelRef.current.predict(image, false);
-        prediction.sort(
-          (a, b) => parseFloat(b.probability) - parseFloat(a.probability)
-        );
-        const classPrediction = prediction[0].className;
-        console.log(classPrediction);
-        setName(classPrediction);
-      } catch (err) {
-        console.error("Prediction error:", err);
-      }
-    }
+    const image = new Image();
+    image.src = result;
+    const prediction = await modelRef.current.predict(image, false);
+    prediction.sort(
+      (a, b) => parseFloat(b.probability) - parseFloat(a.probability)
+    );
+    return prediction[0].className;
   };
 
   const loadModel = async () => {
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+    return await tmImage.load(modelURL, metadataURL);
+  };
+
+  const handleLoadAndPredict = async () => {
     try {
-      const modelURL = URL + "model.json";
-      const metadataURL = URL + "metadata.json";
-      const model = await tmImage.load(modelURL, metadataURL);
+      const model = await loadModel();
       modelRef.current = model;
-      await predict();
+      const name = await predict();
+      setName(name);
     } catch (err) {
-      console.error("Model loading error:", err);
+      console.error("Error:", err);
     }
   };
 
   useEffect(() => {
-    loadModel();
+    if (!result) {
+      navigate("/");
+    }
 
-    return () => {
-      imgRef.current = null;
-    };
+    handleLoadAndPredict();
   }, []);
 
-  // if (!name) {
-  //   return <Loading />;
-  // }
+  if (!name) {
+    return <Loading />;
+  }
 
   return (
     <>
-      <div className="result" style={{ display: !name && "none" }}>
+      <div className="result">
         <Header centerText={"분석완료"} align="center" />
         <div className="result-body">
           <div className="result-img">
-            <img className="ml-result" src={result} ref={imgRef} alt="" />
+            <img className="ml-result" src={result} alt="" />
           </div>
           <div className="result-content">
             <div className="result-fish">
@@ -80,11 +74,8 @@ const ImageResultPage = () => {
                 {fishDatas.length ? (
                   fishDatas.map((review) => {
                     return (
-                      <div>
-                        <img
-                          key={review}
-                          src="https://cdn.iconsumer.or.kr/news/photo/201806/7349_8772_1719.jpg"
-                        />
+                      <div key={review}>
+                        <img src="https://cdn.iconsumer.or.kr/news/photo/201806/7349_8772_1719.jpg" />
                         <div>{review}</div>
                       </div>
                     );
@@ -97,7 +88,6 @@ const ImageResultPage = () => {
           </div>
         </div>
       </div>
-      <Loading hidden={name} />
     </>
   );
 };

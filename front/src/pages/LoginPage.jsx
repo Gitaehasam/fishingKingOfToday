@@ -1,21 +1,30 @@
-import back from "../assets/images/backSymbol.svg";
-import loginImg from "../assets/images/login_img.png";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "../assets/styles/login/LoginPage.scss";
 import SocialNaver from "../components/login/SocialNaver";
 import SocialKakao from "../components/login/SocialKakao";
 import SocialGoogle from "../components/login/SocialGoogle";
 import Header from "../components/Header";
-import { useEffect } from "react";
+import loginImg from "../assets/images/login_img.png";
+import "../assets/styles/login/LoginPage.scss";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const prevPath = location.state?.path;
-  const isLogin = sessionStorage.getItem("jwt");
 
   useEffect(() => {
-    if (isLogin) {
+    // localStorage.setItem(
+    //   "jwt",
+    //   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMjgxMDc5MDMwIiwic3ViIjoiIiwiaWF0IjoxNzA3ODI1NDQxLCJleHAiOjE3MTA0MTc0NDF9.XiP53pnAryUN9F4ISM3JiZQGst_UsUNQWZgEQOHqcvE"
+    // );
+    // localStorage.setItem(
+    //   "user",
+    //   JSON.stringify({ imageUrl: null, nickname: "훌륭한붕어" })
+    // );
+
+    // const jwt = localStorage.getItem("jwt");
+
+    if (jwt) {
       navigate("/");
     }
   }, []);
@@ -23,10 +32,6 @@ const LoginPage = () => {
   return (
     <div className="LoginPage">
       <Header prevPath={prevPath} />
-      {/* <div className="LoginPage_header">
-        <img src={back} alt="" onClick={() => navigate("/")} />
-        <span>Login</span>
-      </div> */}
       <div className="LoginPage_body">
         <img src={loginImg} alt="" />
       </div>

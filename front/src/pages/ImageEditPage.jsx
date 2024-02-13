@@ -1,20 +1,16 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
-import "../assets/styles/fishrecognition/ImageEditPage.scss";
-import "cropperjs/dist/cropper.css";
-import Aspect from "../components/fishrecognition/Aspect";
-import { IoIosArrowBack } from "react-icons/io";
-import loginImg from "../assets/images/login_img.png";
-import back from "@assets/images/backSymbol.svg";
 import Header from "../components/Header";
+import Aspect from "../components/fishrecognition/Aspect";
+import "@assets/styles/fishrecognition/ImageEditPage.scss";
+import "cropperjs/dist/cropper.css";
 
 function ImageEditPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const number = location.state.value;
+  const imgUrl = location.state.value;
   const cropperRef = useRef(null);
-  console.log(number);
 
   const getCropData = () => {
     navigate("/fish/image/result", {
@@ -45,7 +41,7 @@ function ImageEditPage() {
           autoCropArea={1}
           minCropBoxWidth={150}
           minCropBoxHeight={150}
-          src={number}
+          src={imgUrl}
         />
       </div>
       <div className="Demo_footer">
