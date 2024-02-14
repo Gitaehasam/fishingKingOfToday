@@ -69,7 +69,7 @@ public class FishBookService {
                         .collect(Collectors.toList());
 
         final List<FishBookFilterResponse> freshWaterFishListResponse =
-                seaFishResponse.stream()
+                freshWaterFishResponse.stream()
                         .map(freshFishes -> FishBookFilterResponse.of(freshFishes))
                         .collect(Collectors.toList());
 
