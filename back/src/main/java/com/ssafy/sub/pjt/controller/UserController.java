@@ -7,6 +7,8 @@ import com.ssafy.sub.pjt.service.BoardService;
 import com.ssafy.sub.pjt.service.UserService;
 import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import javax.validation.Valid;
+
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +44,12 @@ public class UserController {
         final MyFishListResponse myFishListResponse =
                 boardService.getMyFishByPage(pageable, getCurrentUserSocialId());
         return ResponseEntity.ok().body(myFishListResponse);
+    }
+
+    @GetMapping("/boards")
+    @Operation(summary = "카테고리에 따라 내 게시글 모아보기 API", description = "categoryId = 1(물고기) | 2(장소)")
+    public ResponseEntity<?> getMyBoards(@RequestParam final Integer categoryId) {
+        return ResponseEntity.ok()
+                .body(boardService.getMyBoards(getCurrentUserSocialId(), categoryId));
     }
 }
