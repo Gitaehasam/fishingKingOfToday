@@ -13,7 +13,7 @@ public class MyPageRequest {
     @Size(max = 15, message = "닉네임은 15자를 초과할 수 없습니다.")
     private final String nickname;
 
-    @Size(max = 100)
+    @Size(max = 200)
     @NotBlank(message = "프로필 사진은 필수입니다.")
     private final String imageUrl;
 }
