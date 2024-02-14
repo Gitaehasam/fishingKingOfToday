@@ -127,7 +127,7 @@ const FishMapBody = ({ mapRef, getDistance, openList }) => {
         {!openList && (
           <button
             style={{ bottom: activeMarker !== null ? "19vh" : "3vh" }}
-            className="FishMap_btn"
+            className="FishMap_btn bg-blue"
             onClick={handleClick}
           >
             <GpsFixedIcon />

@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import profile from "@assets/images/default_profile.jpg";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import "@assets/styles/MyPage.scss";
+import "@assets/styles/myPage/MyPage.scss";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -29,17 +29,17 @@ const MyPage = () => {
         <div className="user-nick">{user?.nickname}</div>
       </div>
       <div className="user-content">
-        <button>
+        <button onClick={() => navigate("fish")}>
           나의 물고기
           <ArrowForwardIosOutlinedIcon />
         </button>
-        <button>
+        <button onClick={() => navigate("location")}>
           나의 장소
           <ArrowForwardIosOutlinedIcon />
         </button>
         <button className="later">
           <div className="title">나는야 청소 요정</div>
-          <div className="none">오픈 예정</div>
+          <div className="none bg-blue">오픈 예정</div>
         </button>
       </div>
     </div>
