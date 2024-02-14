@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../assets/styles/board/BoardItem.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import { useNavigate } from "react-router-dom";
+import { putPostLike, deletePostLike } from "../../api/board";
 
-const BoardItem = ({ data }) => {
+const BoardItem = ({ data, category }) => {
+  const navigate = useNavigate();
+
   const elapsedTime = (date) => {
     const start = new Date(date);
     const end = new Date();
@@ -24,17 +28,55 @@ const BoardItem = ({ data }) => {
     return `${start.toLocaleDateString()}`;
   };
 
+  const goDetailPage = (boardId) => {
+    navigate(`/media/board/${boardId}`, { state: { categoryId: category } });
+  };
+
+  const [boardlike, setBoardLike] = useState();
+  const [likecnt, setLikeCnt] = useState();
+
+  const postDisLike = async (postId) => {
+    await deletePostLike(postId).then((res) => {
+      setBoardLike(false);
+      setLikeCnt((prev) => prev - 1);
+    });
+  };
+
+  const postLike = async (postId) => {
+    await putPostLike(postId).then((res) => {
+      setBoardLike(true);
+      setLikeCnt((prev) => prev + 1);
+    });
+  };
+
+  useEffect(() => {
+    if (data.isLiked) {
+      setBoardLike(true);
+      setLikeCnt(data.likeCnt);
+    } else {
+      setBoardLike(false);
+      setLikeCnt(data.likeCnt);
+    }
+  }, []);
+
   return (
     <li className="shadow board-contents">
       <div className="board-title-area">
         <img className="board-profile" src={data.profileImageUrl} alt="" />
         <div className="nick">{data.nickName}</div>
       </div>
-      <img className="main-img" src={data.boardImageUrl} alt="" />
+      <img
+        className="main-img"
+        src={data.boardImageUrl}
+        alt=""
+        onClick={() => goDetailPage(data.boardId)}
+      />
       <div className="content">
         <div className="post-text">{data.content}</div>
         <div className="hashtag-list">
-          {data.fishName && <div className="hashtag blue-fc blue-bd">#{data.fishName}</div>}
+          {data.fishName && (
+            <div className="hashtag blue-fc blue-bd">#{data.fishName}</div>
+          )}
           {data.hashtag && (
             <>
               {data.hashtags.map((hashtag, index) => (
@@ -47,16 +89,23 @@ const BoardItem = ({ data }) => {
         </div>
         <div className="post-bottom">
           <div className="time">{elapsedTime(data.createdAt)}</div>
-          <div className="post-info">
-            <div className="post-icon">
-              <ChatBubbleOutlineIcon />
-            </div>
-            <div className="comment">{data.commentCnt}</div>
-            <div className="post-icon">
-              <FavoriteBorderIcon />
-            </div>
-            <div className="like">{data.likeCnt}</div>
+        </div>
+        <div className="post-info">
+          <div className="post-icon">
+            <ChatBubbleOutlineIcon />
           </div>
+          <div className="comment">{data.commentCnt}</div>
+          {boardlike && (
+            <div className="post-icon post-like">
+              <FavoriteIcon onClick={() => postDisLike(data.boardId)} />
+            </div>
+          )}
+          {!boardlike && (
+            <div className="post-icon">
+              <FavoriteBorderIcon onClick={() => postLike(data.boardId)} />
+            </div>
+          )}
+          <div className="like">{likecnt}</div>
         </div>
       </div>
     </li>

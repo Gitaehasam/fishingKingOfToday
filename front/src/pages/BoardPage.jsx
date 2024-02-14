@@ -38,49 +38,51 @@ const BoardPage = () => {
 
   return (
     <>
-      <Header />
-      <div className="category-header">
-        <div
-          className={`category-title ${category == 1 ? "active" : ""}`}
-          onClick={() => changeCategory(1)}
-        >
-          물고기
+      <div className="category-boardpage">
+        <Header />
+        <div className="category-header">
+          <div
+            className={`category-title ${category == 1 ? "active" : ""}`}
+            onClick={() => changeCategory(1)}
+          >
+            물고기
+          </div>
+          <div
+            className={`category-title ${category == 2 ? "active" : ""}`}
+            onClick={() => changeCategory(2)}
+          >
+            장소자랑
+          </div>
         </div>
-        <div
-          className={`category-title ${category == 2 ? "active" : ""}`}
-          onClick={() => changeCategory(2)}
-        >
-          장소자랑
+        <div className="type-select">
+          <div
+            className={`full ${viewType == 0 && "active"}`}
+            onClick={() => changeView(0)}
+          ></div>
+          <div
+            className={`divide ${viewType == 1 && "active"}`}
+            onClick={() => changeView(1)}
+          >
+            <WindowIcon />
+          </div>
+          <input
+            type="checkbox"
+            id="check"
+            checked={isOpen}
+            onChange={() => setIsOpen((prev) => !prev)}
+          />
+          <label htmlFor="check" className="filter">
+            <img src={filter} alt="" />
+          </label>
+          <div className="board-filter">
+            <BoardFilter category={category} closeCheck={closeCheck} />
+          </div>
         </div>
-      </div>
-      <div className="type-select">
-        <div
-          className={`full ${viewType == 0 && "active"}`}
-          onClick={() => changeView(0)}
-        ></div>
-        <div
-          className={`divide ${viewType == 1 && "active"}`}
-          onClick={() => changeView(1)}
-        >
-          <WindowIcon />
+        {category == 1 && <BoardList category={category} viewType={viewType} />}
+        {category == 2 && <BoardList category={category} viewType={viewType} />}
+        <div className="create-post-btn bg-blue" onClick={() => gotoCreate()}>
+          <EditNoteIcon />
         </div>
-        <input
-          type="checkbox"
-          id="check"
-          checked={isOpen}
-          onChange={() => setIsOpen((prev) => !prev)}
-        />
-        <label htmlFor="check" className="filter">
-          <img src={filter} alt="" />
-        </label>
-        <div className="board-filter">
-          <BoardFilter category={category} closeCheck={closeCheck} />
-        </div>
-      </div>
-      {category == 1 && <BoardList category={category} viewType={viewType} />}
-      {category == 2 && <BoardList category={category} viewType={viewType} />}
-      <div className="create-post-btn bg-blue" onClick={() => gotoCreate()}>
-        <EditNoteIcon />
       </div>
     </>
   );

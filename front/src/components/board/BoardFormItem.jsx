@@ -3,6 +3,7 @@ import "../../assets/styles/board/BoardFormItem.scss";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import { Alarm } from "@mui/icons-material";
+import { getSearchFish } from "../../api/board";
 
 //type은 글쓰기인지(create) 수정하기(modify) 인지, categoryId는 물고기인지(1), 장소인지(2)
 
@@ -22,20 +23,22 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
   // 게시글 내용
   const [content, setContent] = useState("");
 
-  const formData =
-    //useEffect를 통해 previewURL변동시 preview에 URL을 가진 img태그 저장
-    useEffect(() => {
-      if (boardData) {
-        setContent(boardData.content);
-        setHashTag(boardData.hashtags);
-        setFile("0");
-        setPreviewURL(boardData.boardImageUrl);
-        console.log(content);
-        console.log(hashtag);
-        console.log(file);
-        console.log(previewURL);
-      }
-    }, []);
+  // 자동완성
+  const [keyword, setKeyword] = useState([]);
+
+  //useEffect를 통해 previewURL변동시 preview에 URL을 가진 img태그 저장
+  useEffect(() => {
+    if (boardData) {
+      setContent(boardData.content);
+      setHashTag(boardData.hashtags);
+      setFile("0");
+      setPreviewURL(boardData.boardImageUrl);
+      console.log(content);
+      console.log(hashtag);
+      console.log(file);
+      console.log(previewURL);
+    }
+  }, []);
 
   const handleFileOnChange = (event) => {
     console.log("2w");
@@ -59,9 +62,15 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
     fileRef.current.click();
   };
 
-  const searchHash = () => {
-    console.log("s");
+  const searchFish = async (e) => {
+    console.log(e);
+    await getSearchFish(e).then((res) => {
+      setKeyword(res);
+      console.log(keyword);
+    });
   };
+
+  const searchHash = () => {};
 
   const activeEnter = (e, categoryId) => {
     // e.target.value = "";
@@ -69,15 +78,18 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
       const updatedArray = [hashtext];
       setHashTag(updatedArray);
       console.log(hashtag);
+      setHashText("");
+      setKeyword([]);
     } else if (e.key === "Enter" && categoryId == 2) {
       if (hashtag.length == 5) {
         alert("5개까지 등록가능합니다.");
+        setHashText("");
+        setKeyword([]);
         return;
       }
       const updatedArray = [...hashtag, hashtext];
       setHashTag(updatedArray);
     }
-    setHashText("");
   };
 
   const deleteHash = (hash) => {
@@ -97,8 +109,19 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
           <div className="post-image-upload">
             {previewURL && <img className="img_preview" src={previewURL}></img>}
 
-            <input ref={fileRef} hidden={true} id="file" type="file" onChange={handleFileOnChange} />
-            <div className={`shadow ${file ? "reupload-btn blue-bd" : "upload-btn bg-blue"}`} onClick={handleFileButtonClick}>
+            <input
+              ref={fileRef}
+              hidden={true}
+              id="file"
+              type="file"
+              onChange={handleFileOnChange}
+            />
+            <div
+              className={`shadow ${
+                file ? "reupload-btn blue-bd" : "upload-btn bg-blue"
+              }`}
+              onClick={handleFileButtonClick}
+            >
               {!file && <AddOutlinedIcon />}
               {file && "이미지 다시 선택하기"}
             </div>
@@ -124,7 +147,7 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
                 className="hashtag-search"
                 type="text"
                 value={hashtext}
-                onKeyUp={() => searchHash(categoryId)}
+                onKeyUp={(e) => searchFish(e.target.value)}
                 onChange={(e) => setHashText(e.target.value)}
                 onKeyDown={(e) => activeEnter(e, categoryId)}
                 placeholder="물고기이름"
@@ -135,18 +158,33 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
                 className="hashtag-search"
                 type="text"
                 value={hashtext}
-                onKeyUp={() => searchHash(categoryId)}
+                onKeyUp={(e) => searchHash(e.target.value)}
                 onChange={(e) => setHashText(e.target.value)}
                 onKeyDown={(e) => activeEnter(e, categoryId)}
                 placeholder="최대 5개까지 입력할 수 있어요"
               />
             )}
           </div>
+          <ul className={`auto-area ${keyword.length != 0 ? "" : "none"}`}>
+            {keyword.length != 0 && (
+              <>
+                {keyword.map((result) => (
+                  <li key={result.id} className="blue-bd">
+                    {result.name}
+                  </li>
+                ))}
+              </>
+            )}
+          </ul>
           <ul className="hashtag-add-area">
             {hashtag && (
               <>
                 {hashtag.map((text, index) => (
-                  <li key={index} className="blue-bd" onClick={(e) => deleteHash(text)}>
+                  <li
+                    key={index}
+                    className="blue-bd"
+                    onClick={(e) => deleteHash(text)}
+                  >
                     {text}
                   </li>
                 ))}
@@ -156,7 +194,10 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
         </div>
         <div className="post-item">
           <div className="post-sub">하고싶은 말</div>
-          <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
         </div>
         <div className="post-add-btn bg-blue">
           {type === "create" && <div>등록하기</div>}

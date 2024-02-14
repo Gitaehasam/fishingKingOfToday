@@ -6,7 +6,14 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SendIcon from "@mui/icons-material/Send";
 import Header from "../Header";
-import { getBoardDetail, deleteBoardPost, sendBoardReply, deleteBoardReply } from "../../api/board";
+import {
+  getBoardDetail,
+  deleteBoardPost,
+  sendBoardReply,
+  deleteBoardReply,
+  putPostLike,
+  deletePostLike,
+} from "../../api/board";
 
 const BoardDetail = () => {
   const location = useLocation();
@@ -18,12 +25,24 @@ const BoardDetail = () => {
   const [reply, setReply] = useState([]);
   const userInfo = JSON.parse(localStorage.getItem('user'))
 
+  const [boardlike, setBoardLike] = useState();
+  const [likecnt, setLikeCnt] = useState();
+
   useEffect(() => {
     getDetail();
   }, []);
 
   const getDetail = async () => {
-    await getBoardDetail(id).then((res) => setBoardData(res));
+    await getBoardDetail(id).then((res) => {
+      setBoardData(res);
+      if (res.isLiked) {
+        setBoardLike(true);
+        setLikeCnt(res.likeCnt);
+      } else {
+        setBoardLike(false);
+        setLikeCnt(res.likeCnt);
+      }
+    });
   };
 
   const deletePost = async () => {
@@ -70,6 +89,20 @@ const BoardDetail = () => {
     });
   };
 
+  const postDisLike = async (postId) => {
+    await deletePostLike(postId).then((res) => {
+      setBoardLike(false);
+      setLikeCnt((prev) => prev - 1);
+    });
+  };
+
+  const postLike = async (postId) => {
+    await putPostLike(postId).then((res) => {
+      setBoardLike(true);
+      setLikeCnt((prev) => prev + 1);
+    });
+  };
+
   return (
     <>
       <Header />
@@ -78,14 +111,35 @@ const BoardDetail = () => {
           <div className="board-detail-area">
             <div className="board-detail-item">
               <div className="board-title">
-                <img className="board-detail-profile" src={boardData.profileImageUrl} alt="프로필" />
+                <img
+                  className="board-detail-profile"
+                  src={boardData.profileImageUrl}
+                  alt="프로필"
+                />
                 <div className="board-nickname">{boardData.nickName}</div>
                 <div className="like-area">
-                  <FavoriteBorderIcon />
-                  <div>{boardData.likeCnt}</div>
+                  {boardlike && (
+                    <div className="post-icon post-like">
+                      <FavoriteIcon
+                        onClick={() => postDisLike(boardData.boardId)}
+                      />
+                    </div>
+                  )}
+                  {!boardlike && (
+                    <div className="post-icon">
+                      <FavoriteBorderIcon
+                        onClick={() => postLike(boardData.boardId)}
+                      />
+                    </div>
+                  )}
+                  <div className="like">{likecnt}</div>
                 </div>
               </div>
-              <img className="board-content-img" src={boardData.boardImageUrl} alt="" />
+              <img
+                className="board-content-img"
+                src={boardData.boardImageUrl}
+                alt=""
+              />
               <div className="board-text">{boardData.content}</div>
               <div className="board-hashtag-area">
                 {boardData.hashtags && (
@@ -100,10 +154,16 @@ const BoardDetail = () => {
               </div>
               {boardData.socialId == userId && (
                 <div className="btn-area">
-                  <div className="btn-modify bg-blue" onClick={() => modifyPost()}>
+                  <div
+                    className="btn-modify bg-blue"
+                    onClick={() => modifyPost()}
+                  >
                     수정
                   </div>
-                  <div className="btn-delete bg-blue" onClick={() => deletePost()}>
+                  <div
+                    className="btn-delete bg-blue"
+                    onClick={() => deletePost()}
+                  >
                     삭제
                   </div>
                 </div>
@@ -133,7 +193,10 @@ const BoardDetail = () => {
                         <div>{changeDate(comment.createdAt)}</div>
                         <div>{comment.content}</div>
                         {comment.socialId == userId && (
-                          <span className="delete-reply blue-fc" onClick={() => deleteReply(comment.id)}>
+                          <span
+                            className="delete-reply blue-fc"
+                            onClick={() => deleteReply(comment.id)}
+                          >
                             x
                           </span>
                         )}
@@ -148,7 +211,13 @@ const BoardDetail = () => {
             <div className="reply-line bg-blue"></div>
             <img src={userInfo.imageUrl} alt="" />
             <div className="reply-add-area">
-              <input type="text" value={reply} onChange={(e) => setReply(e.target.value)} onKeyDown={(e) => sendReply(e)} placeholder="댓글작성하기" />
+              <input
+                type="text"
+                value={reply}
+                onChange={(e) => setReply(e.target.value)}
+                onKeyDown={(e) => sendReply(e)}
+                placeholder="댓글작성하기"
+              />
               <div className="send-reply bg-blue">
                 <SendIcon />
               </div>

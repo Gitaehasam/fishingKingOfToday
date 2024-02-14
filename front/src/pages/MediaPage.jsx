@@ -3,47 +3,32 @@ import { Link } from "react-router-dom";
 import "../assets/styles/board/Media.scss";
 import back from "../assets/images/backSymbol.svg";
 import Header from "../components/Header";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
+import CameraIcon from "@mui/icons-material/Camera";
 
 const MediaPage = () => {
   return (
     <>
       <Header />
-      {/* <div className="choose-list">
+      <div className="choose-list">
         <Link to={"/media/roomlist"}>
-          <div className="choose-item">
-            <div className="bg-blue liveroom">Live</div>
+          <div className="choose-item choose-live">
+            <div className="liveroom">
+              <div className="category-live">Live</div>
+              <div className="triangle-bd">
+                <div className="triangle"></div>
+              </div>
+            </div>
           </div>
         </Link>
         <Link to={"/media/board"}>
-          <div className="choose-item">
-            <div className="bg-blue card photo">Photo</div>
+          <div className="choose-item choose-photo">
+            <div className="photo">
+              Photo
+              <CameraIcon />
+            </div>
           </div>
         </Link>
-      </div> */}
-      <div className="splitview skewed">
-        <div className="panel bottom">
-          <div className="content">
-            <div className="description">
-              <h1>The original image.</h1>
-              <p>This is how the image looks like before applying a duotone effect.</p>
-            </div>
-
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/original-image.jpg" alt="Original" />
-          </div>
-        </div>
-
-        <div className="panel top">
-          <div className="content">
-            <div className="description">
-              <h1>The duotone image.</h1>
-              <p>This is how the image looks like after applying a duotone effect.</p>
-            </div>
-
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/duotone-image.jpg" alt="Duotone" />
-          </div>
-        </div>
-
-        <div className="handle bg-blue"></div>
       </div>
     </>
   );
