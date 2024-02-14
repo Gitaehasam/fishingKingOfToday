@@ -13,6 +13,6 @@ public class HashTagResponse {
     private final String name;
 
     public static HashTagResponse of(final BoardHashTag hashTag) {
-        return new HashTagResponse(hashTag.getId(), hashTag.getHashTag().getName());
+        return new HashTagResponse(hashTag.getHashTag().getId(), hashTag.getHashTag().getName());
     }
 }
