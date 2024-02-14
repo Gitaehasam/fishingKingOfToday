@@ -217,6 +217,9 @@ public class BoardService {
 
     public MyBoardListResponse getMyBoards(final String socialId, final Integer categoryId) {
         List<Board> boards = boardRepository.findByUserSocialIdAndCategoryId(socialId, categoryId);
-        return new MyBoardListResponse(boards.stream().map(board -> MyBoardResponse.of(board)).collect(Collectors.toList()));
+        return new MyBoardListResponse(
+                boards.stream()
+                        .map(board -> MyBoardResponse.of(board))
+                        .collect(Collectors.toList()));
     }
 }

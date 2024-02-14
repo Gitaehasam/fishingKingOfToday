@@ -23,7 +23,7 @@ public interface FishingSpotRepository extends JpaRepository<FishingSpot, Intege
 
     @Query(
             value =
-                    "SELECT b.name as name, b.imageUrl as imageUrl FROM FishingSpotFishBook sb "
+                    "SELECT b.id as id, b.name as name, b.imageUrl as imageUrl FROM FishingSpotFishBook sb "
                             + "JOIN sb.fishBook b "
                             + "where sb.fishingSpot.id = :id ")
     List<FishingSpotFishProjection> findFishListByFishingSpotId(

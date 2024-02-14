@@ -6,9 +6,8 @@ import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.service.BoardService;
 import com.ssafy.sub.pjt.service.UserService;
 import com.ssafy.sub.pjt.util.AuthenticationUtil;
-import javax.validation.Valid;
-
 import io.swagger.v3.oas.annotations.Operation;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
