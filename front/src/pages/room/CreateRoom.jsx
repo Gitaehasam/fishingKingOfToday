@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 import back from '../../assets/images/backSymbol.svg';
 import axios from 'axios';
 import "../../assets/styles/room/createLive/CreateLive.scss"
-import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
-import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
-import defaultImg from "../../assets/images/login_img.png";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 function CreateRoom() {
   const navigate = useNavigate();
@@ -62,10 +60,9 @@ function CreateRoom() {
       }
     })
     .then((res) => {
-      console.log(res.data)
       setThumbnailURL(res.data.imageNames[0])
     })
-    .catch((error) => console.error(error));
+    .catch((error) => console.log(error));
   } 
   
 
@@ -91,10 +88,10 @@ function CreateRoom() {
             특별한 사진으로 라이브를 표현해보세요
           </div>
           <div className="room-create-thumbnail">{preview}
-          {previewURL ? <div className="room-create-thumbnail-btn-bottom" onClick={handleFileButtonClick}><ChangeCircleOutlinedIcon /></div>
-          :
-            <div className="room-create-thumbnail-btn" onClick={handleFileButtonClick}><AddAPhotoOutlinedIcon /></div>
-          }
+          <div className={`shadow ${previewURL ? "reupload-btn blue-bd" : "upload-btn bg-blue"}`} onClick={handleFileButtonClick}>
+              {!previewURL && <AddOutlinedIcon />}
+              {previewURL && "이미지 다시 선택하기"}
+            </div>
           </div>
           <input 
             ref={fileRef}
@@ -117,7 +114,7 @@ function CreateRoom() {
           />
         </div>
 
-        <div className="room-create-btn">
+        <div className="room-create-btn bg-blue">
           <button type="submit">라이브 켜기</button>
         </div>
       </form>

@@ -10,9 +10,6 @@ import {Pagination, EffectCards, EffectCoverflow} from "swiper/modules";
 import "swiper/swiper-bundle.css";
 import "@/assets/styles/tutorial/TutorialDetailPage.scss"
 
-import fishKing from "@assets/images/fish_king.png"
-
-
 function TutorialDetailPage(props) {
   const location = useLocation()
   const title = location.state.title
@@ -27,8 +24,17 @@ function TutorialDetailPage(props) {
   useEffect(() => {
     getTutorialInfo(idx.id).then((res) => {
       setTutorialInfo(res.tutorialInfo)
+      console.log(1)
     })
   }, [])
+
+  useEffect(() => {
+    tutorialInfo.forEach(info => {
+      const img = new Image();
+      img.src = info.imageUrl;
+    });
+  }, [tutorialInfo]);
+  
 
   return (
     <>
@@ -37,24 +43,23 @@ function TutorialDetailPage(props) {
       <div className="tutorial-slider">
         <Swiper
           pagination={{
-            // clickable: true,
             type: 'progressbar',
           }}
           modules={[EffectCoverflow, Pagination, EffectCards]}
           effect="coverflow"
           onSlideChange={handleSlideChange}
-          slidesPerView={1.4}
+          // slidesPerView={1.2}
           centeredSlides={true}
           mousewheel={{ invert: false }}
           spaceBetween={-100}
           slideToClickedSlide={true}
-          coverflowEffect={{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }}
+          // coverflowEffect={{
+          //   rotate: 50,
+          //   stretch: 0,
+          //   depth: 100,
+          //   modifier: 1,
+          //   slideShadows: true,
+          // }}
         >
           {tutorialInfo.map((info, idx) => (
             <SwiperSlide key={idx}>

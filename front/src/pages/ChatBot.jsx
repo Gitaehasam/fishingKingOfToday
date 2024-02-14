@@ -10,10 +10,14 @@ import postSendChat from "../api/chatbot";
 function ChatBot () {
   const navigate = useNavigate()
   const [chattingList, setChattingList] = useState([])
+  const userInfo = JSON.parse(localStorage.getItem('user'))
   const [loadingState, setLoadingState] = useState(false)
   const recommendList = [
     '봉돌 알아보기',
     '캐스팅은 어떻게 해요?',
+    '금어기는 언제에요?',
+    '금어기는 언제에요?',
+    '금어기는 언제에요?',
     '금어기는 언제에요?',
   ]
 
@@ -52,10 +56,9 @@ function ChatBot () {
     <div className="chatbot-body">
       <div className="chatbot-chat-container">
         <div className="chatbot-start-ment">
-          <div className="chatbot-startChat">
-            <p><span>따뜻한 갈치</span>님, 안녕하세요.</p>
+          <div className="chatbot-startChat blue-bd">
+            <p><span>{userInfo.nickname}</span> 님, 안녕하세요.</p>
             <p>낚시왕입니다.</p>
-            <br />
             <p>어떤 사항이 궁금하신가요?</p>
           </div>
         </div>
