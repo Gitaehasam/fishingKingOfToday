@@ -18,7 +18,7 @@ public class FishBookDetailResponse implements Serializable {
     private final String habitat;
     private final String bait;
     private final String interview;
-    private final String detailImageUrl;
+    private final String imageUrl;
 
     public static FishBookDetailResponse of(FishBook fishBook) {
         return new FishBookDetailResponse(
@@ -30,6 +30,6 @@ public class FishBookDetailResponse implements Serializable {
                 fishBook.getHabitat(),
                 fishBook.getBait(),
                 fishBook.getInterview(),
-                fishBook.getDetailImageUrl());
+                fishBook.getImageUrl());
     }
 }
