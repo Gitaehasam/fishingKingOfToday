@@ -24,7 +24,6 @@ function TutorialDetailPage(props) {
   useEffect(() => {
     getTutorialInfo(idx.id).then((res) => {
       setTutorialInfo(res.tutorialInfo)
-      console.log(1)
     })
   }, [])
 
