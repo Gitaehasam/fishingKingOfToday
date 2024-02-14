@@ -73,7 +73,8 @@ li {
   border: 2px solid transparent;
   background-origin: border-box;
   background-clip: content-box, border-box;
-  background-image: linear-gradient(#fff, #fff), linear-gradient(120deg, #59fbee 0%, #a19af6 100%);
+  background-image: linear-gradient(#fff, #fff),
+    linear-gradient(120deg, #59fbee 0%, #a19af6 100%);
   transition: transform 0.35s ease-in-out;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(138, 138, 138, 0.1);
 }

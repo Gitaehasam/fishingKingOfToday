@@ -23,7 +23,7 @@ function ImageEditPage() {
 
   return (
     <div className="Demo">
-      <Header filter="invert(1)" />
+      <Header filter="invert(1)" headerColor="transparent" />
       <div className="crop" onClick={getCropData}>
         자르기
       </div>

@@ -27,7 +27,7 @@ const Header = memo(
         <div className="center-text" style={{ justifyContent: align }}>
           {centerText}
         </div>
-        <div className="none"></div>
+        <div className="header-none"></div>
       </header>
     );
   }

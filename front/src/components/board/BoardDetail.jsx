@@ -14,16 +14,18 @@ import {
   putPostLike,
   deletePostLike,
 } from "../../api/board";
+import BoardDetailMap from "./BoardDetailMap";
+import Loading from "../Loading";
 
 const BoardDetail = () => {
   const location = useLocation();
   const [category, setCategory] = useState(location.state?.categoryId);
   const navigate = useNavigate();
   const { id } = useParams();
-  const [boardData, setBoardData] = useState([]);
+  const [boardData, setBoardData] = useState({});
   const userId = 2462171811;
   const [reply, setReply] = useState([]);
-  const userInfo = JSON.parse(localStorage.getItem('user'))
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   const [boardlike, setBoardLike] = useState();
   const [likecnt, setLikeCnt] = useState();
@@ -103,6 +105,11 @@ const BoardDetail = () => {
     });
   };
 
+  if (!Object.keys(boardData).length) {
+    console.log(1);
+    return <Loading />;
+  }
+
   return (
     <>
       <Header />
@@ -173,7 +180,12 @@ const BoardDetail = () => {
             <div className="board-detail-item">
               <div className="board-place">Place Info</div>
 
-              <div className="board-map"></div>
+              <div className="board-map">
+                <BoardDetailMap
+                  lat={boardData.latitude}
+                  lng={boardData.longitude}
+                />
+              </div>
             </div>
             <div className="line bg-blue"></div>
             <div className="reply-area">

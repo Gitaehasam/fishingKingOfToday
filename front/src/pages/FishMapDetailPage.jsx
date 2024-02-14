@@ -107,17 +107,32 @@ const FishMapDetailPage = () => {
           <h3 className="name">{fishingInfo.name}의 리뷰</h3>
           <div className="wrapper">
             {fishingInfo.boards.length ? (
-              fishingInfo.boards.map((review) => {
-                return (
-                  <div>
-                    <img
-                      key={review}
-                      src="https://cdn.iconsumer.or.kr/news/photo/201806/7349_8772_1719.jpg"
-                    />
-                    <div>{review}</div>
-                  </div>
-                );
-              })
+              <>
+                <div className="board">
+                  {fishingInfo.boards.map((review) => {
+                    return (
+                      <div
+                        key={review.boardId}
+                        className="review"
+                        onClick={() =>
+                          navigate(`/media/board/${review.boardId}`)
+                        }
+                      >
+                        <img
+                          src={review.boardImageUrl}
+                          className="review-img"
+                        />
+                        <div>{review.content}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="board-btn">
+                  <button onClick={() => navigate("/media/board")}>
+                    게시글 전체보기
+                  </button>
+                </div>
+              </>
             ) : (
               <div className="none-data">정보를 준비 중입니다.</div>
             )}
