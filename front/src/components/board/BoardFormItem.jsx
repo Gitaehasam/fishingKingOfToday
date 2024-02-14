@@ -4,6 +4,8 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import { Alarm } from "@mui/icons-material";
 import { getSearchFish } from "../../api/board";
+import axios from "axios";
+import BoardCreateMap from "./BoardCreateMap";
 
 //type은 글쓰기인지(create) 수정하기(modify) 인지, categoryId는 물고기인지(1), 장소인지(2)
 
@@ -25,6 +27,8 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
 
   // 자동완성
   const [keyword, setKeyword] = useState([]);
+
+  const [fishSpot, setFishSpot] = useState({});
 
   //useEffect를 통해 previewURL변동시 preview에 URL을 가진 img태그 저장
   useEffect(() => {
@@ -130,7 +134,7 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
         <div className="post-item">
           <div className="post-sub">장소</div>
           <div className="position">
-            <div></div>
+            <BoardCreateMap fishSpot={fishSpot} setFishSpot={setFishSpot} />
           </div>
         </div>
         <div className="post-item">
