@@ -1,33 +1,29 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import MapDetailWeather from "../components/fishmap/MapDetailWeather";
-import back from "../assets/images/backSymbol.svg";
-import "../assets/styles/fishmap/FishMapDetailPage.scss";
 import axios from "axios";
 import Loading from "../components/Loading";
 import Header from "../components/Header";
 import { useSetRecoilState } from "recoil";
 import { prevPathAtom } from "../stores/FishingMapStore";
+import "../assets/styles/fishmap/FishMapDetailPage.scss";
+
+const OPEN_WEATHER_API_KEY = "87246d75e1ce26e1392a087b3d1d88c5";
 
 const FishMapDetailPage = () => {
   const location = useLocation();
+  const params = useParams();
   const navigate = useNavigate();
-  const { value } = location.state.data;
-  // const { lat, lng } = location.state.data.position;
-  const openWeatherApiKey = "87246d75e1ce26e1392a087b3d1d88c5";
-  const setPrevPath = useSetRecoilState(prevPathAtom);
-
-  // console.log(content, position);
-
-  const [reviewData, setReviewDate] = useState([]);
+  const [fishingInfo, setFishingInfo] = useState({});
   const [weatherData, setWeatherData] = useState([]);
   const [sunrise, setSunrise] = useState("");
   const [sunset, setSunset] = useState("");
+  const setPrevPath = useSetRecoilState(prevPathAtom);
 
-  const openWeather = async () => {
+  const openWeather = async (latitude, longitude) => {
     try {
       const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${value.latitude}&lon=${value.longitude}&appid=${openWeatherApiKey}&units=metric&lang=kr`
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${OPEN_WEATHER_API_KEY}&units=metric&lang=kr`
       );
 
       console.log(res.data);
@@ -41,8 +37,28 @@ const FishMapDetailPage = () => {
     }
   };
 
+  const getFishingInfo = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/spots/${params.idx}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        }
+      );
+      console.log(res.data);
+
+      setFishingInfo(res.data);
+
+      await openWeather(res.data.latitude, res.data.longitude);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    openWeather();
+    getFishingInfo();
   }, []);
 
   // https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000
@@ -57,10 +73,10 @@ const FishMapDetailPage = () => {
       <div className="body">
         <div className="fishing-info">
           <div className="fishing-name">
-            <h2>{value.name}</h2>
-            <div>{value.spotType}</div>
+            <h2>{fishingInfo.name}</h2>
+            <div>{fishingInfo.spotType}</div>
           </div>
-          <div>{value.streetAddress}</div>
+          <div>{fishingInfo.streetAddress}</div>
         </div>
         <MapDetailWeather
           weatherData={weatherData}
@@ -68,17 +84,17 @@ const FishMapDetailPage = () => {
           sunset={sunset}
         />
         <div className="fish-species">
-          <h3 className="name">{value.name}의 주요어종</h3>
+          <h3 className="name">{fishingInfo.name}의 주요어종</h3>
           <div className="wrapper">
-            {value.fishNames.length ? (
-              value.fishNames.map((fish) => {
+            {fishingInfo.fishes.length ? (
+              fishingInfo.fishes.map((fish) => {
                 return (
-                  <div key={fish}>
-                    <img
-                      key={fish}
-                      src="https://img.freepik.com/premium-photo/a-colorful-fish-with-a-white-and-blue-tail_899894-16102.jpg"
-                    />
-                    <div>{fish}</div>
+                  <div
+                    key={fish.name}
+                    onClick={() => navigate(`/fishbook/${fish.id}`)}
+                  >
+                    <img src={fish.imageUrl} />
+                    <div>{fish.name}</div>
                   </div>
                 );
               })
@@ -88,10 +104,10 @@ const FishMapDetailPage = () => {
           </div>
         </div>
         <div className="fishing-reviews">
-          <h3 className="name">{value.name}의 리뷰</h3>
+          <h3 className="name">{fishingInfo.name}의 리뷰</h3>
           <div className="wrapper">
-            {reviewData.length ? (
-              reviewData.map((review) => {
+            {fishingInfo.boards.length ? (
+              fishingInfo.boards.map((review) => {
                 return (
                   <div>
                     <img

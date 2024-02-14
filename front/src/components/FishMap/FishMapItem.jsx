@@ -45,7 +45,9 @@ const FishMapItem = ({ item, idx, mapRef, getDistance, setOpenList }) => {
             ? `${distance.toFixed(1)}km`
             : `${(distance / 1000).toFixed()}m`}
         </div>
-        <div className="fishing-addr">{item.streetAddress}</div>
+        <div className="fishing-addr">
+          {item.streetAddress || item.localAddress}
+        </div>
       </div>
       <div className="fishing-exp">{item.charge}원</div>
     </div>

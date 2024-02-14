@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@components/Header";
 import axios from "axios";
@@ -11,7 +11,7 @@ const MyPageEdit = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [nick, setNick] = useState(user?.nickname);
   const [openDelete, setOpenDelete] = useState(false);
-  const [imgUrl, setImgUrl] = useState(user.imageUrl);
+  const [imgUrl, setImgUrl] = useState(user?.imageUrl);
   const [preView, setPreView] = useState(user?.imageUrl);
   const navigate = useNavigate();
 
@@ -71,7 +71,7 @@ const MyPageEdit = () => {
 
   const changeUserInfo = async () => {
     try {
-      let res = imgUrl;
+      let res;
 
       if (user.imageUrl !== imgUrl) {
         const formData = new FormData();
@@ -81,18 +81,13 @@ const MyPageEdit = () => {
         res = await axios.post(`${BASE_URL}/api/images`, formData, {
           headers: {
             Authorization: localStorage.getItem("jwt"),
-            "Content-Type": "multipart/form-data",
           },
         });
       }
 
-      // console.log(res.data.imageNames[0]);
-      // console.log(nick);
-      // console.log(localStorage.getItem("jwt"));
-
       const res1 = await axios.put(
         `${BASE_URL}/api/users`,
-        { imageUrl: imgUrl, nickname: nick },
+        { imageUrl: res ? res.data.imageNames[0] : imgUrl, nickname: nick },
         {
           headers: {
             Authorization: localStorage.getItem("jwt"),
@@ -101,11 +96,19 @@ const MyPageEdit = () => {
         }
       );
 
-      console.log(res1);
+      localStorage.setItem("user", res1.config.data);
+
+      navigate("/user/mypage");
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div className="mypage-edit">

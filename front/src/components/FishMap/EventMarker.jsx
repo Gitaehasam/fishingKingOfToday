@@ -42,9 +42,7 @@ const EventMarker = ({ value, isActive, onClick, getDistance }) => {
       lng: get.getLng(),
     });
     setMapLevel(map.getLevel());
-    navigate(`/fish/map/${value.spotId}`, {
-      state: { data: { value } },
-    });
+    navigate(`/fish/map/${value.spotId}`);
   };
 
   return (
