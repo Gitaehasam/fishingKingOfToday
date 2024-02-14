@@ -4,10 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.ssafy.sub.pjt.domain.TutorialInfo;
 import com.ssafy.sub.pjt.domain.Tutorials;
+import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)

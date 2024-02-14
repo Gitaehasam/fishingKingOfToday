@@ -1,14 +1,11 @@
 package com.ssafy.sub.pjt.domain;
 
 import io.hypersistence.utils.hibernate.type.json.JsonType;
-
+import java.util.List;
 import javax.persistence.*;
-
 import lombok.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-
-import java.util.List;
 
 @Entity
 @Builder

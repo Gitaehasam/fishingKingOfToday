@@ -214,4 +214,9 @@ public class BoardService {
 
         return new MyFishListResponse(myFishResponses, fishBooks.hasNext());
     }
+
+    public MyBoardListResponse getMyBoards(final String socialId, final Integer categoryId) {
+        List<Board> boards = boardRepository.findByUserSocialIdAndCategoryId(socialId, categoryId);
+        return new MyBoardListResponse(boards.stream().map(board -> MyBoardResponse.of(board)).collect(Collectors.toList()));
+    }
 }
