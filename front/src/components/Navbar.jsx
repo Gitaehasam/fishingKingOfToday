@@ -63,7 +63,7 @@ const Navbar = () => {
             </svg>
             <span>Home</span>
           </div>
-          <div className="nav-item btn">
+          <div className="nav-item btn ">
             <div
               className="custum-file-upload bg-blue"
               onClick={() => setIsOpen(true)}
@@ -81,7 +81,7 @@ const Navbar = () => {
               />
             </label> */}
           </div>
-          <NavLink to={"/media"} className="nav-item">
+          <NavLink to={"/media"} className="nav-item ">
             <DashboardOutlinedIcon />
             <span>RoomList</span>
           </NavLink>

@@ -24,7 +24,9 @@ import MyPage from "./pages/MyPage";
 import TutorialPage from "./pages/TutorialPage";
 import ChatBot from "./pages/ChatBot";
 import MyPageEdit from "./pages/MyPageEdit";
-import TutorialDeatilPage from "./components/tutorial/TutorialDetailPage"
+import TutorialDeatilPage from "./components/tutorial/TutorialDetailPage";
+import MyFishPage from "./pages/MyFishPage";
+import MyLocationPage from "./pages/MyLocationPage";
 
 function App() {
   return (
@@ -51,6 +53,8 @@ function App() {
         <Route path="user/mypage">
           <Route index element={<MyPage />} />
           <Route path="edit" element={<MyPageEdit />} />
+          <Route path="fish" element={<MyFishPage />} />
+          <Route path="location" element={<MyLocationPage />} />
         </Route>
       </Route>
 
@@ -66,7 +70,7 @@ function App() {
 
       <Route path="/tutorial">
         <Route index element={<TutorialPage />} />
-        <Route path=":id" element={<TutorialDeatilPage />}/>
+        <Route path=":id" element={<TutorialDeatilPage />} />
       </Route>
 
       <Route path="/fish">
