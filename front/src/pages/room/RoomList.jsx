@@ -58,9 +58,6 @@ function RoomList() {
   };
 
   const enterLive = (roomInfo) => {
-    console.log("enterLive-liveRoomId: ", roomInfo.liveRoomId);
-    console.log("enterLive-sessionId: ", roomInfo.sessionId);
-
     const roomId = roomInfo.liveRoomId;
     const sessionId = roomInfo.sessionId;
 
@@ -75,9 +72,6 @@ function RoomList() {
     });
   };
 
-  console.log(liveRoomList);
-  console.log(openViduList);
-
   return (
     <>
       {isLoading ? (
@@ -85,19 +79,27 @@ function RoomList() {
       ) : (
         <div>
           <Header centerText={"낚시 라이브"} prevPath={"/media"} />
+          <div className="roomList-filter">
+            <CachedIcon
+              className="room-list-reload-btn"
+              onClick={fetchRoomList}
+            />
+          </div>
 
           {liveRoomList.liveRooms && liveRoomList.liveRooms.length > 0 ? (
-            <div className="roomList-filter">
-              <CachedIcon
-                className="room-list-reload-btn"
-                onClick={fetchRoomList}
-              />
-            </div>
+            // <div className="roomList-filter">
+            //   <CachedIcon
+            //     className="room-list-reload-btn"
+            //     onClick={fetchRoomList}
+            //   />
+            // </div>
+            null
           ) : (
             <div className="no-live">
               <CellTowerOutlinedIcon />
               <span>진행중인 라이브가 없습니다.</span>
             </div>
+            
           )}
 
           {liveRoomList.liveRooms &&
@@ -123,7 +125,7 @@ function RoomList() {
 
           <NavLink
             to={"/media/roomList/create"}
-            className="nav-item createLive-btn"
+            className="nav-item createLive-btn bg-blue"
           >
             <span>라이브 켜기</span>
           </NavLink>

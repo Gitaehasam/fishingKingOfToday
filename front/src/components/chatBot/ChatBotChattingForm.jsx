@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useCallback, useRef} from "react";
 import SendIcon from "@mui/icons-material/Send";
-import you from "@assets/images/공유.jpg";
 
 function ChatBotChattingForm ({onChat, loadingState, setLoadingState}) {
   const [chat, setChat] = useState('')
+  const userInfo = JSON.parse(localStorage.getItem('user'))
   
   const handleChangeChat = (e) => {
     setChat(e.target.value)
@@ -36,7 +36,7 @@ function ChatBotChattingForm ({onChat, loadingState, setLoadingState}) {
       <div>
         <div className="reply-add">
           <div className="reply-line bg-blue"></div>
-          <img src={you} alt="" />
+          <img src={userInfo.imageUrl} alt="" />
           <div className="reply-add-area">
             <input
               className="chatbot-input"

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import BoardFormItem from "./BoardFormItem";
-import you from "../../assets/images/공유.jpg";
 import "../../assets/styles/board/BoardDetail.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -17,6 +16,7 @@ const BoardDetail = () => {
   const [boardData, setBoardData] = useState([]);
   const userId = 2462171811;
   const [reply, setReply] = useState([]);
+  const userInfo = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
     getDetail();
@@ -146,7 +146,7 @@ const BoardDetail = () => {
           </div>
           <div className="reply-add">
             <div className="reply-line bg-blue"></div>
-            <img src={you} alt="" />
+            <img src={userInfo.imageUrl} alt="" />
             <div className="reply-add-area">
               <input type="text" value={reply} onChange={(e) => setReply(e.target.value)} onKeyDown={(e) => sendReply(e)} placeholder="댓글작성하기" />
               <div className="send-reply bg-blue">

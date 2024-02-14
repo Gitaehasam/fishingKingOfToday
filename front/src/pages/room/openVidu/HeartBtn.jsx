@@ -14,7 +14,6 @@ const HeartButton = ({ session, myUserName, myUserImg, favIcons, setFavIcons }) 
       data: `${myUserName}|${myUserImg}|${randomIcon}`,
       type: 'heart',
     })
-    .then(() => console.log('Heart signal sent'))
     .catch(error => console.error('Error sending heart signal:', error));
   };
 

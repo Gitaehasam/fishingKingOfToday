@@ -66,7 +66,7 @@ function ChatBotChattingList (props) {
     <>
       <div ref={boxRef} className="message-box">
       {chattingList.map((chat, idx) => (
-        <div key={idx} className={chat.user === 'bot' ? 'message-bot' : 'message-user'}>
+        <div key={idx} className={chat.user === 'bot' ? 'message-bot blue-bd' : 'message-user'}>
           {chat.user === 'bot' && chat.imgURL && <div className="message-bot-content"><img className="message-bot-img" src={chat.imgURL} alt="" /></div>}
           {chat.chat === 'loading' ? <ChatBotLoading/> : <div className="message-content">{chat.chat}</div>}
           {chat.user === 'bot' && chat.move &&
