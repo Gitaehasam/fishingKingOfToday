@@ -4,7 +4,7 @@ import Header from "@components/Header";
 import axios from "axios";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import profile from "@assets/images/default_profile.jpg";
-import "@assets/styles/MyPageEdit.scss";
+import "@assets/styles/myPage/MyPageEdit.scss";
 
 const MyPageEdit = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;

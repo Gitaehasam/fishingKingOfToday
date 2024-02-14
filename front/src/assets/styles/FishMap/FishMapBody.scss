@@ -36,17 +36,17 @@
     user-select: none;
     position: absolute;
     right: 3vh;
-    width: 6vh;
-    height: 6vh;
+    width: 7vh;
+    height: 7vh;
     border-style: none;
     outline: none;
     cursor: pointer;
     border-radius: 50%;
-    background: linear-gradient(
-      45deg,
-      rgb(228, 232, 236) 0%,
-      rgb(234 234 234) 100%
-    );
+    // background: linear-gradient(
+    //   45deg,
+    //   rgb(228, 232, 236) 0%,
+    //   rgb(234 234 234) 100%
+    // );
     // box-shadow: -2px -7px 10px #f1f1f1, 4px 6px 10px #d4d7da;
     box-shadow: 0 0.1vh 1vh rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
@@ -68,7 +68,8 @@
     }
 
     svg {
-      font-size: 3vh;
+      font-size: 3.5vh;
+      color: white;
     }
   }
 }

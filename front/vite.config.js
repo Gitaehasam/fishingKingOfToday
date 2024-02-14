@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import dotenv from "dotenv";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
