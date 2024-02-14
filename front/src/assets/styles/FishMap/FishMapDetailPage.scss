@@ -94,6 +94,50 @@
       .name {
         font-size: 2.3vh;
       }
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+
+        .board {
+          display: flex;
+          gap: 3vh;
+          overflow: auto;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+
+          .review {
+            img {
+              width: 14vh;
+              height: 15vh;
+              object-fit: cover;
+              border-radius: 2vh;
+            }
+
+            div {
+              font-size: 1.8vh;
+            }
+          }
+        }
+
+        .board-btn {
+          display: flex;
+          justify-content: center;
+
+          button {
+            border: none;
+            margin-bottom: 2vh;
+            padding: 2vh;
+            width: 100%;
+            border-radius: 2vh;
+            font-weight: bold;
+            font-size: 1.8vh;
+          }
+        }
+      }
     }
 
     .none-data {

@@ -39,7 +39,7 @@ const MyPage = () => {
         </button>
         <button className="later">
           <div className="title">나는야 청소 요정</div>
-          <div className="none bg-blue">오픈 예정</div>
+          <div className="open-none bg-blue">오픈 예정</div>
         </button>
       </div>
     </div>

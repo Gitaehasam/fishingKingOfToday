@@ -97,6 +97,13 @@
   width: 100%;
   height: 280px;
   background-color: var(--color-main-20);
+
+  #__react-kakao-maps-sdk___Map {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 0;
+  }
 }
 
 .reply-title {
@@ -178,7 +185,6 @@
       border-radius: 50px;
       padding: 10px;
     }
-
   }
 }
 

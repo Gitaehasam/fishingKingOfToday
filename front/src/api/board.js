@@ -2,7 +2,7 @@ import { axiosApi } from "../util/commons";
 
 const api = axiosApi();
 
-const url = "boards";
+const url = "/api/boards";
 
 async function getBoardList(type) {
   try {
