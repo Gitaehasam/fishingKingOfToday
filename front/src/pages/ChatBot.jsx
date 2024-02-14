@@ -13,12 +13,12 @@ function ChatBot () {
   const userInfo = JSON.parse(localStorage.getItem('user'))
   const [loadingState, setLoadingState] = useState(false)
   const recommendList = [
-    '봉돌 알아보기',
-    '캐스팅은 어떻게 해요?',
-    '금어기는 언제에요?',
-    '금어기는 언제에요?',
-    '금어기는 언제에요?',
-    '금어기는 언제에요?',
+    '낚시 기초 지식',
+    '낚시 라이브를 보고싶어',
+    '물고기 종류 알아보기',
+    '낚시터 추천',
+    '원투 낚시',
+    '캐스팅이 뭐야?',
   ]
 
   const sendChat = async (chat) => {
