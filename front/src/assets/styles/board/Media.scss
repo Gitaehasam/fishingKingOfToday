@@ -1,124 +1,78 @@
 .choose-list {
+  position: absolute;
+  top: 0;
   width: 100%;
-  height: 70vh;
+  height: 93vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-}
 
-.choose-item {
-  position: relative;
-  z-index: 0;
-  width: 70vw;
-  height: 30vh;
-  font-family: "Newsreader";
-  color: white;
-  text-align: center;
-  font-size: 80px;
-  padding: 70px 0;
-}
+  a {
+    width: 100%;
+    height: 50%;
+  }
 
-.splitview {
-  z-index: -1;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 95vh;
-  overflow: hidden;
-}
+  .choose-item {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "Newsreader";
+    text-align: center;
+  }
 
-.panel {
-  position: absolute;
-  width: 100vw;
-  height: 95vh;
-  overflow: hidden;
-}
+  .choose-live {
+    background-image: url("../../images/live.png");
+    background-size: cover;
+  }
 
-.panel .content {
-  position: absolute;
-  width: 100vw;
-  height: 95vh;
-  color: #fff;
-}
+  .liveroom,
+  .photo {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    padding: 5px 5px 2px;
+    width: fit-content;
+    color: white;
+    font-size: 30px;
+  }
 
-.panel .description {
-  width: 25%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  text-align: center;
-}
+  .liveroom {
+    top: 10px;
+    right: 30px;
+    gap: 10px;
+  }
 
-.panel img {
-  box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.15);
-  width: 35%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+  .photo {
+    top: 10px;
+    left: 20px;
+    gap: 5px;
+  }
 
-.bottom {
-  background-image: url("../../images/sea5.jpg");
-  z-index: 1;
-}
+  .triangle-bd {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -20px;
+    top: 8px;
+    border: 3px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.bottom .description {
-  right: 5%;
-}
+  .triangle {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-bottom: 7px solid transparent;
+    border-top: 7px solid transparent;
+    border-left: 7px solid red;
+  }
 
-.top {
-  background-image: url("../../images/live.jpg");
-  background-color: rgb(77, 69, 173);
-  z-index: 2;
-  width: 50vw;
-
-  /*-webkit-clip-path: polygon(60% 0, 100% 0, 100% 100%, 40% 100%);
-    clip-path: polygon(60% 0, 100% 0, 100% 100%, 40% 100%);*/
-}
-
-.top .description {
-  left: 5%;
-}
-
-/* Handle. */
-.handle {
-  height: 100%;
-  position: absolute;
-  display: block;
-  width: 5px;
-  top: 0;
-  left: 50%;
-  z-index: 3;
-}
-
-/* Skewed. */
-.skewed .handle {
-  top: 50%;
-  transform: rotate(40deg) translateY(-50%);
-  height: 200%;
-  -webkit-transform-origin: top;
-  -moz-transform-origin: top;
-  transform-origin: top;
-}
-
-.skewed .top {
-  transform: skew(-40deg);
-  margin-left: -1000px;
-  width: calc(50vw + 1000px);
-}
-
-.skewed .top .content {
-  transform: skew(40deg);
-  margin-left: 1000px;
-}
-
-/* Responsive. */
-@media (max-width: 900px) {
-  body {
-    font-size: 75%;
+  .choose-photo {
+    background-image: url("../../images/photo2.png");
+    background-size: cover;
   }
 }

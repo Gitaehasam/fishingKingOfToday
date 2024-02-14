@@ -20,7 +20,7 @@ const FishBook = () => {
 
   return (
     <>
-      <Header />
+      <Header filter={"invert(1)"} />
       <div className="fishbook-header bg-blue"></div>
       <div className="fishbook-title">FishUniverse</div>
       <div className="fishbook-category shadow">
@@ -52,9 +52,11 @@ const FishBook = () => {
           <div>30종</div>
         </div>
       </div>
-      {fishdata.fishBooks && (
-        <FishBookList fishdata={fishdata.fishBooks} type={datatype} />
-      )}
+      <div className="fishbook-list">
+        {fishdata.fishBooks && (
+          <FishBookList fishdata={fishdata.fishBooks} type={datatype} />
+        )}
+      </div>
     </>
   );
 };

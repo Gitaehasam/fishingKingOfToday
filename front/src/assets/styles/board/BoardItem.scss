@@ -45,6 +45,7 @@
 }
 
 .content {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -88,11 +89,24 @@
 }
 
 .post-info {
+  z-index: 1;
   display: flex;
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
 }
 
 .post-icon {
   margin-right: 2px;
+}
+
+.like,
+.comment {
+  margin-top: 2px;
+}
+
+.post-like {
+  color: red;
 }
 
 .comment {

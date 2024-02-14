@@ -17,8 +17,9 @@
 }
 
 .fishbook-category {
+  z-index: 2;
   position: absolute;
-  top: 17%;
+  top: 17vh;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
@@ -39,4 +40,10 @@
       }
     }
   }
+}
+
+.fishbook-list {
+  position: absolute;
+  top: 23vh;
+  background: #ffffff;
 }

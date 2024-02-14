@@ -25,11 +25,16 @@ const FishBookDetail = ({ fish }) => {
     <>
       <div className={turn ? "card-rotate" : "back-rotate"} onClick={choose}>
         <div className="front">
-          <img src={back} alt="" className="back-fish-lish" onClick={() => history.back()} />
+          <img
+            src={back}
+            alt=""
+            className="back-fish-lish"
+            onClick={() => history.back()}
+          />
           <div className="detail-title">Mulgogi</div>
           <div className="size">
             size
-            <div>{fish.size}</div>
+            <div style={{ whiteSpace: "pre-line" }}>{fish.size}</div>
           </div>
           <img className="fish-img" src={fish.imageUrl}></img>
           <div className="sub-one">the fish</div>
@@ -58,16 +63,22 @@ const FishBookDetail = ({ fish }) => {
         <div className="back">
           <div className="question">
             Q. {interview.first_question}
-            <div style={{ whiteSpace: "pre-line" }}>{interview.first_answer}</div>
+            <div style={{ whiteSpace: "pre-line" }}>
+              {interview.first_answer}
+            </div>
           </div>
           <div className="question">
             Q. {interview.second_question}
-            <div style={{ whiteSpace: "pre-line" }}>{interview.second_answer}</div>
+            <div style={{ whiteSpace: "pre-line" }}>
+              {interview.second_answer}
+            </div>
           </div>
           {interview.third_question && (
             <div className="question">
               Q. {interview.third_question}
-              <div style={{ whiteSpace: "pre-line" }}>{interview.third_answer}</div>
+              <div style={{ whiteSpace: "pre-line" }}>
+                {interview.third_answer}
+              </div>
             </div>
           )}
         </div>
