@@ -6,7 +6,6 @@ import OvVideoComponent from './OvVideo';
 export default class StreamComponent extends Component {
   constructor(props) {
     super(props);
-    console.log(props)
     this.state = { showForm: false, mutedSound: false, isFormValid: true };
   }
 

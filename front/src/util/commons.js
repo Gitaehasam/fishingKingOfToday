@@ -8,9 +8,11 @@ const axiosApi = () => {
   const instance = axios.create({
     baseURL: BASE_URL,
   });
+  
+  const token = localStorage.getItem('jwt')
 
   instance.defaults.headers.common["Authorization"] =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMjgxMDc5MDMwIiwic3ViIjoiIiwiaWF0IjoxNzA3ODA2OTc1LCJleHAiOjE3MTAzOTg5NzV9.3BOOLQa5SH8Bc_XMurtaeQJOPkJZTKYcW4zSSDZxcDg";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMjgxMDc5MDMwIiwic3ViIjoiIiwiaWF0IjoxNzA3ODA2OTc1LCJleHAiOjE3MTAzOTg5NzV9.3BOOLQa5SH8Bc_XMurtaeQJOPkJZTKYcW4zSSDZxcDg";
   instance.defaults.headers.post["Content-Type"] = "application/json";
   instance.defaults.headers.put["Content-Type"] = "application/json";
   instance.defaults.headers.delete["Content-Type"] = "application/json";

@@ -42,7 +42,24 @@ async function modifyBoardPost(id) {
   }
 }
 
-async function createPresinedURL(file) {}
+async function createBoardPost(file) {
+  console.log(JSON.stringify(file));
+  try {
+    await api.post(`${url}`, JSON.stringify(file));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function modifyBoardPut(file, pageId) {
+  console.log("pageId : ", pageId)
+  console.log(JSON.stringify(file));
+  try {
+    await api.put(`${url}/${pageId}`, JSON.stringify(file));
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 async function sendBoardReply(id, reply) {
   try {
@@ -104,4 +121,6 @@ export {
   putPostLike,
   deletePostLike,
   getSearchFish,
+  createBoardPost,
+  modifyBoardPut,
 };

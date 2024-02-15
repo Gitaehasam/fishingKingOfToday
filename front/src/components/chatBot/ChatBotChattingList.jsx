@@ -60,8 +60,6 @@ function ChatBotChattingList (props) {
     }
   }, [scroll]);
 
-  console.log(chattingList)
-
   return (
     <>
       <div ref={boxRef} className="message-box">

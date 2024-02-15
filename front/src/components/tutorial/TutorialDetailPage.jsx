@@ -47,18 +47,10 @@ function TutorialDetailPage(props) {
           modules={[EffectCoverflow, Pagination, EffectCards]}
           effect="coverflow"
           onSlideChange={handleSlideChange}
-          // slidesPerView={1.2}
           centeredSlides={true}
           mousewheel={{ invert: false }}
           spaceBetween={-100}
           slideToClickedSlide={true}
-          // coverflowEffect={{
-          //   rotate: 50,
-          //   stretch: 0,
-          //   depth: 100,
-          //   modifier: 1,
-          //   slideShadows: true,
-          // }}
         >
           {tutorialInfo.map((info, idx) => (
             <SwiperSlide key={idx}>

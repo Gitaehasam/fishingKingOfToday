@@ -6,8 +6,6 @@ import MicNoneOutlinedIcon from '@mui/icons-material/MicNoneOutlined';
 import MicOffOutlinedIcon from '@mui/icons-material/MicOffOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined';
-import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
-import Profile from "../../../../assets/images/room/profileImg.jpg"
 import group from "../../../../assets/images/room/Group.svg"
 
   const ToolbarComponent = ({ 
@@ -15,7 +13,6 @@ import group from "../../../../assets/images/room/Group.svg"
     isHost, 
     micStatusChanged, 
     camStatusChanged, 
-    setIsSwitchCameraModal, 
     hostNickname,
     hostProfileImg,
     setLeaveModal,
