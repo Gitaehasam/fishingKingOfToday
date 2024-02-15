@@ -62,9 +62,9 @@ function TutorialDetailPage(props) {
         </Swiper>
 
         <div className='tutorial-description'>
-          <h2 className='tutorial-fishking-answer'>
-            {tutorialInfo.length > 0 && <div>{tutorialInfo[currentIndex].description}</div>}
-          </h2>
+          <div className='tutorial-fishking-answer'>
+            {tutorialInfo.length > 0 && <p>{tutorialInfo[currentIndex].description}</p>}
+          </div>
         </div>
       </div>
     </>
