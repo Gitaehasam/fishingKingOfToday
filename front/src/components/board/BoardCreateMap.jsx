@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
-import MarkerOff from "@assets/images/marker_place_off.png";
-import MarkerOn from "@assets/images/marker_place.png";
+import MarkerOff from "@assets/images/marker_place_off.webp";
+import MarkerOn from "@assets/images/marker_place.webp";
 import axios from "axios";
 
 const BoardCreateMap = ({ fishSpot, setFishSpot }) => {

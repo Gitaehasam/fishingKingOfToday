@@ -6,7 +6,7 @@ import { IoBookOutline } from "react-icons/io5";
 import PhishingIcon from "@mui/icons-material/Phishing";
 import "../assets/styles/HomePage.scss";
 
-function HomePage() {
+const HomePage = () => {
   const [idx, setIdx] = useState(0);
   const navigate = useNavigate();
 
@@ -39,6 +39,6 @@ function HomePage() {
       </div>
     </>
   );
-}
+};
 
 export default HomePage;

@@ -1,11 +1,11 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapMarker, useMap } from "react-kakao-maps-sdk";
-import MarkerOff from "../../assets/images/marker_place_off.png";
-import MarkerOn from "../../assets/images/marker_place.png";
+import MarkerOff from "@assets/images/marker_place_off.webp";
+import MarkerOn from "@assets/images/marker_place.webp";
 import { FaShareSquare } from "react-icons/fa";
 import CallIcon from "@mui/icons-material/Call";
-import "../../assets/styles/fishmap/EventMarker.scss";
+import "@assets/styles/fishmap/EventMarker.scss";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   mapCenterAtom,

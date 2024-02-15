@@ -1,4 +1,4 @@
-import kakao_logo from "../../assets/images/kakao_logo.png";
+import kakao_logo from "@assets/images/kakao_logo.webp";
 
 const SocialKakao = () => {
   const Rest_api_key = "db5b74e6c640443403b9705680d9dbac"; //REST API KEY

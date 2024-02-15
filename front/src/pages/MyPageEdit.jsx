@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "@components/Header";
 import axios from "axios";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import profile from "@assets/images/default_profile.jpg";
+import profile from "@assets/images/default_profile.webp";
 import "@assets/styles/myPage/MyPageEdit.scss";
 
 const MyPageEdit = () => {

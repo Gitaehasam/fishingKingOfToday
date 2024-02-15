@@ -1,4 +1,4 @@
-import google_logo from "../../assets/images/google_logo.png";
+import google_logo from "@assets/images/google_logo.webp";
 
 const SocialGoogle = () => {
   const clientId =

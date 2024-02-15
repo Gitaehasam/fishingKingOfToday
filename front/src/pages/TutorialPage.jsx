@@ -1,21 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import baiting from "../assets/images/tutorial/baiting.png";
-import fishing_casting from "../assets/images/tutorial/fishing_casting.png";
-import fishing_tools from "../assets/images/tutorial/fishing_tools.png";
-import good_day from "../assets/images/tutorial/good_day.png";
-import ipzil from "../assets/images/tutorial/ipzil.png";
-import needle_floor from "../assets/images/tutorial/needle_floor.png";
-import remove_needle from "../assets/images/tutorial/remove_needle.png";
-import tying_reel from "../assets/images/tutorial/tying_reel.png";
+import baiting from "../assets/images/tutorial/baiting.webp";
+import fishing_casting from "../assets/images/tutorial/fishing_casting.webp";
+import fishing_tools from "../assets/images/tutorial/fishing_tools.webp";
+import good_day from "../assets/images/tutorial/good_day.webp";
+import ipzil from "../assets/images/tutorial/ipzil.webp";
+import needle_floor from "../assets/images/tutorial/needle_floor.webp";
+import remove_needle from "../assets/images/tutorial/remove_needle.webp";
+import tying_reel from "../assets/images/tutorial/tying_reel.webp";
 import "@assets/styles/tutorial/TutorialPage.scss";
 import Header from "@/components/Header";
 import { useNavigate } from "react-router-dom";
 
 const TutorialPage = () => {
-
   const itemsRef = useRef([]);
   const cursorsRef = useRef([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
   const [startX, setStartX] = useState(0);
   const [active, setActive] = useState(0);
@@ -140,16 +139,30 @@ const TutorialPage = () => {
     };
   }, [progress, isDown, startX]);
 
-  const getZindex = (array, index) => array.map((_, i) => (index === i ? array.length : array.length - Math.abs(index - i)));
+  const getZindex = (array, index) =>
+    array.map((_, i) =>
+      index === i ? array.length : array.length - Math.abs(index - i)
+    );
 
   return (
     <>
-      <Header centerText={"튜토리얼"} prevPath={"/"}/>
+      <Header centerText={"튜토리얼"} prevPath={"/"} />
       <div className="carousel-body"></div>
       <div className="carousel">
         {yourCarouselItems.map((item, index) => (
-          <div ref={(el) => (itemsRef.current[index] = el)} key={index} className="carousel-item">
-            <div className="carousel-box" onClick={() => navigate(`/tutorial/${item.num}`, { state : { title: item.title } })}>
+          <div
+            ref={(el) => (itemsRef.current[index] = el)}
+            key={index}
+            className="carousel-item"
+          >
+            <div
+              className="carousel-box"
+              onClick={() =>
+                navigate(`/tutorial/${item.num}`, {
+                  state: { title: item.title },
+                })
+              }
+            >
               <div className="title">{item.title}</div>
               <div className="num">{item.num}</div>
               <img src={item.imageSrc} alt={item.title} />

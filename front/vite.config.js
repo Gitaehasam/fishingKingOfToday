@@ -14,7 +14,7 @@ export default defineConfig({
       manifest: {
         name: "오늘은 낚시왕",
         short_name: "오늘은 낚시왕",
-        theme_color: "#ff0000",
+        theme_color: "#ffffff",
         start_url: "/",
         icons: [
           {

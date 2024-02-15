@@ -4,7 +4,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import "../../assets/styles/room/roomList/RoomList.scss";
 import CellTowerOutlinedIcon from "@mui/icons-material/CellTowerOutlined";
 import Loading from "../../components/Loading";
-import defaultImg from "../../assets/images/login_img.png";
+import defaultImg from "@assets/images/login_img.webp";
 import Header from "../../components/Header";
 import CachedIcon from "@mui/icons-material/Cached";
 
@@ -22,7 +22,6 @@ function RoomList() {
   useEffect(() => {
     fetchRoomList();
   }, []);
-
 
   const fetchRoomList = () => {
     setIsLoading(true);
@@ -67,52 +66,50 @@ function RoomList() {
       {isLoading ? (
         <Loading />
       ) : (
-        <div>
-          <Header centerText={"낚시 라이브"} prevPath={"/media"} />
+        <div className="room-list">
+          <Header centerText={"낚시 라이브"} />
           <div className="roomList-filter">
             <CachedIcon
               className="room-list-reload-btn"
               onClick={fetchRoomList}
             />
           </div>
-
-          {liveRoomList.liveRooms && liveRoomList.liveRooms.length > 0 ? (
-            null
-          ) : (
+          {liveRoomList.liveRooms &&
+          liveRoomList.liveRooms.length > 0 ? null : (
             <div className="no-live">
               <CellTowerOutlinedIcon />
               <span>진행중인 라이브가 없습니다.</span>
             </div>
-            
           )}
 
-          {liveRoomList.liveRooms &&
-            liveRoomList.liveRooms.map((room, idx) => (
-              <div
-                key={idx}
-                className="roomList-info"
-                onClick={() => enterLive(room)}
-              >
-                <img
-                  src={room.imageUrl ? room.imageUrl : defaultImg}
-                  alt="room thumbnail"
-                  className="thumbnail"
-                />
-                <div className="roomList-info-header">
-                  <p>{room.name}</p>
-                  <div className="roomList-info-body">
-                    <span>{room.nickName}</span>
+          <div className="roomlist-wrapper">
+            {liveRoomList.liveRooms &&
+              liveRoomList.liveRooms.map((room, idx) => (
+                <div
+                  key={idx}
+                  className="roomList-info"
+                  onClick={() => enterLive(room)}
+                >
+                  <img
+                    src={room.imageUrl ? room.imageUrl : defaultImg}
+                    alt="room thumbnail"
+                    className="thumbnail"
+                  />
+                  <div className="roomList-info-header">
+                    <p>{room.name}</p>
+                    <div className="roomList-info-body">
+                      <span>{room.nickName}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-
-          <NavLink
-            to={"/media/roomList/create"}
-            className="nav-item createLive-btn bg-blue"
-          >
-            <span>라이브 켜기</span>
-          </NavLink>
+              ))}
+            <NavLink
+              to={"/media/roomList/create"}
+              className="nav-item createLive-btn bg-blue"
+            >
+              <span>라이브 켜기</span>
+            </NavLink>
+          </div>
         </div>
       )}
     </>

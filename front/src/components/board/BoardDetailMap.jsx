@@ -1,7 +1,5 @@
-import { useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import MarkerOn from "@assets/images/marker_place.png";
-import { useKakaoLoader } from "react-kakao-maps-sdk";
+import MarkerOn from "@assets/images/marker_place.webp";
 
 const BoardDetailMap = ({ lat, lng }) => {
   return (

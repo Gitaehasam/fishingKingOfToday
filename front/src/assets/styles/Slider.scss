@@ -84,13 +84,15 @@
 // }
 
 .slider0 {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400), url("../images/main/tutorial.png") no-repeat 50% 50% / cover;
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+    url("../images/main/tutorial.webp") no-repeat 50% 50% / cover;
 }
 
 .slider1 {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400), url("../images/main/fishbook.png") no-repeat 50% 50% / cover;
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+    url("../images/main/fishbook.webp") no-repeat 50% 50% / cover;
 }
 
 .slider2 {
-  background: url("../images/main/aquarium.png") no-repeat 50% 0% / cover;
+  background: url("../images/main/aquarium.webp") no-repeat 50% 0% / cover;
 }
