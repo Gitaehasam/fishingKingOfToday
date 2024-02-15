@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import SendIcon from "@mui/icons-material/Send";
+import default_img from "@assets/images/default_profile.webp"
 
 function ChatBotChattingForm ({onChat, loadingState, setLoadingState}) {
   const [chat, setChat] = useState('')
@@ -36,7 +37,7 @@ function ChatBotChattingForm ({onChat, loadingState, setLoadingState}) {
       <div>
         <div className="reply-add">
           <div className="reply-line bg-blue"></div>
-          <img src={userInfo.imageUrl} alt="" />
+          <img src={userInfo.imageUrl || default_img} alt="" />
           <div className="reply-add-area">
             <input
               className="chatbot-input"

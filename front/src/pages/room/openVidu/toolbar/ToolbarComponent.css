@@ -8,7 +8,6 @@
   display: flex;
   justify-content: center;
   width: 8vh;
-  font-size: 1.5rem;
   color: white;
   background-color: rgb(83, 83, 83);
   border-radius: 20px;
@@ -16,7 +15,7 @@
   left: 70%;
   
   img{
-    width: 30%;
+    width: 2.5vh;
   }
 }
 

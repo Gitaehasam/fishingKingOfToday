@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./ChatComponent.css";
+import default_img from "@assets/images/default_profile.webp"
 
 const ChattingList = (props) => {
   const scrollRef = useRef();
@@ -52,7 +53,7 @@ const ChattingList = (props) => {
         {props.messageList.map((msg, i) => (
           <div key={i}>
             <div className="chat-box">
-              <img src={msg.split("|")[1]} alt="" className="user-img" />
+            <img src={msg.split("|")[1] !== 'null' ? msg.split("|")[1] : default_img} alt="" className="user-img" />
               <div className="msg-detail">
                 <div className="msg-info">
                   <p>{msg.split("|")[0]}</p>
