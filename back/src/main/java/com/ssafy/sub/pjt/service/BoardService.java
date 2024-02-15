@@ -75,7 +75,8 @@ public class BoardService {
         }
 
         final Board board = findBoardById(boardId);
-        final BoardDetailResponse boardDetailResponse = BoardDetailResponse.of(board, getCurrentUserSocialId());
+        final BoardDetailResponse boardDetailResponse =
+                BoardDetailResponse.of(board, getCurrentUserSocialId());
 
         redisUtil.setObject(key, boardDetailResponse);
 
