@@ -3,6 +3,7 @@ package com.ssafy.sub.pjt.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.ssafy.sub.pjt.domain.BoardData;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
-public class BoardResponse {
+public class BoardResponse implements Serializable {
 
     private final String nickName;
     private final String profileImageUrl;

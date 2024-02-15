@@ -1,12 +1,14 @@
 package com.ssafy.sub.pjt.service;
 
 import static com.ssafy.sub.pjt.common.CustomExceptionStatus.*;
+import static com.ssafy.sub.pjt.util.AuthenticationUtil.getCurrentUserSocialId;
 
 import com.ssafy.sub.pjt.domain.*;
 import com.ssafy.sub.pjt.domain.repository.*;
 import com.ssafy.sub.pjt.dto.*;
 import com.ssafy.sub.pjt.exception.AuthException;
 import com.ssafy.sub.pjt.exception.BadRequestException;
+import com.ssafy.sub.pjt.util.RedisUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,9 +31,14 @@ public class BoardService {
     private final FishBookRepository fishBookRepository;
     private final FishingSpotRepository fishingSpotRepository;
     private final ApplicationEventPublisher publisher;
+    private final RedisUtil redisUtil;
 
     public Integer write(BoardRequest boardRequest, String socialId) {
         Board savedBoard = boardRepository.save(createBoard(boardRequest, socialId));
+
+        final String key = "boards:*";
+        redisUtil.deleteDataList(redisUtil.getKeys(key));
+
         return savedBoard.getId();
     }
 
@@ -59,9 +66,20 @@ public class BoardService {
                 .orElseThrow(() -> new AuthException(NOT_FOUND_MEMBER_ID));
     }
 
-    public BoardDetailResponse searchById(Integer boardId, String socialId) {
+    public BoardDetailResponse searchById(Integer boardId) {
+
+        final String key = "boards:" + boardId;
+
+        if (redisUtil.getObject(key) != null) {
+            return (BoardDetailResponse) redisUtil.getObject(key);
+        }
+
         final Board board = findBoardById(boardId);
-        return BoardDetailResponse.of(board, socialId);
+        final BoardDetailResponse boardDetailResponse = BoardDetailResponse.of(board, getCurrentUserSocialId());
+
+        redisUtil.setObject(key, boardDetailResponse);
+
+        return boardDetailResponse;
     }
 
     @Transactional(readOnly = true)
@@ -72,6 +90,23 @@ public class BoardService {
             final Integer hashTagId,
             final Integer categoryId,
             final String socialId) {
+
+        final String key =
+                "boards:"
+                        + pageable.getPageNumber()
+                        + "c:"
+                        + categoryId
+                        + "s:"
+                        + sortType
+                        + "f:"
+                        + fishBookId
+                        + "h:"
+                        + hashTagId;
+
+        if (redisUtil.getObject(key) != null) {
+            return (BoardListResponse) redisUtil.getObject(key);
+        }
+
         final Slice<BoardData> boardData =
                 boardQueryRepository.searchBy(
                         BoardSearchCondition.builder()
@@ -90,7 +125,13 @@ public class BoardService {
                                         BoardResponse.of(
                                                 board, board.getCommentCnt(), board.getLikeCnt()))
                         .collect(Collectors.toList());
-        return new BoardListResponse(boardResponses, boardData.hasNext());
+
+        BoardListResponse boardListResponse =
+                new BoardListResponse(boardResponses, boardData.hasNext());
+
+        redisUtil.setObject(key, new BoardListResponse(boardResponses, boardData.hasNext()));
+
+        return boardListResponse;
     }
 
     public void validateBoardByUser(final String socialId, final Integer boardId) {
@@ -124,6 +165,9 @@ public class BoardService {
         board.updateHashTags(hashTags);
         updateImage(board.getImage().getUrl(), boardUpdateRequest.getImageUrl());
         board.update(boardUpdateRequest, category, fishBook, fishingSpot);
+
+        final String key = "boards:*";
+        redisUtil.deleteDataList(redisUtil.getKeys(key));
     }
 
     private FishBook findByFishBookId(final Integer fishBookId) {
@@ -177,6 +221,9 @@ public class BoardService {
 
         user.delete(board);
         boardRepository.delete(board);
+
+        final String key = "boards:*";
+        redisUtil.deleteDataList(redisUtil.getKeys(key));
     }
 
     @Transactional
@@ -185,6 +232,10 @@ public class BoardService {
         Board target = findBoardById(boardId);
 
         target.like(source);
+
+        final String key = "boards:*";
+        redisUtil.deleteDataList(redisUtil.getKeys(key));
+
         return LikeResponse.of(target.getLikeCounts(), true);
     }
 
@@ -194,6 +245,10 @@ public class BoardService {
         Board target = findBoardById(boardId);
 
         target.unlike(source);
+
+        final String key = "boards:*";
+        redisUtil.deleteDataList(redisUtil.getKeys(key));
+
         return LikeResponse.of(target.getLikeCounts(), false);
     }
 
