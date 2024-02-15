@@ -2,25 +2,16 @@ import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 import "../../assets/styles/room/roomList/RoomList.scss";
-import RoomFilterModal from "../../components/room/RoomFilterModal";
 import CellTowerOutlinedIcon from "@mui/icons-material/CellTowerOutlined";
 import Loading from "../../components/Loading";
-
-import back from "../../assets/images/backSymbol.svg";
-import filter from "../../assets/images/filter.png";
-import group from "../../assets/images/room/Group.svg";
 import defaultImg from "../../assets/images/login_img.png";
 import Header from "../../components/Header";
 import CachedIcon from "@mui/icons-material/Cached";
-import RefreshIcon from "@mui/icons-material/Refresh";
 
 function RoomList() {
   const navigate = useNavigate();
 
   const [liveRoomList, setLiveRoomList] = useState([]);
-  const [openViduList, setOpenViduList] = useState([]);
-  const [isFilterModal, setIsFilterModal] = useState(false);
-  const [isSortBy, setIsSortBy] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const isHost = false;
 
@@ -48,7 +39,6 @@ function RoomList() {
           })
           .then((res2) => {
             setLiveRoomList(res.data);
-            setOpenViduList(res2.data);
             setIsLoading(false);
           });
       })
@@ -87,12 +77,6 @@ function RoomList() {
           </div>
 
           {liveRoomList.liveRooms && liveRoomList.liveRooms.length > 0 ? (
-            // <div className="roomList-filter">
-            //   <CachedIcon
-            //     className="room-list-reload-btn"
-            //     onClick={fetchRoomList}
-            //   />
-            // </div>
             null
           ) : (
             <div className="no-live">

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import fishKing from "../assets/images/fish_king.png"
 import Header from "../components/Header";
@@ -27,7 +27,6 @@ function ChatBot () {
     setLoadingState(true)
     
     await postSendChat(chat).then((res) => {
-      console.log(res)
       setLoadingState(false)
       setChattingList(prevList => {
         let newList = [...prevList]

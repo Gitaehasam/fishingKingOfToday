@@ -82,7 +82,7 @@ function CreateRoom() {
         <span>라이브 생성</span>
       </div>
 
-      <form className='room-create-form' onSubmit={createSession}>
+      <form className='room-create-form'>
         <div className='room-create-header'>
           <div className='room-create-thumbnail-title'>
             특별한 사진으로 라이브를 표현해보세요
@@ -114,7 +114,7 @@ function CreateRoom() {
           />
         </div>
 
-        <div className="room-create-btn bg-blue">
+        <div className="room-create-btn bg-blue" onClick={createSession}>
           <button type="submit">라이브 켜기</button>
         </div>
       </form>

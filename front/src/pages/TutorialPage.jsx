@@ -8,17 +8,14 @@ import needle_floor from "../assets/images/tutorial/needle_floor.png";
 import remove_needle from "../assets/images/tutorial/remove_needle.png";
 import tying_reel from "../assets/images/tutorial/tying_reel.png";
 import "@assets/styles/tutorial/TutorialPage.scss";
-import postTutorialInfo from "../api/tutorial";
 import Header from "@/components/Header";
 import { useNavigate } from "react-router-dom";
 
 const TutorialPage = () => {
-  // Refs for DOM elements
+
   const itemsRef = useRef([]);
   const cursorsRef = useRef([]);
   const navigate = useNavigate()
-
-  // State for animation progress
   const [progress, setProgress] = useState(0);
   const [startX, setStartX] = useState(0);
   const [active, setActive] = useState(0);
@@ -66,11 +63,9 @@ const TutorialPage = () => {
     },
   ]);
 
-  // Constants
   const speedWheel = 0.02;
   const speedDrag = -0.1;
 
-  // useEffect to setup listeners
   useEffect(() => {
     const items = itemsRef.current;
     const cursors = cursorsRef.current;
@@ -145,7 +140,6 @@ const TutorialPage = () => {
     };
   }, [progress, isDown, startX]);
 
-  // Helper function for zIndex calculation
   const getZindex = (array, index) => array.map((_, i) => (index === i ? array.length : array.length - Math.abs(index - i)));
 
   return (

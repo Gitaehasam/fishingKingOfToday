@@ -8,10 +8,8 @@ import UserVideoComponent from "./UserVideoComponent";
 import ToolbarComponent from '../openVidu/toolbar/ToolbarComponent';
 import ChattingList from "../openVidu/chat/ChattingList"
 import ChattingForm from "../openVidu/chat/ChattingForm"
-import useWindowSize from "../../../components/room/liveSize";
 import LeaveModal from "../../../components/room/LeaveModal";
-import LiveEndModal from "../../../components/room/LiveEndModal";
-import SwitchCameraModal from "../../../components/room/SwitchCameraModal";
+
 import Loading from "../../../components/Loading";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import HeartButton from "./HeartBtn";
@@ -27,7 +25,6 @@ const OPENVIDU_SERVER_SECRET = "wearegitaehasam"
 const VideoRoomComponent = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const size = useWindowSize();
 
   const roomId = location.state.roomId
   const isHost = location.state.isHost;
@@ -49,7 +46,6 @@ const VideoRoomComponent = (props) => {
   const [subscribers, setSubscribers] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [chatDisplay, setChatDisplay] = useState(true);
-  const [profileImg, setProfileImg] = useState(null);
   const [isCamera, setIsCamera] = useState(true)
   const [isAudio, setIsAudio] = useState(true)
   const [leaveModal, setLeaveModal] = useState(false)
@@ -57,10 +53,6 @@ const VideoRoomComponent = (props) => {
   const [hostProfileImg, setHostProfileImg] = useState('');
   const [liveEndModalOpen, setLiveEndModalOpen] = useState(false);
   const [favIcons, setFavIcons] = useState([]);
-
-  const [isSwitchCameraModal, setIsSwitchCameraModal] = useState(false);
-  const [isSessionCreated, setIsSessionCreated] = useState(false);
-
   const [isLoading, setIsLoading] = useState(true);
 
   let OV = undefined;
@@ -207,7 +199,6 @@ const VideoRoomComponent = (props) => {
       videoSource: undefined,
       publishAudio: isAudio,
       publishVideo: isCamera,
-      // resolution: `${size.width}x${size.height}`,
       resolution: `640x480`,
       frameRate: 30,
       insertMode: 'APPEND',
@@ -344,7 +335,7 @@ const VideoRoomComponent = (props) => {
     const onbeforeunload = (event) => {
       leaveSession();
     }
-    window.addEventListener('beforeunload', onbeforeunload); // componentDidMount
+    window.addEventListener('beforeunload', onbeforeunload);
     return () => {
       window.removeEventListener('beforeunload', onbeforeunload);
     }
@@ -362,10 +353,6 @@ const VideoRoomComponent = (props) => {
     }
   }, [session]);
 
-  const handleCloseLiveEndModal = () => {
-    setLiveEndModalOpen(false);
-    navigate('/media/roomList');
-  };
 
   const sendMsg = (msg, currentSession) => {
     currentSession
@@ -399,8 +386,6 @@ const VideoRoomComponent = (props) => {
               hostNickname={hostNickname}
               hostProfileImg={hostProfileImg}
               totalUsers={totalUsers}
-
-              setIsSwitchCameraModal={setIsSwitchCameraModal}
           />
 
             {isHost && <UserVideoComponent streamManager={publisher}></UserVideoComponent>}
@@ -430,15 +415,6 @@ const VideoRoomComponent = (props) => {
         <LeaveModal state={setLeaveModal} leaveSession={leaveSession}/>
         : null  
       }
-
-      {isSwitchCameraModal ?
-      <SwitchCameraModal 
-        state={setIsSwitchCameraModal} 
-        onDevice={switchCamera} 
-      />
-        :null
-      }
-      <LiveEndModal open={liveEndModalOpen} onClose={handleCloseLiveEndModal} />
       </div>
       )}
     </>

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import Profile from "../../../../assets/images/room/profileImg.jpg"
 import './ChatComponent.css';
 
 const ChattingList = (props) => {
@@ -45,7 +44,6 @@ const ChattingList = (props) => {
     }
   }, [scroll])
   
-  const styleChat = { display: props.chatDisplay };
 
   return (
     <div className="chatContainer" ref={boxRef}>
