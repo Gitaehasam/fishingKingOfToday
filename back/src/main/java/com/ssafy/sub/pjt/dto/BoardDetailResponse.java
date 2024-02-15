@@ -3,6 +3,7 @@ package com.ssafy.sub.pjt.dto;
 import com.ssafy.sub.pjt.domain.Board;
 import com.ssafy.sub.pjt.domain.FishBook;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,6 +46,7 @@ public class BoardDetailResponse {
                 board.getComments().size(),
                 board.getComments().stream()
                         .map(comment -> CommentResponse.of(comment, comment.getUser()))
+                        .sorted(Comparator.comparing(CommentResponse::getCreatedAt).reversed())
                         .collect(Collectors.toList()),
                 board.getLikeCounts(),
                 board.isLiked(socialId),
