@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 public class MyFishListResponse {
 
     private List<MyFishResponse> myFish;
-    private Boolean hasNext;
 }

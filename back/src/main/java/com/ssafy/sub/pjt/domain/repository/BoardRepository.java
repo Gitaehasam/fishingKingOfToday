@@ -14,4 +14,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     boolean existsByUserSocialIdAndId(final String socialId, final Integer id);
 
     List<Board> findByUserSocialIdAndCategoryId(final String socialId, final Integer categoryId);
+
+    List<Board> findDistinctByUserId(final Integer id);
 }
