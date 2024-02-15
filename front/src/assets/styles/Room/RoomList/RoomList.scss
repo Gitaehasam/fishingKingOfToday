@@ -1,5 +1,5 @@
 .room-list {
-  background: white;
+  // background: white;
   min-height: 93vh;
   position: relative;
 }
@@ -95,6 +95,7 @@
 .roomlist-wrapper {
   height: 79.5vh;
   overflow: auto;
+  background: white;
 
   &::-webkit-scrollbar {
     display: none;
