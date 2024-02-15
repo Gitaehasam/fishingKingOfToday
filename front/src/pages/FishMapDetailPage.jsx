@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 import Header from "../components/Header";
 import { useSetRecoilState } from "recoil";
 import { prevPathAtom } from "../stores/FishingMapStore";
+import default_img from "@assets/images/default_profile.webp";
 import "../assets/styles/fishmap/FishMapDetailPage.scss";
 
 const OPEN_WEATHER_API_KEY = "87246d75e1ce26e1392a087b3d1d88c5";
@@ -57,6 +58,27 @@ const FishMapDetailPage = () => {
     }
   };
 
+  const getDate = (date) => {
+    const now = new Date();
+    const specificDate = new Date(date);
+
+    const diffInHours = (specificDate - now) / (1000 * 60 * 60);
+
+    const rtf = new Intl.RelativeTimeFormat("ko-KR");
+
+    let relativeTime;
+
+    if (Math.abs(diffInHours) < 24) {
+      // 시간 단위로 변환
+      relativeTime = rtf.format(Math.round(diffInHours), "hour");
+    } else {
+      // 일 단위로 변환
+      relativeTime = rtf.format(Math.round(diffInHours / 24), "day");
+    }
+
+    return relativeTime;
+  };
+
   useEffect(() => {
     getFishingInfo();
   }, []);
@@ -93,7 +115,7 @@ const FishMapDetailPage = () => {
                     key={fish.name}
                     onClick={() => navigate(`/fishbook/${fish.id}`)}
                   >
-                    <img src={fish.imageUrl} />
+                    <img src={fish.imageUrl} className="blue-bd" />
                     <div>{fish.name}</div>
                   </div>
                 );
@@ -122,16 +144,25 @@ const FishMapDetailPage = () => {
                           src={review.boardImageUrl}
                           className="review-img"
                         />
-                        <div>{review.content}</div>
+                        <div className="review-user">
+                          <img
+                            src={review.profileImageUrl || default_img}
+                            alt=""
+                          />
+                          <div>{review.nickName}</div>
+                        </div>
+                        <div className="review-date">
+                          {getDate(review.createdAt)}
+                        </div>
                       </div>
                     );
                   })}
                 </div>
-                <div className="board-btn">
+                {/* <div className="board-btn">
                   <button onClick={() => navigate("/media/board")}>
                     게시글 전체보기
                   </button>
-                </div>
+                </div> */}
               </>
             ) : (
               <div className="none-data">정보를 준비 중입니다.</div>

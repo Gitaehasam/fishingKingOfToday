@@ -1,5 +1,5 @@
-import "../../assets/styles/fishmap/MapDetailWeather.scss";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import "@assets/styles/fishmap/MapDetailWeather.scss";
 
 const WEATHER_DESC = {
   201: "가벼운 비를 동반한 천둥구름",
