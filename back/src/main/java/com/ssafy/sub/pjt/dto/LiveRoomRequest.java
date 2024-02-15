@@ -13,7 +13,7 @@ public class LiveRoomRequest {
     @NotBlank(message = "라이브 방송명을 입력하세요.")
     private String name;
 
-    @Size(max = 100)
+    @Size(max = 200)
     private String imageUrl;
 
     @Size(max = 30)
