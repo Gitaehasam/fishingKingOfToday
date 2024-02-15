@@ -5,7 +5,7 @@ import logo from "../assets/images/Logo.svg";
 import { IoBookOutline } from "react-icons/io5";
 import PhishingIcon from "@mui/icons-material/Phishing";
 import "../assets/styles/HomePage.scss";
-import fish_king_face from "@assets/images/fish_king_face.png"
+import fish_king_face from "@assets/images/fish_king_face.png";
 
 const HomePage = () => {
   const [idx, setIdx] = useState(0);
@@ -25,7 +25,7 @@ const HomePage = () => {
     <>
       <div className={`home slider${idx}`}>
         <div className="Home_header">
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" className="home-logo" />
           <Link to="/chatbot" aria-label="챗봇 이동">
             <img src={fish_king_face} className="chatbot-icon" alt="" />
           </Link>

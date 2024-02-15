@@ -104,8 +104,6 @@ const FishMapPage = () => {
         })
         .filter(Boolean);
 
-      console.log(data);
-
       setFishSpotList(data);
     } catch (error) {
       console.log(error);

@@ -15,12 +15,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 25vw;
+    padding: 0 3vh;
+    // width: 25vw;
   }
 
-  img {
+  .home-logo {
     height: 5vh;
-    width: 25vw;
+    padding: 0 3vh;
+    // width: 25vw;
   }
 
   .chatbot-icon {
@@ -32,7 +34,6 @@
     font-size: 2.5vh;
   }
 }
-
 
 .home {
   height: 93vh;
