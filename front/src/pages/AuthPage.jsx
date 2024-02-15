@@ -30,6 +30,7 @@ const AuthPage = () => {
       localStorage.setItem(
         "user",
         JSON.stringify({
+          socialId: res.data.socialId,
           imageUrl: user.data.imageUrl,
           nickname: user.data.nickname,
         })
