@@ -11,7 +11,7 @@ import lombok.Getter;
 @Builder
 public class BoardRequest {
 
-    @Size(max = 100)
+    @Size(max = 200)
     private String imageUrl;
 
     private LocalDateTime createdAt;
