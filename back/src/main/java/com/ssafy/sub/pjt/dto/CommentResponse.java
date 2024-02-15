@@ -4,13 +4,15 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.ssafy.sub.pjt.domain.Comment;
 import com.ssafy.sub.pjt.domain.User;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
-public class CommentResponse {
+public class CommentResponse implements Serializable {
 
     private final Integer id;
     private final String profileImageUrl;

@@ -2,6 +2,7 @@ package com.ssafy.sub.pjt.dto;
 
 import com.ssafy.sub.pjt.domain.Board;
 import com.ssafy.sub.pjt.domain.FishBook;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class BoardDetailResponse {
+public class BoardDetailResponse implements Serializable {
     private final String nickName;
     private final String socialId;
     private final String profileImageUrl;

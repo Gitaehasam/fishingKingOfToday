@@ -1,6 +1,8 @@
 package com.ssafy.sub.pjt.util;
 
 import java.time.Duration;
+import java.util.Collection;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -22,6 +24,10 @@ public class RedisUtil {
         return valueOperations.get(key);
     }
 
+    public Set getKeys(String pattern) {
+        return redisTemplate.keys(pattern);
+    }
+
     public void setData(String key, String value) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         valueOperations.set(key, value);
@@ -39,6 +45,10 @@ public class RedisUtil {
     }
 
     public void deleteData(String key) {
+        redisTemplate.delete(key);
+    }
+
+    public void deleteDataList(Collection<?> key) {
         redisTemplate.delete(key);
     }
 }
