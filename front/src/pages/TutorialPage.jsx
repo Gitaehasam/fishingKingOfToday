@@ -50,16 +50,6 @@ const TutorialPage = () => {
       num: 6,
       imageSrc: ipzil,
     },
-    {
-      title: "바늘 빼기",
-      num: 7,
-      imageSrc: remove_needle,
-    },
-    {
-      title: "바닥에 걸렸을 때",
-      num: 8,
-      imageSrc: needle_floor,
-    },
   ]);
 
   const speedWheel = 0.02;
