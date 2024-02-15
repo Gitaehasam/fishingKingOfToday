@@ -83,7 +83,7 @@ const Navbar = () => {
           </div>
           <NavLink to={"/media"} className="nav-item ">
             <DashboardOutlinedIcon />
-            <span>RoomList</span>
+            <span>미디어</span>
           </NavLink>
           <NavLink to={"/user/mypage"} className="nav-item">
             <PersonOutlineOutlinedIcon />

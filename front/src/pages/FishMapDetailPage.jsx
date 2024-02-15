@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import { useSetRecoilState } from "recoil";
 import { prevPathAtom } from "../stores/FishingMapStore";
 import default_img from "@assets/images/default_profile.webp";
-import "../assets/styles/fishmap/FishMapDetailPage.scss";
+import "@assets/styles/fishmap/FishMapDetailPage.scss";
 
 const OPEN_WEATHER_API_KEY = "87246d75e1ce26e1392a087b3d1d88c5";
 
@@ -27,7 +27,6 @@ const FishMapDetailPage = () => {
         `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${OPEN_WEATHER_API_KEY}&units=metric&lang=kr`
       );
 
-      console.log(res.data);
       setSunrise(new Date(res.data.city.sunrise * 1000));
       setSunset(new Date(res.data.city.sunset * 1000));
       setWeatherData(res.data.list);
@@ -48,7 +47,6 @@ const FishMapDetailPage = () => {
           },
         }
       );
-      console.log(res.data);
 
       setFishingInfo(res.data);
 

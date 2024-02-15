@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as tmImage from "@teachablemachine/image";
-import { IoIosArrowBack, IoIosInformationCircleOutline } from "react-icons/io";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import axios from "axios";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import "@assets/styles/fishrecognition/ImageResultPage.scss";
 
 const URL = "/my_model/";
@@ -19,11 +17,8 @@ const ImageResultPage = () => {
   const [name, setName] = useState(null);
   const [fishId, setFishId] = useState(0);
   const [fishDatas, setFishDatats] = useState([]);
-  const [getInfo, setGetInfo] = useState(false);
 
   const getBoard = async (fishBookId) => {
-    console.log(fishBookId);
-
     const jwt = localStorage.getItem("jwt");
     const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/boards`, {
       params: { categoryId: 1, fishBookId },
@@ -32,13 +27,10 @@ const ImageResultPage = () => {
       },
     });
 
-    console.log(res.data);
     setFishDatats(res.data.boards);
   };
 
   const predict = async () => {
-    console.log(modelRef.current);
-    console.log(imgRef.current);
     if (modelRef.current && imgRef.current) {
       try {
         let image = imgRef.current;
