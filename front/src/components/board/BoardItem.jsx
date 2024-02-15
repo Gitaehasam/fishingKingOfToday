@@ -75,13 +75,15 @@ const BoardItem = ({ data, category }) => {
         <div className="post-text">{data.content}</div>
         <div className="hashtag-list">
           {data.fishName && (
-            <div className="hashtag blue-fc blue-bd">#{data.fishName}</div>
+            <div className="hashtag blue-bd">
+              <span className="blue-fc">#{data.fishName}</span>
+            </div>
           )}
           {data.hashtag && (
             <>
               {data.hashtags.map((hashtag, index) => (
-                <div className="hashtag blue-fc blue-bd" key={index}>
-                  #{hashtag}
+                <div className="hashtag  blue-bd" key={index}>
+                  <span className="blue-fc">#{hashtag}</span>
                 </div>
               ))}
             </>

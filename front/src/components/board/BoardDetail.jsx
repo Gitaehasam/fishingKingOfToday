@@ -81,8 +81,8 @@ const BoardDetail = () => {
       await sendBoardReply(id, reply).then((res) => {
         getDetail();
       });
+      setReply("");
     }
-    setReply("");
   };
 
   const deleteReply = async (replyId) => {
@@ -149,11 +149,17 @@ const BoardDetail = () => {
               />
               <div className="board-text">{boardData.content}</div>
               <div className="board-hashtag-area">
+                {boardData.fishName && (
+                  <div className="blue-bd">
+                    <div className="blue-fc"># {boardData.fishName}</div>
+                  </div>
+                )}
+
                 {boardData.hashtags && (
                   <>
                     {boardData.hashtags.map((tag, index) => (
-                      <div className="blue-fc" key={index}>
-                        <div>{tag}</div>
+                      <div className="blue-bd" key={index}>
+                        <div className="blue-fc "># {tag}</div>
                       </div>
                     ))}
                   </>
@@ -221,7 +227,7 @@ const BoardDetail = () => {
           </div>
           <div className="reply-add">
             <div className="reply-line bg-blue"></div>
-            <img src={userInfo.imageUrl} alt="" />
+            {/* <img src={userInfo.imageUrl} alt="" /> */}
             <div className="reply-add-area">
               <input
                 type="text"

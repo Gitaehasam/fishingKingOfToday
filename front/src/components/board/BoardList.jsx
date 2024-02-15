@@ -6,17 +6,19 @@ import placelist from "../board/PlaceList.json";
 import "../../assets/styles/board/BoardList.scss";
 import { getBoardList } from "../../api/board";
 
-const BoardList = ({ category, viewType }) => {
+const BoardList = ({ category, viewType, fishType, hashType, sortType }) => {
   const [boardData, setBoardData] = useState([]);
+  const url = "";
 
-  const getList = async () => {
-    await getBoardList(category).then((res) => setBoardData(res));
+  const getList = async (cate, fish, hash, sort) => {
+    await getBoardList(cate, fish, hash, sort).then((res) => setBoardData(res));
+
     console.log(boardData);
   };
 
   useEffect(() => {
-    getList(category);
-  }, [category]);
+    getList(category, fishType, hashType, sortType);
+  }, [category, fishType, hashType, sortType]);
 
   return (
     <>

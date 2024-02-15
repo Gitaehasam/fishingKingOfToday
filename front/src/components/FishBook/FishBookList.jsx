@@ -12,6 +12,8 @@ const FishBookList = ({ fishdata, type }) => {
 
   const cutDate = (date) => {
     const string = date + "";
+    const year = string.substring(0, 4);
+    if (year === "9999") return 0;
     const month = string.substring(5, 7);
     const day = string.substring(8, 11);
     const result = month + "/" + day;
@@ -23,7 +25,9 @@ const FishBookList = ({ fishdata, type }) => {
     if (type == 0) {
       setFilterData(fishdata);
     } else if (type == 1) {
-      const updateArray = fishdata.filter((item) => item.fishType === "FRESH_WATER");
+      const updateArray = fishdata.filter(
+        (item) => item.fishType === "FRESH_WATER"
+      );
       setFilterData(updateArray);
     } else if (type == 2) {
       const updateArray = fishdata.filter((item) => item.fishType === "SEA");
@@ -44,16 +48,23 @@ const FishBookList = ({ fishdata, type }) => {
             {filterdata.map((fish, index) => (
               <Link to={`/fishbook/${fish.id}`} key={index}>
                 <li className="fish-item view-two blue-bd shadow">
-                  <div className="fish-profile"></div>
-                  <div className="fish-profile-type blue-fc">{fish.fishType}</div>
+                  <div className="fish-profile">
+                    {/* <img src={fish.} alt="" /> */}
+                  </div>
+                  <div className="fish-profile-type blue-fc">
+                    {fish.fishType}
+                  </div>
                   <div className="fish-profile-name">{fish.name}</div>
                   <div className="fish-profile-size">{fish.minimumSize}</div>
-                  {fish.tabooStartAt && (
+                  {cutDate(fish.tabooStartAt) != 0 && (
                     <div className="fish-date">
                       <div>
-                        {cutDate(fish.tabooStartAt)} ~ {cutDate(fish.tabooEndAt)}
+                        {cutDate(fish.tabooStartAt)}~{cutDate(fish.tabooEndAt)}
                       </div>
                     </div>
+                  )}
+                  {fish.mininumSize != 0 && (
+                    <div className="bansize">{fish.mininumSize}</div>
                   )}
                   <div className="fish-detail-btn bg-blue">VIEW</div>
                 </li>

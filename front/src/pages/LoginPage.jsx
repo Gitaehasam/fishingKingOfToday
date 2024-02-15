@@ -17,10 +17,7 @@ const LoginPage = () => {
       "jwt",
       "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMjgxMDc5MDMwIiwic3ViIjoiIiwiaWF0IjoxNzA3ODI1NDQxLCJleHAiOjE3MTA0MTc0NDF9.XiP53pnAryUN9F4ISM3JiZQGst_UsUNQWZgEQOHqcvE"
     );
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ imageUrl: null, nickname: "훌륭한붕어" })
-    );
+    localStorage.setItem("user", JSON.stringify({ imageUrl: null, nickname: "훌륭한붕어" }));
 
     const jwt = localStorage.getItem("jwt");
 

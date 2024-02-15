@@ -58,11 +58,14 @@
 }
 
 .hashtag {
-  padding: 2px 5px;
   font-size: 12px;
   font-weight: bold;
   text-wrap: nowrap;
   color: #a19af6;
+  span {
+    display: inline-block;
+    margin: 3px;
+  }
 }
 
 .post-text {
@@ -89,7 +92,6 @@
 }
 
 .post-info {
-  z-index: 1;
   display: flex;
   position: absolute;
   bottom: 5px;

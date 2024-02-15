@@ -20,7 +20,7 @@ const FishBook = () => {
 
   return (
     <>
-      <Header filter={"invert(1)"} />
+      <Header filter={"invert(1)"} headerColor={"inherit"} />
       <div className="fishbook-header bg-blue"></div>
       <div className="fishbook-title">FishUniverse</div>
       <div className="fishbook-category shadow">
@@ -31,7 +31,7 @@ const FishBook = () => {
           onClick={() => setDataType(0)}
         >
           <div>전체</div>
-          <div>34종</div>
+          <div>46종</div>
         </div>
         <div
           className={`fishbook-category-header ${
@@ -49,7 +49,7 @@ const FishBook = () => {
           onClick={() => setDataType(2)}
         >
           <div>바다</div>
-          <div>30종</div>
+          <div>32종</div>
         </div>
       </div>
       <div className="fishbook-list">
