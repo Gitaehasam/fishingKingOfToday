@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.ssafy.sub.pjt.domain.Comment;
 import com.ssafy.sub.pjt.domain.User;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.Getter;
