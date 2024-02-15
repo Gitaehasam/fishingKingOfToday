@@ -39,7 +39,7 @@ const MyFishPage = () => {
 
   return (
     <div className="my-fish-page">
-      <Header centerText={"나의 장소"} align="center" />
+      <Header centerText={"나의 물고기"} align="center" />
       {boardInfo.length ? (
         // <>
         //   <div className="none-data">낚시 기록을 시작해보세요.</div>
@@ -47,15 +47,17 @@ const MyFishPage = () => {
         //     <EditNoteIcon />
         //   </div>
         // </>
-        boardInfo.map((board) => {
-          return (
-            <div className="board-info" key={board.id}>
-              <div>{board.boardId}</div>
-              <div>{board.content}</div>
-              <img src={board.imageUrl} alt="" />
-            </div>
-          );
-        })
+        <div className="wrapper">
+          {boardInfo.map((board) => {
+            return (
+              <div className="board-info" key={board.id}>
+                <div>{board.boardId}</div>
+                <div>{board.content}</div>
+                <img src={board.imageUrl} alt="" />
+              </div>
+            );
+          })}
+        </div>
       ) : (
         <>
           <div className="none-data">낚시 기록을 시작해보세요.</div>

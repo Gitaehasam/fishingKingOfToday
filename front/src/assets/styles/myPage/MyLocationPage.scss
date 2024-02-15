@@ -2,11 +2,20 @@
   position: relative;
   height: 93vh;
 
-  .board-info {
-    img {
-      width: 100%;
-      height: 50vh;
-      object-fit: cover;
+  .wrapper {
+    height: 93vh;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .board-info {
+      img {
+        width: 100%;
+        height: 50vh;
+        object-fit: cover;
+      }
     }
   }
 

@@ -44,6 +44,10 @@
       position: relative;
       height: 100%;
 
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
       .item {
         padding: 2vh 0;
         border-bottom: 1px solid gray;

@@ -4,6 +4,7 @@ import * as tmImage from "@teachablemachine/image";
 import { IoIosArrowBack, IoIosInformationCircleOutline } from "react-icons/io";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
+import axios from "axios";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import "@assets/styles/fishrecognition/ImageResultPage.scss";
 
@@ -20,6 +21,21 @@ const ImageResultPage = () => {
   const [fishDatas, setFishDatats] = useState([]);
   const [getInfo, setGetInfo] = useState(false);
 
+  const getBoard = async (fishBookId) => {
+    console.log(fishBookId);
+
+    const jwt = localStorage.getItem("jwt");
+    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/boards`, {
+      params: { categoryId: 1, fishBookId },
+      headers: {
+        Authorization: jwt,
+      },
+    });
+
+    console.log(res.data);
+    setFishDatats(res.data.boards);
+  };
+
   const predict = async () => {
     console.log(modelRef.current);
     console.log(imgRef.current);
@@ -34,6 +50,7 @@ const ImageResultPage = () => {
         const data = classPrediction.split(" ");
         setName(data[0]);
         setFishId(data[1]);
+        getBoard(data[1]);
       } catch (err) {
         console.error("Prediction error:", err);
       }
@@ -54,6 +71,27 @@ const ImageResultPage = () => {
 
   const moveFishBook = () => {
     navigate(`/fishbook/${fishId}`);
+  };
+
+  const getDate = (date) => {
+    const now = new Date();
+    const specificDate = new Date(date);
+
+    const diffInHours = (specificDate - now) / (1000 * 60 * 60);
+
+    const rtf = new Intl.RelativeTimeFormat("ko-KR");
+
+    let relativeTime;
+
+    if (Math.abs(diffInHours) < 24) {
+      // 시간 단위로 변환
+      relativeTime = rtf.format(Math.round(diffInHours), "hour");
+    } else {
+      // 일 단위로 변환
+      relativeTime = rtf.format(Math.round(diffInHours / 24), "day");
+    }
+
+    return relativeTime;
   };
 
   useEffect(() => {
@@ -85,17 +123,41 @@ const ImageResultPage = () => {
               <h3 className="reviews-title">{name}의 리뷰</h3>
               <div className="wrapper">
                 {fishDatas.length ? (
-                  fishDatas.map((review) => {
-                    return (
-                      <div>
-                        <img
-                          key={review}
-                          src="https://cdn.iconsumer.or.kr/news/photo/201806/7349_8772_1719.jpg"
-                        />
-                        <div>{review}</div>
-                      </div>
-                    );
-                  })
+                  <>
+                    <div className="board">
+                      {fishDatas.map((review) => {
+                        return (
+                          <div
+                            key={review.boardId}
+                            className="review"
+                            onClick={() =>
+                              navigate(`/media/board/${review.boardId}`)
+                            }
+                          >
+                            <img
+                              src={review.boardImageUrl}
+                              className="review-img"
+                            />
+                            <div className="review-user">
+                              <img
+                                src={review.profileImageUrl || default_img}
+                                alt=""
+                              />
+                              <div>{review.nickName}</div>
+                            </div>
+                            <div className="review-date">
+                              {getDate(review.createdAt)}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {/* <div className="board-btn">
+                      <button onClick={() => navigate("/media/board")}>
+                        게시글 전체보기
+                      </button>
+                    </div> */}
+                  </>
                 ) : (
                   <div className="none-data">정보를 준비 중입니다.</div>
                 )}
