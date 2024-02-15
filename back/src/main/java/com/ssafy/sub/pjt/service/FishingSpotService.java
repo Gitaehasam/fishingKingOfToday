@@ -60,7 +60,7 @@ public class FishingSpotService {
     public FishingSpotListResponse getSpotsByHashTag(
             final Pageable pageable, final String hashtag) {
         final Slice<FishingSpotData> fishingSpotData =
-                fishingSpotQueryRepository.searchByHashTag(hashtag, pageable);
+                fishingSpotQueryRepository.searchByHashTag(hashtag.substring(1), pageable);
         final List<FishingSpotResponse> fishingSpotResponses =
                 fishingSpotData.stream()
                         .map(
