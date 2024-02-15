@@ -2,7 +2,7 @@ import { axiosApi } from "../util/commons";
 
 const api = axiosApi();
 
-const url = "/fishbooks";
+const url = "/api/fishbooks";
 
 async function getFishList() {
   try {
