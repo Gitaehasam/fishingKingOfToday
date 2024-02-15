@@ -4,7 +4,11 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import TagOutlinedIcon from "@mui/icons-material/TagOutlined";
 import { useParams } from "react-router-dom";
 import { Alarm } from "@mui/icons-material";
-import { getSearchFish, createBoardPost, modifyBoardPut } from "../../api/board";
+import {
+  getSearchFish,
+  createBoardPost,
+  modifyBoardPut,
+} from "../../api/board";
 import axios from "axios";
 import BoardCreateMap from "./BoardCreateMap";
 
@@ -181,8 +185,19 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
           <div className="post-image-upload">
             {previewURL && <img className="img_preview" src={previewURL}></img>}
 
-            <input ref={fileRef} hidden={true} id="file" type="file" onChange={handleFileOnChange} />
-            <div className={`shadow ${file ? "reupload-btn blue-bd" : "upload-btn bg-blue"}`} onClick={handleFileButtonClick}>
+            <input
+              ref={fileRef}
+              hidden={true}
+              id="file"
+              type="file"
+              onChange={handleFileOnChange}
+            />
+            <div
+              className={`shadow ${
+                file ? "reupload-btn blue-bd" : "upload-btn bg-blue"
+              }`}
+              onClick={handleFileButtonClick}
+            >
               {!file && <AddOutlinedIcon />}
               {file && "이미지 다시 선택하기"}
             </div>
@@ -226,11 +241,19 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
               />
             )}
           </div>
-          <ul className={`auto-area ${keyword && keyword.length != 0 ? "" : "none"}`}>
+          <ul
+            className={`auto-area ${
+              keyword && keyword.length != 0 ? "" : "none"
+            }`}
+          >
             {keyword && keyword.length != 0 && (
               <>
                 {keyword.map((result) => (
-                  <li key={result.id} className="blue-bd" onClick={(e) => handleResultClick(result.id)}>
+                  <li
+                    key={result.id}
+                    className="blue-bd"
+                    onClick={(e) => handleResultClick(result.id)}
+                  >
                     {result.name}
                   </li>
                 ))}
@@ -241,7 +264,11 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
             {hashtag && (
               <>
                 {hashtag.map((text, index) => (
-                  <li key={index} className="blue-bd" onClick={(e) => deleteHash(text)}>
+                  <li
+                    key={index}
+                    className="blue-bd"
+                    onClick={(e) => deleteHash(text)}
+                  >
                     {text}
                   </li>
                 ))}
@@ -251,9 +278,15 @@ const BoardFormItem = ({ type, categoryId, boardData }) => {
         </div>
         <div className="post-item">
           <div className="post-sub">하고싶은 말</div>
-          <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
         </div>
-        <div className="post-add-btn bg-blue" onClick={(e) => handleSumbitButtonClick(type)}>
+        <div
+          className="post-add-btn bg-blue"
+          onClick={(e) => handleSumbitButtonClick(type)}
+        >
           {type === "create" && <div>등록하기</div>}
           {type === "modify" && <div>수정하기</div>}
         </div>

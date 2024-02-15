@@ -23,8 +23,8 @@ const FishMapItem = ({ item, idx, mapRef, getDistance, setOpenList }) => {
 
   const handleClick = () => {
     setOpenList(false);
-    console.log(idx);
-    setActiveMarker(idx);
+    console.log(item);
+    setActiveMarker(item.spotId);
     const locPosition = new kakao.maps.LatLng(item.latitude, item.longitude);
     mapRef.current.setLevel(4);
     mapRef.current.setCenter(locPosition);
