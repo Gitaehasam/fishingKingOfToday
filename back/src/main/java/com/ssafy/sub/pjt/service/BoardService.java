@@ -34,6 +34,10 @@ public class BoardService {
     private final RedisUtil redisUtil;
 
     public Integer write(BoardRequest boardRequest, String socialId) {
+        if (boardRequest.getCategoryId() == 1 && boardRequest.getFishBookId() == null) {
+            throw new BadRequestException(REQUIRED_FISHBOOKID);
+        }
+
         Board savedBoard = boardRepository.save(createBoard(boardRequest, socialId));
 
         final String key = "boards:*";
@@ -143,6 +147,10 @@ public class BoardService {
 
     @Transactional
     public void update(final Integer boardId, final BoardUpdateRequest boardUpdateRequest) {
+        if (boardUpdateRequest.getCategoryId() == 1 && boardUpdateRequest.getFishBookId() == null) {
+            throw new BadRequestException(REQUIRED_FISHBOOKID);
+        }
+
         final Board board =
                 boardRepository
                         .findById(boardId)
