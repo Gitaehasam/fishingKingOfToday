@@ -107,8 +107,8 @@ const FishMapBody = ({ mapRef, getDistance, openList }) => {
             <EventMarker
               key={value.spotId}
               value={value}
-              isActive={activeMarker === index}
-              onClick={() => setActiveMarker(index)}
+              isActive={activeMarker === value.spotId}
+              onClick={() => setActiveMarker(value.spotId)}
               getDistance={getDistance}
             />
           ))}
