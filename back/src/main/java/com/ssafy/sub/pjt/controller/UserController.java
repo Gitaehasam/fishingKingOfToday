@@ -41,7 +41,7 @@ public class UserController {
     @GetMapping("/myfish")
     public ResponseEntity<?> getMyFish(final Pageable pageable) {
         final MyFishListResponse myFishListResponse =
-                boardService.getMyFishByPage(pageable, getCurrentUserSocialId());
+                boardService.getMyFishByPage(getCurrentUserSocialId());
         return ResponseEntity.ok().body(myFishListResponse);
     }
 

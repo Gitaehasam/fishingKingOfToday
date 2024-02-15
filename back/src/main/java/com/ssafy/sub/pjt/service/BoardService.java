@@ -259,16 +259,14 @@ public class BoardService {
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_BOARD_ID));
     }
 
-    public MyFishListResponse getMyFishByPage(final Pageable pageable, final String socialId) {
+    public MyFishListResponse getMyFishByPage(final String socialId) {
         final User user = findUserBySocialId(socialId);
-        final Slice<FishBook> fishBooks =
-                fishBookRepository.findFishListByUserId(pageable, user.getId());
-        final List<MyFishResponse> myFishResponses =
-                fishBooks.stream()
-                        .map(fishBook -> MyFishResponse.of(fishBook))
-                        .collect(Collectors.toList());
+        final List<Board> boards = boardRepository.findDistinctByUserId(user.getId());
 
-        return new MyFishListResponse(myFishResponses, fishBooks.hasNext());
+        final List<MyFishResponse> myFishResponses =
+                boards.stream().map(board -> MyFishResponse.of(board)).collect(Collectors.toList());
+
+        return new MyFishListResponse(myFishResponses);
     }
 
     public MyBoardListResponse getMyBoards(final String socialId, final Integer categoryId) {
