@@ -36,7 +36,9 @@ const FishBookDetail = ({ fish }) => {
             size
             <div style={{ whiteSpace: "pre-line" }}>{fish.size}</div>
           </div>
-          <img className="fish-img" src={fish.imageUrl}></img>
+          <div className="fish-img">
+            <img src={fish.imageUrl}></img>
+          </div>
           <div className="sub-one">the fish</div>
           <div className="sub-two">we love</div>
           <div className="fish-name">{fish.name}</div>

@@ -22,10 +22,7 @@ const MediaPage = () => {
         </Link>
         <Link to={"/media/board"}>
           <div className="choose-item choose-photo">
-            <div className="photo">
-              Photo
-              <CameraIcon />
-            </div>
+            <div className="photo">Photo</div>
           </div>
         </Link>
       </div>

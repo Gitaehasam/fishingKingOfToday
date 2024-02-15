@@ -27,6 +27,7 @@ import MyPageEdit from "./pages/MyPageEdit";
 import TutorialDeatilPage from "./components/tutorial/TutorialDetailPage";
 import MyFishPage from "./pages/MyFishPage";
 import MyLocationPage from "./pages/MyLocationPage";
+import Aquarium from "./pages/Aquarium";
 
 function App() {
   return (
@@ -93,6 +94,10 @@ function App() {
 
       <Route path="/chatBot">
         <Route index element={<ChatBot />} />
+      </Route>
+
+      <Route path="/aquarium">
+        <Route index element={<Aquarium />}></Route>
       </Route>
     </Routes>
   );

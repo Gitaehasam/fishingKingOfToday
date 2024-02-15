@@ -9,7 +9,7 @@ import "@assets/styles/Slider.scss";
 const SHOWS = [
   { page: 0, title: "Tutorial", url: "/tutorial" },
   { page: 1, title: "너의이름은", url: "/fishbook" },
-  { page: 2, title: "수족관", url: "/chatbot" },
+  { page: 2, title: "수족관", url: "/aquarium" },
 ];
 
 const Slider = ({ setBack }) => {
@@ -42,11 +42,7 @@ const Slider = ({ setBack }) => {
       >
         {SHOWS.map((show, idx) => {
           return (
-            <SwiperSlide
-              key={idx}
-              className={`slider${show.page}`}
-              onClick={() => move(show.url)}
-            >
+            <SwiperSlide key={idx} className={`slider${show.page}`} onClick={() => move(show.url)}>
               {show.title}
               {/* <img className="slide-img" src={show.imgUrl} alt="" /> */}
             </SwiperSlide>

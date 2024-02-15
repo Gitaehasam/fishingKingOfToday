@@ -4,10 +4,10 @@ const api = axiosApi();
 
 const url = "/api/boards";
 
-async function getBoardList(type) {
+async function getBoardList(type, fish, hash, sort) {
   try {
     console.log(type);
-    const { data } = await api.get(`${url}?categoryId=${type}`);
+    const { data } = await api.get(`${url}?categoryId=${type}&fishBookId=${fish}&hashTagId=${hash}&sortType=${sort}`);
     console.log(data);
     return data;
   } catch (error) {
@@ -52,7 +52,7 @@ async function createBoardPost(file) {
 }
 
 async function modifyBoardPut(file, pageId) {
-  console.log("pageId : ", pageId)
+  console.log("pageId : ", pageId);
   console.log(JSON.stringify(file));
   try {
     await api.put(`${url}/${pageId}`, JSON.stringify(file));
@@ -96,7 +96,27 @@ async function deletePostLike(boardId) {
 async function getSearchFish(word) {
   try {
     console.log("dd");
+    if (word == "") return;
+    if (word == " ") return;
     const { data } = await api.get(`${url}/search/fishBook?searchWord=${word}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getFilterFish() {
+  try {
+    const { data } = await api.get(`${url}/filters`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getFilterHash() {
+  try {
+    const { data } = await api.get(`${url}/hashtags`);
     return data;
   } catch (error) {
     console.log(error);
@@ -121,6 +141,8 @@ export {
   putPostLike,
   deletePostLike,
   getSearchFish,
+  getFilterFish,
+  getFilterHash,
   createBoardPost,
   modifyBoardPut,
 };

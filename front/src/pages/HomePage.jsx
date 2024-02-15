@@ -25,12 +25,6 @@ const HomePage = () => {
       <div className={`home slider${idx}`}>
         <div className="Home_header">
           <img src={logo} alt="logo" />
-          <Link to="/fishbook" aria-label="어종도감 이동">
-            <IoBookOutline />
-          </Link>
-          <Link to="/tutorial" aria-label="튜토리얼 도감">
-            <IoBookOutline />
-          </Link>
           <Link to="/chatbot" aria-label="챗봇 이동">
             <PhishingIcon />
           </Link>
