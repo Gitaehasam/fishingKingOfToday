@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FishBookDetail from "./FishBookDetail";
-import fishImg from "../../assets/images/감성돔.jpg";
 import { getFishDetail } from "../../api/fish";
 
 const FishBookDetailPage = () => {

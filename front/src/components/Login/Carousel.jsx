@@ -1,5 +1,5 @@
 import "../../assets/styles/login/Carousel.scss";
-import login from "../../assets/images/login_img.png";
+import login from "@assets/images/login_img.webp";
 import { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, EffectCreative } from "swiper/modules";

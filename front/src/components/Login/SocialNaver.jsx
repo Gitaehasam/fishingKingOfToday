@@ -1,4 +1,4 @@
-import naver_logo from "../../assets/images/naver_logo.png";
+import naver_logo from "@assets/images/naver_logo.webp";
 
 const SocialNaver = () => {
   const clientId = "w88WA5fuXobhPaQEmw1p";

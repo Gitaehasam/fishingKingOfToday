@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import profile from "@assets/images/default_profile.jpg";
+import Header from "@components/Header";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import profile from "@assets/images/default_profile.webp";
 import "@assets/styles/myPage/MyPage.scss";
 
 const MyPage = () => {
