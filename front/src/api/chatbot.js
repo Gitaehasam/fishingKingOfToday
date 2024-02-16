@@ -5,7 +5,7 @@ const api = axiosApi()
 async function postSendChat(chat) {
 
   try {
-    const {data} = await api.post(`/api/chatbot`, {inputText:chat});
+    const {data} = await api.post(`/chatbot`, {inputText:chat});
     return data;
   } catch (err) {
     console.log(err)
