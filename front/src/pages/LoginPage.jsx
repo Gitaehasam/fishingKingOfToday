@@ -38,7 +38,7 @@ const LoginPage = () => {
       <div className="LoginPage_footer">
         <SocialNaver />
         <SocialKakao />
-        <SocialGoogle />
+        {/* <SocialGoogle /> */}
       </div>
     </div>
   );
