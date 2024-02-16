@@ -2,9 +2,14 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url("../../images/sea7-3.jpg");
   background-size: cover;
   overflow: hidden;
+  &.SEA {
+    background-image: url("../../images/sea7-3.jpg");
+  }
+  &.FRESH_WATER {
+    background-image: url("../../images/freshwater.jpg");
+  }
 }
 
 .back-fish-lish,
@@ -37,7 +42,7 @@
 
 .size {
   font-family: "Newsreader";
-  top: 21%;
+  top: 22%;
   left: 3%;
   font-size: 4rem;
 
@@ -82,9 +87,11 @@
 }
 
 .fish-img {
-  top: 40%;
-  width: 120%;
-  height: 40%;
+  display: flex;
+  align-items: center;
+  top: 38%;
+  width: 130%;
+  height: 50%;
   rotate: (40deg);
 }
 
@@ -105,8 +112,8 @@
 }
 
 .live {
-  bottom: 5%;
-  right: 5%;
+  bottom: 6%;
+  right: 3%;
   font-family: "Newsreader";
   font-size: 3.5rem;
   font-style: italic;
@@ -116,19 +123,22 @@
 }
 
 .habitat {
-  top: 95%;
-  right: 5%;
+  top: 94%;
+  right: 3%;
   font-family: "GmarketSansMedium";
   font-size: 0.8rem;
   font-weight: 300;
+  text-align: right;
 }
 
 .arrow {
-  opacity: 0.3;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
   top: 55%;
   right: -5px;
   animation: arrowWiggle 1s ease-in-out infinite;
   svg {
+    color: rgba(255, 255, 255, 0.7);
     width: 50px;
     height: 50px;
   }
@@ -157,9 +167,14 @@
   width: 100%;
   height: 100vh;
   padding: 25px;
-  background-image: url("../../images/sea9.png");
   background-size: cover;
   transform: rotateY(90deg);
+  &.SEA {
+    background-image: url("../../images/sea9.png");
+  }
+  &.FRESH_WATER {
+    background-image: url("../../images/fresh9.png");
+  }
 }
 
 .card-rotate .front {

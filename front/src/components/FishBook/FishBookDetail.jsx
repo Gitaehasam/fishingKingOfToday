@@ -24,13 +24,8 @@ const FishBookDetail = ({ fish }) => {
   return (
     <>
       <div className={turn ? "card-rotate" : "back-rotate"} onClick={choose}>
-        <div className="front">
-          <img
-            src={back}
-            alt=""
-            className="back-fish-lish"
-            onClick={() => history.back()}
-          />
+        <div className={`front ${fish.fishType}`}>
+          <img src={back} alt="" className="back-fish-lish" onClick={() => history.back()} />
           <div className="detail-title">Mulgogi</div>
           <div className="size">
             size
@@ -62,25 +57,19 @@ const FishBookDetail = ({ fish }) => {
             <KeyboardArrowRightIcon />
           </div>
         </div>
-        <div className="back">
+        <div className={`back ${fish.fishType}`}>
           <div className="question">
             Q. {interview.first_question}
-            <div style={{ whiteSpace: "pre-line" }}>
-              {interview.first_answer}
-            </div>
+            <div style={{ whiteSpace: "pre-line" }}>{interview.first_answer}</div>
           </div>
           <div className="question">
             Q. {interview.second_question}
-            <div style={{ whiteSpace: "pre-line" }}>
-              {interview.second_answer}
-            </div>
+            <div style={{ whiteSpace: "pre-line" }}>{interview.second_answer}</div>
           </div>
           {interview.third_question && (
             <div className="question">
               Q. {interview.third_question}
-              <div style={{ whiteSpace: "pre-line" }}>
-                {interview.third_answer}
-              </div>
+              <div style={{ whiteSpace: "pre-line" }}>{interview.third_answer}</div>
             </div>
           )}
         </div>

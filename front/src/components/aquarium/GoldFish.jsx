@@ -9,6 +9,7 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { Vector3 } from "three";
 import node from "three/addons/nodes/core/Node.js";
+import { Stonefish } from "./Stonefish";
 
 let meshes = [];
 const originalPositions = {};

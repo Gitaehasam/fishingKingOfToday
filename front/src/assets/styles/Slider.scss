@@ -1,7 +1,7 @@
 .slider {
   .swiper {
     width: 100%;
-    height: calc(90vh - 5rem);
+    height: calc(90vh - 3rem);
     padding: 5em 0;
     z-index: 0;
     // margin: 0;
@@ -84,15 +84,41 @@
 // }
 
 .slider0 {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("../images/main/tutorial.webp") no-repeat 50% 50% / cover;
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400), url("../images/main/tutorial.webp") no-repeat 50% 50% / cover;
 }
 
 .slider1 {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-    url("../images/main/fishbook.webp") no-repeat 50% 50% / cover;
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400), url("../images/main/fishbook.webp") no-repeat 50% 50% / cover;
+  .slider-title {
+    font-family: "newsreader";
+    font-style: italic;
+    font-size: 45px;
+  }
 }
 
 .slider2 {
   background: url("../images/main/aquarium.webp") no-repeat 50% 0% / cover;
+  .slider-title {
+    top: 30px;
+  }
+  .slider-sub {
+    top: 5px;
+    color: white;
+  }
+}
+
+.slider-title {
+  position: absolute;
+  bottom: 1%;
+  right: 10px;
+  color: white;
+  font-size: 40px;
+}
+
+.slider-sub {
+  position: absolute;
+  bottom: 55px;
+  right: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 17px;
 }

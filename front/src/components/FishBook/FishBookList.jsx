@@ -37,19 +37,19 @@ const FishBookList = ({ fishdata, type }) => {
 
   return (
     <>
-      {/* <div>
-      <div>금어기</div>
-      <div>금지체장</div>
-    </div> */}
       <ul className="fish-list">
+        <div className="fish-info-important">
+          <div style={{ color: "red" }}>금어기</div>
+          <div style={{ color: "#9bec9b" }}>금지체장</div>
+        </div>
         {/* {fishdata.fishBooks} */}
         {filterdata && (
           <>
             {filterdata.map((fish, index) => (
               <Link to={`/fishbook/${fish.id}`} key={index}>
                 <li className="fish-item view-two blue-bd shadow">
-                  <div className="fish-profile">
-                    {/* <img src={fish.} alt="" /> */}
+                  <div className={`fish-profile shadow ${fish.fishType}`}>
+                    <img src={fish.imageUrl} alt="" />
                   </div>
                   <div className="fish-profile-type blue-fc">
                     {fish.fishType}

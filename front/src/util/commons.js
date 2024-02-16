@@ -1,13 +1,13 @@
 import axios from "axios";
 
-// const BASE_URL = "https://i10c203.p.ssafy.io/api";
+const BASE_URL = "https://i10c203.p.ssafy.io";
 // const BASE_URL = "https://likelasttime.shop/api";
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+// const BASE_URL = import.meta.env.VITE_BASE_URL;
 const token = localStorage.getItem("jwt");
 
 const axiosApi = () => {
   const instance = axios.create({
-    baseURL: `${BASE_URL}`,
+    baseURL: `${BASE_URL}/api`,
   });
 
   const token = localStorage.getItem("jwt");

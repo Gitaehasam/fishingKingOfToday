@@ -55,50 +55,23 @@ const BoardFilter = ({ category, closeCheck, filterBoard }) => {
   return (
     <>
       <div className="board-filter-area">
-        <img
-          src={back}
-          alt=""
-          className="back-fish-lish"
-          onClick={() => closeCheck()}
-        />
+        <img src={back} alt="" className="back-fish-lish" onClick={() => closeCheck()} />
         <div className="reset" onClick={() => reset()}>
           초기화
         </div>
         <div className="filter-sub">정렬</div>
         <div className="sort-area">
-          <label
-            className={`sort-label ${type === "comments" ? "blue-bd" : ""}`}
-          >
+          <label className={`sort-label ${type === "comments" ? "blue-bd" : ""}`}>
             <div>댓글순</div>
-            <input
-              type="radio"
-              className="sort-type"
-              value="comment"
-              checked={type === "comments"}
-              onChange={() => setType("comments")}
-            />
+            <input type="radio" className="sort-type" value="comment" checked={type === "comments"} onChange={() => setType("comments")} />
           </label>
-          <label
-            className={`sort-label ${type === "createdAt" ? "blue-bd" : ""}`}
-          >
+          <label className={`sort-label ${type === "createdAt" ? "blue-bd" : ""}`}>
             <div>최신순</div>
-            <input
-              type="radio"
-              className="sort-type"
-              value="createdAt"
-              checked={type === "createdAt"}
-              onChange={() => setType("createdAt")}
-            />
+            <input type="radio" className="sort-type" value="createdAt" checked={type === "createdAt"} onChange={() => setType("createdAt")} />
           </label>
           <label className={`sort-label ${type === "likes" ? "blue-bd" : ""}`}>
             <div>좋아요순</div>
-            <input
-              type="radio"
-              className="sort-type"
-              value="likes"
-              checked={type === "likes"}
-              onChange={() => setType("likes")}
-            />
+            <input type="radio" className="sort-type" value="likes" checked={type === "likes"} onChange={() => setType("likes")} />
           </label>
         </div>
         {category == 1 && (
@@ -109,12 +82,7 @@ const BoardFilter = ({ category, closeCheck, filterBoard }) => {
                 모두보기
               </div>
               {seafish.map((sea) => (
-                <label
-                  className={`filter-fish-list ${
-                    fishId == sea.id ? "blue-bd" : ""
-                  }`}
-                  key={sea.id}
-                >
+                <label className={`filter-fish-list ${fishId == sea.id ? "blue-bd" : ""}`} key={sea.id}>
                   <div>{sea.name}</div>
                   <input
                     type="radio"
@@ -135,12 +103,7 @@ const BoardFilter = ({ category, closeCheck, filterBoard }) => {
                 모두보기
               </div>
               {freshfish.map((fresh) => (
-                <label
-                  className={`filter-fish-list ${
-                    fishId === fresh.id ? "blue-bd" : ""
-                  }`}
-                  key={fresh.id}
-                >
+                <label className={`filter-fish-list ${fishId === fresh.id ? "blue-bd" : ""}`} key={fresh.id}>
                   <div>{fresh.name}</div>
                   <input
                     type="radio"
@@ -161,32 +124,28 @@ const BoardFilter = ({ category, closeCheck, filterBoard }) => {
           <>
             <div className="filter-sub">추천태그</div>
             <div className="filter-fish">
-              {fivehash.map((hash) => (
-                <label
-                  className={`filter-fish-list ${
-                    hashId === hash.id ? "blue-bd" : ""
-                  }`}
-                  key={hash.id}
-                >
-                  <div>{hash.name}</div>
-                  <input
-                    type="radio"
-                    className="sort-type"
-                    value={hash.id}
-                    checked={hashId === hash.id}
-                    onChange={() => {
-                      setHashId(hash.id);
-                    }}
-                  />
-                </label>
-              ))}
+              {fivehash && (
+                <>
+                  {fivehash.map((hash) => (
+                    <label className={`filter-fish-list ${hashId === hash.id ? "blue-bd" : ""}`} key={hash.id}>
+                      <div>{hash.name}</div>
+                      <input
+                        type="radio"
+                        className="sort-type"
+                        value={hash.id}
+                        checked={hashId === hash.id}
+                        onChange={() => {
+                          setHashId(hash.id);
+                        }}
+                      />
+                    </label>
+                  ))}
+                </>
+              )}
             </div>
           </>
         )}
-        <div
-          className="filter-button bg-blue shadow"
-          onClick={() => applyFilter()}
-        >
+        <div className="filter-button bg-blue shadow" onClick={() => applyFilter()}>
           적용하기
         </div>
       </div>

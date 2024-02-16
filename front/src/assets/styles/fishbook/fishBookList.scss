@@ -3,8 +3,16 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  padding-top: 18%;
-  gap: 5px;
+  padding-top: 30%;
+  gap: 3px;
+
+  .fish-info-important {
+    position: absolute;
+    display: flex;
+    top: 55px;
+    right: 50px;
+    gap: 50px;
+  }
 
   .fish-item {
     display: flex;
@@ -16,9 +24,10 @@
 
   .fish-item.view-two {
     position: relative;
-    width: 150px;
-    height: 200px;
+    width: 160px;
+    height: 220px;
     margin-bottom: 40px;
+    border-radius: 10px;
   }
 
   .fish-profile {
@@ -28,7 +37,21 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color: rgb(195, 215, 215);
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-left: 20px;
+      width: 200px;
+      height: 50px;
+    }
+
+    &.SEA {
+      background-image: url("../../images/seaprofile.jpg");
+    }
+    &.FRESH_WATER {
+      background-image: url("../../images/freshprofile.jpg");
+    }
   }
 
   .fish-profile-type {
@@ -38,6 +61,7 @@
   }
 
   .fish-profile-name {
+    color: black;
     text-align: center;
   }
 
@@ -60,8 +84,12 @@
     }
   }
 
+  .bansize {
+    color: #9bec9b;
+  }
+
   .fish-detail-btn {
-    padding: 2px 5px;
+    padding: 3px 5px;
     margin-bottom: 10px;
     width: fit-content;
     color: white;
