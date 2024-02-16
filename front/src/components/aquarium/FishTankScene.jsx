@@ -22,20 +22,20 @@ import {
 } from "three";
 import { Underwater } from "./Underwater.jsx";
 import { Box } from "@react-three/drei";
+import { Coral } from "./Coral.jsx";
+import { Shell } from "./Shell.jsx";
+import { Shell2 } from "./Shell2.jsx";
+import { Starfish } from "./Starfish.jsx";
 
 export const FishTankScene = ({
-  alignment,
-  cohesion,
-  separation,
-  maxDistance,
-  amountOfFish,
-  reset,
   hasPostProcessing,
-  environment,
   clownExist,
   stoneExist,
   breamExist,
   blackExist,
+  tileExist,
+  megiExist,
+  ingExist,
 }) => {
   const cameraRef = useRef();
 
@@ -57,36 +57,14 @@ export const FishTankScene = ({
     })
   );
 
-  const SwimmingBox = () => {
-    const boxRef = useRef();
-
-    // 매 프레임마다 상자의 위치를 업데이트하여 물결 모션을 시뮬레이션
-    useFrame((state, delta) => {
-      if (boxRef.current) {
-        // 시간에 따라 sin 함수를 사용하여 물결 모션 생성
-        boxRef.current.position.x = Math.sin(state.clock.elapsedTime) * 2;
-        boxRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.5);
-        boxRef.current.rotation.x += 0.01;
-        boxRef.current.rotation.y += 0.01;
-      }
-    });
-
-    return (
-      <Box ref={boxRef} position={[0, 0, 0]} args={[1, 1, 1]}>
-        <meshStandardMaterial attach="material" color={"aquamarine"} />
-      </Box>
-    );
-  };
-
   const shadowCameraBounds = 40;
 
   return (
     <Canvas className={"threeCanvas"} shadows={"soft"}>
-      <SwimmingBox />
       <directionalLight
         castShadow
         position={[10, 10, 10]}
-        intensity={2}
+        intensity={3}
         shadow-camera-left={-shadowCameraBounds}
         shadow-camera-right={shadowCameraBounds}
         shadow-camera-bottom={shadowCameraBounds}
@@ -103,28 +81,40 @@ export const FishTankScene = ({
       ></Underwater>
       <SeaWeed
         scale={[3, 4.3, 3]}
-        position={[6, -25, 0]}
+        position={[6, -30, 16]}
         rotation={[0, 3, 0]}
       ></SeaWeed>
-      <SeaWeed scale={[4, 4, 4]} position={[10, -25, 6]}></SeaWeed>
-      <SeaWeed scale={[4, 4.5, 4]} position={[-15, -25, -10]}></SeaWeed>
-      <SeaWeed scale={[4, 4.5, 4]} position={[-12, -25, -11]}></SeaWeed>
+      <SeaWeed scale={[4, 4, 4]} position={[10, -30, 10]}></SeaWeed>
+      <SeaWeed scale={[4, 4.5, 4]} position={[-10, -30, -15]}></SeaWeed>
+      <SeaWeed scale={[4, 4.5, 4]} position={[-10, -30, -11]}></SeaWeed>
       <SeaWeed
         scale={[4, 4.5, 4]}
-        position={[-15, -25, -0]}
+        position={[-15, -30, -0]}
         rotation={[-0.1, 1.3, 0]}
       ></SeaWeed>
-      <SeaWeed
-        scale={[4, 4.5, 4]}
-        position={[-0, -25, -10]}
-        rotation={[0.1, 1.4, 0]}
-      ></SeaWeed>
-      <SeaWeed
-        scale={[4, 4.5, 4]}
-        position={[-14, -25, -9]}
+      <Coral
+        scale={[0.5, 0.5, 0.5]}
+        position={[1, -24, 18]}
         rotation={[0, 2, 0]}
-      ></SeaWeed>
-      <SeaWeed scale={[4, 4.5, 4]} position={[-5, -25, -10]}></SeaWeed>
+      ></Coral>
+
+      <Coral
+        scale={[0.5, 0.5, 0.5]}
+        position={[1, -24, -19]}
+        rotation={[0, 2, 0]}
+      ></Coral>
+
+      <Shell2
+        scale={[0.2, 0.2, 0.2]}
+        position={[21, -24, 15]}
+        rotation={[0, 0, 1]}
+      ></Shell2>
+
+      <Starfish
+        scale={[0.03, 0.03, 0.03]}
+        position={[22, -24, -5]}
+        rotation={[0, 0, 0]}
+      ></Starfish>
 
       <Chest
         position={[-8, -24, 10]}
@@ -133,17 +123,14 @@ export const FishTankScene = ({
       ></Chest>
 
       <FishGroup
-        reset={reset}
-        amount={amountOfFish}
-        cohesion={cohesion}
-        separation={separation}
-        alignment={alignment}
-        maxDistance={maxDistance}
         scale={[1.5, 1.5, 1.5]}
         clownExist={clownExist}
         stoneExist={stoneExist}
         breamExist={breamExist}
         blackExist={blackExist}
+        tileExist={tileExist}
+        megiExist={megiExist}
+        ingExist={ingExist}
       ></FishGroup>
       <PerspectiveCamera
         position={[100, 50, 0]}

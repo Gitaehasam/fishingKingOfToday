@@ -2,7 +2,7 @@ import { axiosApi } from "../util/commons";
 
 const api = axiosApi();
 
-const url = "/api/boards";
+const url = "/boards";
 
 async function getBoardList(type, fish, hash, sort) {
   try {
@@ -95,10 +95,18 @@ async function deletePostLike(boardId) {
 
 async function getSearchFish(word) {
   try {
-    console.log("dd");
     if (word == "") return;
-    if (word == " ") return;
     const { data } = await api.get(`${url}/search/fishBook?searchWord=${word}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getSearchHash(word) {
+  try {
+    if (word == "") return;
+    const { data } = await api.get(`${url}/search?searchWord=${word}`);
     return data;
   } catch (error) {
     console.log(error);
@@ -123,14 +131,6 @@ async function getFilterHash() {
   }
 }
 
-// async function getSearchHash(word){
-//   try {
-//     await api.get(`${url}/search/fishBook?searchWord=${word}`);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 export {
   getBoardList,
   getBoardDetail,
@@ -140,6 +140,7 @@ export {
   deleteBoardReply,
   putPostLike,
   deletePostLike,
+  getSearchHash,
   getSearchFish,
   getFilterFish,
   getFilterHash,

@@ -12,90 +12,24 @@ import { SeaBreamfish } from "./SeaBreamfish.jsx";
 import { Blackfish } from "./Blackfish.jsx";
 import { useFrame } from "@react-three/fiber";
 import { Boid, Flock } from "./Flock.js";
+import { Tilefish } from "./Tilefish.jsx";
+import { MegiFish } from "./MegiFish.jsx";
+import { IngFish } from "./IngFish.jsx";
 
 export function FishGroup(props) {
-  const fishRef = useRef();
-  const fishRef1 = useRef();
-  const fishRef2 = useRef();
-  const fishRef3 = useRef();
-  const fishRef4 = useRef();
-  const fishRef5 = useRef();
 
-  const tempObject = new Object3D();
-
-  const {
-    alignment,
-    cohesion,
-    separation,
-    maxDistance,
-    amount,
-    reset,
-    clownExist,
-    stoneExist,
-    breamExist,
-    blackExist,
-  } = props;
-
-  const flock = useRef(new Flock(amount));
-
-  useEffect(() => {
-    flock.current.maxSpeedAlignment = alignment;
-    flock.current.maxSpeedCohesion = cohesion;
-    flock.current.maxSpeedSeparation = separation;
-    flock.current.maxDistance = maxDistance;
-  }, [alignment, cohesion, separation, maxDistance]);
-
-  useEffect(() => {
-    flock.current = new Flock(amount);
-  }, [amount, reset]);
-
-  const updateFishPositions = () => {
-    if (fishRef?.current == null) return;
-
-    let i = 0;
-    flock?.current?.boids?.forEach((fish) => {
-      const id = i++;
-      const { position, scale, velocity } = fish;
-
-      tempObject.position.set(position.x, position.y, position.z);
-      tempObject.scale.set(scale.x, scale.y, scale.z);
-      tempObject.lookAt(
-        position.x - velocity.x,
-        position.y - velocity.y / 2,
-        position.z - velocity.z
-      );
-
-      tempObject.updateMatrix();
-
-      fishRef.current.setMatrixAt(id, tempObject.matrix);
-      fishRef.current.instanceMatrix.needsUpdate = true;
-      fishRef1.current.setMatrixAt(id, tempObject.matrix);
-      fishRef1.current.instanceMatrix.needsUpdate = true;
-      fishRef2.current.setMatrixAt(id, tempObject.matrix);
-      fishRef2.current.instanceMatrix.needsUpdate = true;
-      fishRef3.current.setMatrixAt(id, tempObject.matrix);
-      fishRef3.current.instanceMatrix.needsUpdate = true;
-      fishRef4.current.setMatrixAt(id, tempObject.matrix);
-      fishRef4.current.instanceMatrix.needsUpdate = true;
-    });
-  };
-
-  useFrame(() => {
-    flock?.current?.update();
-    updateFishPositions();
-  });
+  const { clownExist, stoneExist, breamExist, blackExist, tileExist, megiExist, ingExist } = props;
 
   return (
     <>
       <group {...props}>
-        <GoldFish
-          fishRef={[fishRef, fishRef1, fishRef2, fishRef3, fishRef4]}
-          amount={flock.current.boids.length}
-        ></GoldFish>
         {clownExist && <Clownfish></Clownfish>}
         {stoneExist && <Stonefish></Stonefish>}
         {breamExist && <SeaBreamfish></SeaBreamfish>}
         {blackExist && <Blackfish></Blackfish>}
+        {tileExist && <Tilefish></Tilefish>}
+        {megiExist && <MegiFish></MegiFish>}
+        {ingExist && <IngFish></IngFish>}
       </group>
     </>
   );

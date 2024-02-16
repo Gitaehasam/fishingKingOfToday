@@ -5,22 +5,10 @@ import { FishTankScene } from "../components/aquarium/FishTankScene";
 import back from "@assets/images/backSymbol.svg";
 
 const Aquarium = () => {
-  const [separation, setSeparation] = useState(100);
-  // 응집력
-  const [cohesion, setCohesion] = useState(50);
-  // 조정
-  const [alignment, setAlignment] = useState(70);
-
-  const [maxDistance, setMaxDistance] = useState(50);
-
-  const [amountOfFish, setAmountOfFish] = useState(6);
-
-  const [reset, setReset] = useState(false);
   const [hasPostProcessing, setHasPostProcessing] = useState(true);
-  const [environment, setEnvironment] = useState("Sunset");
 
   // 물고기여부
-  const [clownExist, setClownExist] = useState(false);
+  const [clownExist, setClownExist] = useState(true);
   const [clownCatch, setClownCatch] = useState(true);
   const [stoneExist, setStoneExist] = useState(false);
   const [stoneCatch, setStoneCatch] = useState(true);
@@ -28,15 +16,16 @@ const Aquarium = () => {
   const [breamCatch, setBreamCatch] = useState(true);
   const [blackExist, setBlackExist] = useState(false);
   const [blackCatch, setBlackCatch] = useState(true);
+  const [tileExist, setTileExist] = useState(false);
+  const [tileCatch, setTileCatch] = useState(true);
+  const [megiExist, setMegiExist] = useState(false);
+  const [megiCatch, setMegiCatch] = useState(false);
+  const [ingExist, setIngExist] = useState(false);
+  const [ingCatch, setIngCatch] = useState(true);
 
   return (
     <div className="aquarium">
-      <img
-        src={back}
-        alt=""
-        className="back-fish-lish"
-        onClick={() => history.back()}
-      />
+      <img src={back} alt="" className="back-fish-lish" onClick={() => history.back()} />
       <Suspense
         fallback={
           <div>
@@ -58,20 +47,25 @@ const Aquarium = () => {
           blackExist={blackExist}
           setBlackExist={setBlackExist}
           blackCatch={blackCatch}
+          tileExist={tileExist}
+          setTileExist={setTileExist}
+          tileCatch={tileCatch}
+          megiExist={megiExist}
+          setMegiExist={setMegiExist}
+          megiCatch={megiCatch}
+          ingExist={ingExist}
+          setIngExist={setIngExist}
+          ingCatch={ingCatch}
         ></Controls>
         <FishTankScene
-          separation={separation}
-          alignment={alignment}
-          cohesion={cohesion}
           hasPostProcessing={hasPostProcessing}
-          reset={reset}
-          maxDistance={maxDistance}
-          amountOfFish={amountOfFish}
-          environment={environment}
           clownExist={clownExist}
           stoneExist={stoneExist}
           breamExist={breamExist}
           blackExist={blackExist}
+          tileExist={tileExist}
+          megiExist={megiExist}
+          ingExist={ingExist}
         ></FishTankScene>
       </Suspense>
     </div>
