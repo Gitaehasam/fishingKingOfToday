@@ -12,6 +12,7 @@ import com.ssafy.sub.pjt.dto.CommentRequest;
 import com.ssafy.sub.pjt.dto.CommentResponse;
 import com.ssafy.sub.pjt.exception.AuthException;
 import com.ssafy.sub.pjt.exception.BadRequestException;
+import com.ssafy.sub.pjt.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
+    private final RedisUtil redisUtil;
 
     @Transactional
     public CommentResponse addComment(
@@ -39,6 +41,9 @@ public class CommentService {
                         .build();
         Comment savedComment = commentRepository.save(comment);
 
+        final String key = "boards:*";
+        redisUtil.deleteDataList(redisUtil.getKeys(key));
+
         return CommentResponse.of(comment, user);
     }
 
@@ -51,6 +56,9 @@ public class CommentService {
         if (board.isNotWrittenBy(user) && comment.isNotCommentedBy(user)) {
             throw new BadRequestException(CANNOT_DELETE_COMMENT_EXCEPTION);
         }
+
+        final String key = "boards:*";
+        redisUtil.deleteDataList(redisUtil.getKeys(key));
 
         commentRepository.delete(comment);
     }
