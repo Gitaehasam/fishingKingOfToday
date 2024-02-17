@@ -25,7 +25,12 @@ const Aquarium = () => {
 
   return (
     <div className="aquarium">
-      <img src={back} alt="" className="back-fish-lish" onClick={() => history.back()} />
+      <img
+        src={back}
+        alt=""
+        className="back-fish-lish"
+        onClick={() => history.back()}
+      />
       <Suspense
         fallback={
           <div>

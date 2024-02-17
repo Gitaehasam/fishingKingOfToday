@@ -17,35 +17,44 @@ const ImageResultPage = () => {
   const [name, setName] = useState(null);
   const [fishId, setFishId] = useState(0);
   const [fishDatas, setFishDatats] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getBoard = async (fishBookId) => {
-    const jwt = localStorage.getItem("jwt");
-    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/boards`, {
-      params: { categoryId: 1, fishBookId },
-      headers: {
-        Authorization: jwt,
-      },
-    });
+    try {
+      const jwt = localStorage.getItem("jwt");
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/boards`,
+        {
+          params: { categoryId: 1, fishBookId },
+          headers: {
+            Authorization: jwt,
+          },
+        }
+      );
 
-    setFishDatats(res.data.boards);
+      setFishDatats(res.data.boards);
+    } catch (error) {
+      console.log(err);
+    }
   };
 
   const predict = async () => {
-    if (modelRef.current && imgRef.current) {
-      try {
-        let image = imgRef.current;
-        const prediction = await modelRef.current.predict(image, false);
-        prediction.sort(
-          (a, b) => parseFloat(b.probability) - parseFloat(a.probability)
-        );
-        const classPrediction = prediction[0].className;
-        const data = classPrediction.split(" ");
-        setName(data[0]);
-        setFishId(data[1]);
-        getBoard(data[1]);
-      } catch (err) {
-        console.error("Prediction error:", err);
-      }
+    // if (modelRef.current && imgRef.current) {
+
+    // }
+    try {
+      let image = imgRef.current;
+      const prediction = await modelRef.current.predict(image, false);
+      prediction.sort(
+        (a, b) => parseFloat(b.probability) - parseFloat(a.probability)
+      );
+      const classPrediction = prediction[0].className;
+      const data = classPrediction.split(" ");
+      setName(data[0]);
+      setFishId(data[1]);
+      await getBoard(data[1]);
+    } catch (err) {
+      console.error("Prediction error:", err);
     }
   };
 
@@ -58,6 +67,8 @@ const ImageResultPage = () => {
       await predict();
     } catch (err) {
       console.error("Model loading error:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,23 +99,21 @@ const ImageResultPage = () => {
 
   useEffect(() => {
     loadModel();
-
-    return () => {
-      imgRef.current = null;
-    };
   }, []);
-
-  // if (!name) {
-  //   return <Loading />;
-  // }
 
   return (
     <>
-      <div className="result" style={{ display: !name && "none" }}>
+      {isLoading && <Loading />}
+      <div className="result" style={{ display: isLoading && "none" }}>
         <Header centerText={"분석완료"} align="center" />
         <div className="result-body">
           <div className="result-img">
-            <img className="ml-result" src={result} ref={imgRef} alt="" />
+            <img
+              className="ml-result"
+              src={result}
+              ref={imgRef}
+              alt="물고기 사진"
+            />
           </div>
           <div className="result-content">
             <div className="result-fish" onClick={moveFishBook}>
@@ -115,41 +124,34 @@ const ImageResultPage = () => {
               <h3 className="reviews-title">{name}의 리뷰</h3>
               <div className="wrapper">
                 {fishDatas.length ? (
-                  <>
-                    <div className="board">
-                      {fishDatas.map((review) => {
-                        return (
-                          <div
-                            key={review.boardId}
-                            className="review"
-                            onClick={() =>
-                              navigate(`/media/board/${review.boardId}`)
-                            }
-                          >
+                  <div className="board">
+                    {fishDatas.map((review) => {
+                      return (
+                        <div
+                          key={review.boardId}
+                          className="review"
+                          onClick={() =>
+                            navigate(`/media/board/${review.boardId}`)
+                          }
+                        >
+                          <img
+                            src={review.boardImageUrl}
+                            className="review-img"
+                          />
+                          <div className="review-user">
                             <img
-                              src={review.boardImageUrl}
-                              className="review-img"
+                              src={review.profileImageUrl || default_img}
+                              alt=""
                             />
-                            <div className="review-user">
-                              <img
-                                src={review.profileImageUrl || default_img}
-                                alt=""
-                              />
-                              <div>{review.nickName}</div>
-                            </div>
-                            <div className="review-date">
-                              {getDate(review.createdAt)}
-                            </div>
+                            <div>{review.nickName}</div>
                           </div>
-                        );
-                      })}
-                    </div>
-                    {/* <div className="board-btn">
-                      <button onClick={() => navigate("/media/board")}>
-                        게시글 전체보기
-                      </button>
-                    </div> */}
-                  </>
+                          <div className="review-date">
+                            {getDate(review.createdAt)}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 ) : (
                   <div className="none-data">정보를 준비 중입니다.</div>
                 )}
@@ -158,7 +160,6 @@ const ImageResultPage = () => {
           </div>
         </div>
       </div>
-      <Loading hidden={name} />
     </>
   );
 };

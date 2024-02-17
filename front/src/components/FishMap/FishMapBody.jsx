@@ -2,7 +2,6 @@ import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import EventMarker from "./EventMarker";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
-import "@assets/styles/fishmap/FishMapBody.scss";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   activeMarkerAtom,
@@ -14,6 +13,7 @@ import {
   myCenterAtom,
 } from "../../stores/FishingMapStore";
 import axios from "axios";
+import "@assets/styles/fishmap/FishMapBody.scss";
 
 const FishMapBody = ({ mapRef, getDistance, openList }) => {
   const [centerChange, setCenterChange] = useRecoilState(centerChangeAtom);

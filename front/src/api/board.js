@@ -7,7 +7,9 @@ const url = "/boards";
 async function getBoardList(type, fish, hash, sort) {
   try {
     console.log(type);
-    const { data } = await api.get(`${url}?categoryId=${type}&fishBookId=${fish}&hashTagId=${hash}&sortType=${sort}`);
+    const { data } = await api.get(
+      `${url}?categoryId=${type}&fishBookId=${fish}&hashTagId=${hash}&sortType=${sort}`
+    );
     console.log(data);
     return data;
   } catch (error) {
