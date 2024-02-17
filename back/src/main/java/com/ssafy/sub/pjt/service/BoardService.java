@@ -269,7 +269,7 @@ public class BoardService {
 
     public MyFishListResponse getMyFishByPage(final String socialId) {
         final User user = findUserBySocialId(socialId);
-        final List<Board> boards = boardRepository.findDistinctByUserId(user.getId());
+        final List<Board> boards = boardRepository.findDistinctByUserIdAndFishBookIsNotNullAndFishingSpotIsNotNull(user.getId());
 
         final List<MyFishResponse> myFishResponses =
                 boards.stream().map(board -> MyFishResponse.of(board)).collect(Collectors.toList());
