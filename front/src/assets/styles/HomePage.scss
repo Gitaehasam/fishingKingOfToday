@@ -3,7 +3,7 @@
   z-index: 1;
   display: flex;
   width: 100%;
-  padding: 0 2vh;
+  // padding: 0 2vh;
   height: 7vh;
   justify-content: space-between;
   align-items: center;
@@ -15,19 +15,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 3vh;
     // width: 25vw;
   }
 
   .home-logo {
     height: 5vh;
-    padding: 0 3vh;
+    width: 7vh;
+    margin: 0 5vh;
     // width: 25vw;
   }
 
   .chatbot-icon {
     width: 4.5vh;
     height: 4.5vh;
+    margin: 0 5vh;
   }
 
   svg {

@@ -9,7 +9,8 @@
 
     .swiper-slide {
       box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-      border-radius: 1em;
+      border-radius: 2vh;
+      cursor: pointer;
 
       &.swiper-slide-prev,
       &.swiper-slide-next {
@@ -84,11 +85,13 @@
 // }
 
 .slider0 {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400), url("../images/main/tutorial.webp") no-repeat 50% 50% / cover;
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+    url("../images/main/tutorial.webp") no-repeat 50% 50% / cover;
 }
 
 .slider1 {
-  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400), url("../images/main/fishbook.webp") no-repeat 50% 50% / cover;
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+    url("../images/main/fishbook.webp") no-repeat 50% 50% / cover;
   .slider-title {
     font-family: "newsreader";
     font-style: italic;

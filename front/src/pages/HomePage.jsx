@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Slider from "../components/Slider";
-import logo from "../assets/images/Logo.svg";
-import { IoBookOutline } from "react-icons/io5";
-import PhishingIcon from "@mui/icons-material/Phishing";
-import "../assets/styles/HomePage.scss";
-import fish_king_face from "@assets/images/fish_king_face.png";
+import Slider from "@components/Slider";
+import logo from "@assets/images/Logo.svg";
+import fish_king_face from "@assets/images/fish_king_face.webp";
+import "@assets/styles/HomePage.scss";
 
 const HomePage = () => {
   const [idx, setIdx] = useState(0);
