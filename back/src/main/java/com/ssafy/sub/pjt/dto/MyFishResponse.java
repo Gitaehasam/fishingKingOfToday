@@ -1,7 +1,7 @@
 package com.ssafy.sub.pjt.dto;
 
-import com.ssafy.sub.pjt.domain.Board;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,19 +10,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MyFishResponse {
 
-    private final Integer id;
+    private final Integer fishId;
 
-    private final String fishName;
+    private final List<LocalDateTime> createdAt;
 
-    private final LocalDateTime createdAt;
-
-    private final String fishingSpotName;
-
-    public static MyFishResponse of(final Board board) {
-        return new MyFishResponse(
-                board.getFishBook().getId(),
-                board.getFishBook().getName(),
-                board.getCreatedAt(),
-                board.getFishingSpot().getName());
+    public static MyFishResponse of(final Integer fishId, final List<LocalDateTime> createdAt) {
+        return new MyFishResponse(fishId, createdAt);
     }
 }
