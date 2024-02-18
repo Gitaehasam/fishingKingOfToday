@@ -122,40 +122,38 @@ const ImageResultPage = () => {
             </div>
             <div className="fish-reviews">
               <h3 className="reviews-title">{name}의 리뷰</h3>
-              <div className="wrapper">
-                {fishDatas.length ? (
-                  <div className="board">
-                    {fishDatas.map((review) => {
-                      return (
-                        <div
-                          key={review.boardId}
-                          className="review"
-                          onClick={() =>
-                            navigate(`/media/board/${review.boardId}`)
-                          }
-                        >
+              {fishDatas.length ? (
+                <div className="board">
+                  {fishDatas.map((review) => {
+                    return (
+                      <div
+                        key={review.boardId}
+                        className="review"
+                        onClick={() =>
+                          navigate(`/media/board/${review.boardId}`)
+                        }
+                      >
+                        <img
+                          src={review.boardImageUrl}
+                          className="review-img"
+                        />
+                        <div className="review-user">
                           <img
-                            src={review.boardImageUrl}
-                            className="review-img"
+                            src={review.profileImageUrl || default_img}
+                            alt=""
                           />
-                          <div className="review-user">
-                            <img
-                              src={review.profileImageUrl || default_img}
-                              alt=""
-                            />
-                            <div>{review.nickName}</div>
-                          </div>
-                          <div className="review-date">
-                            {getDate(review.createdAt)}
-                          </div>
+                          <div>{review.nickName}</div>
                         </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="none-data">정보를 준비 중입니다.</div>
-                )}
-              </div>
+                        <div className="review-date">
+                          {getDate(review.createdAt)}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="none-data">정보를 준비 중입니다.</div>
+              )}
             </div>
           </div>
         </div>

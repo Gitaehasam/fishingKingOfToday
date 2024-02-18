@@ -50,10 +50,15 @@ const MyFishPage = () => {
         <div className="wrapper">
           {boardInfo.map((board) => {
             return (
-              <div className="board-info" key={board.id}>
-                <div>{board.boardId}</div>
-                <div>{board.content}</div>
+              <div
+                className="board-info"
+                key={board.boardId}
+                onClick={() => navigate(`/media/board/${board.boardId}`)}
+              >
                 <img src={board.imageUrl} alt="" />
+                <div className="board-content">{board.content}</div>
+                <div className="board-date">{board.boardId}</div>
+                {/* <div>{board.boardId}</div> */}
               </div>
             );
           })}

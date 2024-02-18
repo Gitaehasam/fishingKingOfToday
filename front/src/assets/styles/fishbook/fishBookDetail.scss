@@ -5,10 +5,10 @@
   background-size: cover;
   overflow: hidden;
   &.SEA {
-    background-image: url("../../images/sea7-3.jpg");
+    background-image: url("../../images/sea7-3.webp");
   }
   &.FRESH_WATER {
-    background-image: url("../../images/freshwater.jpg");
+    background-image: url("../../images/freshwater.webp");
   }
 }
 
@@ -170,10 +170,10 @@
   background-size: cover;
   transform: rotateY(90deg);
   &.SEA {
-    background-image: url("../../images/sea9.png");
+    background-image: url("../../images/sea9.webp");
   }
   &.FRESH_WATER {
-    background-image: url("../../images/fresh9.png");
+    background-image: url("../../images/fresh9.webp");
   }
 }
 

@@ -125,47 +125,30 @@ const FishMapDetailPage = () => {
         </div>
         <div className="fishing-reviews">
           <h3 className="name">{fishingInfo.name}의 리뷰</h3>
-          <div className="wrapper">
-            {fishingInfo.boards.length ? (
-              <>
-                <div className="board">
-                  {fishingInfo.boards.map((review) => {
-                    return (
-                      <div
-                        key={review.boardId}
-                        className="review"
-                        onClick={() =>
-                          navigate(`/media/board/${review.boardId}`)
-                        }
-                      >
-                        <img
-                          src={review.boardImageUrl}
-                          className="review-img"
-                        />
-                        <div className="review-user">
-                          <img
-                            src={review.profileImageUrl || default_img}
-                            alt=""
-                          />
-                          <div>{review.nickName}</div>
-                        </div>
-                        <div className="review-date">
-                          {getDate(review.createdAt)}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                {/* <div className="board-btn">
-                  <button onClick={() => navigate("/media/board")}>
-                    게시글 전체보기
-                  </button>
-                </div> */}
-              </>
-            ) : (
-              <div className="none-data">정보를 준비 중입니다.</div>
-            )}
-          </div>
+          {fishingInfo.boards.length ? (
+            <div className="board">
+              {fishingInfo.boards.map((review) => {
+                return (
+                  <div
+                    key={review.boardId}
+                    className="review"
+                    onClick={() => navigate(`/media/board/${review.boardId}`)}
+                  >
+                    <img src={review.boardImageUrl} className="review-img" />
+                    <div className="review-user">
+                      <img src={review.profileImageUrl || default_img} alt="" />
+                      <div>{review.nickName}</div>
+                    </div>
+                    <div className="review-date">
+                      {getDate(review.createdAt)}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="none-data">정보를 준비 중입니다.</div>
+          )}
         </div>
       </div>
     </div>
