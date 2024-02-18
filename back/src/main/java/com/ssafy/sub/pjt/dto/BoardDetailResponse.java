@@ -30,6 +30,7 @@ public class BoardDetailResponse implements Serializable {
     private final Boolean isLiked;
     private final Float longitude;
     private final Float latitude;
+    private final String fishingSpotName;
 
     public static BoardDetailResponse of(Board board, String socialId) {
         return new BoardDetailResponse(
@@ -52,6 +53,7 @@ public class BoardDetailResponse implements Serializable {
                 board.getLikeCounts(),
                 board.isLiked(socialId),
                 board.getFishingSpot().getLongitude(),
-                board.getFishingSpot().getLatitude());
+                board.getFishingSpot().getLatitude(),
+                board.getFishingSpot().getName());
     }
 }
