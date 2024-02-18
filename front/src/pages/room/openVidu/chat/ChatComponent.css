@@ -150,4 +150,21 @@
   .chatComponentLight ::-webkit-scrollbar-thumb {
     background-color: transparent !important;
   }
+
+  .send-reply {
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: white;
   
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
