@@ -2,10 +2,15 @@ package com.ssafy.sub.pjt.domain;
 
 import javax.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Builder
 @Getter
+@Cacheable
+@org.hibernate.annotations.Cache(
+        usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE,
+        region = "category")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
