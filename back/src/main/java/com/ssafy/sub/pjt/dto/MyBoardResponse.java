@@ -3,6 +3,7 @@ package com.ssafy.sub.pjt.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.ssafy.sub.pjt.domain.Board;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -20,6 +21,8 @@ public class MyBoardResponse {
 
     private final String content;
 
+    private final LocalDateTime createdAt;
+
     public static MyBoardResponse of(final Board board) {
         return new MyBoardResponse(
                 board.getId(),
@@ -27,6 +30,7 @@ public class MyBoardResponse {
                 board.getBoardHashTags().stream()
                         .map(boardHashTag -> boardHashTag.getHashTag().getName())
                         .collect(Collectors.toList()),
-                board.getContent());
+                board.getContent(),
+                board.getCreatedAt());
     }
 }
