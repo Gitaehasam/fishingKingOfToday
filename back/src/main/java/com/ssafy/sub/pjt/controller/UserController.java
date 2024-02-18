@@ -9,7 +9,6 @@ import com.ssafy.sub.pjt.util.AuthenticationUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,13 +35,6 @@ public class UserController {
     public ResponseEntity<?> deleteAccount() {
         userService.deleteAccount(AuthenticationUtil.getCurrentUserSocialId());
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/myfish")
-    public ResponseEntity<?> getMyFish(final Pageable pageable) {
-        final MyFishListResponse myFishListResponse =
-                boardService.getMyFishByPage(getCurrentUserSocialId());
-        return ResponseEntity.ok().body(myFishListResponse);
     }
 
     @GetMapping("/boards")

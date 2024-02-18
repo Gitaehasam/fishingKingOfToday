@@ -267,16 +267,6 @@ public class BoardService {
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_BOARD_ID));
     }
 
-    public MyFishListResponse getMyFishByPage(final String socialId) {
-        final User user = findUserBySocialId(socialId);
-        final List<Board> boards = boardRepository.findDistinctByUserIdAndFishBookIsNotNullAndFishingSpotIsNotNull(user.getId());
-
-        final List<MyFishResponse> myFishResponses =
-                boards.stream().map(board -> MyFishResponse.of(board)).collect(Collectors.toList());
-
-        return new MyFishListResponse(myFishResponses);
-    }
-
     public MyBoardListResponse getMyBoards(final String socialId, final Integer categoryId) {
         List<Board> boards = boardRepository.findByUserSocialIdAndCategoryId(socialId, categoryId);
         return new MyBoardListResponse(
