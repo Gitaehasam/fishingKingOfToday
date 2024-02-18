@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import SendIcon from "@mui/icons-material/Send";
 import default_img from "@assets/images/default_profile.webp"
+import "@assets/styles/chatbot/Chatbot.scss"
 
 function ChatBotChattingForm ({onChat, loadingState, setLoadingState}) {
   const [chat, setChat] = useState('')
