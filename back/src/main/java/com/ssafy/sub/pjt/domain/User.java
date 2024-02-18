@@ -24,7 +24,7 @@ public class User extends BaseTime {
     @Column(name = "nick_name")
     private String nickName;
 
-    @Column(name = "social_id")
+    @Column(name = "social_id", unique = true)
     private String socialId;
 
     private String platform;
