@@ -4,12 +4,17 @@ import io.hypersistence.utils.hibernate.type.json.JsonType;
 import java.util.List;
 import javax.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 @Entity
 @Builder
 @Getter
+@Cacheable
+@org.hibernate.annotations.Cache(
+        usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE,
+        region = "tutorials")
 @AllArgsConstructor
 @TypeDef(name = "json", typeClass = JsonType.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
