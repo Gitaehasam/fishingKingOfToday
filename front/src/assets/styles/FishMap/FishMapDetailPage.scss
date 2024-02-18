@@ -79,86 +79,80 @@
     }
 
     .fishing-reviews {
-      margin: 0 2vh;
       display: flex;
       flex-direction: column;
-      gap: 1vh;
 
       .name {
         font-size: 2.3vh;
+        padding: 0 2vh;
       }
 
-      .wrapper {
+      .board {
         display: flex;
-        flex-direction: column;
-        gap: 2vh;
-        margin-bottom: 4vh;
+        gap: 3vh;
+        overflow: auto;
+        padding: 0 2vh 3vh;
 
-        .board {
-          display: flex;
-          gap: 3vh;
-          overflow: auto;
-
-          &::-webkit-scrollbar {
-            display: none;
-          }
-
-          .review {
-            border: 1px solid darkgray;
-            box-shadow: 0 0.1vh 1vh rgba(0, 0, 0, 0.2);
-            border-radius: 2vh;
-            display: flex;
-            flex-direction: column;
-            gap: 1vh;
-            cursor: pointer;
-
-            .review-img {
-              width: 16vh;
-              height: 15vh;
-              object-fit: cover;
-              border-radius: 2vh 2vh 0 0;
-            }
-
-            .review-user {
-              display: flex;
-              gap: 1vh;
-              padding: 0 1vh;
-
-              img {
-                border-radius: 50%;
-                height: 2.5vh;
-                width: 2.5vh;
-              }
-
-              div {
-                font-size: 1.5vh;
-                display: flex;
-                align-items: center;
-              }
-            }
-
-            .review-date {
-              font-size: 1.5vh;
-              padding: 0 1vh 1vh;
-            }
-          }
+        &::-webkit-scrollbar {
+          display: none;
         }
 
-        .board-btn {
+        .review {
+          margin: 1vh 0;
+          box-shadow: 0 0.1vh 1vh rgba(0, 0, 0, 0.3);
+          border-radius: 2vh;
           display: flex;
-          justify-content: center;
+          flex-direction: column;
+          gap: 1vh;
+          cursor: pointer;
 
-          button {
-            cursor: pointer;
-            border: none;
-            background: #a3b9f6;
-            color: white;
-            padding: 2vh;
-            width: 100%;
-            border-radius: 2vh;
-            font-weight: bold;
-            font-size: 1.8vh;
+          .review-img {
+            width: 16vh;
+            height: 15vh;
+            object-fit: cover;
+            border-radius: 2vh 2vh 0 0;
           }
+
+          .review-user {
+            display: flex;
+            gap: 1vh;
+            padding: 0 1vh;
+
+            img {
+              border-radius: 50%;
+              height: 2.5vh;
+              width: 2.5vh;
+            }
+
+            div {
+              font-size: 1.5vh;
+              display: flex;
+              align-items: center;
+            }
+          }
+
+          .review-date {
+            color: gray;
+            font-size: 1.5vh;
+            padding: 0 1vh 1vh;
+          }
+        }
+      }
+
+      .board-btn {
+        display: flex;
+        justify-content: center;
+
+        button {
+          cursor: pointer;
+          border: none;
+          background: #a3b9f6;
+          color: white;
+          padding: 2vh;
+          width: 100%;
+          border-radius: 2vh;
+          font-weight: bold;
+          font-size: 1.8vh;
         }
       }
     }

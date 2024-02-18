@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loading from "./components/Loading";
 import Navbar from "./components/Navbar";
@@ -34,7 +34,36 @@ const MyFishPage = lazy(() => import("@pages/MyFishPage"));
 const MyLocationPage = lazy(() => import("@pages/MyLocationPage"));
 const Aquarium = lazy(() => import("@pages/Aquarium"));
 
+// import preloadedImageSrc1 from "./assets/images/main/aquarium.webp";
+import preloadedImageSrc2 from "./assets/images/main/fishbook.webp";
+import preloadedImageSrc3 from "./assets/images/main/tutorial.webp";
+
 function App() {
+  useEffect(() => {
+    // const link1 = document.createElement("link");
+    const link2 = document.createElement("link");
+    const link3 = document.createElement("link");
+    // link1.rel = "preload";
+    // link1.as = "image";
+    // link1.href = preloadedImageSrc1;
+    link2.rel = "preload";
+    link2.as = "image";
+    link2.href = preloadedImageSrc2;
+    link3.rel = "preload";
+    link3.as = "image";
+    link3.href = preloadedImageSrc3;
+    // document.head.appendChild(link1);
+    document.head.appendChild(link2);
+    document.head.appendChild(link3);
+
+    return () => {
+      // 컴포넌트가 언마운트될 때 preload 링크를 제거
+      // document.head.removeChild(link1);
+      document.head.removeChild(link2);
+      document.head.removeChild(link3);
+    };
+  }, []);
+
   return (
     <Suspense fallback={<div></div>}>
       <Routes>

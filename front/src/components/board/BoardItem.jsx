@@ -65,7 +65,12 @@ const BoardItem = ({ data, category }) => {
         <img className="board-profile" src={data.profileImageUrl} alt="" />
         <div className="nick">{data.nickName}</div>
       </div>
-      <img className="main-img" src={data.boardImageUrl} alt="" onClick={() => goDetailPage(data.boardId)} />
+      <img
+        className="main-img"
+        src={data.boardImageUrl}
+        alt=""
+        onClick={() => goDetailPage(data.boardId)}
+      />
       <div className="content">
         <div className="post-text">{data.content}</div>
         <div className="hashtag-list">

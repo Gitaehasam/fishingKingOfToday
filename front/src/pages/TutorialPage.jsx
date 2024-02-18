@@ -155,7 +155,7 @@ const TutorialPage = () => {
             >
               <div className="title">{item.title}</div>
               <div className="num">{item.num}</div>
-              <img src={item.imageSrc} alt={item.title} />
+              <img src={item.imageSrc} alt={item.title} loading="lazy" />
             </div>
           </div>
         ))}

@@ -20,16 +20,21 @@ const BoardCreateMap = ({ fishSpot, setFishSpot }) => {
     e.preventDefault();
 
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/spots`, {
-        params: { keyword: searchSpot },
-        headers: { Authorization: localStorage.getItem("jwt") },
-      });
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/spots`,
+        {
+          params: { keyword: searchSpot },
+          headers: { Authorization: localStorage.getItem("jwt") },
+        }
+      );
 
       console.log(res.data.spots);
 
       setFishSpotList(res.data.spots);
       mapRef.current.setLevel(13);
-      mapRef.current.setCenter(new kakao.maps.LatLng(36.172823447489336, 127.8675122717897));
+      mapRef.current.setCenter(
+        new kakao.maps.LatLng(36.172823447489336, 127.8675122717897)
+      );
       inputRef.current.blur();
     } catch (error) {
       console.log(error);
@@ -79,7 +84,12 @@ const BoardCreateMap = ({ fishSpot, setFishSpot }) => {
         </MarkerClusterer>
       </Map>
       <form onSubmit={getSpots}>
-        <input type="text" ref={inputRef} value={searchSpot} onChange={(e) => setSearchSpot(e.target.value)} />
+        <input
+          type="text"
+          ref={inputRef}
+          value={searchSpot}
+          onChange={(e) => setSearchSpot(e.target.value)}
+        />
       </form>
       {fishSpot && (
         <div>

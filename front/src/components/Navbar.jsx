@@ -22,9 +22,12 @@ const Navbar = () => {
 
   const handleChangeFile = (e) => {
     const nextPreview = e.target.files[0];
+    console.log(nextPreview);
     const reader = new FileReader();
     reader.readAsDataURL(nextPreview);
-    reader.onloadend = () => [navigate("/fish/image/edit", { state: { value: reader.result } })];
+    reader.onloadend = () => [
+      navigate("/fish/image/edit", { state: { value: reader.result } }),
+    ];
   };
 
   return (
@@ -62,7 +65,10 @@ const Navbar = () => {
             <span>Home</span>
           </div>
           <div className="nav-item btn ">
-            <div className="custum-file-upload bg-blue" onClick={() => setIsOpen(true)}>
+            <div
+              className="custum-file-upload bg-blue"
+              onClick={() => setIsOpen(true)}
+            >
               <CameraIcon />
             </div>
             {/* <label className="custum-file-upload bg-blue" htmlFor="file">
