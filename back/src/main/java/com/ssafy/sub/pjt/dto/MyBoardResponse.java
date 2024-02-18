@@ -3,8 +3,10 @@ package com.ssafy.sub.pjt.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.ssafy.sub.pjt.domain.Board;
+import com.ssafy.sub.pjt.domain.FishBook;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,8 @@ public class MyBoardResponse {
 
     private final List<String> hashTags;
 
+    private final String fishName;
+
     private final String content;
 
     private final LocalDateTime createdAt;
@@ -30,6 +34,7 @@ public class MyBoardResponse {
                 board.getBoardHashTags().stream()
                         .map(boardHashTag -> boardHashTag.getHashTag().getName())
                         .collect(Collectors.toList()),
+                Optional.ofNullable(board.getFishBook()).map(FishBook::getName).orElse(null),
                 board.getContent(),
                 board.getCreatedAt());
     }
