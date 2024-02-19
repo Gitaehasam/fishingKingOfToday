@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import axios from "axios";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import "@assets/styles/myPage/MyFishPage.scss";
+import "@assets/styles/myPage/myFishPage.scss";
 
 const MyFishPage = () => {
   const [boardInfo, setBoardInfo] = useState([]);
