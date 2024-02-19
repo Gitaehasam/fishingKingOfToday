@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+import Header from "@components/Header";
 import axios from "axios";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import "@assets/styles/myPage/myFishPage.scss";

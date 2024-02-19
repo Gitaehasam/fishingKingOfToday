@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
+import Header from "@components/Header";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import CameraIcon from "@mui/icons-material/Camera";
 import "@assets/styles/board/Media.scss";

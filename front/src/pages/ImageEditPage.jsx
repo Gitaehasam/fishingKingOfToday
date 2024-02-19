@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
-import Header from "../components/Header";
-import Aspect from "../components/fishrecognition/Aspect";
+import Header from "@components/Header";
+import Aspect from "@components/fishrecognition/Aspect";
 import "@assets/styles/fishrecognition/ImageEditPage.scss";
 import "cropperjs/dist/cropper.css";
 

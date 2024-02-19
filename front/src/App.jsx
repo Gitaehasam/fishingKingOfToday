@@ -1,6 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import Loading from "@components/Loading.jsx";
 import Navbar from "@components/Navbar.jsx";
 const HomePage = lazy(() => import("@pages/HomePage.jsx"));
 const ImageResultPage = lazy(() => import("@pages/ImageResultPage.jsx"));
@@ -8,10 +7,10 @@ const FishMapPage = lazy(() => import("@pages/FishMapPage.jsx"));
 const FishMapDetailPage = lazy(() => import("@pages/FishMapDetailPage.jsx"));
 const ImageEditPage = lazy(() => import("@pages/ImageEditPage.jsx"));
 const FishBookPage = lazy(() =>
-  import("@components/FishBook/FishBookPage.jsx")
+  import("@components/fishbook/FishBookPage.jsx")
 );
 const FishBookDetailPage = lazy(() =>
-  import("@components/FishBook/FishBookDetailPage.jsx")
+  import("@components/fishbook/FishBookDetailPage.jsx")
 );
 const LoginPage = lazy(() => import("@pages/LoginPage.jsx"));
 const RoomList = lazy(() => import("@pages/room/RoomList.jsx"));

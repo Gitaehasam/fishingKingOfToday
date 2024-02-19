@@ -8,7 +8,7 @@ import needle_floor from "../assets/images/tutorial/needle_floor.webp";
 import remove_needle from "../assets/images/tutorial/remove_needle.webp";
 import tying_reel from "../assets/images/tutorial/tying_reel.webp";
 import "@assets/styles/tutorial/TutorialPage.scss";
-import Header from "@/components/Header";
+import Header from "@components/Header";
 import { useNavigate } from "react-router-dom";
 
 const TutorialPage = () => {

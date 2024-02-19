@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import FishMapHeader from "../components/fishmap/FishMapHeader";
-import FishMapBody from "../components/fishmap/FishMapBody";
-import FishMapFooter from "../components/fishmap/FishMapFooter";
+import FishMapHeader from "@components/fishmap/FishMapHeader";
+import FishMapBody from "@components/fishmap/FishMapBody";
+import FishMapFooter from "@components/fishmap/FishMapFooter";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { activeMarkerAtom } from "@/stores/FishingMapStore.js";
 import {
