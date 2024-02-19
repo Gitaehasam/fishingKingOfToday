@@ -1,40 +1,40 @@
 import { Suspense, lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import Loading from "./components/Loading.jsx";
-import Navbar from "./components/Navbar.jsx";
-const HomePage = lazy(() => import("./pages/HomePage.jsx"));
-const ImageResultPage = lazy(() => import("./pages/ImageResultPage.jsx"));
-const FishMapPage = lazy(() => import("./pages/FishMapPage.jsx"));
-const FishMapDetailPage = lazy(() => import("./pages/FishMapDetailPage.jsx"));
-const ImageEditPage = lazy(() => import("./pages/ImageEditPage.jsx"));
+import Loading from "@components/Loading.jsx";
+import Navbar from "@components/Navbar.jsx";
+const HomePage = lazy(() => import("@pages/HomePage.jsx"));
+const ImageResultPage = lazy(() => import("@pages/ImageResultPage.jsx"));
+const FishMapPage = lazy(() => import("@pages/FishMapPage.jsx"));
+const FishMapDetailPage = lazy(() => import("@pages/FishMapDetailPage.jsx"));
+const ImageEditPage = lazy(() => import("@pages/ImageEditPage.jsx"));
 const FishBookPage = lazy(() =>
-  import("./components/fishbook/FishBookPage.jsx")
+  import("@components/FishBook/FishBookPage.jsx")
 );
 const FishBookDetailPage = lazy(() =>
-  import("./components/fishbook/FishBookDetailPage.jsx")
+  import("@components/FishBook/FishBookDetailPage.jsx")
 );
-const LoginPage = lazy(() => import("./pages/LoginPage.jsx"));
-const RoomList = lazy(() => import("./pages/room/RoomList.jsx"));
-const CreateRoom = lazy(() => import("./pages/room/CreateRoom.jsx"));
+const LoginPage = lazy(() => import("@pages/LoginPage.jsx"));
+const RoomList = lazy(() => import("@pages/room/RoomList.jsx"));
+const CreateRoom = lazy(() => import("@pages/room/CreateRoom.jsx"));
 const VideoRoomComponent = lazy(() =>
-  import("./pages/room/openVidu/VideoRoomComponent copy.jsx")
+  import("@pages/room/openVidu/VideoRoomComponent copy.jsx")
 );
-const MediaPage = lazy(() => import("./pages/MediaPage.jsx"));
-const BoardPage = lazy(() => import("./pages/BoardPage.jsx"));
-const BoardDetail = lazy(() => import("./components/board/BoardDetail.jsx"));
-const BoardCreate = lazy(() => import("./components/board/BoardCreate.jsx"));
-const BoardModify = lazy(() => import("./components/board/BoardModify.jsx"));
-const AuthPage = lazy(() => import("./pages/AuthPage.jsx"));
-const MyPage = lazy(() => import("./pages/MyPage.jsx"));
-const TutorialPage = lazy(() => import("./pages/TutorialPage.jsx"));
-const ChatBot = lazy(() => import("./pages/ChatBot.jsx"));
-const MyPageEdit = lazy(() => import("./pages/MyPageEdit.jsx"));
+const MediaPage = lazy(() => import("@pages/MediaPage.jsx"));
+const BoardPage = lazy(() => import("@pages/BoardPage.jsx"));
+const BoardDetail = lazy(() => import("@components/board/BoardDetail.jsx"));
+const BoardCreate = lazy(() => import("@components/board/BoardCreate.jsx"));
+const BoardModify = lazy(() => import("@components/board/BoardModify.jsx"));
+const AuthPage = lazy(() => import("@pages/AuthPage.jsx"));
+const MyPage = lazy(() => import("@pages/MyPage.jsx"));
+const TutorialPage = lazy(() => import("@pages/TutorialPage.jsx"));
+const ChatBot = lazy(() => import("@pages/ChatBot.jsx"));
+const MyPageEdit = lazy(() => import("@pages/MyPageEdit.jsx"));
 const TutorialDeatilPage = lazy(() =>
-  import("./components/tutorial/TutorialDetailPage.jsx")
+  import("@components/tutorial/TutorialDetailPage.jsx")
 );
-const MyFishPage = lazy(() => import("./pages/MyFishPage.jsx"));
-const MyLocationPage = lazy(() => import("./pages/MyLocationPage.jsx"));
-const Aquarium = lazy(() => import("./pages/Aquarium.jsx"));
+const MyFishPage = lazy(() => import("@pages/MyFishPage.jsx"));
+const MyLocationPage = lazy(() => import("@pages/MyLocationPage.jsx"));
+const Aquarium = lazy(() => import("@pages/Aquarium.jsx"));
 
 // import preloadedImageSrc1 from "./assets/images/main/aquarium.webp";
 import preloadedImageSrc2 from "./assets/images/main/fishbook.webp";
@@ -67,7 +67,7 @@ function App() {
   }, []);
 
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense fallback={<div />}>
       <Routes>
         <Route path="/" element={<Navbar />}>
           <Route index element={<HomePage />} />
