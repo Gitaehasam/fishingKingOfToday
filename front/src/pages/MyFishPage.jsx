@@ -17,6 +17,27 @@ const MyFishPage = () => {
     });
   };
 
+  const getDate = (date) => {
+    const now = new Date();
+    const specificDate = new Date(date);
+
+    const diffInHours = (specificDate - now) / (1000 * 60 * 60);
+
+    const rtf = new Intl.RelativeTimeFormat("ko-KR");
+
+    let relativeTime;
+
+    if (Math.abs(diffInHours) < 24) {
+      // 시간 단위로 변환
+      relativeTime = rtf.format(Math.round(diffInHours), "hour");
+    } else {
+      // 일 단위로 변환
+      relativeTime = rtf.format(Math.round(diffInHours / 24), "day");
+    }
+
+    return relativeTime;
+  };
+
   const aaa = async () => {
     const jwt = localStorage.getItem("jwt");
 
@@ -57,8 +78,8 @@ const MyFishPage = () => {
               >
                 <img src={board.imageUrl} alt="" />
                 <div className="board-content">{board.content}</div>
-                <div className="board-date">{board.boardId}</div>
                 {/* <div>{board.boardId}</div> */}
+                <div className="board-date">{getDate(board.createdAt)}</div>
               </div>
             );
           })}

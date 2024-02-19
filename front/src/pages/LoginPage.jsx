@@ -31,7 +31,7 @@ const LoginPage = () => {
 
   return (
     <div className="LoginPage">
-      <Header prevPath={prevPath} />
+      {/* <Header prevPath={prevPath} /> */}
       <div className="LoginPage_body">
         <img src={loginImg} alt="" />
       </div>

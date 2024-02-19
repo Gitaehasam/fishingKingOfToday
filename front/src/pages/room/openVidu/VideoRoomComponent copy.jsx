@@ -5,9 +5,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import UserModel from "./models/user-model";
 import OpenViduLayout from "../openVidu/layout/openvidu-layout";
 import UserVideoComponent from "./UserVideoComponent";
-import ToolbarComponent from '../openVidu/toolbar/ToolbarComponent';
-import ChattingList from "../openVidu/chat/ChattingList"
-import ChattingForm from "../openVidu/chat/ChattingForm"
+import ToolbarComponent from "../openVidu/toolbar/ToolbarComponent";
+import ChattingList from "../openVidu/chat/ChattingList";
+import ChattingForm from "../openVidu/chat/ChattingForm";
 import LeaveModal from "../../../components/room/LeaveModal";
 
 import Loading from "../../../components/Loading";
@@ -16,29 +16,30 @@ import HeartButton from "./HeartBtn";
 
 import "./VideoRoomComponent.css";
 
-
 var localUser = new UserModel();
 
-const baseURL = import.meta.env.VITE_BASE_URL
-const OPENVIDU_SERVER_SECRET = "wearegitaehasam"
+const baseURL = import.meta.env.VITE_BASE_URL;
+const OPENVIDU_SERVER_SECRET = "wearegitaehasam";
 
 const VideoRoomComponent = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const roomId = location.state.roomId
+  const roomId = location.state.roomId;
   const isHost = location.state.isHost;
-  const imageUrl = (location.state.imageUrl ? location.state.imageUrl : null)
+  const imageUrl = location.state.imageUrl ? location.state.imageUrl : null;
 
-  const name = (location.state.name ? location.state.name : null)
-  const nickName = location.state.nickname
-  const userImg = location.state.userImg
-  const subscriberSession = (location.state.subscriberSession ? location.state.subscriberSession : null)
+  const name = location.state.name ? location.state.name : null;
+  const nickName = location.state.nickname;
+  const userImg = location.state.userImg;
+  const subscriberSession = location.state.subscriberSession
+    ? location.state.subscriberSession
+    : null;
 
-  const [apiRoomId, setApiRoomId] = useState(null)
-  const [mySessionId, setMySessionId] = useState('Gitaehasam');
-  const [myUserName, setMyUserName] = useState('');
-  const [myUserImg, setMyUserImg] = useState('');
+  const [apiRoomId, setApiRoomId] = useState(null);
+  const [mySessionId, setMySessionId] = useState("Gitaehasam");
+  const [myUserName, setMyUserName] = useState("");
+  const [myUserImg, setMyUserImg] = useState("");
   const [session, setSession] = useState(undefined);
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
   const [messageList, setMessageList] = useState([]);
@@ -46,11 +47,11 @@ const VideoRoomComponent = (props) => {
   const [subscribers, setSubscribers] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [chatDisplay, setChatDisplay] = useState(true);
-  const [isCamera, setIsCamera] = useState(true)
-  const [isAudio, setIsAudio] = useState(true)
-  const [leaveModal, setLeaveModal] = useState(false)
-  const [hostNickname, setHostNickname] = useState('');
-  const [hostProfileImg, setHostProfileImg] = useState('');
+  const [isCamera, setIsCamera] = useState(true);
+  const [isAudio, setIsAudio] = useState(true);
+  const [leaveModal, setLeaveModal] = useState(false);
+  const [hostNickname, setHostNickname] = useState("");
+  const [hostProfileImg, setHostProfileImg] = useState("");
   const [liveEndModalOpen, setLiveEndModalOpen] = useState(false);
   const [favIcons, setFavIcons] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -65,8 +66,9 @@ const VideoRoomComponent = (props) => {
 
   const getToken = useCallback(() => {
     if (isHost) {
-      return createSession(mySessionId)
-      .then((sessionId) => createToken(sessionId));
+      return createSession(mySessionId).then((sessionId) =>
+        createToken(sessionId)
+      );
     } else {
       return createToken(subscriberSession);
     }
@@ -74,92 +76,101 @@ const VideoRoomComponent = (props) => {
 
   const createSession = (sessionId) => {
     if (isHost) {
-    return new Promise((resolve, reject) => {
-      let data = JSON.stringify({ customSessionId: sessionId });
-      axios
-        .post(baseURL + '/openvidu/api/sessions', data, {
-          headers: {
-            Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
-            'Content-Type': 'application/json',
-          },
-        })
-        .then((response) => {
-
-          axios.post(baseURL + '/api/lives', {
-            imageUrl:imageUrl,
-            name:name,
-            sessionId:response.data.sessionId,
-          }, {
+      return new Promise((resolve, reject) => {
+        let data = JSON.stringify({ customSessionId: sessionId });
+        axios
+          .post(baseURL + "/openvidu/api/sessions", data, {
             headers: {
-              Authorization: localStorage.getItem("jwt"),
-              'Content-Type': 'application/json',
+              Authorization:
+                "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
+              "Content-Type": "application/json",
+            },
+          })
+          .then((response) => {
+            axios
+              .post(
+                baseURL + "/api/lives",
+                {
+                  imageUrl: imageUrl,
+                  name: name,
+                  sessionId: response.data.sessionId,
+                },
+                {
+                  headers: {
+                    Authorization: localStorage.getItem("jwt"),
+                    "Content-Type": "application/json",
+                  },
+                }
+              )
+              .then((res2) => {
+                setApiRoomId(res2.data.id);
+                resolve(response.data.id);
+              })
+              .catch((error) => {
+                console.log("Error on /lives request:", error);
+              });
+          })
+          .catch((response) => {
+            var error = Object.assign({}, response);
+            if (error?.response?.status === 409) {
+              resolve(sessionId);
+            } else {
+              console.log(error);
             }
-          })
-          .then((res2)=> {
-            setApiRoomId(res2.data.id)
-            resolve(response.data.id);
-          })
-          .catch((error) => {
-            console.log('Error on /lives request:', error);
           });
-        })
-        .catch((response) => {
-          var error = Object.assign({}, response);
-          if (error?.response?.status === 409) {
-            resolve(sessionId);
-          } else {
-            console.log(error);
-          }
-        });
-    });
-  } else {
-    return Promise.resolve(subscriberSession);
-  }
-  }
+      });
+    } else {
+      return Promise.resolve(subscriberSession);
+    }
+  };
 
   const createToken = (sessionId) => {
     let myRole = isHost ? "PUBLISHER" : "SUBSCRIBER";
-    
+
     return new Promise((resolve, reject) => {
       const data = { role: myRole, sessionId: sessionId };
       axios
-        .post(baseURL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
-          headers: {
-            Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
-            'Content-Type': 'application/json',
-          },
-        })
+        .post(
+          baseURL + "/openvidu/api/sessions/" + sessionId + "/connection",
+          data,
+          {
+            headers: {
+              Authorization:
+                "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((response) => {
           resolve(response.data.token);
         })
         .catch((error) => {
           console.error(error);
           if (error.response && error.response.status === 404) {
-            alert('종료된 라이브 입니다.');
-            navigate('/media/roomList');
+            alert("종료된 라이브 입니다.");
+            navigate("/media/roomList");
           } else {
             reject(error);
           }
         });
     });
-  }
-  
+  };
 
   let layout;
 
   useEffect(() => {
     setMySessionId(`Gitaehasam${roomId}`);
-    setHostNickname(nickName)
-    setHostProfileImg(userImg)
+    setHostNickname(nickName);
+    setHostProfileImg(userImg);
   }, [roomId]);
-  
+
   useEffect(() => {
     layout = new OpenViduLayout();
     const openViduLayoutOptions = {
       maxRatio: 1,
       minRatio: 1,
       fixedRatio: true,
-      bigClass: 'OV_big',
+      bigClass: "OV_big",
       bigPercentage: 1,
       bigFixedRatio: false,
       bigMaxRatio: 1,
@@ -167,29 +178,34 @@ const VideoRoomComponent = (props) => {
       bigFirst: true,
       animate: true,
     };
-  
-    layout.initLayoutContainer(document.getElementById('layout'), openViduLayoutOptions);
+
+    layout.initLayoutContainer(
+      document.getElementById("layout"),
+      openViduLayoutOptions
+    );
     layout.setLayoutOptions(openViduLayoutOptions);
-  
-    window.addEventListener('beforeunload', onbeforeunload);
-  
-    if (mySessionId !== 'Gitaehasam') {
+
+    window.addEventListener("beforeunload", onbeforeunload);
+
+    if (mySessionId !== "Gitaehasam") {
       joinSession();
     }
   }, [mySessionId]);
 
   const joinSession = async () => {
-    OV = new OpenVidu(); 
+    OV = new OpenVidu();
 
     const devices = await OV.getDevices();
-    const videoDevices = devices.filter((device) => device.kind === "videoinput");
+    const videoDevices = devices.filter(
+      (device) => device.kind === "videoinput"
+    );
 
     let mySession = OV.initSession();
     setSession(mySession);
     let token;
     try {
-      token = await getToken(); 
-    } catch(error) {
+      token = await getToken();
+    } catch (error) {
       console.log(error);
       return;
     }
@@ -201,74 +217,72 @@ const VideoRoomComponent = (props) => {
       publishVideo: isCamera,
       resolution: `640x480`,
       frameRate: 30,
-      insertMode: 'APPEND',
-      mirror: false
+      insertMode: "APPEND",
+      mirror: true,
     });
 
-    mySession.connect(token, { clientData: myUserName })
-      .then(() => {
-        mySession.publish(publisher)
-          .then(() => {
-            localUser.setNickname(myUserName);
-            localUser.setConnectionId(mySession.connection.connectionId);
-            localUser.setStreamManager(publisher);
-          })
-        setPublisher(publisher)
-        setMainStreamManager(publisher)
+    mySession.connect(token, { clientData: myUserName }).then(() => {
+      mySession.publish(publisher).then(() => {
+        localUser.setNickname(myUserName);
+        localUser.setConnectionId(mySession.connection.connectionId);
+        localUser.setStreamManager(publisher);
       });
-
-    mySession.on('streamCreated', (event) => {
-      const subscriber = mySession.subscribe(event.stream, 'publisher');
-      setSubscribers(subscriber)
+      setPublisher(publisher);
+      setMainStreamManager(publisher);
     });
 
-    mySession.on('exception', (exception) => {
+    mySession.on("streamCreated", (event) => {
+      const subscriber = mySession.subscribe(event.stream, "publisher");
+      setSubscribers(subscriber);
+    });
+
+    mySession.on("exception", (exception) => {
       console.warn(exception);
     });
 
-    mySession.on('connectionCreated', (({ stream }) => {
+    mySession.on("connectionCreated", ({ stream }) => {
       setTotalUsers((prevTotalUsers) => {
-        return prevTotalUsers + 1
-      })
-    }));
+        return prevTotalUsers + 1;
+      });
+    });
 
-    mySession.on("sessionDisconnected", (({ stream }) => {
-      alert('라이브가 종료되었습니다.');
-      navigate('/media/roomList', {replace:true})
-    }))
+    mySession.on("sessionDisconnected", ({ stream }) => {
+      alert("라이브가 종료되었습니다.");
+      navigate("/media/roomList", { replace: true });
+    });
 
-    mySession.on('connectionDestroyed', (({ stream }) => {
+    mySession.on("connectionDestroyed", ({ stream }) => {
       setTotalUsers((prevTotalUsers) => {
-        return prevTotalUsers - 1
-      })
-    }));
+        return prevTotalUsers - 1;
+      });
+    });
 
     mySession.on("signal:heart", (event) => {
-      const [, , icon] = event.data.split('|');
+      const [, , icon] = event.data.split("|");
       setFavIcons((prev) => [...prev, { id: Date.now(), y: 100, icon: icon }]);
     });
 
     mySession.on("signal:chat", (event) => {
-      setMessageList((prevMessageList) => { 
-        return [...prevMessageList, event.data]
-      })
+      setMessageList((prevMessageList) => {
+        return [...prevMessageList, event.data];
+      });
     });
   };
 
   const camStatusChanged = () => {
     publisher.publishVideo(!publisher.stream.videoActive);
-    setIsCamera(!isCamera)
+    setIsCamera(!isCamera);
     setPublisher(publisher);
-  }
+  };
 
   const micStatusChanged = () => {
     publisher.publishAudio(!publisher.stream.audioActive);
-    setIsAudio(!isAudio)
+    setIsAudio(!isAudio);
     setPublisher(publisher);
-  }
+  };
 
   const switchCamera = async (newDeviceId) => {
-    OV = new OpenVidu(); 
+    OV = new OpenVidu();
     try {
       const newPublisher = await OV.initPublisher(undefined, {
         audioSource: publisher.stream.audioSource,
@@ -280,7 +294,7 @@ const VideoRoomComponent = (props) => {
         insertMode: "APPEND",
         mirror: false,
       });
-  
+
       await session.unpublish(publisher);
       await session.publish(newPublisher);
       setPublisher(newPublisher);
@@ -289,70 +303,68 @@ const VideoRoomComponent = (props) => {
     } catch (error) {
       console.error(error);
     }
-  };  
-  
+  };
+
   const leaveSession = async () => {
     const mySession = session;
     if (mySession) {
       if (isHost) {
         await deleteRoomRequest();
-      }
-      else {
+      } else {
         mySession.disconnect();
-        navigate('/media/roomList', {replace:true})
+        navigate("/media/roomList", { replace: true });
       }
     }
-  }
-  
+  };
+
   const deleteRoomRequest = async () => {
     try {
-      await axios.delete(baseURL + `/api/lives/${apiRoomId}`, 
-      {
+      await axios.delete(baseURL + `/api/lives/${apiRoomId}`, {
         headers: {
           Authorization: localStorage.getItem("jwt"),
-          'Content-Type': 'application/json',
-        }
-      })
+          "Content-Type": "application/json",
+        },
+      });
       await axios.delete(baseURL + `/openvidu/api/sessions/${mySessionId}`, {
         headers: {
-          Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
-          'Content-Type': 'application/json',
+          Authorization:
+            "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
+          "Content-Type": "application/json",
         },
-      })
+      });
     } catch (error) {
       console.error(error);
     } finally {
-      navigate('/media/roomList', {replace:true})
+      navigate("/media/roomList", { replace: true });
     }
-  }  
+  };
 
   useEffect(() => {
     setMyUserName(nickName);
-    setMyUserImg(userImg)
+    setMyUserImg(userImg);
   }, []);
 
   useEffect(() => {
     const onbeforeunload = (event) => {
       leaveSession();
-    }
-    window.addEventListener('beforeunload', onbeforeunload);
+    };
+    window.addEventListener("beforeunload", onbeforeunload);
     return () => {
-      window.removeEventListener('beforeunload', onbeforeunload);
-    }
+      window.removeEventListener("beforeunload", onbeforeunload);
+    };
   }, [leaveSession]);
 
   useEffect(() => {
-    if (session) {  
+    if (session) {
       const sessionDisconnectedHandler = () => {
         setLiveEndModalOpen(true);
       };
-      session.on('sessionDisconnected', sessionDisconnectedHandler);
+      session.on("sessionDisconnected", sessionDisconnectedHandler);
       return () => {
-        session.off('sessionDisconnected', sessionDisconnectedHandler);
+        session.off("sessionDisconnected", sessionDisconnectedHandler);
       };
     }
   }, [session]);
-
 
   const sendMsg = (msg, currentSession) => {
     currentSession
@@ -361,64 +373,82 @@ const VideoRoomComponent = (props) => {
         to: [],
         type: "chat",
       })
-      .then(() => {
-
-      })
+      .then(() => {})
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
   return (
     <>
-    {isLoading ? (
-      <Loading />
+      {isLoading ? (
+        <Loading />
       ) : (
-      <div className="bounds">
-        {session !== undefined && mainStreamManager !== undefined ? (
-          <div>
-          <ToolbarComponent
-              user={publisher}
-              isHost={isHost}
-              micStatusChanged={micStatusChanged}
-              camStatusChanged={camStatusChanged}
-              setLeaveModal={setLeaveModal}
-              hostNickname={hostNickname}
-              hostProfileImg={hostProfileImg}
-              totalUsers={totalUsers}
-          />
+        <div className="bounds">
+          {session !== undefined && mainStreamManager !== undefined ? (
+            <div>
+              <ToolbarComponent
+                user={publisher}
+                isHost={isHost}
+                micStatusChanged={micStatusChanged}
+                camStatusChanged={camStatusChanged}
+                setLeaveModal={setLeaveModal}
+                hostNickname={hostNickname}
+                hostProfileImg={hostProfileImg}
+                totalUsers={totalUsers}
+              />
 
-            {isHost && <UserVideoComponent streamManager={publisher}></UserVideoComponent>}
-            {!isHost && <UserVideoComponent streamManager={subscribers}></UserVideoComponent>}
-  
-            {chatDisplay && 
-              <div className="chatting">
-                <ChattingList messageList={messageList}></ChattingList>
-                <div className="chat-input-area">
-                  <ChattingForm myUserName={myUserName} myUserImg={myUserImg} onMessage={sendMsg} currentSession={session}></ChattingForm>
-                  <div className="heart-button-wrapper">
-                    <HeartButton session={session} myUserName={myUserName} myUserImg={myUserImg} favIcons={favIcons} setFavIcons={setFavIcons} />
+              {isHost && (
+                <UserVideoComponent
+                  streamManager={publisher}
+                ></UserVideoComponent>
+              )}
+              {!isHost && (
+                <UserVideoComponent
+                  streamManager={subscribers}
+                ></UserVideoComponent>
+              )}
+
+              {chatDisplay && (
+                <div className="chatting">
+                  <ChattingList messageList={messageList}></ChattingList>
+                  <div className="chat-input-area">
+                    <ChattingForm
+                      myUserName={myUserName}
+                      myUserImg={myUserImg}
+                      onMessage={sendMsg}
+                      currentSession={session}
+                    ></ChattingForm>
+                    <div className="heart-button-wrapper">
+                      <HeartButton
+                        session={session}
+                        myUserName={myUserName}
+                        myUserImg={myUserImg}
+                        favIcons={favIcons}
+                        setFavIcons={setFavIcons}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            }
-          </div>
-        ) : (
-          <div className="noneData">
-            <InfoOutlinedIcon />
-            <div>존재하지 않는 방송입니다.</div>
-            <button onClick={() => navigate('/media/roomList')}>나가기</button>
-          </div>
-        )}
-        
-      {leaveModal ? 
-        <LeaveModal state={setLeaveModal} leaveSession={leaveSession}/>
-        : null  
-      }
-      </div>
+              )}
+            </div>
+          ) : (
+            <div className="noneData">
+              <InfoOutlinedIcon />
+              <div>존재하지 않는 방송입니다.</div>
+              <button onClick={() => navigate("/media/roomList")}>
+                나가기
+              </button>
+            </div>
+          )}
+
+          {leaveModal ? (
+            <LeaveModal state={setLeaveModal} leaveSession={leaveSession} />
+          ) : null}
+        </div>
       )}
     </>
   );
-}
+};
 
 export default VideoRoomComponent;
