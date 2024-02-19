@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import MapDetailWeather from "../components/fishmap/MapDetailWeather";
+import MapDetailWeather from "@components/fishmap/MapDetailWeather";
 import axios from "axios";
-import Loading from "../components/Loading";
-import Header from "../components/Header";
+import Loading from "@components/Loading";
+import Header from "@components/Header";
 import { useSetRecoilState } from "recoil";
 import { prevPathAtom } from "../stores/FishingMapStore";
 import default_img from "@assets/images/default_profile.webp";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import "@assets/styles/chatbot/ChatBotList.scss";
 import ChatBotLoading from "./ChatBotLoading";
-import Loading from "../../components/Loading";
+import Loading from "@components/Loading";
 import { useNavigate } from "react-router-dom";
 
 function ChatBotChattingList(props) {

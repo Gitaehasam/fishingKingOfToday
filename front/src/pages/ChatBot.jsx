@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import fishKing from "../assets/images/fish_king.png";
-import Header from "../components/Header";
-import "@/assets/styles/chatbot/ChatBot.scss";
-import ChatBotChattingForm from "../components/chatBot/ChatBotChattingForm";
-import ChatBotChattingList from "../components/chatBot/ChatBotChattingList";
+import fishKing from "@assets/images/fish_king.png";
+import Header from "@components/Header";
+import ChatBotChattingForm from "@components/chatBot/ChatBotChattingForm";
+import ChatBotChattingList from "@components/chatBot/ChatBotChattingList";
 import postSendChat from "../api/chatbot";
+import "@assets/styles/chatbot/ChatBot.scss";
 
 function ChatBot() {
   const navigate = useNavigate();

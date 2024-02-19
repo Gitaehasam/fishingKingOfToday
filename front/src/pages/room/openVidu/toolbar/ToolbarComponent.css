@@ -1,6 +1,7 @@
 .toolbar-container {
   position: relative;
   width: 100%;
+  z-index: 1;
 }
 
 .toolbar-count-subscribers {
@@ -13,8 +14,8 @@
   border-radius: 20px;
   top: 10px;
   left: 70%;
-  
-  img{
+
+  img {
     width: 2.5vh;
   }
 }
