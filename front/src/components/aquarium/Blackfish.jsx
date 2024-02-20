@@ -7,16 +7,67 @@ Source: https://sketchfab.com/3d-models/blackhead-seabream-a-schlegelii-865614b9
 Title: クロダイ チヌ ♂ Blackhead Seabream, A. schlegelii.
 */
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
+import * as THREE from "three";
+import { TweenMax, Power1 } from "gsap";
 
 export function Blackfish(props) {
   const { nodes, materials } = useGLTF("/Blackfish.glb");
-  console.log(nodes);
-  console.log(materials);
+
+  const fishGroupRef = useRef();
+  const fishMovement = useRef({
+    speed: 0.02,
+    targetPosition: new THREE.Vector3(), // Target position for smooth movement
+  });
+
+  useEffect(() => {
+    // Set initial target position
+    updateTargetPosition();
+  }, []);
+
+  useFrame((state, delta) => {
+    if (fishGroupRef.current) {
+      // 부드러운 이동
+      fishGroupRef.current.position.lerp(
+        fishMovement.current.targetPosition,
+        delta * 0.5
+      );
+
+      // 부드러운 회전
+      const lookAtVector = new THREE.Vector3()
+        .copy(fishMovement.current.targetPosition)
+        .sub(fishGroupRef.current.position);
+      fishGroupRef.current.rotation.y = Math.atan2(
+        lookAtVector.x,
+        lookAtVector.z
+      );
+
+      // 일정 시간이 지날 때마다 새로운 목표 위치 설정
+      if (state.clock.elapsedTime % 5 < delta) {
+        updateTargetPosition();
+      }
+    }
+  });
+
+  const updateTargetPosition = () => {
+    fishMovement.current.targetPosition.set(
+      Math.random() * 40 - 20,
+      Math.random() * 2 - 10,
+      Math.random() * 40 - 20
+    );
+    TweenMax.to(fishMovement.current.targetPosition, 12, {
+      x: Math.random() * 40 - 20,
+      y: Math.random() * 90 - 35,
+      z: Math.random() * 40 - 20,
+      ease: Power1.easeInOut,
+    });
+  };
+
   return (
-    <group {...props} dispose={null}>
-      <group rotation={[0.365, -1.01, -2.883]} scale={0.5}>
+    <group {...props} ref={fishGroupRef} dispose={null}>
+      <group rotation={[0.365, -1.01, -2.883]} scale={0.35}>
         <mesh
           geometry={nodes.Object_6.geometry}
           material={materials["Q11246-1all-1-body_tex0"]}

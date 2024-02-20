@@ -5,6 +5,7 @@ import "../../assets/styles/board/BoardDetail.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SendIcon from "@mui/icons-material/Send";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Header from "../Header";
 import { getBoardDetail, deleteBoardPost, sendBoardReply, deleteBoardReply, putPostLike, deletePostLike } from "../../api/board";
 import BoardDetailMap from "./BoardDetailMap";
@@ -16,9 +17,8 @@ const BoardDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [boardData, setBoardData] = useState({});
-  const userId = 3330361706;
-  const [reply, setReply] = useState([]);
   const userInfo = JSON.parse(localStorage.getItem("user"));
+  const [reply, setReply] = useState([]);
 
   const [boardlike, setBoardLike] = useState();
   const [likecnt, setLikeCnt] = useState();
@@ -69,8 +69,8 @@ const BoardDetail = () => {
     return day + " " + time;
   };
 
-  const sendReply = async (e) => {
-    if (e.key === "Enter") {
+  const sendReply = async (e, click) => {
+    if (e.key === "Enter" || click == 1) {
       await sendBoardReply(id, reply).then((res) => {
         getDetail();
       });
@@ -130,23 +130,30 @@ const BoardDetail = () => {
               <img className="board-content-img" src={boardData.boardImageUrl} alt="" />
               <div className="board-text">{boardData.content}</div>
               <div className="board-hashtag-area">
-                {boardData.fishName && (
-                  <div className="blue-bd">
-                    <div className="blue-fc"># {boardData.fishName}</div>
-                  </div>
-                )}
-
-                {boardData.hashtags && (
+                {category == 1 && (
                   <>
-                    {boardData.hashtags.map((tag, index) => (
-                      <div className="blue-bd" key={index}>
-                        <div className="blue-fc "># {tag}</div>
+                    {boardData.fishName && (
+                      <div className="blue-bd">
+                        <div className="blue-fc"># {boardData.fishName}</div>
                       </div>
-                    ))}
+                    )}
+                  </>
+                )}
+                {category == 2 && (
+                  <>
+                    {boardData.hashtags && (
+                      <>
+                        {boardData.hashtags.map((tag, index) => (
+                          <div className="blue-bd" key={index}>
+                            <div className="blue-fc "># {tag}</div>
+                          </div>
+                        ))}
+                      </>
+                    )}
                   </>
                 )}
               </div>
-              {boardData.socialId == userId && (
+              {boardData.socialId == userInfo.socialId && (
                 <div className="btn-area">
                   <div className="btn-modify bg-blue" onClick={() => modifyPost()}>
                     수정
@@ -160,9 +167,14 @@ const BoardDetail = () => {
             <div className="line bg-blue"></div>
             <div className="board-detail-item">
               <div className="board-place">Place Info</div>
-
               <div className="board-map">
                 <BoardDetailMap lat={boardData.latitude} lng={boardData.longitude} />
+              </div>
+              <div className="board-place-info">
+                <div>
+                  <LocationOnIcon />
+                </div>
+                <div>{boardData.fishingSpotName}</div>
               </div>
             </div>
             <div className="line bg-blue"></div>
@@ -182,7 +194,7 @@ const BoardDetail = () => {
                         <div>{comment.nickName}</div>
                         <div>{changeDate(comment.createdAt)}</div>
                         <div>{comment.content}</div>
-                        {comment.socialId == userId && (
+                        {comment.socialId == userInfo.socialId && (
                           <span className="delete-reply blue-fc" onClick={() => deleteReply(comment.id)}>
                             x
                           </span>
@@ -198,8 +210,8 @@ const BoardDetail = () => {
             <div className="reply-line bg-blue"></div>
             <img src={userInfo.imageUrl} alt="" />
             <div className="reply-add-area">
-              <input type="text" value={reply} onChange={(e) => setReply(e.target.value)} onKeyDown={(e) => sendReply(e)} placeholder="댓글작성하기" />
-              <div className="send-reply bg-blue">
+              <input type="text" value={reply} onChange={(e) => setReply(e.target.value)} onKeyDown={(e) => sendReply(e, 0)} placeholder="댓글작성하기" />
+              <div className="send-reply bg-blue" onClick={(e) => sendReply(e, 1)}>
                 <SendIcon />
               </div>
             </div>

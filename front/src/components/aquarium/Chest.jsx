@@ -24,7 +24,9 @@ export function Chest(props) {
 
   useFrame(({ clock }) => {
     const elapsedTime = clock.getElapsedTime();
-    currentRotation = open ? lerp(currentRotation, 0.7, 0.1) : lerp(currentRotation, 0, 0.1);
+    currentRotation = open
+      ? lerp(currentRotation, 0.7, 0.1)
+      : lerp(currentRotation, 0, 0.1);
 
     lidRef.current.rotation.set(0, 0, currentRotation);
     nodes.Cube003_1.geometry.rotation = [0, 0, currentRotation];
@@ -59,7 +61,10 @@ export function Chest(props) {
       <group ref={chestRef}>
         <mesh geometry={nodes.Cube002.geometry} material={materials.Gold} />
         <mesh geometry={nodes.Cube002_1.geometry} material={materials.Planks} />
-        <mesh geometry={nodes.Cube002_2.geometry} material={materials["Gold.001"]} />
+        <mesh
+          geometry={nodes.Cube002_2.geometry}
+          material={materials["Gold.001"]}
+        />
       </group>
       <group position={[-1, 1.43, 0]} ref={lidRef} rotation={[0, 0, 0.79]}>
         <mesh geometry={nodes.Cube003.geometry} material={materials.Gold} />

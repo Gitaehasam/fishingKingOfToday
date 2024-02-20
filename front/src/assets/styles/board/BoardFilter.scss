@@ -5,6 +5,15 @@
   align-items: center;
   padding-bottom: 30px;
 
+  .back-fish-lish {
+    cursor: pointer;
+    position: absolute;
+    z-index: 40;
+    width: 30px;
+    top: 10px;
+    left: 20px;
+  }
+
   .reset {
     padding: 10px;
     align-self: flex-end;

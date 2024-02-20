@@ -29,8 +29,7 @@
   img {
     border-radius: 100%;
     border: 2px solid transparent;
-    background-image: linear-gradient(#fff, #fff),
-      linear-gradient(to right, red 0%, orange 100%);
+    background-image: linear-gradient(#fff, #fff), linear-gradient(to right, red 0%, orange 100%);
     background-origin: border-box;
     background-clip: content-box, border-box;
     width: 6vh;
@@ -49,8 +48,7 @@
   background-clip: content-box, border-box;
   text-align: center;
   margin-bottom: 10px;
-  background-image: linear-gradient(#fff, #fff),
-    linear-gradient(120deg, #59fbee 0%, #a19af6 100%);
+  background-image: linear-gradient(#fff, #fff), linear-gradient(120deg, #59fbee 0%, #a19af6 100%);
   transition: transform 0.35s ease-in-out;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(138, 138, 138, 0.1);
   border-radius: 0 30px 30px 30px;
@@ -84,9 +82,14 @@
   &:active {
     background: rgb(194, 194, 194);
   }
+
+  &:nth-child(8) {
+    margin-bottom: 15px;
+  }
 }
 
 .chatbot-startChat {
+  border: 2px solid transparent;
   border-radius: 0 30px 30px 30px;
   height: 30%;
   width: 130%;

@@ -35,20 +35,21 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background: #a3b9f6;
         gap: 1vh;
-        padding: 2vh;
         margin: 0 2vh;
         border-radius: 2vh;
+        border-width: 2px;
         font-weight: bold;
-        color: white;
 
         .result-name {
-          font-size: 4vh;
+          margin-top: 20px;
+          font-size: 6vh;
+          color: #928ae7;
         }
 
         .result-detail {
-          font-size: 1.8vh;
+          font-size: 3vh;
+          margin-bottom: 20px;
         }
       }
 

@@ -10,7 +10,7 @@ const SHOWS = [
   {
     page: 0,
     sub: "낚시를 시작하는 초보낚시꾼을 위한",
-    title: "가이드북",
+    title: "튜토리얼",
     url: "/tutorial",
   },
   {

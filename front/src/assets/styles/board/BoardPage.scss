@@ -11,6 +11,7 @@
 }
 
 .category-title {
+  cursor: pointer;
   position: relative;
   width: 50%;
   padding: 10px;
@@ -37,6 +38,7 @@
   .full,
   .divide,
   .filter {
+    cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

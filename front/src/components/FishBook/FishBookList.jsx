@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import SeaFish from "./SeaFish.json";
 import { Link } from "react-router-dom";
 import "@assets/styles/fishbook/fishBookList.scss";
-import ban from "../../assets/images/ban.png";
 
 const FishBookList = ({ fishdata, type }) => {
   console.log(fishdata);
@@ -25,9 +22,7 @@ const FishBookList = ({ fishdata, type }) => {
     if (type == 0) {
       setFilterData(fishdata);
     } else if (type == 1) {
-      const updateArray = fishdata.filter(
-        (item) => item.fishType === "FRESH_WATER"
-      );
+      const updateArray = fishdata.filter((item) => item.fishType === "FRESH_WATER");
       setFilterData(updateArray);
     } else if (type == 2) {
       const updateArray = fishdata.filter((item) => item.fishType === "SEA");
@@ -51,9 +46,7 @@ const FishBookList = ({ fishdata, type }) => {
                   <div className={`fish-profile shadow ${fish.fishType}`}>
                     <img src={fish.imageUrl} alt="" />
                   </div>
-                  <div className="fish-profile-type blue-fc">
-                    {fish.fishType}
-                  </div>
+                  <div className="fish-profile-type blue-fc">{fish.fishType}</div>
                   <div className="fish-profile-name">{fish.name}</div>
                   <div className="fish-profile-size">{fish.minimumSize}</div>
                   {cutDate(fish.tabooStartAt) != 0 && (
@@ -63,9 +56,7 @@ const FishBookList = ({ fishdata, type }) => {
                       </div>
                     </div>
                   )}
-                  {fish.mininumSize != 0 && (
-                    <div className="bansize">{fish.mininumSize}</div>
-                  )}
+                  {fish.mininumSize != 0 && <div className="bansize">{fish.mininumSize}</div>}
                   <div className="fish-detail-btn bg-blue">VIEW</div>
                 </li>
               </Link>

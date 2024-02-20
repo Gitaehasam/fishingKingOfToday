@@ -2,7 +2,7 @@
   width: 100svw;
   max-width: 450px;
   height: 100svh;
-  background-image: url("../../images/background2.webp");
+  background-image: url("../../images/aquarium/backgroundday.jpg");
   background-size: cover;
   display: flex;
   align-items: center;
@@ -20,7 +20,12 @@
 }
 
 .back-fish-lish {
-  margin-top: 10px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 40;
+  width: 40px;
+  top: 10px;
+  left: 20px;
 }
 
 .controls {
@@ -165,6 +170,7 @@
 }
 
 .disabled {
+  cursor: not-allowed;
   .fish-aquaprofile {
     opacity: 0.5;
   }
@@ -177,6 +183,7 @@
 
   [type="checkbox"]:before {
     background-color: lightgray;
+    cursor: not-allowed;
   }
 }
 
