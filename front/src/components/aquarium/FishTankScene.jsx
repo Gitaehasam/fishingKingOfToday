@@ -159,7 +159,7 @@ export const FishTankScene = ({
           />
           <primitive
             object={sunMesh}
-            position={[100, 70, 50]}
+            position={[-50, 70, 100]}
             rotation={[Math.PI / 2, 0, 0]}
           />
           <GodRays

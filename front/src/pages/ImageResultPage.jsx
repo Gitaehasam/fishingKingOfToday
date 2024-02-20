@@ -116,9 +116,9 @@ const ImageResultPage = () => {
             />
           </div>
           <div className="result-content">
-            <div className="result-fish" onClick={moveFishBook}>
-              <div className="result-name">{name}</div>
-              <div className="result-detail">자세히 보기</div>
+            <div className="result-fish blue-bd" onClick={moveFishBook}>
+              <div className="result-name blue-fc">{name}</div>
+              <div className="result-detail blue-fc">자세히 보기</div>
             </div>
             <div className="fish-reviews">
               <h3 className="reviews-title">{name}의 리뷰</h3>

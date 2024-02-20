@@ -29,12 +29,12 @@ const MyPage = () => {
         <div className="user-nick">{user?.nickname}</div>
       </div>
       <div className="user-content">
-        <button onClick={() => navigate("fish")}>
-          나의 물고기
+        <button className="blue-bd" onClick={() => navigate("fish")}>
+          <div>나의 물고기</div>
           <ArrowForwardIosOutlinedIcon />
         </button>
-        <button onClick={() => navigate("location")}>
-          나의 장소
+        <button className="blue-bd" onClick={() => navigate("location")}>
+          <div>나의 장소</div>
           <ArrowForwardIosOutlinedIcon />
         </button>
         <button className="later">

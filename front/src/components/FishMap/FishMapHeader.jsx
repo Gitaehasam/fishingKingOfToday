@@ -1,15 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  activeMarkerAtom,
-  centerChangeAtom,
-  fishSpotListAtom,
-  mapLevelAtom,
-  myCenterAtom,
-  searchModeAtom,
-  searchTermAtom,
-} from "../../stores/FishingMapStore";
+import { activeMarkerAtom, centerChangeAtom, fishSpotListAtom, mapLevelAtom, myCenterAtom, searchModeAtom, searchTermAtom } from "../../stores/FishingMapStore";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import "@assets/styles/fishmap/FishMapHeader.scss";
@@ -41,20 +33,12 @@ const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
   // 낚시터 데이터 호출
   const fetchSpots = async (params) => {
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/spots`,
-        {
-          params,
-        }
-      );
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/spots`, {
+        params,
+      });
 
       const data = res.data.spots.map((item) => {
-        const dist = getDistance(
-          myCenter.center.lat,
-          myCenter.center.lng,
-          item?.latitude,
-          item?.longitude
-        );
+        const dist = getDistance(myCenter.center.lat, myCenter.center.lng, item?.latitude, item?.longitude);
         return { ...item, dist: dist };
       });
 
@@ -71,12 +55,7 @@ const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
 
     let params = {};
     if (searchMode === "location" || searchMode === "hash") {
-      params.keyword =
-        e.type === "submit"
-          ? searchMode === "location"
-            ? searchTerm
-            : `#${searchTerm}`
-          : `#${e.target.value}`;
+      params.keyword = e.type === "submit" ? (searchMode === "location" ? searchTerm : `#${searchTerm}`) : `#${e.target.value}`;
     } else {
       params.sido = e.target.value;
     }
@@ -117,8 +96,8 @@ const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
               handleSubmit(e);
             }}
           />
-          <div className="radio-tile">
-            <label htmlFor={`${hashTag}`} className="radio-tile-label">
+          <div className="radio-tile blue-bd">
+            <label htmlFor={`${hashTag}`} className="radio-tile-label blue-fc">
               {hashTag}
             </label>
           </div>
@@ -135,50 +114,29 @@ const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
     <div className={`FishMapHeader ${searchMode === "hash" && "expand"}`}>
       <div className={`wrapper ${searchMode === "hash" && "expand"}`}>
         <div className="wrapper1">
-          <input
-            type="checkbox"
-            id="toogle"
-            className="hidden-trigger"
-            checked={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
-          />
-          <label htmlFor="toogle" className="circle">
+          <input type="checkbox" id="toogle" className="hidden-trigger" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
+          <label htmlFor="toogle" className="circle bg-blue">
             <FilterAltOutlinedIcon />
           </label>
 
           <div className="subs">
-            <button className="sub-circle">
-              <input
-                value="location"
-                name="sub-circle"
-                type="radio"
-                id="sub1"
-                className="hidden-sub-trigger"
-                onClick={modeChange}
-              />
-              <label htmlFor="sub1">장소</label>
+            <button className="sub-circle blue-bd">
+              <input value="location" name="sub-circle" type="radio" id="sub1" className="hidden-sub-trigger" onClick={modeChange} />
+              <label htmlFor="sub1" className="blue-fc">
+                장소
+              </label>
             </button>
-            <button className="sub-circle">
-              <input
-                value="region"
-                name="sub-circle"
-                type="radio"
-                id="sub2"
-                className="hidden-sub-trigger"
-                onClick={modeChange}
-              />
-              <label htmlFor="sub2">지역</label>
+            <button className="sub-circle blue-bd">
+              <input value="region" name="sub-circle" type="radio" id="sub2" className="hidden-sub-trigger" onClick={modeChange} />
+              <label htmlFor="sub2" className="blue-fc">
+                지역
+              </label>
             </button>
-            <button className="sub-circle">
-              <input
-                value="hash"
-                name="sub-circle"
-                type="radio"
-                id="sub3"
-                className="hidden-sub-trigger"
-                onClick={modeChange}
-              />
-              <label htmlFor="sub3">해쉬태그</label>
+            <button className="sub-circle blue-bd">
+              <input value="hash" name="sub-circle" type="radio" id="sub3" className="hidden-sub-trigger" onClick={modeChange} />
+              <label htmlFor="sub3" className="blue-fc">
+                해쉬태그
+              </label>
             </button>
           </div>
         </div>
@@ -205,14 +163,7 @@ const FishMapHeader = ({ hashTags, mapRef, getDistance }) => {
           </>
         ) : (
           <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder={
-                searchMode === "location" ? "장소 검색" : "해시태그 검색"
-              }
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <input type="text" placeholder={searchMode === "location" ? "장소 검색" : "해시태그 검색"} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
           </form>
         )}
 

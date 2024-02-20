@@ -13,14 +13,14 @@ const LoginPage = () => {
   const prevPath = location.state?.path;
 
   useEffect(() => {
-    // localStorage.setItem(
-    //   "jwt",
-    //   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzMjgxMDc5MDMwIiwic3ViIjoiIiwiaWF0IjoxNzA3ODI1NDQxLCJleHAiOjE3MTA0MTc0NDF9.XiP53pnAryUN9F4ISM3JiZQGst_UsUNQWZgEQOHqcvE"
-    // );
-    // localStorage.setItem(
-    //   "user",
-    //   JSON.stringify({ imageUrl: null, nickname: "훌륭한붕어" })
-    // );
+    localStorage.setItem(
+      "jwt",
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzcXE1Ul9ZNGc3VGdFWDhkc0lzVWNDTXlUaU43b0tuc04yNjFrRm91S0swIiwic3ViIjoiIiwiaWF0IjoxNzA4MjE5Njg5LCJleHAiOjE3MTA4MTE2ODl9.FZWKdTrtB9ED-X2IfY6KtDEE-utqTDIBEzkAdZFhM9Y"
+    );
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ imageUrl: "https://ssl.pstatic.net/static/pwe/address/img_profile.png", nickname: "존경받는끄리", socialId: "3qq5R_Y4g7TgEX8dsIsUcCMyTiN7oKnsN261kFouKK0" })
+    );
 
     const jwt = localStorage.getItem("jwt");
 

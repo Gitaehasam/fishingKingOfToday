@@ -1,26 +1,56 @@
-import React, { Suspense, useState } from "react";
+import React, { useEffect, Suspense, useState } from "react";
 import "../assets/styles/aquarium/Aquarium.scss";
 import Controls from "../components/aquarium/Controls";
 import { FishTankScene } from "../components/aquarium/FishTankScene";
 import back from "@assets/images/backSymbol.svg";
+import axios from "axios";
+import Loading from "../components/Loading";
 
 const Aquarium = () => {
+  const [CatchingInfo, setCatchingInfo] = useState({});
+
+  const getCatchList = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/aquarium`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        }
+      );
+
+      setCatchingInfo(res);
+      console.log(CatchingInfo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getCatchList();
+  }, []);
+
+  if (!CatchingInfo) {
+    return <Loading />;
+  }
+
   const [hasPostProcessing, setHasPostProcessing] = useState(true);
 
   // 물고기여부
   const [clownExist, setClownExist] = useState(true);
   const [clownCatch, setClownCatch] = useState(true);
-  const [stoneExist, setStoneExist] = useState(false);
+  const [stoneExist, setStoneExist] = useState(true);
   const [stoneCatch, setStoneCatch] = useState(true);
-  const [breamExist, setBreamExist] = useState(false);
+  const [breamExist, setBreamExist] = useState(true);
   const [breamCatch, setBreamCatch] = useState(true);
-  const [blackExist, setBlackExist] = useState(false);
+  const [blackExist, setBlackExist] = useState(true);
   const [blackCatch, setBlackCatch] = useState(true);
-  const [tileExist, setTileExist] = useState(false);
+  const [tileExist, setTileExist] = useState(true);
   const [tileCatch, setTileCatch] = useState(true);
-  const [megiExist, setMegiExist] = useState(false);
-  const [megiCatch, setMegiCatch] = useState(false);
-  const [ingExist, setIngExist] = useState(false);
+  const [megiExist, setMegiExist] = useState(true);
+  const [megiCatch, setMegiCatch] = useState(true);
+  const [ingExist, setIngExist] = useState(true);
   const [ingCatch, setIngCatch] = useState(true);
 
   return (

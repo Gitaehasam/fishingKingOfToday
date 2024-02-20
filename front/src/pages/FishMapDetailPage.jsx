@@ -109,12 +109,16 @@ const FishMapDetailPage = () => {
             {fishingInfo.fishes.length ? (
               fishingInfo.fishes.map((fish) => {
                 return (
-                  <div
-                    key={fish.name}
-                    onClick={() => navigate(`/fishbook/${fish.id}`)}
-                  >
-                    <img src={fish.imageUrl} className="blue-bd" />
-                    <div>{fish.name}</div>
+                  <div className="fish-list" key={fish.name}>
+                    <div
+                      onClick={() => navigate(`/fishbook/${fish.id}`)}
+                      className={`fish-profile shadow ${
+                        fish.id <= 14 ? "FRESH_WATER" : "SEA"
+                      }`}
+                    >
+                      <img src={fish.imageUrl} className="blue-bd" />
+                    </div>
+                    <div className="fish-name">{fish.name}</div>
                   </div>
                 );
               })

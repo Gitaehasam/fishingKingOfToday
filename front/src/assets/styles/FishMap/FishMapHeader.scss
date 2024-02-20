@@ -28,11 +28,7 @@
       width: 5.5vh;
       height: 4.4vh;
       border-radius: 2vh 0 0 2vh;
-      background: radial-gradient(
-        100% 100% at 100% 0%,
-        #70dbf0 0%,
-        #abc1f7 100%
-      );
+      // background: radial-gradient(100% 100% at 100% 0%, #70dbf0 0%, #abc1f7 100%);
       cursor: pointer;
       display: flex;
       justify-content: center;
@@ -90,9 +86,10 @@
         transform: scale(0.1);
         opacity: 0;
         border: none;
-        background: #a3b9f6;
+        // background: #a3b9f6;
         color: white;
         font-weight: bold;
+        border: 2px solid transparent;
 
         .hidden-sub-trigger {
           display: none;
@@ -125,11 +122,7 @@
       outline: 0;
       border: none;
       cursor: pointer;
-      background: radial-gradient(
-        100% 100% at 100% 0%,
-        #70dbf0 0%,
-        #abc1f7 100%
-      );
+      background: radial-gradient(100% 100% at 100% 0%, #70dbf0 0%, #abc1f7 100%);
       border-radius: 2vh 0 0 2vh;
       color: #fff;
       height: 100%;
@@ -211,14 +204,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 2px solid #a3b9f6;
         border-radius: 2vh;
-        padding: 1vh;
 
         .radio-tile-label {
           font-size: 1.3vh;
           font-weight: bold;
-          color: #a3b9f6;
+          margin: 1vh;
         }
       }
     }

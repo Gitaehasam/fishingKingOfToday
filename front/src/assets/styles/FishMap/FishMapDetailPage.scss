@@ -44,7 +44,6 @@
       }
 
       .wrapper {
-        overflow: auto;
         display: flex;
         gap: 2vh;
         padding: 0 2vh;
@@ -53,26 +52,41 @@
           display: none;
         }
 
-        > div {
+        .SEA {
+          background-image: url(../../images/seaprofile.webp);
+        }
+
+        .FRESH_WATER {
+          background-image: url(../../images/freshprofile.webp);
+        }
+
+        .fish-list {
+          position: relative;
+
+          .fish-name {
+            position: absolute;
+            bottom: -25px;
+            font-size: 1.7vh;
+            font-weight: bold;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+
+        .fish-profile {
           display: flex;
-          flex-direction: column;
           align-items: center;
-          gap: 1vh;
+          width: 100px;
+          height: 100px;
+          overflow: hidden;
+          background-color: #a3b9f6;
+          border-radius: 50%;
 
           img {
-            height: 8vh;
-            width: 8vh;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: center;
-            // border: 1px solid gray;
-            box-shadow: 0 0.1vh 1vh rgba(0, 0, 0, 0.2);
+            width: 200px;
+            height: 70px;
+            margin-left: 20px;
             cursor: pointer;
-          }
-
-          div {
-            font-size: 1.5vh;
-            font-weight: bold;
           }
         }
       }
@@ -85,6 +99,7 @@
       .name {
         font-size: 2.3vh;
         padding: 0 2vh;
+        margin-top: 2vh;
       }
 
       .board {
