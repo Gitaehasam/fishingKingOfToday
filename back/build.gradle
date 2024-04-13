@@ -101,7 +101,7 @@ jacocoTestReport {
 task copyPrivate(type: Copy) {
 	copy {
 		from 'gitaehasam_back_submodule'
-		include "*.properties"
+		include "*.yml"
 		into 'src/main/resources'
 	}
 }
