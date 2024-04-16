@@ -12,7 +12,8 @@
 <br>
 
 ### 🟤 Infra
-![gitaehasam_architecture.drawio__2_](/uploads/de72c35d98ab7d7ca79b3ba9b9783c09/gitaehasam_architecture.drawio__2_.png)
+![gitaehasam architecture drawio (2)](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/364b16e1-301f-4e4b-b8ef-a41b788f5288)
+
 
 <br>
 
@@ -36,32 +37,39 @@
 ### 🟣 기능
 #### 1. 어종 인식
 - Teachable Machine을 이용해 약 50여종의 어류를 이미지 분류하는 서비스   
-![어종인식](/uploads/a7e909ed5d246aa0a16f98202da72bb6/어종인식.gif){: width="434" height="958"}
+![어종인식](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/f9040167-4962-4426-b08c-639a2d799bd1)
+
 
 #### 2. 라이브 캐스팅
 - 인스타그램 라이브와 비슷하게 1:N 방식으로 진행  
-![라이브](/uploads/6e81c8521919fe0b95a4ac96adf23da5/라이브.gif){: width="434" height="958"}
+![ezgif com-optimize](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/f9c62deb-e1b4-4495-95cc-f1112b874123)
+
 
 #### 3. 아쿠아리움
 - 내가 잡은 물고기로 꾸미는 나만의 아쿠아리움  
 - three.js를 사용하여 생생하게 움직이는 물고기를 볼 수 있음  
-![aquarium](/uploads/ae524a5c1c23903336ede7ded274d3fa/aquarium.gif){: width="434" height="958"}
+![aquarium](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/2ae55be9-75f8-4441-9cf9-d4ad3343f575)
+
 
 #### 4. 초보자 튜토리얼
 - 한 단계씩 사진/움짤, 한 줄 멘트를 넣음  
-![가이드북](/uploads/0f10b5c7761be510728d9e1d57c0698a/가이드북.gif){: width="434" height="958"}
+![가이드북](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/aadeb5b0-6d06-46a9-b4d6-9402e2f224b4)
+
 
 #### 5. 도감
-![fishbook](/uploads/72dc8bdf7ac4c69f5a48546c0aa0f834/fishbook.gif){: width="434" height="958"}
+![fishbook](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/54caac35-9b43-4009-b9d2-789edc1bffa9)
 
 #### 5. 챗봇을 이용한 낚시 용어 검색  
-![chatbot](/uploads/9898f9830c7a7cf85da95bea3c84c0b2/chatbot.gif){: width="434" height="958"}
+![chatbot](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/0c0110bd-c4da-45dd-94bb-4024ab636fbd)
+
 
 #### 6. 사용자 후기와 해시태그로 검색하는 맞춤형 낚시터 찾기  
-![낚시터](/uploads/154e09908863f9bc87de402b58ad5c64/낚시터.gif){: width="434" height="958"}
+![낚시터](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/58ea8962-53d1-4f3c-8c77-86140115f974)
+
 
 ### 게시판 조회에 Cache를 적용한 성능 테스트 결과 
-![성능테스트](/uploads/2314b1dea800fc396c7561c0769a3b7e/성능테스트.png)
+![성능테스트](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/6b285196-7bd4-4a18-ab7b-109a2f122b29)
+
 
 
 ### Ground Rules
