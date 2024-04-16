@@ -1,23 +1,54 @@
 # 🐟 오늘은 낚시왕
+낚시에 입문하고자 하는 MZ세대 맞춤 초보자용 낚시 서비스
+</br> 
 
-### 😎 오늘은 낚시왕을 소개합니다 
-- 낚시에 입문하고자 하는 MZ세대 맞춤 초보자용 낚시 서비스
+<div>
+  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
+  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
+  <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
+  <img src="https://img.shields.io/badge/JMeter-D22128?style=for-the-badge&logo=JMeter&logoColor=white">
+</div>
+<div>
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white">
+  <img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white">  
+  <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white">  
+  <img src="https://img.shields.io/badge/cloudFront-E71D1D?style=for-the-badge&logo=cloudFront&logoColor=white">  
+  <img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white">
+  <img src="https://img.shields.io/badge/linux-FCC624?style=for-the-badge&logo=linux&logoColor=black"> 
+</div>
+<div>
+ <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+ <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
+ <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+</div>
 
 <br>
 
-### 🔵 서비스 목표
+## 📙 목차
+1. [서비스 목표](#서비스-목표)  
+2. [아키텍처](#아키텍처)  
+3. [기술 스택 선정 이유](#기술-스택-선정-이유)  
+4. [기능](#기능)  
+5. [성능 테스트 결과](#게시판-조회에-cache를-적용한-성능-테스트-결과)
+6. [회고](#회고)
+7. [그라운드 룰](#ground-rules)
+
+<br>
+
+## 서비스 목표
 - 코로나 시기 낚시 인구가 949만명에서 1,138만명으로 약 20% 증가했습니다.
 입문자들이 낚시 용어를 어려워하는 것에서 시작해서 입문자의 즐거운 낚시를 위한 서비스를 기획했습니다.
 
 <br>
 
-### 🟤 Infra
+## 아키텍처
 ![gitaehasam architecture drawio (2)](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/364b16e1-301f-4e4b-b8ef-a41b788f5288)
 
 
 <br>
 
-### 🟡 기술 스택 선정 이유
+## 기술 스택 선정 이유
 |Framework|선정 이유|
 |---------|---------|
 |Spring Boot|Spring과 비교했을 때 환경 설정을 쉽게 할 수 있어서 개발 생산성 증가|
@@ -34,45 +65,85 @@
 
 <br>
 
-### 🟣 기능
-#### 1. 어종 인식
+## 기능
+### 1. 어종 인식
 - Teachable Machine을 이용해 약 50여종의 어류를 이미지 분류하는 서비스   
 ![어종인식](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/f9040167-4962-4426-b08c-639a2d799bd1)
 
+<br>
 
-#### 2. 라이브 캐스팅
+### 2. 라이브 캐스팅
 - 인스타그램 라이브와 비슷하게 1:N 방식으로 진행  
 ![ezgif com-optimize](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/f9c62deb-e1b4-4495-95cc-f1112b874123)
 
+<br>
 
-#### 3. 아쿠아리움
+### 3. 아쿠아리움
 - 내가 잡은 물고기로 꾸미는 나만의 아쿠아리움  
 - three.js를 사용하여 생생하게 움직이는 물고기를 볼 수 있음  
 ![aquarium](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/2ae55be9-75f8-4441-9cf9-d4ad3343f575)
 
+<br>
 
-#### 4. 초보자 튜토리얼
+### 4. 초보자 튜토리얼
 - 한 단계씩 사진/움짤, 한 줄 멘트를 넣음  
 ![가이드북](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/aadeb5b0-6d06-46a9-b4d6-9402e2f224b4)
 
+<br>
 
-#### 5. 도감
+### 5. 도감
 ![fishbook](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/54caac35-9b43-4009-b9d2-789edc1bffa9)
 
-#### 5. 챗봇을 이용한 낚시 용어 검색  
+<br>
+
+### 5. 챗봇을 이용한 낚시 용어 검색  
 ![chatbot](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/0c0110bd-c4da-45dd-94bb-4024ab636fbd)
 
+<br>
 
-#### 6. 사용자 후기와 해시태그로 검색하는 맞춤형 낚시터 찾기  
+### 6. 사용자 후기와 해시태그로 검색하는 맞춤형 낚시터 찾기  
 ![낚시터](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/58ea8962-53d1-4f3c-8c77-86140115f974)
 
+<br>
 
-### 게시판 조회에 Cache를 적용한 성능 테스트 결과 
+## 게시판 조회에 Cache를 적용한 성능 테스트 결과
+- 동시 접속 사용자 수는 105명, 초당 처리량 17 ~ 50개을 목표로 성능 테스트를 진행 
+- 로컬 캐시인 Ehcache를 이용하고, 2차 캐시를 적용하여 기존 대비 2배 성능 개선
 ![성능테스트](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/6b285196-7bd4-4a18-ab7b-109a2f122b29)
 
+<br>
 
+## 회고
+**Keep**
 
-### Ground Rules
+- 민준: 코딩 컨벤션, 깃 컨벤션 마음에 듭니다. 앞으로 개발인생에 큰 기점이 될거같아요 :)
+- 민정: Gather 코어 타임, 뭘 하면 다들 열정적으로 참여함
+- 승경 : 모르는 것을 물어보는데 주저 없는 분위기
+- 지연 : 문제가 생겼을 때 같이 해결 하는 모습
+- 태윤:  코드 컨벤션, gather 코어타임
+- 자영 : gather 코어 타임, 굳이 시간을 정하지 않아도 다 알아서 들어와서 좋았어요. 깃 정말 많이 공부한 것 같아요
+
+**Problem**
+
+- 민정: 도커 빌드할 때 파일명, 폴더명 이슈 ㅠ.ㅠ 파일명, 폴더명 통합이 필요해요.  QA 일정을 남겨놔야 해요. 토큰은 한 달로 길게 설정해야겠어요.
+- 민준: 다음은 서비스 기획을 더 확실히 해야겠어요! 회의를 하면 할 수록 기능이 바뀌어요.
+- 태윤: 프로젝트 로딩 속도, 같은 도메인 컨벤션 통일
+- 승경: 같은 도메인 담장자와 명확한 의사소통 필요해요(응답DTO로 ~가 있으면 좋고❌, 응답DTO ~ 필요해요.)
+- 지연: 인프라를 담당한 민정이가 고생하는 모습을 많이 봐서 다음 프로젝트는 저도 인프라를 참여하고 싶습니다, JIRA 사용하는 방법을 제대로 익히지 않고 해서 아쉬웠습니다.
+- 자영 : 폴더명,,,, 컨벤션,,,꼭 정하고 가요,,,프론트 어디를 개발하고 있는지 소통이 부족한 것 같아요…
+
+**Try**
+
+- 민정: 무중단 배포를 하겠습니다. 배포할 때 서버가 잠깐 중단되어야 하는 게 불편해서
+- 민준: 기획을 할 때 개개인 할당치를 확실하게 정하겠습니다!!
+- 승경: Gather 코어타임처럼 평일의 코어타임이 있었으면 좋겠습니다.
+- 태윤: 필요없는 코드는 꼭 제발 지우길…
+- 지연: 남은 2월달에 인간젠킨스가 되어 인프라 공부하겠습니다, JIRA 공부하겠읍니다 모처럼 유료툴을 싸피에서 지원해준다는데 마음껏 써야죠!
+- 자영: next.js 해봅시다
+
+<br>
+
+## Ground Rules
 1. 데일리 스크럼 진행
 2. 사유 없는 지각 시 간식 사오기
 3. 혼자서 하는 고민은 최대 1시간. 그 이후에는 팀원과 함께 하기
