@@ -96,12 +96,12 @@
 
 <br>
 
-### 5. 챗봇을 이용한 낚시 용어 검색  
+### 6. 챗봇을 이용한 낚시 용어 검색  
 ![chatbot](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/0c0110bd-c4da-45dd-94bb-4024ab636fbd)
 
 <br>
 
-### 6. 사용자 후기와 해시태그로 검색하는 맞춤형 낚시터 찾기  
+### 7. 사용자 후기와 해시태그로 검색하는 맞춤형 낚시터 찾기  
 ![낚시터](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/58ea8962-53d1-4f3c-8c77-86140115f974)
 
 <br>
