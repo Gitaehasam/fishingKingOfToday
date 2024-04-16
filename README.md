@@ -43,7 +43,8 @@
 <br>
 
 ## 아키텍처
-![image](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/eec17667-0cee-478b-8eae-541b92631a5a)
+![image](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/52879aec-2ecf-4682-939a-e8594ba20bfb)
+
 
 <br>
 
