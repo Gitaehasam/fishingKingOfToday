@@ -43,7 +43,7 @@
 <br>
 
 ## 아키텍처
-![gitaehasam architecture drawio (2)](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/364b16e1-301f-4e4b-b8ef-a41b788f5288)
+![image](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/52879aec-2ecf-4682-939a-e8594ba20bfb)
 
 
 <br>
