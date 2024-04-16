@@ -1,0 +1,244 @@
+.front {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  overflow: hidden;
+  &.SEA {
+    background-image: url("../../images/sea7-3.webp");
+  }
+  &.FRESH_WATER {
+    background-image: url("../../images/freshwater.webp");
+  }
+}
+
+.back-fish-lish,
+.size,
+.sub-one,
+.sub-two,
+.food,
+.live,
+.fish-name,
+.science-name,
+.fish-img,
+.habitat,
+.arrow {
+  position: absolute;
+}
+
+.back-fish-lish {
+  cursor: pointer;
+  z-index: 40;
+  width: 30px;
+  top: 10px;
+  left: 20px;
+}
+
+.detail-title {
+  padding-top: 10%;
+  font-family: "Newsreader";
+  font-size: 5.5rem;
+  text-align: center;
+}
+
+.size {
+  font-family: "Newsreader";
+  top: 22%;
+  left: 3%;
+  font-size: 4rem;
+
+  div {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}
+
+.sub-one,
+.sub-two {
+  font-family: "Newsreader";
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.sub-one {
+  top: 23%;
+  right: 10%;
+}
+
+.sub-two {
+  top: 26%;
+  right: 3%;
+}
+
+.fish-name {
+  top: 29%;
+  right: 2%;
+  font-family: "Yeon Sung";
+  font-size: 3.5rem;
+  font-weight: normal;
+}
+
+.science-name {
+  top: 38%;
+  right: 3%;
+  text-align: right;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1rem;
+}
+
+.fish-img {
+  display: flex;
+  align-items: center;
+  top: 38%;
+  width: 130%;
+  height: 50%;
+  rotate: (40deg);
+}
+
+.food {
+  top: 70%;
+  left: 3%;
+  font-family: "Newsreader";
+  font-size: 3.5rem;
+  font-weight: 600;
+  font-style: italic;
+
+  div {
+    font-family: "Newsreader";
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 0.9rem;
+  }
+}
+
+.live {
+  bottom: 6%;
+  right: 3%;
+  font-family: "Newsreader";
+  font-size: 3.5rem;
+  font-style: italic;
+  font-weight: 600;
+  text-align: right;
+  line-height: 2.3rem;
+}
+
+.habitat {
+  top: 94%;
+  right: 3%;
+  font-family: "GmarketSansMedium";
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-align: right;
+}
+
+.arrow {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  top: 55%;
+  right: -5px;
+  animation: arrowWiggle 1s ease-in-out infinite;
+  svg {
+    color: rgba(255, 255, 255, 0.7);
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@keyframes arrowWiggle {
+  0% {
+    right: -5px;
+  }
+  50% {
+    right: -2px;
+  }
+  100% {
+    right: -5px;
+  }
+}
+
+.back {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 25px;
+  background-size: cover;
+  transform: rotateY(90deg);
+  &.SEA {
+    background-image: url("../../images/sea9.webp");
+  }
+  &.FRESH_WATER {
+    background-image: url("../../images/fresh9.webp");
+  }
+}
+
+.card-rotate .front {
+  opacity: 1;
+  animation: rotate1 0.5s 1;
+  transform: rotateY(90deg);
+}
+
+.card-rotate .back {
+  opacity: 1;
+  animation: rotate2 0.5s 0.5s 1 backwards;
+  transform: rotateY(0);
+}
+
+.back-rotate .front {
+  opacity: 1;
+  animation: back 1s 1;
+}
+
+.back-rotate .back {
+  opacity: 0;
+}
+
+@keyframes rotate1 {
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(90deg);
+  }
+}
+@keyframes rotate2 {
+  0% {
+    transform: rotateY(-90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes back {
+  0% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+.question {
+  font-family: "GmarketSansMedium";
+  font-size: 24px;
+  font-weight: bold;
+
+  div {
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: 300;
+    color: rgb(125, 123, 123);
+
+    &::before {
+      content: "A. ";
+      font-weight: bold;
+    }
+  }
+}

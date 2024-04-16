@@ -1,0 +1,134 @@
+.container {
+  // min-height: 93vh;
+  position: relative;
+}
+
+.Navbar_body {
+  min-height: 100vh;
+  padding-bottom: 7vh;
+  // z-index: 0;
+  position: relative;
+}
+
+nav {
+  // z-index: 0;
+  position: fixed;
+  height: 7vh;
+  width: 100%;
+  bottom: 0;
+  background: white;
+  // border: 1px solid red;
+  // border-radius: 2vh 2vh 0 0;
+  // box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -0.1vh 0.5vh rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: start;
+  justify-content: center;
+
+  .nav-item {
+    color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.9vh;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+
+    &.active {
+      color: #a3b9f6;
+    }
+
+    &.btn {
+      width: 20%;
+    }
+
+    &.btn {
+      position: absolute;
+      top: -4vh;
+      left: 50%;
+      transform: translate(-50%);
+    }
+
+    &.hidden {
+      opacity: 0;
+    }
+
+    svg {
+      font-size: 3.3vh;
+    }
+
+    span,
+    .login-btn {
+      font-size: 1.2vh;
+    }
+
+    .custum-file-upload {
+      width: 7.5vh;
+      height: 7.5vh;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      input {
+        display: none;
+      }
+
+      svg {
+        font-size: 5.5vh;
+      }
+    }
+  }
+}
+
+.choice {
+  position: fixed;
+  bottom: 0;
+  margin: 0 auto;
+  z-index: 1;
+
+  background: rgba(black, 0.5);
+  inset: 0;
+}
+
+.camera-content {
+  animation: slider 0.5s;
+  position: fixed;
+  margin: 0 auto;
+  z-index: 1;
+  bottom: 0;
+  background: rgba(#191919, 1);
+  inset-inline: 0;
+  border-radius: 2vh 2vh 0 0;
+  height: 20vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3vh;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    cursor: pointer;
+    font-size: 2vh;
+
+    input {
+      display: none;
+    }
+  }
+}
+
+@keyframes slider {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

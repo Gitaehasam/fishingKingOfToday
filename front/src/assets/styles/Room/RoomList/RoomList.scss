@@ -1,0 +1,158 @@
+.room-list {
+  // background: white;
+  min-height: 93vh;
+  position: relative;
+}
+
+.room-list-container {
+  height: 100vh;
+  overflow: auto;
+  padding-bottom: 120px;
+}
+
+.roomList-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 8vh;
+  padding: 0 20px;
+
+  img {
+    height: 20%;
+  }
+
+  span {
+    font-weight: 600;
+    font-size: 150%;
+    margin-bottom: 5px;
+  }
+}
+
+.roomList-filter {
+  display: flex;
+  justify-content: end;
+  background-color: #ebf4fd;
+  align-items: center;
+
+  img {
+    width: 8%;
+    margin: 10px;
+  }
+
+  span {
+    font-size: 140%;
+    font-weight: 600;
+  }
+
+  svg {
+    font-size: 3.5vh;
+  }
+
+  &:active {
+    color: gray;
+  }
+}
+
+.room-list-reload-btn {
+  width: 8%;
+  margin: 10px;
+}
+
+.roomList-info {
+  padding: 5%;
+  font-family: "NPSfontBold";
+  display: flex;
+}
+
+.roomList-info-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 150%;
+}
+
+.roomList-info-body {
+  padding: 5px;
+  font-size: 80%;
+}
+
+.subscriber {
+  width: 25%;
+  padding-right: 10px;
+}
+
+.thumbnail {
+  max-width: 45%;
+  min-width: 130px;
+  min-height: 130px;
+  max-height: 100px;
+  margin-right: 20px;
+  border-radius: 10px;
+  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.1),
+    0 10px 10px rgba(138, 138, 138, 0.1);
+}
+
+.roomlist-wrapper {
+  height: 79.5vh;
+  overflow: auto;
+  background: white;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.createLive-div {
+  display: flex;
+  justify-content: end;
+  padding: 2vh 3vh;
+}
+
+.createLive-btn {
+  color: white;
+  display: flex;
+  position: absolute;
+  bottom: 3vh;
+  right: 3vh;
+  // border-radius: 50px;
+  border-radius: 4vh;
+  // background-image: linear-gradient(120deg, #59fbee 0%, #a19af6 100%);
+  // background-size: cover;
+  // perspective-origin: 50% 50%;
+  // transform-style: preserve-3d;
+  // transition: transform 0.35s ease-in-out;
+  width: 30%;
+  width: 15vh;
+  height: 50px;
+  height: 7vh;
+  // font-size: 100%;
+  // flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // text-decoration: none;
+
+  // right: 5%;
+  // z-index: 1;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  &:active {
+    background-color: #b3f3f3;
+  }
+}
+
+.no-live {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  gap: 1vh;
+
+  svg {
+    height: 15vh;
+    width: 15vh;
+    color: darkgray;
+  }
+}

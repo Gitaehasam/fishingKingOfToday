@@ -1,0 +1,16 @@
+.heart-icon {
+  position: absolute;
+  font-size: 100%;
+  animation: move 1.5s linear forwards;
+}
+
+@keyframes move {
+  0% {
+    bottom: 0;
+    opacity: 1;
+  }
+  100% {
+    bottom: 400px;
+    opacity: 0;
+  }
+}

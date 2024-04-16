@@ -1,0 +1,86 @@
+.MapDetailWeather {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  margin: 0 2vh;
+
+  .todays-date {
+    font-size: 2.3vh;
+    font-weight: bold;
+  }
+
+  .sun-rs {
+    color: gray;
+    font-size: 1.8vh;
+    display: flex;
+    gap: 1vh;
+  }
+
+  .weather-data {
+    display: flex;
+    padding: 1vh 2vh;
+    // border: 1px solid darkgray;
+    box-shadow: 0 0.1vh 1vh rgba(0, 0, 0, 0.3);
+    border-radius: 2vh;
+    width: 100%;
+    gap: 2vh;
+
+    .weather-info {
+      font-size: 1.5vh;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1vh;
+      margin-top: 0.1vh;
+
+      div {
+        display: flex;
+        align-items: center;
+      }
+
+      .weather {
+        height: 7vh;
+      }
+
+      .wind-direction {
+        height: 2.43vh;
+      }
+    }
+
+    .weather-totals {
+      display: flex;
+      overflow: auto;
+
+      gap: 2vh;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .weather-total {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1vh;
+
+      div {
+        font-size: 1.5vh;
+      }
+
+      svg {
+        font-size: 2vh;
+      }
+
+      .weather-time {
+        font-size: 1.5vh;
+        color: gray;
+      }
+
+      .weather-icon {
+        height: 7vh;
+      }
+    }
+  }
+}

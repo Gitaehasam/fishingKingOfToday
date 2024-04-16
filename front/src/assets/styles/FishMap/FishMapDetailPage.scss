@@ -1,0 +1,183 @@
+.FishMapDetailPage {
+  .body {
+    height: 93vh;
+    background: white;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .fishing-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1vh;
+      margin: 0 2vh;
+
+      .fishing-name {
+        display: flex;
+        align-items: end;
+        gap: 1vh;
+
+        h2 {
+          font-size: 2.5vh;
+        }
+      }
+
+      div:last-child {
+        color: gray;
+        font-size: 1.8vh;
+      }
+    }
+
+    .fish-species {
+      display: flex;
+      flex-direction: column;
+      gap: 1vh;
+
+      .name {
+        margin: 0 2vh;
+        font-size: 2.3vh;
+      }
+
+      .wrapper {
+        display: flex;
+        gap: 2vh;
+        padding: 0 2vh;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .SEA {
+          background-image: url(../../images/seaprofile.webp);
+        }
+
+        .FRESH_WATER {
+          background-image: url(../../images/freshprofile.webp);
+        }
+
+        .fish-list {
+          position: relative;
+
+          .fish-name {
+            position: absolute;
+            bottom: -25px;
+            font-size: 1.7vh;
+            font-weight: bold;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+
+        .fish-profile {
+          display: flex;
+          align-items: center;
+          width: 100px;
+          height: 100px;
+          overflow: hidden;
+          background-color: #a3b9f6;
+          border-radius: 50%;
+
+          img {
+            width: 200px;
+            height: 70px;
+            margin-left: 20px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .fishing-reviews {
+      display: flex;
+      flex-direction: column;
+
+      .name {
+        font-size: 2.3vh;
+        padding: 0 2vh;
+        margin-top: 2vh;
+      }
+
+      .board {
+        display: flex;
+        gap: 3vh;
+        overflow: auto;
+        padding: 0 2vh 3vh;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .review {
+          margin: 1vh 0;
+          box-shadow: 0 0.1vh 1vh rgba(0, 0, 0, 0.3);
+          border-radius: 2vh;
+          display: flex;
+          flex-direction: column;
+          gap: 1vh;
+          cursor: pointer;
+
+          .review-img {
+            width: 16vh;
+            height: 15vh;
+            object-fit: cover;
+            border-radius: 2vh 2vh 0 0;
+          }
+
+          .review-user {
+            display: flex;
+            gap: 1vh;
+            padding: 0 1vh;
+
+            img {
+              border-radius: 50%;
+              height: 2.5vh;
+              width: 2.5vh;
+            }
+
+            div {
+              font-size: 1.5vh;
+              display: flex;
+              align-items: center;
+            }
+          }
+
+          .review-date {
+            color: gray;
+            font-size: 1.5vh;
+            padding: 0 1vh 1vh;
+          }
+        }
+      }
+
+      .board-btn {
+        display: flex;
+        justify-content: center;
+
+        button {
+          cursor: pointer;
+          border: none;
+          background: #a3b9f6;
+          color: white;
+          padding: 2vh;
+          width: 100%;
+          border-radius: 2vh;
+          font-weight: bold;
+          font-size: 1.8vh;
+        }
+      }
+    }
+
+    .none-data {
+      display: flex;
+      height: 15vh;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,84 @@
+.board-filter-area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 30px;
+
+  .back-fish-lish {
+    cursor: pointer;
+    position: absolute;
+    z-index: 40;
+    width: 30px;
+    top: 10px;
+    left: 20px;
+  }
+
+  .reset {
+    padding: 10px;
+    align-self: flex-end;
+  }
+
+  .filter-sub {
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+    background-color: var(--color-main-10);
+  }
+
+  .filter-fish {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 30px 20px;
+    gap: 20px;
+
+    .morefish {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    &.view {
+      height: auto;
+    }
+  }
+
+  .filter-fish-list {
+    display: inline-block;
+    width: 25%;
+    div {
+      padding: 10px 0;
+    }
+  }
+
+  .filter-button {
+    position: sticky;
+    bottom: 0;
+    padding: 10px;
+    width: 90%;
+    color: white;
+    border-radius: 50px;
+  }
+
+  .sort-type {
+    display: none;
+  }
+
+  .sort-area {
+    display: flex;
+    padding: 20px;
+  }
+
+  .sort-label {
+    margin: 10px;
+
+    div {
+      padding: 10px;
+    }
+  }
+}

@@ -1,0 +1,202 @@
+.post-title {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.post-area {
+  background: #fff;
+  textarea {
+    width: 100%;
+    min-height: 30vh;
+    padding: 20px;
+    font-size: 20px;
+    background-color: var(--color-main-10);
+    border: none;
+  }
+}
+
+.post-area {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 50px;
+}
+
+.post-item {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 20px 20px 30px;
+}
+
+.post-item:nth-child(-n + 3) {
+  border-bottom: 2px solid var(--color-main-20);
+}
+
+.post-sub {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.post-image-upload {
+  position: relative;
+  height: 30vh;
+  background-color: var(--color-main-10);
+  margin-bottom: 40px;
+}
+
+.img_preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.upload-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  color: white;
+  border-radius: 50%;
+  background-color: var(--color-main-100);
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.reupload-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 30px;
+  margin-top: 10px;
+  text-wrap: nowrap;
+}
+
+.space-info {
+  background-color: var(--color-main-10);
+  font-weight: bold;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.auto-area {
+  padding: 10px 20px;
+  display: flex;
+  gap: 10px;
+  li {
+    line-height: 30px;
+    border-radius: 5px;
+
+    div {
+      margin: 5px;
+    }
+  }
+}
+
+.hashtag-add {
+  position: relative;
+
+  .hashtag-icon {
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translateY(-50%);
+    width: 10%;
+    color: white;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--color-main-100);
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .hashtag-search {
+    border: none;
+    width: 100%;
+    padding: 15px 15px 15px 60px;
+    font-size: 15px;
+    background-color: var(--color-main-10);
+    align-self: center;
+    border-radius: 30px;
+
+    &:focus {
+      border: none;
+    }
+  }
+}
+
+.hashtag-add-area {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  gap: 10px;
+  li {
+    line-height: 25px;
+
+    div {
+      margin: 5px;
+    }
+  }
+}
+
+.post-add-btn {
+  position: fixed;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  width: 90%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  border-radius: 50px;
+}
+
+.position {
+  position: relative;
+
+  #__react-kakao-maps-sdk___Map {
+    width: 100%;
+    height: 50vh;
+    position: relative;
+    z-index: 0;
+  }
+
+  form {
+    position: absolute;
+    z-index: 1;
+    top: 1vh;
+    width: 100%;
+    height: 4.5vh;
+    display: flex;
+    justify-content: center;
+    // background: white;
+
+    input {
+      width: 90%;
+      border-radius: 1vh;
+      border: 2px solid #acd2f7;
+      padding: 2vh;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

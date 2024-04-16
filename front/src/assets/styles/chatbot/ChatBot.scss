@@ -1,0 +1,224 @@
+.chatbot-container {
+  margin: 0 2vh;
+}
+
+.chatbot-toobar {
+  height: 100%;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.chatbot-sticky {
+  position: sticky;
+  top: -0.2vh;
+  background-color: white;
+  z-index: 2;
+}
+
+.chatbot-fishking {
+  width: 20%;
+}
+
+.chatbot-header {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 150%;
+  margin: 0 2vh;
+
+  img {
+    border-radius: 100%;
+    border: 2px solid transparent;
+    background-image: linear-gradient(#fff, #fff), linear-gradient(to right, red 0%, orange 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    width: 6vh;
+    height: inherit;
+  }
+
+  span {
+    padding-left: 1vh;
+  }
+}
+
+.chatbot-recommend-div {
+  width: 80%;
+  border: 2px solid transparent;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  text-align: center;
+  margin-bottom: 10px;
+  background-image: linear-gradient(#fff, #fff), linear-gradient(120deg, #59fbee 0%, #a19af6 100%);
+  transition: transform 0.35s ease-in-out;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(138, 138, 138, 0.1);
+  border-radius: 0 30px 30px 30px;
+  min-height: 33vh;
+}
+
+.recomend-title {
+  font-size: 120%;
+  font-weight: bold;
+  padding: 1vh;
+
+  span {
+    background-color: #ebf4fd;
+  }
+}
+
+.recommend-ment {
+  font-size: 80%;
+  color: rgb(101, 101, 101);
+}
+
+.chatbot-recommend {
+  text-align: center;
+  justify-content: center;
+  margin: 1vh;
+  display: flex;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-size: 130%;
+
+  &:active {
+    background: rgb(194, 194, 194);
+  }
+
+  &:nth-child(8) {
+    margin-bottom: 15px;
+  }
+}
+
+.chatbot-startChat {
+  border: 2px solid transparent;
+  border-radius: 0 30px 30px 30px;
+  height: 30%;
+  width: 130%;
+  font-size: 120%;
+  text-align: center;
+
+  p:nth-child(3) {
+    margin: 1vh 0;
+    font-size: 80%;
+    color: rgb(101, 101, 101);
+  }
+}
+
+.chatbot-body {
+  padding: 2vh;
+  background: white;
+  min-height: 80vh;
+  padding-bottom: 20%;
+}
+
+.chatbot-img {
+  padding: 0.2vh;
+
+  img {
+    width: 40px;
+    display: flex;
+    border-radius: 100%;
+  }
+}
+
+.chatbot-chat-container {
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 2vh 0;
+}
+
+.reply-line {
+  height: 1px;
+  width: 100%;
+}
+
+.bg-blue {
+  // z-index: 1;
+  overflow: hidden;
+  // background-image: linear-gradient(120deg, #d2fcfc 0%, #45ecec 100%);
+  // background-image: linear-gradient(120deg, #c2fcc9 0%, #6ae3e3 100%);
+  background-image: linear-gradient(120deg, #59fbee 0%, #a19af6 100%);
+  // background-image: linear-gradient(120deg, #85ddf8 0%, #8f85fd 100%);
+  // background-image: linear-gradient(120deg, #53dff8 0%, #5664fd 100%);
+  background-size: cover;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+  // transform-origin: top center;
+  // will-change: transform;
+  transition: transform 0.35s ease-in-out;
+
+  // Gloss
+
+  &::after {
+    display: block;
+    content: "";
+    position: absolute;
+    // z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    background: linear-gradient(
+      226deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.4) 35%,
+      rgba(255, 255, 255, 0.2) 42%,
+      rgba(255, 255, 255, 0) 60%
+    );
+  }
+}
+
+.reply-add {
+  z-index: 4;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 3%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  .reply-add-area {
+    height: 100%;
+    position: relative;
+    padding: 10px 10px 10px 60px;
+
+    input {
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-main-10);
+      border: none;
+      border-radius: 50px;
+      padding: 10px;
+    }
+  }
+}
+
+.send-reply {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  color: white;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

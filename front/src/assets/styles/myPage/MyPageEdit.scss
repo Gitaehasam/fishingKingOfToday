@@ -1,0 +1,155 @@
+.mypage-edit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+  height: 93vh;
+  background: white;
+
+  .complete {
+    position: absolute;
+    cursor: pointer;
+    top: 1.7vh;
+    right: 2.3vh;
+    font-weight: bold;
+    font-size: 2.5vh;
+  }
+
+  .profile {
+    display: flex;
+    justify-content: center;
+
+    label {
+      cursor: pointer;
+      position: relative;
+
+      .profile-img {
+        width: 15vh;
+        height: 15vh;
+        border-radius: 50%;
+      }
+
+      input {
+        display: none;
+      }
+
+      div {
+        position: absolute;
+        bottom: 2vh;
+        right: 0;
+        border: 1px solid darkgray;
+        background: whitesmoke;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4vh;
+        height: 4vh;
+
+        svg {
+          width: 3vh;
+          height: 3vh;
+        }
+      }
+    }
+  }
+
+  .user-info {
+    margin: 0 2vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+
+    .info-title {
+      font-size: 2.5vh;
+      font-weight: bold;
+    }
+
+    .info-nick {
+      padding: 0 2vh;
+      width: 100%;
+      height: 7vh;
+      font-size: 2vh;
+      border: 3px solid #a3b9f6;
+      border-radius: 2vh;
+    }
+  }
+
+  .user-change {
+    position: absolute;
+    bottom: 10vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 3vh;
+
+    button {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-size: 2.5vh;
+    }
+  }
+
+  .filter-open {
+    position: fixed;
+    inset: 0;
+    background: rgba($color: black, $alpha: 0.7);
+    z-index: 1;
+    margin: 0 auto;
+  }
+
+  .filter-content {
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    padding: 2vh;
+    width: 30vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 2vh;
+
+    h2 {
+      padding: 1vh 0;
+      font-size: 2.5vh;
+    }
+
+    .leave-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1vh;
+      font-size: 1.5vh;
+      color: gray;
+    }
+
+    .btn {
+      padding: 1vh 0;
+      display: flex;
+      gap: 2vh;
+
+      button {
+        cursor: pointer;
+        border: none;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 1.5vh 0;
+        font-size: 1.5vh;
+        font-weight: bold;
+        border-radius: 1vh;
+
+        &.leave {
+          background: #a3b9f6;
+        }
+
+        &.cancel {
+          background: lightgray;
+        }
+      }
+    }
+  }
+}

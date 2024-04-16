@@ -1,0 +1,126 @@
+.category-boardpage {
+  background: #ffffff;
+  position: relative;
+}
+
+.category-header {
+  display: flex;
+  justify-content: center;
+  border-width: 1px 0;
+  border-style: solid;
+}
+
+.category-title {
+  cursor: pointer;
+  position: relative;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.underbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+
+.type-select {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 35px;
+  background-color: var(--color-main-10);
+
+  .full,
+  .divide,
+  .filter {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .filter {
+    display: block;
+    width: 20px;
+    height: 20px;
+    right: 2%;
+    img {
+      width: 100%;
+    }
+  }
+
+  // 모달관련
+
+  #check {
+    display: none;
+  }
+
+  .board-filter {
+    z-index: 2;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    top: 0px;
+    left: 100%;
+    text-align: center;
+    transition: all 0.5s;
+  }
+
+  #check:checked ~ .board-filter {
+    overflow: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    padding: 0;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.full {
+  width: 20px;
+  height: 20px;
+  left: 2%;
+  border-radius: 3px;
+  background-color: lightgray;
+}
+
+.divide {
+  width: 24px;
+  height: 24px;
+  left: 8%;
+  color: lightgray;
+  &.active {
+    background-image: linear-gradient(120deg, #59fbee 0%, #a19af6 100%);
+    color: #ebf4fd;
+  }
+}
+
+.create-post-btn {
+  z-index: 1;
+  position: sticky;
+  bottom: 80px;
+  left: 90%;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 50%;
+  box-shadow: 0px 2px 7px 0px var(--color-main-60);
+  color: white;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+  }
+}

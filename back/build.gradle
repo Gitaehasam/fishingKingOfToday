@@ -1,0 +1,117 @@
+plugins {
+	id 'java'
+	id 'jacoco'
+	id 'application'
+	id 'org.springframework.boot' version '2.7.17'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'com.diffplug.spotless' version '6.16.0'
+}
+
+group = 'com.ssafy'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '11'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'io.hypersistence:hypersistence-utils-hibernate-55:3.7.0'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.ehcache:ehcache'
+	implementation 'org.hibernate:hibernate-jcache:5.4.32.Final'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	implementation 'com.google.code.gson:gson:2.8.7'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation "com.querydsl:querydsl-core" // querydsl
+	implementation "com.querydsl:querydsl-jpa" // querydsl
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
+	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+	annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation group: 'org.json', name: 'json', version: '20231013'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+spotless {
+	java {
+		target("**/*.java")
+		targetExclude("**/SecurityConfig.java", "**/SwaggerConfiguration.java", "**/generated/**")
+		googleJavaFormat().aosp()  // 구글 자바 포맷 적용
+		importOrder()  // import 순서 정의
+		removeUnusedImports()   // 사용하지 않는 import 제거
+		trimTrailingWhitespace()   // 공백 제거
+		endWithNewline()  // 끝부분 New Line 처리
+	}
+}
+
+def generated='src/main/generated'
+sourceSets {
+	main.java.srcDirs += [ generated ]
+}
+
+tasks.withType(JavaCompile) {
+	options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+}
+
+clean.doLast {
+	file(generated).deleteDir()
+}
+
+jacoco {
+	applyTo run
+	toolVersion = "0.8.10"
+	reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+}
+
+task copyPrivate(type: Copy) {
+	copy {
+		from 'gitaehasam_back_submodule'
+		include "*.yml"
+		into 'src/main/resources'
+	}
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+tasks.register('applicationCodeCoverageReport', JacocoReport) {
+	executionData run
+	sourceSets sourceSets.main
+}

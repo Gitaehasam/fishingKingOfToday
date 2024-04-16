@@ -1,0 +1,120 @@
+.Demo {
+  height: 100vh;
+  background: black;
+
+  .crop {
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+    color: white;
+    font-weight: bold;
+  }
+
+  .Demo_body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    padding: 5vh;
+
+    .cropper-container {
+      width: 100%;
+    }
+
+    .cropper-view-box {
+      outline: 2px solid transparent;
+    }
+
+    .cropper-line {
+      background: white;
+      opacity: 0.7;
+
+      &.line-e,
+      &.line-w {
+        width: 0.4vh;
+
+        &:active {
+          width: 0.7vh;
+        }
+      }
+
+      &.line-n,
+      &.line-s {
+        height: 0.4vh;
+
+        &:active {
+          height: 0.7vh;
+        }
+      }
+
+      &:active {
+        opacity: 1;
+      }
+    }
+
+    .cropper-point {
+      background: white;
+      border: 1px solid black;
+      opacity: 1;
+
+      &.point-ne,
+      &.point-nw,
+      &.point-sw,
+      &.point-se {
+        width: 1.5vh;
+        height: 1.5vh;
+
+        &:active {
+          width: 3vh;
+          height: 3vh;
+        }
+      }
+
+      &.point-ne {
+        right: -0.8vh;
+        top: -0.8vh;
+      }
+
+      &.point-n {
+        width: 0;
+        height: 0;
+      }
+
+      &.point-nw {
+        top: -0.8vh;
+        left: -0.8vh;
+      }
+
+      &.point-w {
+        width: 0;
+        height: 0;
+      }
+
+      &.point-sw {
+        left: -0.8vh;
+        bottom: -0.8vh;
+      }
+
+      &.point-s {
+        width: 0;
+        height: 0;
+      }
+
+      &.point-se {
+        bottom: -0.8vh;
+        right: -0.8vh;
+      }
+
+      &.point-e {
+        width: 0;
+        height: 0;
+      }
+    }
+  }
+
+  .Demo_footer {
+    display: flex;
+    justify-content: center;
+    height: 15%;
+  }
+}

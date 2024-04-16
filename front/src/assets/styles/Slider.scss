@@ -1,0 +1,127 @@
+.slider {
+  .swiper {
+    width: 100%;
+    height: calc(90vh - 3rem);
+    padding: 5em 0;
+    z-index: 0;
+    // margin: 0;
+    // overflow: visible;
+
+    .swiper-slide {
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+      border-radius: 2vh;
+      cursor: pointer;
+
+      &.swiper-slide-prev,
+      &.swiper-slide-next {
+        // filter: blur(10px);
+        filter: brightness(30%);
+      }
+    }
+
+    .slider0 {
+      position: relative;
+    }
+  }
+
+  // .swiper-slide:nth-child(5n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://i.namu.wiki/i/uG_3Cf26XWIE1tAXCCVF6_T0C2NQp0tGNyCIz6gRQBH5EhTmLk8w732OKgVfjqyw00CH6qxohwesc-SxQus8uA.webp")
+  //       no-repeat 50% 50% / cover;
+  // }
+
+  // .swiper-slide:nth-child(6n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://post-phinf.pstatic.net/MjAxNzA5MjdfNTcg/MDAxNTA2NDQ3ODgzNTk3.l71KQJfQXouQEIZLTRpBKDoxYA6dxMotQwmjpiiDQqkg.K56gtZ8-4As4XLcNyLeM21CBTFV4VcCo9UVMim3DjWMg.JPEG/maxresdefault_%281%29.jpg?type=w800_q75")
+  //       no-repeat 50% 50% / cover;
+  // }
+
+  // .swiper-slide:nth-child(7n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://image.fmkorea.com/files/attach/new3/20230324/486616/4048212806/5613586295/f3f0b12067c7e22bf91a3e6c20446919.jpg")
+  //       no-repeat 50% 50% / cover;
+  // }
+
+  // .swiper-slide:nth-child(8n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://pbs.twimg.com/media/FONiH2qakAIh2Zh.jpg:small") no-repeat 50%
+  //       0% / cover;
+  // }
+
+  // .swiper-slide:nth-child(9n) {
+  //   background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+  //     url("https://i.ytimg.com/vi/i6gWBKzO6z4/maxresdefault.jpg") no-repeat 50%
+  //       50% / cover;
+  // }
+}
+
+// .swiper-slide span {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   color: #fff;
+//   padding: 7px 18px;
+//   margin: 10px;
+//   border-radius: 20px;
+//   letter-spacing: 2px;
+//   font-size: 0.8rem;
+//   font-weight: 700;
+//   font-family: inherit;
+//   background: rgba(255, 255, 255, 0.095);
+//   box-shadow: inset 2px -2px 20px rgba(214, 214, 214, 0.2),
+//     inset -3px 3px 3px rgba(255, 255, 255, 0.4);
+//   backdrop-filter: blur(74px);
+// }
+
+// .swiper-slide h2 {
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   color: #fff;
+//   font-weight: 400;
+//   font-size: 1.1rem;
+//   line-height: 1.4;
+//   margin: 0 0 20px 20px;
+// }
+
+.slider0 {
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+    url("../images/main/tutorial.webp") no-repeat 50% 50% / cover;
+}
+
+.slider1 {
+  background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
+    url("../images/main/fishbook.webp") no-repeat 50% 50% / cover;
+  .slider-title {
+    font-family: "newsreader";
+    font-style: italic;
+    font-size: 45px;
+  }
+}
+
+.slider2 {
+  background: url("../images/main/aquarium.webp") no-repeat 50% 0% / cover;
+  .slider-title {
+    top: 30px;
+  }
+  .slider-sub {
+    top: 5px;
+    color: white;
+  }
+}
+
+.slider-title {
+  position: absolute;
+  bottom: 1%;
+  right: 10px;
+  color: white;
+  font-size: 40px;
+}
+
+.slider-sub {
+  position: absolute;
+  bottom: 55px;
+  right: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 17px;
+}

@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  gap: 2vh;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2vh;
+  height: 7vh;
+
+  img,
+  .header-none,
+  .right-text {
+    height: 2vh;
+    width: 6vh;
+  }
+
+  img {
+    cursor: pointer;
+  }
+
+  .center-text {
+    font-size: 2.5vh;
+    font-weight: bold;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

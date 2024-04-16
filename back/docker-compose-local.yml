@@ -1,0 +1,12 @@
+services:
+  redis-local:
+    restart: 'on-failure'
+    image: redis:latest
+    container_name: 'redis-local'
+    ports:
+      - "6379:6379"
+    volumes:
+      - local-redis-vol:/var/lib/redis
+
+volumes:
+  local-redis-vol:
