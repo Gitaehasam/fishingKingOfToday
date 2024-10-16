@@ -114,8 +114,6 @@
 - 동시 접속 사용자 수는 105명, 초당 처리량 17 ~ 50개을 목표로 성능 테스트를 진행 
 - 로컬 캐시인 Ehcache를 이용하고, 2차 캐시를 적용하여 기존 대비 2배 성능 개선
 ![성능테스트](https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/6b285196-7bd4-4a18-ab7b-109a2f122b29)
-<img src="https://github.com/Gitaehasam/fishingKingOfToday/assets/46569105/f9c62deb-e1b4-4495-95cc-f1112b874123" width="300" />
-
 <br>
 
 ## 회고
