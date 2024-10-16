@@ -1,6 +1,11 @@
 import { axiosApi } from "../util/commons";
 import sea1 from "../assets/images/refact/sea1.jpg";
 import profile1 from "../assets/images/refact/profile1.jpg";
+import profile2 from "../assets/images/refact/profile2.jpg";
+import profile3 from "../assets/images/refact/profile3.jpg";
+import profile4 from "../assets/images/refact/profile4.jpg";
+import profile5 from "../assets/images/refact/profile5.png";
+import profile6 from "../assets/images/refact/profile6.jpg";
 
 const api = axiosApi();
 
@@ -22,7 +27,7 @@ async function getBoardList(type, fish, hash, sort) {
       },
       {
         nickName: "친절한 가자미",
-        profileImageUrl: "minjeong.jpg",
+        profileImageUrl: profile2,
         boardId: 2,
         boardImageUrl: "돌돔5짜.png",
         hashtags: [],
@@ -33,7 +38,7 @@ async function getBoardList(type, fish, hash, sort) {
       },
       {
         nickName: "예쁜 갈치",
-        profileImageUrl: "minjeong.jpg",
+        profileImageUrl: profile3,
         boardId: 3,
         boardImageUrl: "돌돔5짜.png",
         hashtags: [],
@@ -44,7 +49,7 @@ async function getBoardList(type, fish, hash, sort) {
       },
       {
         nickName: "아름다운 돌돔",
-        profileImageUrl: "minjeong.jpg",
+        profileImageUrl: profile4,
         boardId: 4,
         boardImageUrl: "돌돔5짜.png",
         hashtags: [],
@@ -55,7 +60,7 @@ async function getBoardList(type, fish, hash, sort) {
       },
       {
         nickName: "감성적인 감성돔",
-        profileImageUrl: "minjeong.jpg",
+        profileImageUrl: profile5,
         boardId: 5,
         boardImageUrl: "돌돔5짜.png",
         hashtags: [],
@@ -66,7 +71,7 @@ async function getBoardList(type, fish, hash, sort) {
       },
       {
         nickName: "귀여운 달고기",
-        profileImageUrl: "minjeong.jpg",
+        profileImageUrl: profile6,
         boardId: 6,
         boardImageUrl: "돌돔5짜.png",
         hashtags: [],
